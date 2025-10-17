@@ -587,14 +587,36 @@
     // === SHARE VIEW BUTTON ===
     shareViewBtn.addEventListener('click', async () => {
       const link = generateShareLink();
-      try {
-        await navigator.clipboard.writeText(link);
-        shareViewBtn.classList.add('copied');
-        setTimeout(() => {
-          shareViewBtn.classList.remove('copied');
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy share link:', err);
+      const title = document.title; // You can customize this title
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: title,
+            url: link,
+          });
+          // The 'copied' class might not be semantically correct here,
+          // but we can use it for visual feedback if desired.
+          shareViewBtn.classList.add('copied');
+          setTimeout(() => {
+            shareViewBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Error using Web Share API:', err);
+        }
+      } else {
+        // Fallback for browsers that do not support the Web Share API
+        try {
+          await navigator.clipboard.writeText(link);
+          shareViewBtn.classList.add('copied');
+          setTimeout(() => {
+            shareViewBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy share link:', err);
+          // Optionally, alert the user that copying failed
+          alert("Failed to copy link to clipboard.");
+        }
       }
     });
 
