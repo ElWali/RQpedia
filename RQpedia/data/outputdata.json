@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sample Point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.985428,
+          40.748817
+        ]
+      }
+    }
+  ]
+}
