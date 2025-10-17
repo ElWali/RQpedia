@@ -589,7 +589,6 @@
       const link = generateShareLink();
       try {
         await navigator.clipboard.writeText(link);
-        shareViewBtn.textContent = 'Share this view';
         shareViewBtn.classList.add('copied');
         setTimeout(() => {
           shareViewBtn.classList.remove('copied');
