@@ -218,27 +218,28 @@
         // Fetch Wikipedia information
         async function fetchWikipediaInfo(lat, lon, displayName) {
             try {
-                // Wikipedia API request
+                // Use coordinates-based search first
+                const coordUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&generator=geosearch&ggscoord=${lat}|${lon}&ggsradius=10000&ggslimit=1&origin=*`;
+                const coordResponse = await fetch(coordUrl);
+                const coordData = await coordResponse.json();
+
+                if (coordData.query && coordData.query.pages) {
+                    const page = Object.values(coordData.query.pages)[0];
+                    displayWikipediaInfo(page.title, page.extract, displayName);
+                    return;
+                }
+
+                // Fallback to text-based search if geosearch fails
                 const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(displayName.split(',')[0])}`;
                 const wikiResponse = await fetch(wikiUrl);
-                
+
                 if (!wikiResponse.ok) {
-                    // Fallback to coordinates-based search
-                    const coordUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&generator=geosearch&ggscoord=${lat}|${lon}&ggsradius=1000&ggslimit=1&origin=*`;
-                    const coordResponse = await fetch(coordUrl);
-                    const coordData = await coordResponse.json();
-                    
-                    if (coordData.query && coordData.query.pages) {
-                        const page = Object.values(coordData.query.pages)[0];
-                        displayWikipediaInfo(page.title, page.extract, displayName);
-                        return;
-                    }
                     throw new Error('No Wikipedia data found');
                 }
-                
+
                 const wikiData = await wikiResponse.json();
                 displayWikipediaInfo(wikiData.title, wikiData.extract, displayName);
-                
+
             } catch (error) {
                 console.error('Wikipedia fetch error:', error);
                 loadingEl.textContent = 'Information not available for this location';
