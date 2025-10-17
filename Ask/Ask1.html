@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoSearch — Satellite Explorer</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e40af, #1d4ed8);
+      color: white;
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+
+    #search-input:focus {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Autocomplete dropdown */
+    #autocomplete-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      margin-top: 8px;
+      z-index: 2000;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .suggestion {
+      padding: 12px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .suggestion:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion:hover,
+    .suggestion.active {
+      background-color: #dbeafe;
+    }
+
+    /* Map container */
+    #map-container {
+      flex: 1;
+      min-height: 200px;
+      position: relative;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Draggable splitter */
+    #splitter {
+      height: 8px;
+      background: #e2e8f0;
+      cursor: ns-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      position: relative;
+    }
+
+    #splitter::before {
+      content: '';
+      width: 40px;
+      height: 3px;
+      background: #94a3b8;
+      border-radius: 3px;
+    }
+
+    /* Footer */
+    footer {
+      background: white;
+      padding: 1.25rem;
+      border-top: 1px solid #e2e8f0;
+      min-height: 120px;
+      max-height: 60vh;
+      overflow: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .location-info {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info-title {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 1.15rem;
+    }
+
+    .info-text {
+      color: #475569;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .status-message {
+      text-align: center;
+      color: #64748b;
+      font-style: italic;
+      font-size: 0.95rem;
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+      #search-input {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+      }
+      .suggestion {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+      #splitter {
+        height: 6px;
+      }
+      #splitter::before {
+        width: 30px;
+        height: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GeoSearch</div>
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search any place (e.g., Statue of Liberty, Tokyo, Sahara Desert)"
+        autocomplete="off"
+      />
+      <div id="autocomplete-results"></div>
+    </div>
+  </header>
+
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <div id="splitter"></div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="location-info" id="location-info">
+        <div class="info-title" id="info-title"></div>
+        <div class="info-text" id="info-text"></div>
+      </div>
+      <div class="status-message" id="status-message">
+        Search for a location to see details from Wikipedia
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map', {
+      zoomControl: true
+    }).setView([20, 0], 2);
+
+    const esriLayer = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution:
+          '&copy; <a href="https://www.esri.com">Esri</a> | Sources: Esri, Maxar, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN',
+        maxZoom: 19
+      }
+    ).addTo(map);
+
+    map.attributionControl.setPrefix('');
+
+    // DOM Elements
+    const searchInput = document.getElementById('search-input');
+    const autocompleteResults = document.getElementById('autocomplete-results');
+    const statusMessageEl = document.getElementById('status-message');
+    const locationInfoEl = document.getElementById('location-info');
+    const infoTitleEl = document.getElementById('info-title');
+    const infoTextEl = document.getElementById('info-text');
+    const mapContainer = document.getElementById('map-container');
+    const splitter = document.getElementById('splitter');
+    const footer = document.querySelector('footer');
+
+    let currentMarker = null;
+    let autocompleteTimeout = null;
+    let selectedIndex = -1;
+    let suggestions = [];
+
+    // Clear marker
+    function clearMarker() {
+      if (currentMarker) {
+        map.removeLayer(currentMarker);
+        currentMarker = null;
+      }
+    }
+
+    // Show status
+    function showStatus(message, isError = false) {
+      statusMessageEl.textContent = message;
+      statusMessageEl.style.color = isError ? '#dc2626' : '#64748b';
+      locationInfoEl.style.display = 'none';
+    }
+
+    // Show Wikipedia info
+    function showWikipediaInfo(title, extract) {
+      infoTitleEl.textContent = title;
+      infoTextEl.textContent = extract || 'No description available.';
+      locationInfoEl.style.display = 'block';
+      statusMessageEl.style.display = 'none';
+    }
+
+    // Fetch Wikipedia
+    async function fetchWikipediaExtract(lat, lon, placeName) {
+      const safeTitle = encodeURIComponent(
+        placeName.split(',')[0].trim().replace(/\s+/g, '_')
+      );
+
+      try {
+        const byTitleUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${safeTitle}`;
+        const response = await fetch(byTitleUrl);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.extract) return { title: data.title, extract: data.extract };
+        }
+      } catch (e) {
+        console.warn('Wikipedia by-title failed:', e);
+      }
+
+      const coordUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&generator=geosearch&ggscoord=${lat}|${lon}&ggsradius=5000&ggslimit=1&origin=*`;
+      try {
+        const coordResponse = await fetch(coordUrl);
+        const data = await coordResponse.json();
+        if (data.query?.pages) {
+          const page = Object.values(data.query.pages)[0];
+          return { title: page.title, extract: page.extract };
+        }
+      } catch (e) {
+        console.warn('Wikipedia by-coord failed:', e);
+      }
+      return null;
+    }
+
+    // Geocode full details
+    async function geocodeFull(query) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`;
+      const response = await fetch(url, {
+        headers: { 'User-Agent': 'GeoSearch-App/1.0 (contact@example.com)' }
+      });
+      const data = await response.json();
+      if (!Array.isArray(data) || data.length === 0) throw new Error('Not found');
+      return data[0];
+    }
+
+    // Handle place selection
+    async function selectPlace(place) {
+      if (!place) return;
+      
+      searchInput.value = place.display_name;
+      hideAutocomplete();
+      
+      clearMarker();
+      showStatus('Loading map and info...');
+
+      try {
+        const result = await geocodeFull(place.display_name);
+        const lat = parseFloat(result.lat);
+        const lon = parseFloat(result.lon);
+        const displayName = result.display_name;
+
+        currentMarker = L.marker([lat, lon]).addTo(map);
+        map.setView([lat, lon], 13);
+
+        const wikiData = await fetchWikipediaExtract(lat, lon, displayName);
+        if (wikiData) {
+          showWikipediaInfo(wikiData.title, wikiData.extract);
+        } else {
+          showStatus('Location found, but no Wikipedia info available.');
+        }
+      } catch (error) {
+        console.error('Selection error:', error);
+        showStatus('Failed to load location details.', true);
+      }
+    }
+
+    // Fetch autocomplete
+    async function fetchAutocomplete(query) {
+      if (!query.trim()) {
+        hideAutocomplete();
+        return;
+      }
+
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=0`;
+      try {
+        const response = await fetch(url, {
+          headers: { 'User-Agent': 'GeoSearch-App/1.0 (contact@example.com)' }
+        });
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          renderSuggestions(data);
+        }
+      } catch (error) {
+        console.error('Autocomplete fetch error:', error);
+        hideAutocomplete();
+      }
+    }
+
+    // Render suggestions
+    function renderSuggestions(data) {
+      suggestions = data;
+      selectedIndex = -1;
+
+      if (data.length === 0) {
+        hideAutocomplete();
+        return;
+      }
+
+      autocompleteResults.innerHTML = '';
+      data.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'suggestion';
+        div.textContent = item.display_name;
+        div.addEventListener('click', () => selectPlace(item));
+        div.dataset.index = index;
+        autocompleteResults.appendChild(div);
+      });
+
+      autocompleteResults.style.display = 'block';
+    }
+
+    function hideAutocomplete() {
+      autocompleteResults.style.display = 'none';
+      suggestions = [];
+      selectedIndex = -1;
+    }
+
+    function updateActiveSuggestion() {
+      const items = autocompleteResults.querySelectorAll('.suggestion');
+      items.forEach((item, i) => {
+        if (i === selectedIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    // === Draggable Splitter Logic ===
+    let isResizing = false;
+
+    splitter.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+
+      const containerRect = document.body.getBoundingClientRect();
+      const mouseY = e.clientY - containerRect.top;
+
+      // Calculate new map height
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const splitterHeight = splitter.offsetHeight;
+      const footerMinHeight = 120;
+      const mapMinHeight = 200;
+
+      // Total available space for map + footer
+      const available = containerRect.height - headerHeight - splitterHeight;
+
+      // Map height = mouse position - header
+      let newMapHeight = mouseY - headerHeight;
+
+      // Enforce limits
+      newMapHeight = Math.max(mapMinHeight, Math.min(newMapHeight, available - footerMinHeight));
+
+      // Apply
+      mapContainer.style.height = `${newMapHeight}px`;
+      footer.style.height = `${available - newMapHeight}px`;
+
+      // Refresh map
+      map.invalidateSize();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        document.body.style.userSelect = '';
+      }
+    });
+
+    // === Autocomplete Events ===
+    searchInput.addEventListener('input', () => {
+      if (autocompleteTimeout) clearTimeout(autocompleteTimeout);
+      autocompleteTimeout = setTimeout(() => {
+        fetchAutocomplete(searchInput.value);
+      }, 300);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (autocompleteResults.style.display !== 'block') return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
+        updateActiveSuggestion();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+        updateActiveSuggestion();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (selectedIndex >= 0 && suggestions[selectedIndex]) {
+          selectPlace(suggestions[selectedIndex]);
+        } else if (searchInput.value.trim()) {
+          hideAutocomplete();
+          handleManualSearch();
+        }
+      } else if (e.key === 'Escape') {
+        hideAutocomplete();
+      }
+    });
+
+    async function handleManualSearch() {
+      const query = searchInput.value.trim();
+      if (!query) return;
+
+      clearMarker();
+      showStatus('Searching location...');
+
+      try {
+        const result = await geocodeFull(query);
+        const lat = parseFloat(result.lat);
+        const lon = parseFloat(result.lon);
+        const displayName = result.display_name;
+
+        currentMarker = L.marker([lat, lon]).addTo(map);
+        map.setView([lat, lon], 13);
+
+        const wikiData = await fetchWikipediaExtract(lat, lon, displayName);
+        if (wikiData) {
+          showWikipediaInfo(wikiData.title, wikiData.extract);
+        } else {
+          showStatus('Location found, but no Wikipedia info available.');
+        }
+      } catch (error) {
+        showStatus('Location not found. Try another search.', true);
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !autocompleteResults.contains(e.target)) {
+        hideAutocomplete();
+      }
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && autocompleteResults.style.display !== 'block') {
+        handleManualSearch();
+      }
+    });
+
+    // Initialize map size
+    window.addEventListener('load', () => {
+      map.invalidateSize();
+    });
+  </script>
+</body>
+</html>
