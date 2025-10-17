@@ -562,6 +562,7 @@
     // === SMART CLEAR ON MAP CLICK ===
     map.on('click', function () {
       if (searchInput.value.trim() !== '') {
+        clearMarker(); // Ensure the marker is cleared
         searchInput.value = '';
         locationInfoEl.classList.remove('show');
         statusMessageEl.style.display = 'block';
