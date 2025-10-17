@@ -1,104 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>RQpedia Map</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
-	<style>
-		body { margin: 0; padding: 0; }
-		#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-		#search-container {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			z-index: 1000;
-			background: white;
-			padding: 10px;
-			border-radius: 5px;
-			box-shadow: 0 0 15px rgba(0,0,0,0.2);
-		}
-		#search-input {
-			width: 200px;
-			padding: 5px;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-		}
-		#search-results {
-			list-style: none;
-			padding: 0;
-			margin: 5px 0 0 0;
-			max-height: 200px;
-			overflow-y: auto;
-		}
-		#search-results li {
-			padding: 5px;
-			cursor: pointer;
-		}
-		#search-results li:hover {
-			background: #f4f4f4;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to RQpedia</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .hero {
+            background-color: #495057;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .cta-button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+        .features {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+        .section-description {
+            font-size: 1.1rem;
+            color: #6c757d;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 300px;
+            text-align: left;
+        }
+        .card .icon {
+            color: #007bff;
+            margin-bottom: 1.5rem;
+        }
+        .card .icon svg {
+            width: 40px;
+            height: 40px;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #343a40;
+        }
+        .card p {
+            font-size: 1rem;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-	<div id="map"></div>
-	<div id="search-container">
-		<input type="text" id="search-input" placeholder="Search for a site...">
-		<ul id="search-results"></ul>
-	</div>
-	<script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
-	<script>
-		var map = L.map('map').setView([32, -6], 5);
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Welcome to QRpedia</h1>
+            <p>Your mobile guide to the world's archaeological wonders. Uncover the stories behind ancient ruins and artifacts.</p>
+            <a href="map.html" class="cta-button">Start Exploring</a>
+        </div>
+    </div>
 
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+    <section class="features">
+        <h2>Explore the Past with Powerful Tools</h2>
+        <p class="section-description">Discover ancient sites, view detailed maps, and read in-depth profiles to bring history to life.</p>
+        <div class="feature-cards">
+            <div class="card">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <h3>Search</h3>
+                <p>Find any archaeological site in the world with our comprehensive database.</p>
+            </div>
+            <div class="card">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                </div>
+                <h3>Maps</h3>
+                <p>Visualize sites with interactive maps and get a sense of the historical landscape.</p>
+            </div>
+            <div class="card">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h3>Detailed Profiles</h3>
+                <p>Learn the history and significance of each location with rich, curated content.</p>
+            </div>
+        </div>
+    </section>
 
-		const searchInput = document.getElementById('search-input');
-		const searchResults = document.getElementById('search-results');
-		let sites = [];
-		let markers = [];
-
-		fetch('data/morocco_sites_filtered.json')
-			.then(response => response.json())
-			.then(data => {
-				sites = data;
-				sites.forEach(site => {
-					const marker = L.marker([site.latitude, site.longitude])
-						.addTo(map)
-						.bindPopup(site.site_name);
-					markers.push(marker);
-				});
-			});
-
-		searchInput.addEventListener('input', () => {
-			const searchTerm = searchInput.value.toLowerCase();
-			searchResults.innerHTML = '';
-			if (searchTerm.length === 0) {
-				return;
-			}
-
-			const filteredSites = sites.filter(site =>
-				site.site_name.toLowerCase().includes(searchTerm)
-			);
-
-			filteredSites.forEach(site => {
-				const li = document.createElement('li');
-				li.innerText = site.site_name;
-				li.addEventListener('click', () => {
-					const correspondingMarker = markers.find(
-						marker => marker.getPopup().getContent() === site.site_name
-					);
-					if (correspondingMarker) {
-						map.setView(correspondingMarker.getLatLng(), 13);
-						correspondingMarker.openPopup();
-					}
-					searchResults.innerHTML = '';
-					searchInput.value = site.site_name;
-				});
-				searchResults.appendChild(li);
-			});
-		});
-	</script>
 </body>
 </html>
