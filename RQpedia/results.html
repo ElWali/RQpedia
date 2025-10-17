@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - QRpedia</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 10px 40px 10px 20px;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            min-width: 300px;
+        }
+        .search-bar .icon {
+            position: absolute;
+            right: 15px;
+            color: #adb5bd;
+        }
+        .filters {
+            display: flex;
+            gap: 1rem;
+        }
+        .btn-filter {
+            padding: 10px 20px;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+        }
+        .results-info {
+            padding: 20px 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .main-result-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .main-result-card img {
+            width: 100%;
+            height: auto;
+        }
+        .main-result-content {
+            padding: 30px;
+        }
+        .main-result-content h1 {
+            margin-top: 0;
+            font-size: 2.5rem;
+        }
+        .main-result-content .location {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        .main-result-content .description {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        .btn-details {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #map {
+            height: 400px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .related-results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .related-results-section h2 {
+            margin-top: 0;
+        }
+        .related-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+            text-decoration: none;
+            color: inherit;
+        }
+        .related-item:last-child {
+            border-bottom: none;
+        }
+        .related-item img {
+            width: 80px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        .related-item-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+        }
+        .related-item-info p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .related-item .arrow {
+            margin-left: auto;
+            color: #adb5bd;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .pagination a, .pagination span {
+            color: #007bff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <div class="logo">QRpedia</div>
+                <div class="search-bar">
+                    <input type="text" value="Machu Picchu">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
+                </div>
+            </div>
+            <div class="filters">
+                <button class="btn-filter">All</button>
+                <button class="btn-filter">Region</button>
+                <button class="btn-filter">Time Period</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="results-info">About 2,360,000 results (0.48 seconds)</div>
+            <div class="main-content">
+                <div class="main-result-card">
+                    <img src="https://images.unsplash.com/photo-1526749837599-b4142ad47a87?q=80&w=2940&auto=format&fit=crop" alt="Machu Picchu">
+                    <div class="main-result-content">
+                        <h1>Machu Picchu</h1>
+                        <p class="location">Peru, Cusco Region</p>
+                        <p class="description">An Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. Built in the 15th century, it's renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views.</p>
+                        <button class="btn-details">View Details</button>
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <aside class="related-results-section">
+                    <h2>Related Results</h2>
+                    <a href="#" class="related-item">
+                        <img src="https://images.unsplash.com/photo-1552594935-281d58a43698?q=80&w=2835&auto=format&fit=crop" alt="Pyramids of Giza">
+                        <div class="related-item-info">
+                            <h3>Pyramids of Giza</h3>
+                            <p>Giza, Egypt</p>
+                        </div>
+                        <span class="arrow">&gt;</span>
+                    </a>
+                    <a href="#" class="related-item">
+                        <img src="https://images.unsplash.com/photo-1517499635242-7336feb57e27?q=80&w=2960&auto=format&fit=crop" alt="Stonehenge">
+                        <div class="related-item-info">
+                            <h3>Stonehenge</h3>
+                            <p>Wiltshire, England</p>
+                        </div>
+                        <span class="arrow">&gt;</span>
+                    </a>
+                    <a href="#" class="related-item">
+                        <img src="https://images.unsplash.com/photo-1579308191336-c41b8f1414e3?q=80&w=2864&auto=format&fit=crop" alt="Angkor Wat">
+                        <div class="related-item-info">
+                            <h3>Angkor Wat</h3>
+                            <p>Siem Reap, Cambodia</p>
+                        </div>
+                        <span class="arrow">&gt;</span>
+                    </a>
+                </aside>
+            </div>
+
+            <div class="pagination">
+                <a href="#">&lt;</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <span>...</span>
+                <a href="#">10</a>
+                <a href="#">&gt;</a>
+            </div>
+        </main>
+
+        <footer>
+            © 2024 QRpedia. All rights reserved.
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-13.1631, -72.5450], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        L.marker([-13.1631, -72.5450]).addTo(map)
+            .bindPopup('Machu Picchu')
+            .openPopup();
+    </script>
+</body>
+</html>
