@@ -20,7 +20,7 @@
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
-		fetch('data/outputdata.json')
+		fetch('data/morocco_sites_filtered.json')
 			.then(response => response.json())
 			.then(data => {
 				L.geoJSON(data).addTo(map);
