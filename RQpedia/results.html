@@ -184,12 +184,14 @@
         <header>
             <div class="header-left">
                 <div class="logo">QRpedia</div>
-                <div class="search-bar">
-                    <input type="text" value="Machu Picchu">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </span>
-                </div>
+                <form action="results.html" method="GET">
+                    <div class="search-bar">
+                        <input type="text" name="q" placeholder="Search for archeological sites">
+                        <button type="submit" class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </div>
+                </form>
             </div>
             <div class="filters">
                 <button class="btn-filter">All</button>
@@ -199,56 +201,13 @@
         </header>
 
         <main>
-            <div class="results-info">About 2,360,000 results (0.48 seconds)</div>
-            <div class="main-content">
-                <div class="main-result-card">
-                    <img src="https://images.unsplash.com/photo-1526749837599-b4142ad47a87?q=80&w=2940&auto=format&fit=crop" alt="Machu Picchu">
-                    <div class="main-result-content">
-                        <h1>Machu Picchu</h1>
-                        <p class="location">Peru, Cusco Region</p>
-                        <p class="description">An Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. Built in the 15th century, it's renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views.</p>
-                        <button class="btn-details">View Details</button>
-                        <div id="map"></div>
-                    </div>
-                </div>
-
-                <aside class="related-results-section">
-                    <h2>Related Results</h2>
-                    <a href="#" class="related-item">
-                        <img src="https://images.unsplash.com/photo-1552594935-281d58a43698?q=80&w=2835&auto=format&fit=crop" alt="Pyramids of Giza">
-                        <div class="related-item-info">
-                            <h3>Pyramids of Giza</h3>
-                            <p>Giza, Egypt</p>
-                        </div>
-                        <span class="arrow">&gt;</span>
-                    </a>
-                    <a href="#" class="related-item">
-                        <img src="https://images.unsplash.com/photo-1517499635242-7336feb57e27?q=80&w=2960&auto=format&fit=crop" alt="Stonehenge">
-                        <div class="related-item-info">
-                            <h3>Stonehenge</h3>
-                            <p>Wiltshire, England</p>
-                        </div>
-                        <span class="arrow">&gt;</span>
-                    </a>
-                    <a href="#" class="related-item">
-                        <img src="https://images.unsplash.com/photo-1579308191336-c41b8f1414e3?q=80&w=2864&auto=format&fit=crop" alt="Angkor Wat">
-                        <div class="related-item-info">
-                            <h3>Angkor Wat</h3>
-                            <p>Siem Reap, Cambodia</p>
-                        </div>
-                        <span class="arrow">&gt;</span>
-                    </a>
-                </aside>
+            <div id="results-info" class="results-info"></div>
+            <div id="results-container" class="main-content">
+                <!-- Results will be injected here -->
             </div>
 
             <div class="pagination">
-                <a href="#">&lt;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <span>...</span>
-                <a href="#">10</a>
-                <a href="#">&gt;</a>
+                <!-- Pagination will be dynamically injected here if needed -->
             </div>
         </main>
 
@@ -258,15 +217,6 @@
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([-13.1631, -72.5450], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-        L.marker([-13.1631, -72.5450]).addTo(map)
-            .bindPopup('Machu Picchu')
-            .openPopup();
-    </script>
+    <script src="js/search.js"></script>
 </body>
 </html>
