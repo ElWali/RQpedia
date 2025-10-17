@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoSearch - Satellite Map Explorer</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: #f5f7fa;
+        }
+        
+        /* Header/Search Bar */
+        header {
+            background: linear-gradient(135deg, #1a3a5f, #2c5282);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        #search-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            outline: none;
+        }
+        
+        /* Map Container */
+        #map {
+            flex: 1;
+            height: 70vh;
+            z-index: 1;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Footer */
+        footer {
+            background: white;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            min-height: 150px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .location-info {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-text {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #718096;
+            font-style: italic;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            #search-input {
+                padding: 12px 16px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Search -->
+    <header>
+        <div class="logo">GeoSearch</div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for a location (e.g., Paris, Eiffel Tower)" autocomplete="off">
+        </div>
+    </header>
+    
+    <!-- Map Container -->
+    <div id="map"></div>
+    
+    <!-- Footer with Location Info -->
+    <footer>
+        <div class="footer-content">
+            <div class="location-info" id="location-info">
+                <div class="info-title" id="info-title"></div>
+                <div class="info-text" id="info-text"></div>
+            </div>
+            <div class="loading" id="loading">Search for a location to see information from Wikipedia</div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 0], 2);
+        
+        // Add Esri Satellite layer
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }).addTo(map);
+        
+        // Add zoom control
+        L.control.zoom({ position: 'topright' }).addTo(map);
+        
+        // Search input handling
+        const searchInput = document.getElementById('search-input');
+        const loadingEl = document.getElementById('loading');
+        const locationInfoEl = document.getElementById('location-info');
+        const infoTitleEl = document.getElementById('info-title');
+        const infoTextEl = document.getElementById('info-text');
+        
+        let markers = [];
+        
+        // Handle search input
+        searchInput.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (!query) return;
+                
+                // Show loading state
+                loadingEl.textContent = 'Searching...';
+                loadingEl.style.display = 'block';
+                locationInfoEl.style.display = 'none';
+                
+                try {
+                    // Geocode the location
+                    const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+                    const geocodeResponse = await fetch(geocodeUrl);
+                    const geocodeData = await geocodeResponse.json();
+                    
+                    if (geocodeData.length === 0) {
+                        throw new Error('Location not found');
+                    }
+                    
+                    // Get first result
+                    const { lat, lon, display_name } = geocodeData[0];
+                    const coordinates = [parseFloat(lat), parseFloat(lon)];
+                    
+                    // Clear existing markers
+                    markers.forEach(marker => map.removeLayer(marker));
+                    markers = [];
+                    
+                    // Add marker to map
+                    const marker = L.marker(coordinates).addTo(map);
+                    markers.push(marker);
+                    
+                    // Set map view
+                    map.setView(coordinates, 12);
+                    
+                    // Fetch Wikipedia info
+                    await fetchWikipediaInfo(lat, lon, display_name);
+                    
+                } catch (error) {
+                    console.error('Search error:', error);
+                    loadingEl.textContent = 'Location not found. Please try another search.';
+                }
+            }
+        });
+        
+        // Fetch Wikipedia information
+        async function fetchWikipediaInfo(lat, lon, displayName) {
+            try {
+                // Wikipedia API request
+                const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(displayName.split(',')[0])}`;
+                const wikiResponse = await fetch(wikiUrl);
+                
+                if (!wikiResponse.ok) {
+                    // Fallback to coordinates-based search
+                    const coordUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&generator=geosearch&ggscoord=${lat}|${lon}&ggsradius=1000&ggslimit=1&origin=*`;
+                    const coordResponse = await fetch(coordUrl);
+                    const coordData = await coordResponse.json();
+                    
+                    if (coordData.query && coordData.query.pages) {
+                        const page = Object.values(coordData.query.pages)[0];
+                        displayWikipediaInfo(page.title, page.extract, displayName);
+                        return;
+                    }
+                    throw new Error('No Wikipedia data found');
+                }
+                
+                const wikiData = await wikiResponse.json();
+                displayWikipediaInfo(wikiData.title, wikiData.extract, displayName);
+                
+            } catch (error) {
+                console.error('Wikipedia fetch error:', error);
+                loadingEl.textContent = 'Information not available for this location';
+                loadingEl.style.display = 'block';
+                locationInfoEl.style.display = 'none';
+            }
+        }
+        
+        // Display Wikipedia information
+        function displayWikipediaInfo(title, extract, locationName) {
+            infoTitleEl.textContent = title || locationName;
+            infoTextEl.textContent = extract || 'No description available.';
+            
+            loadingEl.style.display = 'none';
+            locationInfoEl.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
