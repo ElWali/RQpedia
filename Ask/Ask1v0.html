@@ -607,7 +607,21 @@
     });
 
     searchInput.addEventListener('keydown', (e) => {
-      if (autocompleteResults.style.display !== 'block') return;
+      const isAutocompleteVisible = autocompleteResults.style.display === 'block';
+
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          if (isAutocompleteVisible && selectedIndex >= 0 && suggestions[selectedIndex]) {
+              selectPlace(suggestions[selectedIndex]);
+          } else if (searchInput.value.trim()) {
+              hideAutocomplete();
+              handleManualSearch();
+          }
+          return;
+      }
+
+      if (!isAutocompleteVisible) return;
+
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
@@ -616,14 +630,6 @@
         e.preventDefault();
         selectedIndex = Math.max(selectedIndex - 1, -1);
         updateActiveSuggestion();
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (selectedIndex >= 0 && suggestions[selectedIndex]) {
-          selectPlace(suggestions[selectedIndex]);
-        } else if (searchInput.value.trim()) {
-          hideAutocomplete();
-          handleManualSearch();
-        }
       } else if (e.key === 'Escape') {
         hideAutocomplete();
       }
@@ -669,11 +675,6 @@
       }
     });
 
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && autocompleteResults.style.display !== 'block') {
-        handleManualSearch();
-      }
-    });
 
     window.addEventListener('scroll', hideAutocomplete, { passive: true });
     window.addEventListener('resize', () => map.invalidateSize());
