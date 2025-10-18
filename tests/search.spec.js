@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('GeoSearch Manual Search', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:8080/Ask/Ask.html');
+    await page.goto('http://localhost:8081/Ask/Ask.html');
   });
 
   test('should perform a manual search when Enter is pressed', async ({ page }) => {
