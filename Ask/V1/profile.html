@@ -46,11 +46,12 @@
             const siteName = urlParams.get('site');
 
             if (siteName) {
-                document.getElementById('site-name').textContent = decodeURIComponent(siteName);
+                const decodedSiteName = decodeURIComponent(siteName);
+                document.getElementById('site-name').textContent = decodedSiteName;
                 fetch('output.json')
                     .then(response => response.json())
                     .then(data => {
-                        const siteData = data.filter(item => item.site === siteName);
+                        const siteData = data.filter(item => item.site === decodedSiteName);
                         if (siteData.length > 0) {
                             // For now, just use the first entry for lat/lon
                             const { latitude, longitude } = siteData[0];
