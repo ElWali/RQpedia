@@ -1,0 +1,92 @@
+[
+  {
+    "display_name": "Machu Picchu, Peru",
+    "lat": -13.1631,
+    "lon": -72.5450,
+    "extract": "Machu Picchu is a 15th-century Inca citadel situated high in the Andes Mountains. Built during the reign of Pachacuti, it was abandoned during the Spanish conquest and remained unknown to the outside world until its rediscovery by Hiram Bingham in 1911. The site features sophisticated dry-stone construction and astronomical alignments."
+  },
+  {
+    "display_name": "Petra, Jordan",
+    "lat": 30.3285,
+    "lon": 35.4444,
+    "extract": "Petra, the capital of the Nabataean Kingdom, is famed for its rock-cut architecture and water conduit system. Carved directly into rose-red sandstone cliffs, its most iconic structure is Al-Khazneh (The Treasury). Established as early as the 5th century BCE, Petra flourished as a trading hub linking Arabia, Egypt, and the Mediterranean."
+  },
+  {
+    "display_name": "Stonehenge, United Kingdom",
+    "lat": 51.1789,
+    "lon": -1.8262,
+    "extract": "Stonehenge is a prehistoric monument on Salisbury Plain in Wiltshire, England. Constructed in several phases between 3000 BCE and 1600 BCE, it consists of a ring of standing stones, each around 4 meters high. Its purpose remains debated, with theories ranging from astronomical observatory to ceremonial burial site."
+  },
+  {
+    "display_name": "Chichen Itza, Mexico",
+    "lat": 20.6843,
+    "lon": -88.5678,
+    "extract": "Chichen Itza was a major focal point in the Northern Maya Lowlands from the Late Classic through the Terminal Classic and into the early Postclassic period. Dominated by the Temple of Kukulcán (El Castillo), the site showcases a blend of Maya and Toltec architectural styles and reflects advanced knowledge of astronomy and mathematics."
+  },
+  {
+    "display_name": "Great Zimbabwe, Zimbabwe",
+    "lat": -20.2676,
+    "lon": 30.9306,
+    "extract": "Great Zimbabwe is the ruins of an ancient city built by the Shona people between the 11th and 15th centuries. Constructed without mortar using precisely fitted granite blocks, it served as the capital of the Kingdom of Zimbabwe. The site includes the Hill Complex, the Great Enclosure, and the Valley Ruins, reflecting a sophisticated society with extensive trade networks."
+  },
+  {
+    "display_name": "Angkor Wat, Cambodia",
+    "lat": 13.4125,
+    "lon": 103.8670,
+    "extract": "Angkor Wat is the largest religious monument in the world, originally constructed as a Hindu temple dedicated to Vishnu in the early 12th century by King Suryavarman II. Later transformed into a Buddhist temple, it exemplifies classical Khmer architecture and is adorned with extensive bas-reliefs and symbolic galleries."
+  },
+  {
+    "display_name": "Pompeii, Italy",
+    "lat": 40.7512,
+    "lon": 14.4892,
+    "extract": "Pompeii was an ancient Roman city near modern Naples, buried under volcanic ash and pumice during the eruption of Mount Vesuvius in 79 CE. The site offers an extraordinary snapshot of Roman life, frozen in time, with preserved buildings, frescoes, mosaics, and even human casts formed from voids in the ash."
+  },
+  {
+    "display_name": "Göbekli Tepe, Turkey",
+    "lat": 37.2233,
+    "lon": 38.9228,
+    "extract": "Göbekli Tepe is a Neolithic archaeological site dating back to around 9600 BCE, making it the world’s oldest known megalithic structure. It predates pottery, metallurgy, writing, and the wheel. The site features massive T-shaped limestone pillars arranged in circular formations, carved with intricate animal reliefs, challenging traditional views on the rise of civilization."
+  },
+  {
+    "display_name": "Teotihuacan, Mexico",
+    "lat": 19.6924,
+    "lon": -98.8436,
+    "extract": "Teotihuacan was one of the largest cities in the ancient Americas, flourishing between 100 BCE and 550 CE. Known for its monumental architecture, including the Pyramid of the Sun and Pyramid of the Moon, it exerted cultural influence across Mesoamerica. The identity of its founders remains unknown, and the city was mysteriously abandoned centuries before the Aztecs arrived."
+  },
+  {
+    "display_name": "Terracotta Army, China",
+    "lat": 34.3853,
+    "lon": 109.2732,
+    "extract": "The Terracotta Army is a collection of over 8,000 life-sized clay soldiers, horses, and chariots buried near the mausoleum of Qin Shi Huang, the first Emperor of China, around 210 BCE. Discovered in 1974 by farmers, the figures were created to protect the emperor in the afterlife and showcase remarkable craftsmanship and standardization."
+  },
+  {
+    "display_name": "Easter Island (Rapa Nui), Chile",
+    "lat": -27.1127,
+    "lon": -109.3497,
+    "extract": "Easter Island is famed for its nearly 1,000 monumental stone statues called moai, carved by the Rapa Nui people between 1250 and 1500 CE. These statues, representing deified ancestors, were transported across the island and erected on ceremonial platforms (ahu). The island’s ecological collapse and societal transformation remain subjects of intense study."
+  },
+  {
+    "display_name": "Cahokia Mounds, United States",
+    "lat": 38.6602,
+    "lon": -90.0740,
+    "extract": "Cahokia was the largest pre-Columbian settlement north of Mexico, flourishing between 600 and 1400 CE near present-day St. Louis. At its peak, it housed up to 20,000 people and featured Monk’s Mound—the largest earthen structure in the Americas. The site reflects a complex Mississippian culture with trade, astronomy, and social hierarchy."
+  },
+  {
+    "display_name": "Hattusa, Turkey",
+    "lat": 40.0142,
+    "lon": 34.6164,
+    "extract": "Hattusa was the capital of the Hittite Empire in the late Bronze Age (c. 1600–1180 BCE). Located in central Anatolia, it features massive fortifications, royal archives with cuneiform tablets, and temples dedicated to storm gods. Its destruction marked the collapse of one of the ancient Near East’s great powers."
+  },
+  {
+    "display_name": "Sigiriya, Sri Lanka",
+    "lat": 7.9570,
+    "lon": 80.7612,
+    "extract": "Sigiriya is a rock fortress and palace built in the 5th century CE by King Kashyapa. Rising 200 meters above the jungle, it includes elaborate gardens, frescoes of celestial maidens, and the famous 'Lion’s Gate.' Abandoned after the king’s death, it later became a Buddhist monastery and is now a UNESCO World Heritage Site."
+  },
+  {
+    "display_name": "Palenque, Mexico",
+    "lat": 17.4883,
+    "lon": -92.0372,
+    "extract": "Palenque was a Maya city-state in southern Mexico that thrived during the 7th century CE. Renowned for its exquisite architecture, sculpture, and hieroglyphic inscriptions, it provides key insights into Maya cosmology and dynastic history. The Temple of the Inscriptions houses the tomb of the ruler Pakal the Great."
+  }
+]
