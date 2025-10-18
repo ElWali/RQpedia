@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Sites</title>
+    <style>
+        body { font-family: sans-serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        #search-input { width: 300px; padding: 10px; }
+        .sort-options { display: flex; gap: 10px; }
+        .sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .site-card { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .site-card h3 { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>All Sites</h1>
+            <div class="controls">
+                <input type="text" id="search-input" placeholder="Search sites...">
+                <div class="sort-options">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by">
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="dates-desc">Number of Dates (High-Low)</option>
+                        <option value="dates-asc">Number of Dates (Low-High)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="sites-grid" class="sites-grid">
+            <!-- Site cards will be dynamically inserted here -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('output.json')
+                .then(response => response.json())
+                .then(data => {
+                    let sites = processData(data);
+                    const sitesGrid = document.getElementById('sites-grid');
+                    const searchInput = document.getElementById('search-input');
+                    const sortBy = document.getElementById('sort-by');
+
+                    function renderSites(sitesToRender) {
+                        sitesGrid.innerHTML = '';
+                        sitesToRender.forEach(site => {
+                            const card = document.createElement('div');
+                            card.className = 'site-card';
+                            card.innerHTML = `
+                                <h3><a href="profile.html?site=${encodeURIComponent(site.name)}">${site.name}</a></h3>
+                                <p><strong>Dates:</strong> ${site.dateCount}</p>
+                                <p><strong>Date Range:</strong> ${site.dateRange}</p>
+                                <p><strong>Periods:</strong> ${site.periods || 'N/A'}</p>
+                                <p><strong>Materials:</strong> ${site.materials || 'N/A'}</p>
+                            `;
+                            sitesGrid.appendChild(card);
+                        });
+                    }
+
+                    function sortSites() {
+                        const sortValue = sortBy.value;
+                        sites.sort((a, b) => {
+                            if (sortValue === 'name-asc') return a.name.localeCompare(b.name);
+                            if (sortValue === 'name-desc') return b.name.localeCompare(a.name);
+                            if (sortValue === 'dates-desc') return b.dateCount - a.dateCount;
+                            if (sortValue === 'dates-asc') return a.dateCount - b.dateCount;
+                        });
+                    }
+
+                    function filterSites() {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        return sites.filter(site => site.name.toLowerCase().includes(searchTerm));
+                    }
+
+                    function updateDisplay() {
+                        sortSites();
+                        const filteredSites = filterSites();
+                        renderSites(filteredSites);
+                    }
+
+                    searchInput.addEventListener('input', updateDisplay);
+                    sortBy.addEventListener('change', updateDisplay);
+
+                    updateDisplay();
+                });
+
+            function processData(data) {
+                const sitesMap = new Map();
+
+                data.forEach(item => {
+                    if (!sitesMap.has(item.site)) {
+                        sitesMap.set(item.site, {
+                            name: item.site,
+                            dates: [],
+                            periods: new Set(),
+                            materials: new Set(),
+                        });
+                    }
+
+                    const site = sitesMap.get(item.site);
+                    site.dates.push(item.bp);
+                    if (item.periods) {
+                        try {
+                            const periods = JSON.parse(item.periods);
+                            periods.forEach(p => site.periods.add(p.periode));
+                        } catch (e) { /* ignore parse error */ }
+                    }
+                    if (item.material) {
+                        site.materials.add(item.material);
+                    }
+                });
+
+                // Convert map to array and calculate summary info
+                return Array.from(sitesMap.values()).map(site => {
+                    const dateCount = site.dates.length;
+                    const minDate = Math.min(...site.dates);
+                    const maxDate = Math.max(...site.dates);
+                    return {
+                        ...site,
+                        dateCount,
+                        dateRange: `${minDate} - ${maxDate} BP`,
+                        periods: Array.from(site.periods).join(', '),
+                        materials: Array.from(site.materials).join(', '),
+                    };
+                });
+            }
+        });
+    </script>
+</body>
+</html>
