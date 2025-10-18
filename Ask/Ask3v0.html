@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoSearch — Satellite Explorer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1d4ed8;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --on-surface: #1e293b;
+      --on-background: #334155;
+      --outline: #cbd5e1;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --shadow-strong: rgba(0, 0, 0, 0.15);
+      --error: #dc2626;
+      --success: #166534;
+      --success-bg: #dcfce7;
+      --success-border: #a7f3d0;
+      --divider: #e2e8f0;
+      --hover-bg: #dbeafe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--background);
+      color: var(--on-background);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 16px 16px 0;
+      text-align: center;
+      box-shadow: 0 2px 8px var(--shadow);
+      z-index: 1000;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2000;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 24px;
+      border: 1px solid transparent;
+      font-size: 1rem;
+      background: white;
+      box-shadow: 0 2px 6px var(--shadow);
+      outline: none;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      min-height: 48px;
+      font-weight: 400;
+    }
+
+    #search-input:focus {
+      box-shadow: 0 4px 12px var(--shadow-strong);
+      border-color: var(--primary-dark);
+    }
+
+    #search-input:disabled {
+      opacity: 0.7;
+      cursor: progress;
+    }
+
+    /* DROP-UP AUTOCOMPLETE */
+    #autocomplete-results {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow-strong);
+      margin-bottom: 8px;
+      z-index: 2001;
+      max-height: 280px;
+      overflow-y: auto;
+      display: none;
+      border: 1px solid var(--divider);
+    }
+
+    .suggestion {
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      transition: background-color 0.15s;
+    }
+
+    .suggestion:hover,
+    .suggestion.active {
+      background-color: var(--hover-bg);
+    }
+
+    #map-container {
+      flex: 1;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== FOOTER & INFO PANEL ===== */
+    footer {
+      background-color: #f8fafc;
+      padding: 0;
+      max-height: 45vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      border-top: 1px solid var(--divider);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    .status-divider {
+      height: 1px;
+      background-color: var(--divider);
+      margin: 8px 0;
+    }
+
+    .location-info {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      background: var(--surface);
+      border-radius: 16px;
+      box-shadow:
+        0 2px 6px var(--shadow),
+        0 1px 2px var(--shadow);
+      padding: 20px;
+      margin-top: 12px;
+      border: 1px solid var(--divider);
+    }
+
+    .location-info.show {
+      display: flex;
+    }
+
+    .info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .info-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      margin: 0;
+      line-height: 1.3;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .info-title a {
+      color: inherit;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .info-title a:hover {
+      text-decoration: underline;
+    }
+
+    .info-coords {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8rem;
+      background-color: var(--divider);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: #475569;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .info-text {
+      color: var(--on-background);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      overflow-y: auto;
+      padding-right: 8px;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .info-text p {
+      margin: 0 0 12px 0;
+    }
+
+    .info-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--outline);
+      background: var(--background);
+      color: var(--on-background);
+      white-space: nowrap;
+      transition: background-color 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+
+    .btn:hover {
+      background-color: var(--hover-bg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .btn.copied {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border-color: var(--success-border);
+    }
+
+    .btn.copied::after {
+      content: "✓ Copied";
+      margin-left: 8px;
+    }
+
+    .status-message {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 16px 0 12px;
+      font-style: normal;
+    }
+
+    .retry-btn {
+      background: var(--hover-bg);
+      border: 1px solid #93c5fd;
+      color: var(--primary-dark);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .retry-btn:hover {
+      background: #bfdbfe;
+    }
+
+    .spinner {
+      animation: blink 1.4s infinite;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+      }
+
+      #search-input {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        min-height: 44px;
+      }
+
+      .suggestion {
+        padding: 12px 16px;
+        font-size: 0.92rem;
+      }
+
+      .location-info {
+        padding: 16px;
+        margin-top: 8px;
+      }
+
+      .info-title {
+        font-size: 1.15rem;
+      }
+
+      .info-text {
+        font-size: 0.92rem;
+        padding-right: 4px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      footer {
+        max-height: 50vh;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .action-buttons {
+        flex-direction: row;
+      }
+
+      .btn {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="location-info" id="info">
+        <div class="info-header">
+          <h2 class="info-title" id="info-title"></h2>
+          <div class="info-coords" id="info-coords"></div>
+        </div>
+        <div class="info-text" id="info-text"></div>
+        <div class="action-buttons" id="action-buttons">
+          <button id="copy-coords-btn" class="btn">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copy coordinates
+          </button>
+          <button id="share-view-btn" class="btn">
+            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+            Share this view
+          </button>
+        </div>
+      </div>
+      <div class="status-divider"></div>
+      <div class="status-message" id="status-message">
+        Search for a location to see details from Wikipedia
+      </div>
+    </div>
+  </footer>
+
+  <header>
+    <div class="logo">GeoSearch</div>
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search any place (e.g., Statue of Liberty, Tokyo, Sahara Desert)"
+        autocomplete="off"
+        enterkeyhint="search"
+        inputmode="search"
+      />
+      <div id="autocomplete-results"></div>
+    </div>
+  </header>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map', { zoomControl: true }).setView([20, 0], 2);
+
+    const esriLayer = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution:
+          '&copy; <a href="https://www.esri.com">Esri</a> | Sources: Esri, Maxar, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN',
+        maxZoom: 19
+      }
+    ).addTo(map);
+
+    map.attributionControl.setPrefix('');
+
+    const searchInput = document.getElementById('search-input');
+    const autocompleteResults = document.getElementById('autocomplete-results');
+    const statusMessageEl = document.getElementById('status-message');
+    const locationInfoEl = document.getElementById('info');
+    const infoTitleEl = document.getElementById('info-title');
+    const infoTextEl = document.getElementById('info-text');
+    const infoCoordsEl = document.getElementById('info-coords');
+    const copyCoordsBtn = document.getElementById('copy-coords-btn');
+    const shareViewBtn = document.getElementById('share-view-btn');
+
+    let currentMarker = null;
+    let currentCoords = null;
+    let autocompleteTimeout = null;
+    let autocompleteController = null;
+    let selectedIndex = -1;
+    let suggestions = [];
+
+    function parseHash() {
+      const hash = window.location.hash.substring(1);
+      if (!hash) return;
+      const params = new URLSearchParams(hash);
+      const lat = parseFloat(params.get('lat'));
+      const lng = parseFloat(params.get('lng'));
+      const z = parseInt(params.get('z'), 10);
+      if (!isNaN(lat) && !isNaN(lng) && !isNaN(z)) {
+        map.setView([lat, lng], z);
+      }
+    }
+
+    function generateShareLink() {
+      const center = map.getCenter();
+      const zoom = map.getZoom();
+      const baseUrl = window.location.origin + window.location.pathname;
+      return `${baseUrl}#lat=${center.lat.toFixed(6)}&lng=${center.lng.toFixed(6)}&z=${zoom}`;
+    }
+
+    function clearMarker() {
+      if (currentMarker) {
+        map.removeLayer(currentMarker);
+        currentMarker = null;
+      }
+    }
+
+    function showStatus(message, isError = false, isLoading = false) {
+      if (isLoading) {
+        statusMessageEl.innerHTML = 'Loading details… <span class="spinner">●●●</span>';
+      } else {
+        statusMessageEl.innerHTML = message;
+      }
+      statusMessageEl.style.color = isError ? '#dc2626' : '#64748b';
+      statusMessageEl.style.display = 'block';
+      locationInfoEl.classList.remove('show');
+    }
+
+    function showWikipediaInfo(title, extract, lat, lon) {
+      currentCoords = { lat, lon };
+      infoCoordsEl.textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+
+      const safeTitle = encodeURIComponent(title.replace(/\s+/g, '_'));
+      const wikiUrl = `https://en.wikipedia.org/wiki/${safeTitle}`;
+      infoTitleEl.innerHTML = `<a href="${wikiUrl}" target="_blank" rel="noopener">${title} ↗</a>`;
+
+      const paragraphs = extract
+        .split('\n\n')
+        .filter(p => p.trim())
+        .map(p => `<p>${p.trim()}</p>`)
+        .join('');
+      infoTextEl.innerHTML = paragraphs || '<p>No description available.</p>';
+
+      locationInfoEl.classList.add('show');
+      statusMessageEl.style.display = 'none';
+    }
+
+    async function retryWikipedia(lat, lon, placeName) {
+      showStatus('Retrying Wikipedia…', false, true);
+      const wikiData = await fetchWikipediaExtract(lat, lon, placeName);
+      if (wikiData) {
+        showWikipediaInfo(wikiData.title, wikiData.extract, lat, lon);
+      } else {
+        const coordText = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+        const osmUrl = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`;
+        const messageDiv = document.createElement('div');
+        messageDiv.innerHTML = `Still no Wikipedia article. Coordinates: ${coordText}. View on <a href="${osmUrl}" target="_blank" rel="noopener">OpenStreetMap</a>.`;
+        statusMessageEl.innerHTML = '';
+        statusMessageEl.appendChild(messageDiv);
+        statusMessageEl.style.color = '#dc2626';
+        statusMessageEl.style.display = 'block';
+        locationInfoEl.classList.remove('show');
+      }
+    }
+
+    async function fetchWikipediaExtract(lat, lon, placeName) {
+      const safeTitle = encodeURIComponent(
+        placeName.split(',')[0].trim().replace(/\s+/g, '_')
+      );
+
+      try {
+        const byTitleUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${safeTitle}`;
+        const response = await fetch(byTitleUrl);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.extract) return { title: data.title, extract: data.extract };
+        }
+      } catch (e) {
+        console.warn('Wikipedia by-title failed:', e);
+      }
+
+      const coordUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&generator=geosearch&ggscoord=${lat}|${lon}&ggsradius=5000&ggslimit=1&origin=*`;
+      try {
+        const coordResponse = await fetch(coordUrl);
+        const data = await coordResponse.json();
+        if (data.query?.pages) {
+          const page = Object.values(data.query.pages)[0];
+          return { title: page.title, extract: page.extract };
+        }
+      } catch (e) {
+        console.warn('Wikipedia by-coord failed:', e);
+      }
+      return null;
+    }
+
+    async function geocodeFull(query) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`;
+      const response = await fetch(url, {
+        headers: { 'User-Agent': 'GeoSearch-App/1.0 (contact@example.com)' }
+      });
+      const data = await response.json();
+      if (!Array.isArray(data) || data.length === 0) throw new Error('Not found');
+      return data[0];
+    }
+
+    async function selectPlace(place) {
+      if (!place) return;
+      searchInput.value = place.display_name;
+      hideAutocomplete();
+      searchInput.blur();
+      clearMarker();
+      showStatus('Loading map and info...', false, true);
+      searchInput.disabled = true;
+
+      try {
+        const result = await geocodeFull(place.display_name);
+        const lat = parseFloat(result.lat);
+        const lon = parseFloat(result.lon);
+        const displayName = result.display_name;
+        currentMarker = L.marker([lat, lon]).addTo(map);
+        map.setView([lat, lon], 13);
+        const wikiData = await fetchWikipediaExtract(lat, lon, displayName);
+        if (wikiData) {
+          showWikipediaInfo(wikiData.title, wikiData.extract, lat, lon);
+        } else {
+          const osmUrl = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`;
+          const retryBtn = document.createElement('button');
+          retryBtn.className = 'retry-btn';
+          retryBtn.textContent = 'Retry';
+          retryBtn.addEventListener('click', () => retryWikipedia(lat, lon, displayName));
+
+          const messageDiv = document.createElement('div');
+          messageDiv.textContent = 'Location found, but no Wikipedia info available. ';
+          messageDiv.appendChild(retryBtn);
+
+          const osmLink = document.createElement('a');
+          osmLink.href = osmUrl;
+          osmLink.target = '_blank';
+          osmLink.rel = 'noopener';
+          osmLink.textContent = 'View on OpenStreetMap';
+          osmLink.style.marginLeft = '0.5rem';
+
+          messageDiv.appendChild(osmLink);
+          statusMessageEl.innerHTML = '';
+          statusMessageEl.appendChild(messageDiv);
+          statusMessageEl.style.display = 'block';
+          locationInfoEl.classList.remove('show');
+        }
+      } catch (error) {
+        console.error('Selection error:', error);
+        showStatus('Failed to load location details.', true);
+      } finally {
+        searchInput.disabled = false;
+      }
+    }
+
+    async function fetchAutocomplete(query) {
+      if (!query.trim()) {
+        hideAutocomplete();
+        return;
+      }
+      if (autocompleteController) autocompleteController.abort();
+      autocompleteController = new AbortController();
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=0`;
+      try {
+        const response = await fetch(url, {
+          signal: autocompleteController.signal,
+          headers: { 'User-Agent': 'GeoSearch-App/1.0 (contact@example.com)' }
+        });
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          renderSuggestions(data);
+        }
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Autocomplete fetch error:', error);
+          hideAutocomplete();
+        }
+      }
+    }
+
+    function renderSuggestions(data) {
+      suggestions = data;
+      selectedIndex = -1;
+      if (data.length === 0) {
+        hideAutocomplete();
+        return;
+      }
+      autocompleteResults.innerHTML = '';
+      data.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'suggestion';
+        div.textContent = item.display_name;
+        div.addEventListener('click', () => selectPlace(item));
+        autocompleteResults.appendChild(div);
+      });
+      autocompleteResults.style.display = 'block';
+    }
+
+    function hideAutocomplete() {
+      autocompleteResults.style.display = 'none';
+      suggestions = [];
+      selectedIndex = -1;
+    }
+
+    function updateActiveSuggestion() {
+      const items = autocompleteResults.querySelectorAll('.suggestion');
+      items.forEach((item, i) => {
+        if (i === selectedIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    map.on('click', function () {
+      if (searchInput.value.trim() !== '') {
+        clearMarker();
+        searchInput.value = '';
+        locationInfoEl.classList.remove('show');
+        statusMessageEl.style.display = 'block';
+        statusMessageEl.textContent = 'Search for a location to see details from Wikipedia';
+        searchInput.blur();
+      }
+    });
+
+    copyCoordsBtn.addEventListener('click', async () => {
+      if (!currentCoords) return;
+      const text = `${currentCoords.lat.toFixed(6)}, ${currentCoords.lon.toFixed(6)}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyCoordsBtn.classList.add('copied');
+        setTimeout(() => copyCoordsBtn.classList.remove('copied'), 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+
+    shareViewBtn.addEventListener('click', async () => {
+      const link = generateShareLink();
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: link,
+          });
+          shareViewBtn.classList.add('copied');
+          setTimeout(() => shareViewBtn.classList.remove('copied'), 2000);
+        } catch (err) {
+          console.error('Error using Web Share API:', err);
+        }
+      } else {
+        try {
+          await navigator.clipboard.writeText(link);
+          shareViewBtn.classList.add('copied');
+          setTimeout(() => shareViewBtn.classList.remove('copied'), 2000);
+        } catch (err) {
+          console.error('Failed to copy share link:', err);
+          alert('Failed to copy link to clipboard.');
+        }
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      if (autocompleteTimeout) clearTimeout(autocompleteTimeout);
+      autocompleteTimeout = setTimeout(() => {
+        fetchAutocomplete(searchInput.value);
+      }, 300);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      const isAutocompleteVisible = autocompleteResults.style.display === 'block';
+
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (isAutocompleteVisible && selectedIndex >= 0 && suggestions[selectedIndex]) {
+          selectPlace(suggestions[selectedIndex]);
+        } else if (searchInput.value.trim()) {
+          hideAutocomplete();
+          handleManualSearch();
+        }
+        return;
+      }
+
+      if (!isAutocompleteVisible) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
+        updateActiveSuggestion();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+        updateActiveSuggestion();
+      } else if (e.key === 'Escape') {
+        hideAutocomplete();
+      }
+    });
+
+    async function handleManualSearch() {
+      const query = searchInput.value.trim();
+      if (!query) return;
+      clearMarker();
+      showStatus('Searching location...', false, true);
+      searchInput.disabled = true;
+      try {
+        const result = await geocodeFull(query);
+        const lat = parseFloat(result.lat);
+        const lon = parseFloat(result.lon);
+        const displayName = result.display_name;
+        currentMarker = L.marker([lat, lon]).addTo(map);
+        map.setView([lat, lon], 13);
+        const wikiData = await fetchWikipediaExtract(lat, lon, displayName);
+        if (wikiData) {
+          showWikipediaInfo(wikiData.title, wikiData.extract, lat, lon);
+        } else {
+          const osmUrl = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`;
+          const retryBtn = document.createElement('button');
+          retryBtn.className = 'retry-btn';
+          retryBtn.textContent = 'Retry';
+          retryBtn.addEventListener('click', () => retryWikipedia(lat, lon, displayName));
+
+          const messageDiv = document.createElement('div');
+          messageDiv.textContent = 'Location found, but no Wikipedia info available. ';
+          messageDiv.appendChild(retryBtn);
+
+          const osmLink = document.createElement('a');
+          osmLink.href = osmUrl;
+          osmLink.target = '_blank';
+          osmLink.rel = 'noopener';
+          osmLink.textContent = 'View on OpenStreetMap';
+          osmLink.style.marginLeft = '0.5rem';
+
+          messageDiv.appendChild(osmLink);
+          statusMessageEl.innerHTML = '';
+          statusMessageEl.appendChild(messageDiv);
+          statusMessageEl.style.display = 'block';
+          locationInfoEl.classList.remove('show');
+        }
+      } catch (error) {
+        showStatus('Location not found. Try another search.', true);
+      } finally {
+        searchInput.disabled = false;
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !autocompleteResults.contains(e.target)) {
+        hideAutocomplete();
+      }
+    });
+
+    window.addEventListener('scroll', hideAutocomplete, { passive: true });
+    window.addEventListener('resize', () => map.invalidateSize());
+    window.addEventListener('load', () => {
+      parseHash();
+      map.invalidateSize();
+    });
+  </script>
+</body>
+</html>
