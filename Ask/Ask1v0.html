@@ -120,8 +120,9 @@
       padding: 1.25rem;
       border-top: 1px solid #e2e8f0;
       min-height: 120px;
-      max-height: 60vh;
-      overflow: auto;
+      max-height: 40vh; /* Adjusted from 60vh */
+      display: flex;
+      flex-direction: column;
     }
 
     .footer-content {
@@ -130,18 +131,20 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      flex: 1;
+      min-height: 0;
+      width: 100%;
     }
 
     .location-info {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      display: block;
+      display: none; /* Hidden by default */
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
 
     .location-info.show {
-      opacity: 1;
-      transform: translateY(0);
+      display: flex; /* Flex when shown */
     }
 
     .info-title {
@@ -149,6 +152,7 @@
       color: #1e293b;
       font-size: 1.15rem;
       margin-bottom: 0.5rem;
+      flex-shrink: 0; /* Prevent title from shrinking */
     }
 
     .info-title a {
@@ -165,6 +169,9 @@
       color: #475569;
       line-height: 1.6;
       font-size: 0.95rem;
+      overflow-y: auto; /* Make description scrollable */
+      padding-right: 1rem; /* Add space for scrollbar */
+      flex: 1;
     }
 
     .info-text p {
