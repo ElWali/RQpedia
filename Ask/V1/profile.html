@@ -54,12 +54,12 @@
                         const siteData = data.filter(item => item.site === decodedSiteName);
                         if (siteData.length > 0) {
                             // For now, just use the first entry for lat/lon
-                            const { latitude, longitude } = siteData[0];
-                            const map = L.map('map').setView([latitude, longitude], 10);
+                            const { lat, lng } = siteData[0];
+                            const map = L.map('map').setView([lat, lng], 10);
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             }).addTo(map);
-                            L.marker([latitude, longitude]).addTo(map);
+                            L.marker([lat, lng]).addTo(map);
 
                             // Field label mapping
                             const fieldLabels = {
