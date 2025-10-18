@@ -26,6 +26,9 @@
                 <th>BP</th>
                 <th>Std</th>
                 <th>Material</th>
+                <th>Cultural Periods</th>
+                <th>Typochronological Units</th>
+                <th>References</th>
             </tr>
         </thead>
         <tbody>
@@ -57,18 +60,82 @@
                             }).addTo(map);
                             L.marker([latitude, longitude]).addTo(map);
 
-                            // Populate the table
+                            // Field label mapping
+                            const fieldLabels = {
+                                d: 'Sample ID',
+                                labnr: 'Laboratory Number',
+                                bp: 'Radiocarbon Age (BP)',
+                                std: 'Uncertainty',
+                                'delta c13': 'δ¹³C (delta C13)',
+                                'feature type': 'Feature Type',
+                                site: 'Site Name',
+                                country: 'Country',
+                                lat: 'Latitude',
+                                lng: 'Longitude',
+                                'site type': 'Site Type',
+                                periods: 'Cultural Period(s)',
+                                'typochronological units': 'Typochronological Unit(s)',
+                                'ecochronological units': 'Ecochronological Unit(s)',
+                                reference: 'Reference'
+                            };
+
+                            // Populate the table and summary
                             const tableBody = document.querySelector('#dates-table tbody');
+                            let summaryHtml = '';
+                            let processedSummary = false;
+
                             siteData.forEach(item => {
+                                // Add to table
                                 const row = tableBody.insertRow();
                                 row.insertCell(0).textContent = item.lab_code || 'N/A';
                                 row.insertCell(1).textContent = item.bp;
                                 row.insertCell(2).textContent = item.std;
                                 row.insertCell(3).textContent = item.material;
+                                row.insertCell(4).textContent = item.periods ? JSON.parse(item.periods).map(p => p.periode).join(', ') : 'N/A';
+                                row.insertCell(5).textContent = item['typochronological units'] ? JSON.parse(item['typochronological units']).map(t => t.typochronological_unit).join(', ') : 'N/A';
+                                row.insertCell(6).textContent = item.reference ? JSON.parse(item.reference).map(r => r.reference).join(', ') : 'N/A';
+
+                                // Process for summary view - only needs to be done once
+                                if (!processedSummary) {
+                                    const summaryFields = ['site type', 'country', 'feature type', 'periods', 'typochronological units', 'ecochronological units', 'reference'];
+                                    summaryFields.forEach(key => {
+                                        if (item[key]) {
+                                            let value = item[key];
+                                            if (typeof value === 'string' && (value.startsWith('[') || value.startsWith('{'))) {
+                                                try {
+                                                    const parsed = JSON.parse(value);
+                                                    if (Array.isArray(parsed)) {
+                                                        const cleaned = parsed
+                                                            .map(obj => {
+                                                                if (obj && typeof obj === 'object') {
+                                                                    // Extract value from known keys
+                                                                    if (obj.periode) return obj.periode;
+                                                                    if (obj.typochronological_unit) return obj.typochronological_unit;
+                                                                    if (obj.ecochronological_unit) return obj.ecochronological_unit;
+                                                                    if (obj.reference) return obj.reference;
+                                                                    return Object.values(obj)[0] || '';
+                                                                }
+                                                                return String(obj);
+                                                            })
+                                                            .filter(v => v && v !== 'null' && v.trim() !== '')
+                                                            .join(', ');
+                                                        value = cleaned || '—';
+                                                    } else if (typeof parsed === 'object' && parsed !== null) {
+                                                        value = parsed.reference || JSON.stringify(parsed);
+                                                    }
+                                                } catch (e) {
+                                                    // Keep original string if parsing fails
+                                                }
+                                            }
+                                            const label = fieldLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+                                            summaryHtml += `<p><strong>${label}:</strong> ${value}</p>`;
+                                        }
+                                    });
+                                    processedSummary = true;
+                                }
                             });
 
-                            // Summary (for now, just a count)
-                            document.getElementById('summary').textContent = `Found ${siteData.length} records for this site.`;
+                            document.getElementById('summary').innerHTML = summaryHtml;
 
                             // Create the chart
                             const ctx = document.getElementById('date-chart').getContext('2d');
