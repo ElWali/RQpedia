@@ -4,15 +4,16 @@
   "description": "E2E Tests for Atlas.js",
   "main": "index.html",
   "scripts": {
-    "pretest": "http-server -p 8080 &",
+    "pretest": "http-server -p 8081 &",
     "test": "playwright test",
-    "posttest": "kill $(lsof -t -i:8080)"
+    "posttest": "kill-port 8081"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "kill-port": "^2.0.1"
   }
 }
