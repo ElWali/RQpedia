@@ -409,11 +409,32 @@
             uniqueSites.add(item.site.toLowerCase());
 
             // Format data into the structure the app expects
+            const extractParts = [];
+            for (const key in item) {
+              if (item.hasOwnProperty(key)) {
+                let value = item[key];
+                // Check if the value is a JSON string and parse it for pretty printing
+                if (typeof value === 'string' && (value.startsWith('{') || value.startsWith('['))) {
+                  try {
+                    const parsedValue = JSON.parse(value);
+                    value = `<pre>${JSON.stringify(parsedValue, null, 2)}</pre>`;
+                  } catch (e) {
+                    // Not a valid JSON string, leave it as is
+                  }
+                }
+
+                // Simple key-value display
+                if (value !== null && value !== '') {
+                   extractParts.push(`<strong>${key.replace(/_/g, ' ')}:</strong> ${value}`);
+                }
+              }
+            }
+
             return {
               display_name: item.site,
               lat: lat,
               lon: lon,
-              extract: `Archaeological site in Morocco. Additional data: ${item.periods || 'N/A'}`
+              extract: extractParts.join('<br>')
             };
           })
           .filter(Boolean); // Remove null entries from the array
@@ -474,7 +495,7 @@
           currentCoords = { lat, lon };
           infoCoordsEl.textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
           infoTitleEl.textContent = display_name;
-          infoTextEl.innerHTML = `<p>${extract}</p>`;
+          infoTextEl.innerHTML = extract;
           locationInfoEl.classList.add('show');
           statusMessageEl.style.display = 'none';
         }
