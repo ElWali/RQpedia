@@ -1,11 +1,11 @@
 from playwright.sync_api import sync_playwright
 
-def run():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto("http://localhost:8081/Ask/Ask1v3.html")
-        page.screenshot(path="jules-scratch/verification/verification.png")
-        browser.close()
+def run(playwright):
+    browser = playwright.chromium.launch()
+    page = browser.new_page()
+    page.goto("http://localhost:8081/Ask/Ask1v3.html")
+    page.screenshot(path="jules-scratch/verification/verification.png")
+    browser.close()
 
-run()
+with sync_playwright() as playwright:
+    run(playwright)
