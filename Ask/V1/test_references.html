@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reference Parsing Test</title>
+</head>
+<body>
+    <h1>Reference Parsing Test</h1>
+    <div id="results"></div>
+    <script>
+        function parseAndFormatReferences(refString) {
+            if (!refString) return 'N/A';
+            try {
+                let references = JSON.parse(refString);
+                if (typeof references === 'string') {
+                    references = JSON.parse(references);
+                }
+                if (Array.isArray(references)) {
+                    return references.map(ref => ref.reference).join(', ');
+                }
+            } catch (e) {
+                return refString;
+            }
+            return refString;
+        }
+
+        const testCases = [
+            {
+                name: "Double-stringified JSON",
+                input: '"[{\\"reference\\":\\"ref1\\"}]"',
+                expected: "ref1"
+            },
+            {
+                name: "Standard JSON array",
+                input: '[{"reference":"ref2"}]',
+                expected: "ref2"
+            },
+            {
+                name: "Simple string",
+                input: "ref3",
+                expected: "ref3"
+            },
+            {
+                name: "Null input",
+                input: null,
+                expected: "N/A"
+            },
+            {
+                name: "Undefined input",
+                input: undefined,
+                expected: "N/A"
+            },
+            {
+                name: "Malformed JSON",
+                input: "[{'reference':'ref4'}]",
+                expected: "[{'reference':'ref4'}]"
+            },
+            {
+                name: "Multiple references",
+                input: '[{"reference":"ref5"}, {"reference":"ref6"}]',
+                expected: "ref5, ref6"
+            }
+        ];
+
+        const resultsDiv = document.getElementById('results');
+        testCases.forEach(test => {
+            const actual = parseAndFormatReferences(test.input);
+            const passed = actual === test.expected;
+            resultsDiv.innerHTML += `
+                <div>
+                    <strong>${test.name}:</strong>
+                    <span style="color: ${passed ? 'green' : 'red'}">${passed ? 'PASSED' : 'FAILED'}</span>
+                    <br>
+                    Input: <code>${test.input}</code>
+                    <br>
+                    Expected: <code>${test.expected}</code>
+                    <br>
+                    Actual: <code>${actual}</code>
+                </div>
+                <hr>
+            `;
+        });
+    </script>
+</body>
+</html>
