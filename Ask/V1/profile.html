@@ -89,6 +89,22 @@
                 return `${d}° ${m}' ${s}" ${dir}`;
             }
 
+            function parseAndFormatReferences(refString) {
+                if (!refString) return 'N/A';
+                try {
+                    let references = JSON.parse(refString);
+                    if (typeof references === 'string') {
+                        references = JSON.parse(references);
+                    }
+                    if (Array.isArray(references)) {
+                        return references.map(ref => ref.reference).join(', ');
+                    }
+                } catch (e) {
+                    return refString;
+                }
+                return refString;
+            }
+
             fetch('output.json')
                 .then(response => response.json())
                 .then(data => {
@@ -115,7 +131,7 @@
                                     std: record.std,
                                     cal_bp_start: record.cal_bp_start || 'N/A',
                                     cal_bp_end: record.cal_bp_end || 'N/A',
-                                    reference: record.reference || 'N/A'
+                                    reference: parseAndFormatReferences(record.reference)
                                 });
                             }
                             if (record.periods) {
@@ -125,7 +141,7 @@
                                         parsedPeriods.forEach(p => {
                                             if (p.periode) site.periods.add(JSON.stringify({
                                                 name: p.periode,
-                                                reference: record.reference || 'N/A'
+                                                reference: parseAndFormatReferences(record.reference)
                                             }));
                                         });
                                     }
