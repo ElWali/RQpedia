@@ -148,59 +148,35 @@
                         L.marker([site.lat, site.lng]).addTo(map).bindPopup(site.name).openPopup();
 
                         const c14Table = document.getElementById('c14-table').querySelector('tbody');
-                        c14Table.innerHTML = ''; // Clear existing rows
                         if (site.c14_dates.length > 0) {
+                            let c14Html = '';
                             site.c14_dates.forEach(date => {
-                                const row = c14Table.insertRow();
-
-                                const cell1 = row.insertCell();
-                                cell1.setAttribute('data-label', 'Lab ID');
-                                cell1.textContent = date.lab_id;
-
-                                const cell2 = row.insertCell();
-                                cell2.setAttribute('data-label', 'Context');
-                                cell2.textContent = date.context;
-
-                                const cell3 = row.insertCell();
-                                cell3.setAttribute('data-label', 'Material');
-                                cell3.textContent = date.material;
-
-                                const cell4 = row.insertCell();
-                                cell4.setAttribute('data-label', 'Uncalibrated age');
-                                cell4.textContent = `${date.bp}±${date.std}`;
-
-                                const cell5 = row.insertCell();
-                                cell5.setAttribute('data-label', 'Calibrated age');
-                                cell5.textContent = `${date.cal_bp_start}–${date.cal_bp_end} cal BP`;
-
-                                const cell6 = row.insertCell();
-                                cell6.setAttribute('data-label', 'References');
-                                cell6.textContent = date.reference;
+                                c14Html += `<tr>
+                                    <td data-label="Lab ID">${date.lab_id}</td>
+                                    <td data-label="Context">${date.context}</td>
+                                    <td data-label="Material">${date.material}</td>
+                                    <td data-label="Uncalibrated age">${date.bp}±${date.std}</td>
+                                    <td data-label="Calibrated age">${date.cal_bp_start}–${date.cal_bp_end} cal BP</td>
+                                    <td data-label="References">${date.reference}</td>
+                                </tr>`;
                             });
+                            c14Table.innerHTML = c14Html;
                         } else {
-                            const row = c14Table.insertRow();
-                            const cell = row.insertCell();
-                            cell.colSpan = 6;
-                            cell.textContent = 'No radiocarbon dates available for this site.';
+                            c14Table.innerHTML = '<tr><td colspan="6">No radiocarbon dates available for this site.</td></tr>';
                         }
 
                         const typoTable = document.getElementById('typo-table').querySelector('tbody');
-                        typoTable.innerHTML = ''; // Clear existing rows
                         if (site.periods.length > 0) {
+                            let typoHtml = '';
                             site.periods.forEach(period => {
-                                const row = typoTable.insertRow();
-                                const cell1 = row.insertCell();
-                                cell1.setAttribute('data-label', 'Classification');
-                                cell1.textContent = period.name;
-                                const cell2 = row.insertCell();
-                                cell2.setAttribute('data-label', 'References');
-                                cell2.textContent = period.reference;
+                                typoHtml += `<tr>
+                                    <td data-label="Classification">${period.name}</td>
+                                    <td data-label="References">${period.reference}</td>
+                                </tr>`;
                             });
+                            typoTable.innerHTML = typoHtml;
                         } else {
-                            const row = typoTable.insertRow();
-                            const cell = row.insertCell();
-                            cell.colSpan = 2;
-                            cell.textContent = 'No typological dates available for this site.';
+                            typoTable.innerHTML = '<tr><td colspan="2">No typological dates available for this site.</td></tr>';
                         }
                     } else {
                         document.getElementById('site-name').textContent = "Site not found";

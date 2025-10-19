@@ -81,7 +81,7 @@
                 });
             }
             const site = sitesMap.get(item.site);
-            if (item.c14) site.radiocarbonDates++;
+            if (item.bp && item.std) site.radiocarbonDates++;
             else site.typologicalDates++;
         });
         return Array.from(sitesMap.values());
