@@ -44,6 +44,7 @@
             <button id="next-page">Next</button>
         </div>
     </div>
+    <script src="parser.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
     let sites = [];
@@ -81,8 +82,13 @@
                 });
             }
             const site = sitesMap.get(item.site);
-            if (item.c14) site.radiocarbonDates++;
-            else site.typologicalDates++;
+            if (item.c14) {
+                const dates = parseMalformedJson(item.c14);
+                site.radiocarbonDates += dates.length;
+            } else {
+                const dates = parseMalformedJson(item.periods);
+                site.typologicalDates += dates.length;
+            }
         });
         return Array.from(sitesMap.values());
     }

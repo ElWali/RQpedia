@@ -71,6 +71,7 @@
     </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="parser.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -91,18 +92,11 @@
 
             function parseAndFormatReferences(refString) {
                 if (!refString) return 'N/A';
-                try {
-                    let references = JSON.parse(refString);
-                    if (typeof references === 'string') {
-                        references = JSON.parse(references);
-                    }
-                    if (Array.isArray(references)) {
-                        return references.map(ref => ref.reference).join(', ');
-                    }
-                } catch (e) {
-                    return refString;
+                const references = parseMalformedJson(refString);
+                if (Array.isArray(references) && references.length > 0) {
+                    return references.map(ref => ref.reference).join(', ');
                 }
-                return refString;
+                return 'N/A';
             }
 
             fetch('output.json')
@@ -135,18 +129,14 @@
                                 });
                             }
                             if (record.periods) {
-                                try {
-                                    const parsedPeriods = JSON.parse(record.periods);
-                                    if (Array.isArray(parsedPeriods)) {
-                                        parsedPeriods.forEach(p => {
-                                            if (p.periode) site.periods.add(JSON.stringify({
-                                                name: p.periode,
-                                                reference: parseAndFormatReferences(record.reference)
-                                            }));
-                                        });
-                                    }
-                                } catch (e) {
-                                    // no-op
+                                const parsedPeriods = parseMalformedJson(record.periods);
+                                if (Array.isArray(parsedPeriods)) {
+                                    parsedPeriods.forEach(p => {
+                                        if (p.periode) site.periods.add(JSON.stringify({
+                                            name: p.periode,
+                                            reference: parseAndFormatReferences(record.reference)
+                                        }));
+                                    });
                                 }
                             }
                         });

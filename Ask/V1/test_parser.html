@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parser Test</title>
+    <script src="parser.js"></script>
+</head>
+<body>
+    <h1>Parser Test</h1>
+    <div id="results"></div>
+    <script>
+        const tests = [
+            {
+                name: "Test with doubly stringified JSON",
+                input: '"[{\\""reference\\"": \\""van Willigen 2008\\""}]"',
+                expected: [{ reference: "van Willigen 2008" }]
+            },
+            {
+                name: "Test with a single stringified JSON",
+                input: '[{"reference": "Test Ref"}]',
+                expected: [{ reference: "Test Ref" }]
+            },
+            {
+                name: "Test with null input",
+                input: null,
+                expected: []
+            },
+            {
+                name: "Test with undefined input",
+                input: undefined,
+                expected: []
+            },
+            {
+                name: "Test with non-string input",
+                input: 123,
+                expected: []
+            },
+            {
+                name: "Test with invalid JSON",
+                input: '{"key": "value",}',
+                expected: []
+            }
+        ];
+
+        const resultsDiv = document.getElementById('results');
+        tests.forEach(test => {
+            const result = parseMalformedJson(test.input);
+            const passed = JSON.stringify(result) === JSON.stringify(test.expected);
+            resultsDiv.innerHTML += `
+                <div>
+                    <strong>${test.name}:</strong>
+                    <span style="color: ${passed ? 'green' : 'red'}">${passed ? 'PASSED' : 'FAILED'}</span>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
