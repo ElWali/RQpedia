@@ -511,20 +511,11 @@
       currentCoords = { lat, lon };
       infoCoordsEl.textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
       infoTitleEl.textContent = display_name;
-      infoTextEl.innerHTML = ''; // Clear previous content
-      if (extract && extract.trim()) {
-        extract.split('\n\n').forEach(paragraphText => {
-          if (paragraphText.trim()) {
-            const p = document.createElement('p');
-            p.textContent = paragraphText.trim();
-            infoTextEl.appendChild(p);
-          }
-        });
-      } else {
-        const p = document.createElement('p');
-        p.textContent = 'No description available.';
-        infoTextEl.appendChild(p);
-      }
+      infoTextEl.innerHTML = extract
+        .split('\n\n')
+        .filter(p => p.trim())
+        .map(p => `<p>${p.trim()}</p>`)
+        .join('') || '<p>No description available.</p>';
       locationInfoEl.classList.add('show');
       statusMessageEl.style.display = 'none';
     }
