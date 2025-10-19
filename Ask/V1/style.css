@@ -9,12 +9,14 @@
     --shadow: rgba(0, 0, 0, 0.1);
     --divider: #e2e8f0;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
 body {
     display: flex;
     flex-direction: column;
@@ -22,6 +24,7 @@ body {
     background-color: var(--background);
     color: var(--on-background);
 }
+
 header {
     background: var(--surface);
     padding: 16px 32px;
@@ -31,203 +34,41 @@ header {
     align-items: center;
     z-index: 1000;
 }
-.logo {
+
+.logo a {
     font-size: 1.75rem;
     font-weight: 700;
+    color: var(--on-surface);
+    text-decoration: none;
 }
+
 .nav-links {
     display: flex;
     gap: 24px;
 }
+
 .nav-links a {
     color: var(--on-surface);
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
 }
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 24px;
-    flex: 1;
-}
-.header-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-h1 {
-    font-size: 2rem;
-    font-weight: 500;
-}
-#search-input {
-    width: 100%;
-    max-width: 320px;
-    padding: 12px 16px;
-    border-radius: 24px;
-    border: 1px solid var(--outline);
-    font-size: 1rem;
-}
-.table-container {
-    overflow-x: auto;
-    background: var(--surface);
-    border: 1px solid var(--divider);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--shadow);
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-th, td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--divider);
-    white-space: normal;
-    word-break: break-all;
-}
-thead {
-    background-color: #f1f5f9;
-}
-th {
-    font-weight: 500;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--on-background);
-    cursor: pointer;
-}
-th.sort-asc::after,
-th.sort-desc::after {
-    content: '';
-    display: inline-block;
-    margin-left: 8px;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-}
-th.sort-asc::after {
-    border-bottom: 5px solid var(--primary);
-}
-th.sort-desc::after {
-    border-top: 5px solid var(--primary);
-}
-tbody tr:hover {
-    background-color: #f8fafc;
-}
-.pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 24px;
-}
-.pagination-controls button {
+
+.header-actions button {
     padding: 8px 16px;
     border-radius: 6px;
     border: 1px solid var(--outline);
     background: var(--surface);
     cursor: pointer;
 }
-.pagination-controls button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-.info-card {
-    background: var(--surface);
-    border: 1px solid var(--divider);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--shadow);
-    margin-bottom: 20px;
-}
-.info-card h2 {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--divider);
-    font-size: 1.25rem;
-    font-weight: 500;
-}
-.info-card table {
-    width: 100%;
-}
-.info-card th, .info-card td {
-    padding: 16px 20px;
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    flex: 1;
 }
 
-@media (max-width: 768px) {
-    body .container {
-        padding: 16px;
-    }
-
-    body header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 16px;
-    }
-
-    body .nav-links {
-        margin-top: 16px;
-        gap: 16px;
-    }
-
-    body h1 {
-        font-size: 1.75rem;
-    }
-
-    body .info-card h2 {
-        font-size: 1.1rem;
-    }
-
-    table thead {
-        display: none;
-    }
-
-    table, table tbody, table tr, table td {
-        display: block;
-        width: 100%;
-    }
-
-    table tr {
-        margin-bottom: 15px;
-    }
-
-    table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-    }
-
-    table td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-}
-
-@media (max-width: 480px) {
-    body .logo {
-        font-size: 1.5rem;
-    }
-
-    body .nav-links a {
-        font-size: 0.9rem;
-    }
-
-    body h1 {
-        font-size: 1.5rem;
-    }
-
-    body #search-input {
-        max-width: 100%;
-        font-size: 0.9rem;
-    }
-}
-
-/* Profile Page Specific Styles */
 .site-header {
     margin-bottom: 24px;
 }
@@ -249,7 +90,23 @@ tbody tr:hover {
     color: #64748b;
 }
 
-.info-card p {
+.info-card {
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+    margin-bottom: 20px;
+}
+
+.info-card h2 {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--divider);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.info-card p,
+.info-card table {
     padding: 16px 20px;
 }
 
@@ -259,7 +116,7 @@ tbody tr:hover {
 }
 
 .info-card th, .info-card td {
-    padding: 12px 20px;
+    padding: 12px 0;
     text-align: left;
     border-bottom: 1px solid var(--divider);
 }
@@ -267,6 +124,35 @@ tbody tr:hover {
 .info-card th {
     font-weight: 500;
     width: 30%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th, .table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--divider);
+    white-space: normal;
+    word-break: break-all;
+}
+
+.table thead {
+    background-color: #f1f5f9;
+}
+
+.table th {
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--on-background);
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
 }
 
 footer {
@@ -281,4 +167,58 @@ footer {
 footer a {
     color: var(--primary);
     text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .nav-links {
+        margin-top: 16px;
+        gap: 16px;
+    }
+
+    .site-header h1 {
+        font-size: 2rem;
+    }
+
+    .info-card h2 {
+        font-size: 1.1rem;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
 }
