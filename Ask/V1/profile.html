@@ -9,13 +9,30 @@
 </head>
 <body>
     <header>
-        <a href="index.html">Home</a>
-        <a href="sites.html">Browse</a>
+        <div class="logo">
+            <a href="index.html">XRONOS</a>
+        </div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="#">About</a>
+            <a href="#">Tools</a>
+            <a href="#">News</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-button">Search</button>
+            <button class="signin-button">Sign in</button>
+        </div>
     </header>
 
     <main class="container">
-        <h1 id="site-name"></h1>
-        <p>Archaeological site in <span id="site-country"></span></p>
+        <div class="site-header">
+            <h1 id="site-name"></h1>
+            <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+            <div class="site-meta">
+                Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                <a href="#changelog">See changelog for details.</a>
+            </div>
+        </div>
 
         <div class="info-card">
             <h2>Location</h2>
@@ -38,6 +55,11 @@
         <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
 
         <div class="info-card">
+            <h2>Linked Data</h2>
+            <p>There is no linked data available for this record.</p>
+        </div>
+
+        <div class="info-card">
             <h2>Radiocarbon Dates</h2>
             <table id="c14-table" class="table">
                 <thead>
@@ -45,6 +67,8 @@
                         <th>Lab ID</th>
                         <th>Context</th>
                         <th>Material</th>
+                        <th>Taxon</th>
+                        <th>Method</th>
                         <th>Uncalibrated age</th>
                         <th>Calibrated age</th>
                         <th>References</th>
@@ -61,6 +85,7 @@
                 <thead>
                     <tr>
                         <th>Classification</th>
+                        <th>Estimated age</th>
                         <th>References</th>
                     </tr>
                 </thead>
@@ -68,125 +93,41 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="info-card">
+            <h2>Bibliographic References</h2>
+            <div id="references-container"></div>
+        </div>
+
+        <div class="info-card" id="changelog">
+            <h2>Changelog</h2>
+            <div id="changelog-container"></div>
+        </div>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+        </div>
+    </footer>
+
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="parser.js"></script>
+    <script src="profile.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const siteName = decodeURIComponent(urlParams.get('id'));
-
-            // Function to convert decimal degrees to DMS
-            function toDMS(deg, isLat) {
-                let d = Math.floor(Math.abs(deg));
-                let minfloat = (Math.abs(deg) - d) * 60;
-                let m = Math.floor(minfloat);
-                let secfloat = (minfloat - m) * 60;
-                let s = Math.round(secfloat);
-                if (s === 60) { m++; s = 0; }
-                if (m === 60) { d++; m = 0; }
-                let dir = isLat ? (deg >= 0 ? 'N' : 'S') : (deg >= 0 ? 'E' : 'W');
-                return `${d}° ${m}' ${s}" ${dir}`;
-            }
-
-            function parseAndFormatReferences(refString) {
-                if (!refString) return 'N/A';
-                const references = parseMalformedJson(refString);
-                if (Array.isArray(references) && references.length > 0) {
-                    return references.map(ref => ref.reference).join(', ');
-                }
-                return 'N/A';
-            }
-
             fetch('output.json')
                 .then(response => response.json())
                 .then(data => {
-                    const siteRecords = data.filter(r => r.site === siteName);
-
-                    if (siteRecords.length > 0) {
-                        const firstRecord = siteRecords[0];
-                        const site = {
-                            name: firstRecord.site,
-                            country: firstRecord.country,
-                            lat: parseFloat(firstRecord.lat),
-                            lng: parseFloat(firstRecord.lng),
-                            c14_dates: [],
-                            periods: new Set()
-                        };
-
-                        siteRecords.forEach(record => {
-                            if (record.bp && record.std) {
-                                site.c14_dates.push({
-                                    lab_id: record.labnr || 'N/A',
-                                    context: `${record.feature || ''} ${record.feature_type || ''}`.trim() || 'N/A',
-                                    material: record.material || 'N/A',
-                                    bp: record.bp,
-                                    std: record.std,
-                                    cal_bp_start: record.cal_bp_start || 'N/A',
-                                    cal_bp_end: record.cal_bp_end || 'N/A',
-                                    reference: parseAndFormatReferences(record.reference)
-                                });
-                            }
-                            if (record.periods) {
-                                const parsedPeriods = parseMalformedJson(record.periods);
-                                if (Array.isArray(parsedPeriods)) {
-                                    parsedPeriods.forEach(p => {
-                                        if (p.periode) site.periods.add(JSON.stringify({
-                                            name: p.periode,
-                                            reference: parseAndFormatReferences(record.reference)
-                                        }));
-                                    });
-                                }
-                            }
-                        });
-                        site.periods = Array.from(site.periods).map(p => JSON.parse(p));
-
-                        document.title = site.name + " | Site Profile";
-                        document.getElementById('site-name').textContent = site.name;
-                        document.getElementById('site-country').textContent = site.country;
-                        document.getElementById('coords-deg').textContent = `${site.lat.toFixed(3)}° N, ${site.lng.toFixed(3)}° E`;
-                        document.getElementById('coords-dms').textContent = `${toDMS(site.lat, true)}, ${toDMS(site.lng, false)}`;
-                        document.getElementById('country').textContent = site.country;
-
-                        const map = L.map('map').setView([site.lat, site.lng], 10);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-                        L.marker([site.lat, site.lng]).addTo(map).bindPopup(site.name).openPopup();
-
-                        const c14Table = document.getElementById('c14-table').querySelector('tbody');
-                        if (site.c14_dates.length > 0) {
-                            let c14Html = '';
-                            site.c14_dates.forEach(date => {
-                                c14Html += `<tr>
-                                    <td data-label="Lab ID">${date.lab_id}</td>
-                                    <td data-label="Context">${date.context}</td>
-                                    <td data-label="Material">${date.material}</td>
-                                    <td data-label="Uncalibrated age">${date.bp}±${date.std}</td>
-                                    <td data-label="Calibrated age">${date.cal_bp_start}–${date.cal_bp_end} cal BP</td>
-                                    <td data-label="References">${date.reference}</td>
-                                </tr>`;
-                            });
-                            c14Table.innerHTML = c14Html;
-                        } else {
-                            c14Table.innerHTML = '<tr><td colspan="6">No radiocarbon dates available for this site.</td></tr>';
-                        }
-
-                        const typoTable = document.getElementById('typo-table').querySelector('tbody');
-                        if (site.periods.length > 0) {
-                            let typoHtml = '';
-                            site.periods.forEach(period => {
-                                typoHtml += `<tr>
-                                    <td data-label="Classification">${period.name}</td>
-                                    <td data-label="References">${period.reference}</td>
-                                </tr>`;
-                            });
-                            typoTable.innerHTML = typoHtml;
-                        } else {
-                            typoTable.innerHTML = '<tr><td colspan="2">No typological dates available for this site.</td></tr>';
-                        }
-                    } else {
-                        document.getElementById('site-name').textContent = "Site not found";
-                    }
+                    renderProfilePage(siteName, data);
+                })
+                .catch(error => {
+                    console.error("Failed to load site data:", error);
+                    document.getElementById('site-name').textContent = "Error loading site data";
                 });
         });
     </script>
