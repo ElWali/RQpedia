@@ -4,20 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Sites</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" />
     <style>
-        body { font-family: sans-serif; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        #search-input { width: 300px; padding: 10px; }
-        .sort-options { display: flex; gap: 10px; }
-        .sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .site-card { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
-        .site-card h3 { margin-top: 0; }
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1d4ed8;
+            --surface: #ffffff;
+            --background: #f8fafc;
+            --on-surface: #1e293b;
+            --on-background: #334155;
+            --outline: #cbd5e1;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-strong: rgba(0, 0, 0, 0.15);
+            --divider: #e2e8f0;
+            --hover-bg: #dbeafe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--background);
+            color: var(--on-background);
+        }
+
+        header {
+            background: var(--surface);
+            color: var(--on-surface);
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: var(--on-surface);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        #search-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 16px;
+            border-radius: 24px;
+            border: 1px solid var(--outline);
+            font-size: 0.95rem;
+            background: var(--surface);
+        }
+
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #sort-by {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--outline);
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .site-card {
+            background: var(--surface);
+            border: 1px solid var(--divider);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .site-card h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo">XRONOS</div>
+        <div class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="#">About</a>
+            <a href="#">Tools</a>
+            <a href="#">News</a>
+        </div>
+    </header>
     <div class="container">
-        <div class="header">
+        <div class="header-controls">
             <h1>All Sites</h1>
             <div class="controls">
                 <input type="text" id="search-input" placeholder="Search sites...">
@@ -52,7 +169,7 @@
                             const card = document.createElement('div');
                             card.className = 'site-card';
                             card.innerHTML = `
-                                <h3><a href="profile.html?site=${encodeURIComponent(site.name)}">${site.name}</a></h3>
+                                <h3>${site.name}</h3>
                                 <p><strong>Dates:</strong> ${site.dateCount}</p>
                                 <p><strong>Date Range:</strong> ${site.dateRange}</p>
                                 <p><strong>Periods:</strong> ${site.periods || 'N/A'}</p>
@@ -115,7 +232,6 @@
                     }
                 });
 
-                // Convert map to array and calculate summary info
                 return Array.from(sitesMap.values()).map(site => {
                     const dateCount = site.dates.length;
                     const minDate = Math.min(...site.dates);
