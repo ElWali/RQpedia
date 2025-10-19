@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page Test</title>
+</head>
+<body>
+    <h1>Profile Page Test</h1>
+    <div id="test-results"></div>
+
+    <div id="profile-dom">
+        <h1 id="site-name"></h1>
+        <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+        <div class="site-meta">
+            Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+        </div>
+        <div class="info-card">
+            <h2>Location</h2>
+            <table>
+                <tr><th>Coordinates (degrees)</th><td id="coords-deg"></td></tr>
+                <tr><th>Coordinates (DMS)</th><td id="coords-dms"></td></tr>
+                <tr><th>Country</th><td id="country"></td></tr>
+            </table>
+        </div>
+        <div id="map" style="height: 1px;"></div>
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table"><tbody></tbody></table>
+        </div>
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table"><tbody></tbody></table>
+        </div>
+        <div class="info-card">
+            <h2>Bibliographic References</h2>
+            <div id="references-container"></div>
+        </div>
+        <div class="info-card" id="changelog">
+            <h2>Changelog</h2>
+            <div id="changelog-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Inlined parser.js
+        function parseMalformedJson(jsonString) {
+            if (!jsonString || typeof jsonString !== 'string') {
+                return [];
+            }
+            try {
+                let correctedJsonString = jsonString;
+                if (correctedJsonString.startsWith('"')) {
+                    correctedJsonString = correctedJsonString.substring(1, correctedJsonString.length - 1);
+                }
+                correctedJsonString = correctedJsonString.replace(/\\"/g, '"');
+                return JSON.parse(correctedJsonString);
+            } catch (error) {
+                return [];
+            }
+        }
+    </script>
+    <script>
+        // Inlined profile.js
+        function renderProfilePage(siteName, data) {
+            function toDMS(deg, isLat) {
+                let d = Math.floor(Math.abs(deg));
+                let minfloat = (Math.abs(deg) - d) * 60;
+                let m = Math.floor(minfloat);
+                let secfloat = (minfloat - m) * 60;
+                let s = Math.round(secfloat);
+                if (s === 60) { m++; s = 0; }
+                if (m === 60) { d++; m = 0; }
+                const dir = isLat ? (deg >= 0 ? 'N' : 'S') : (deg >= 0 ? 'E' : 'W');
+                const dStr = String(d).padStart(3, '0');
+                const mStr = String(m).padStart(2, '0');
+                const sStr = String(s).padStart(2, '0');
+                return `${dStr}° ${mStr}' ${sStr}" ${dir}`;
+            }
+            function getReferences(record) {
+                if (!record.reference) return [];
+                const refs = parseMalformedJson(record.reference);
+                return Array.isArray(refs) ? refs.map(r => r.reference).filter(Boolean) : [];
+            }
+            function renderReferences(container, references) {
+                if (references.size === 0) {
+                    const p = document.createElement('p');
+                    p.textContent = 'No bibliographic references available for this site.';
+                    container.appendChild(p);
+                    return;
+                }
+                const ul = document.createElement('ul');
+                references.forEach(ref => {
+                    const li = document.createElement('li');
+                    li.textContent = ref;
+                    ul.appendChild(li);
+                });
+                container.appendChild(ul);
+            }
+            const siteRecords = data.filter(r => r.site === siteName);
+            if (siteRecords.length > 0) {
+                const firstRecord = siteRecords[0];
+                const site = {
+                    name: firstRecord.site,
+                    country: firstRecord.country,
+                    lat: parseFloat(firstRecord.lat),
+                    lng: parseFloat(firstRecord.lng)
+                };
+                document.title = site.name + " | Site Profile";
+                document.getElementById('site-name').textContent = site.name;
+                document.getElementById('site-country-subheader').textContent = site.country;
+                document.getElementById('created-date').textContent = "2022-12-02 00:50:45 UTC";
+                document.getElementById('updated-date').textContent = "2022-12-02 00:50:45 UTC";
+                const latStr = `${site.lat.toFixed(3)}° ${site.lat >= 0 ? 'N' : 'S'}`;
+                const lngStr = `${site.lng.toFixed(3)}° ${site.lng >= 0 ? 'E' : 'W'}`;
+                document.getElementById('coords-deg').textContent = `${latStr}, ${lngStr}`;
+                document.getElementById('coords-dms').textContent = `${toDMS(site.lat, true)}, ${toDMS(site.lng, false)}`;
+                document.getElementById('country').textContent = site.country;
+                if (typeof L !== 'undefined') {
+                    const map = L.map('map').setView([site.lat, site.lng], 10);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                    L.marker([site.lat, site.lng]).addTo(map).bindPopup(site.name).openPopup();
+                }
+                const allReferences = new Set();
+                const c14_dates = [];
+                const typo_dates = new Set();
+                siteRecords.forEach(record => {
+                    const refs = getReferences(record);
+                    refs.forEach(ref => allReferences.add(ref));
+                    if (record.bp && record.std) {
+                        c14_dates.push({
+                            lab_id: record.labnr || 'N/A',
+                            context: `${record.feature || ''} ${record.feature_type || ''}`.trim() || 'N/A',
+                            material: record.material || 'N/A',
+                            bp: record.bp,
+                            std: record.std,
+                            cal_bp_start: record.cal_bp_start || 'N/A',
+                            cal_bp_end: record.cal_bp_end || 'N/A',
+                            references: refs.join(', ') || 'N/A'
+                        });
+                    }
+                    if (record.periods) {
+                        const parsedPeriods = parseMalformedJson(record.periods);
+                        if (Array.isArray(parsedPeriods)) {
+                            parsedPeriods.forEach(p => {
+                                if (p.periode) typo_dates.add(JSON.stringify({
+                                    name: p.periode,
+                                    references: refs.join(', ') || 'NA'
+                                }));
+                            });
+                        }
+                    }
+                });
+                const c14TableBody = document.getElementById('c14-table').querySelector('tbody');
+                if (c14_dates.length > 0) {
+                    c14_dates.forEach(date => {
+                        const row = c14TableBody.insertRow();
+                        row.innerHTML = `<td data-label="Lab ID">${date.lab_id}</td><td data-label="Context">${date.context}</td><td data-label="Material">${date.material}</td><td data-label="Taxon">N/A</td><td data-label="Method">N/A</td><td data-label="Uncalibrated age">${date.bp}±${date.std}</td><td data-label="Calibrated age">${date.cal_bp_start}–${date.cal_bp_end} cal BP</td><td data-label="References">${date.references}</td>`;
+                    });
+                } else {
+                    const row = c14TableBody.insertRow();
+                    const cell = row.insertCell();
+                    cell.colSpan = 8;
+                    cell.textContent = 'No radiocarbon dates available for this site.';
+                }
+                const typoTableBody = document.getElementById('typo-table').querySelector('tbody');
+                const unique_typo_dates = Array.from(typo_dates).map(p => JSON.parse(p));
+                if (unique_typo_dates.length > 0) {
+                    unique_typo_dates.forEach(period => {
+                        const row = typoTableBody.insertRow();
+                        row.innerHTML = `<td data-label="Classification">${period.name}</td><td data-label="Estimated age">N/A</td><td data-label="References">${period.references}</td>`;
+                    });
+                } else {
+                    const row = typoTableBody.insertRow();
+                    const cell = row.insertCell();
+                    cell.colSpan = 3;
+                    cell.textContent = 'No typological dates available for this site.';
+                }
+                const referencesContainer = document.getElementById('references-container');
+                renderReferences(referencesContainer, allReferences);
+                const changelogContainer = document.getElementById('changelog-container');
+                changelogContainer.innerHTML = `<p>Imported from source database. (Placeholder)</p>`;
+            } else {
+                document.getElementById('site-name').textContent = "Site not found";
+            }
+        }
+    </script>
+    <script>
+        const mockSiteData = [{
+            "site": "Test Site",
+            "country": "TS",
+            "lat": "12.345",
+            "lng": "-67.890",
+            "labnr": "Test-123",
+            "bp": "1000",
+            "std": "50",
+            "cal_bp_start": "950",
+            "cal_bp_end": "1050",
+            "reference": "[{\\"reference\\": \\"Test Ref 1\\"}]",
+            "periods": "[{\\"periode\\": \\"Test Period\\"}]"
+        }, {
+            "site": "Test Site",
+            "country": "TS",
+            "lat": "12.345",
+            "lng": "-67.890",
+            "reference": "[{\\"reference\\": \\"Test Ref 2\\"}]"
+        }];
+        function assert(condition, message) {
+            const results = document.getElementById('test-results');
+            const p = document.createElement('p');
+            p.textContent = (condition ? '✅' : '❌') + ' ' + message;
+            p.style.color = condition ? 'green' : 'red';
+            results.appendChild(p);
+        }
+        function runTests() {
+            window.L = { // Mock Leaflet
+                map: () => ({ setView: () => {}, tileLayer: () => ({ addTo: () => {} }), marker: () => ({ addTo: () => ({ bindPopup: () => ({ openPopup: () => {} }) }) }) })
+            };
+            renderProfilePage("Test Site", mockSiteData);
+            const profileDOM = document.getElementById('profile-dom');
+            assert(profileDOM.querySelector('#site-name').textContent === 'Test Site', 'Site name should be "Test Site"');
+            assert(profileDOM.querySelector('#country').textContent === 'TS', 'Country should be "TS"');
+            assert(profileDOM.querySelector('#coords-deg').textContent.includes('12.345'), 'Coordinates (degrees) should be correct');
+            assert(profileDOM.querySelector('#c14-table tbody').rows.length === 1, 'Radiocarbon dates table should have one row');
+            assert(profileDOM.querySelector('#typo-table tbody').rows.length === 1, 'Typological dates table should have one row');
+            const references = profileDOM.querySelector('#references-container').textContent;
+            assert(references.includes('Test Ref 1') && references.includes('Test Ref 2'), 'Bibliographic references should be correct');
+        }
+        runTests();
+    </script>
+</body>
+</html>
