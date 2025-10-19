@@ -4,172 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Profile</title>
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
-        body { font-family: sans-serif; }
-        #map { height: 300px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
 </head>
 <body>
-    <h1 id="site-name"></h1>
-    <div id="map"></div>
-    <h2>Summary</h2>
-    <p id="summary"></p>
-    <h2>Radiocarbon Dates</h2>
-    <table id="dates-table">
-        <thead>
-            <tr>
-                <th>Lab Code</th>
-                <th>BP</th>
-                <th>Std</th>
-                <th>Material</th>
-                <th>Cultural Periods</th>
-                <th>Typochronological Units</th>
-                <th>References</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <h2>Date Distribution</h2>
-    <canvas id="date-chart" width="400" height="200"></canvas>
+    <header>
+        <a href="index.html">Home</a>
+        <a href="sites.html">Browse</a>
+    </header>
+
+    <main class="container">
+        <h1 id="site-name"></h1>
+        <p>Archaeological site in <span id="site-country"></span></p>
+
+        <div class="info-card">
+            <h2>Location</h2>
+            <table>
+                <tr>
+                    <th>Coordinates (degrees)</th>
+                    <td id="coords-deg"></td>
+                </tr>
+                <tr>
+                    <th>Coordinates (DMS)</th>
+                    <td id="coords-dms"></td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td id="country"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Lab ID</th>
+                        <th>Context</th>
+                        <th>Material</th>
+                        <th>Uncalibrated age</th>
+                        <th>Calibrated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Get site name from URL
+        document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const siteName = urlParams.get('site');
+            const siteName = decodeURIComponent(urlParams.get('id'));
 
-            if (siteName) {
-                const decodedSiteName = decodeURIComponent(siteName);
-                document.getElementById('site-name').textContent = decodedSiteName;
-                fetch('output.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const siteData = data.filter(item => item.site === decodedSiteName);
-                        if (siteData.length > 0) {
-                            // For now, just use the first entry for lat/lon
-                            const { lat, lng } = siteData[0];
-                            const map = L.map('map').setView([lat, lng], 10);
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            }).addTo(map);
-                            L.marker([lat, lng]).addTo(map);
-
-                            // Field label mapping
-                            const fieldLabels = {
-                                d: 'Sample ID',
-                                labnr: 'Laboratory Number',
-                                bp: 'Radiocarbon Age (BP)',
-                                std: 'Uncertainty',
-                                'delta c13': 'δ¹³C (delta C13)',
-                                'feature type': 'Feature Type',
-                                site: 'Site Name',
-                                country: 'Country',
-                                lat: 'Latitude',
-                                lng: 'Longitude',
-                                'site type': 'Site Type',
-                                periods: 'Cultural Period(s)',
-                                'typochronological units': 'Typochronological Unit(s)',
-                                'ecochronological units': 'Ecochronological Unit(s)',
-                                reference: 'Reference'
-                            };
-
-                            // Populate the table and summary
-                            const tableBody = document.querySelector('#dates-table tbody');
-                            let summaryHtml = '';
-                            let processedSummary = false;
-
-                            siteData.forEach(item => {
-                                // Add to table
-                                const row = tableBody.insertRow();
-                                row.insertCell(0).textContent = item.lab_code || 'N/A';
-                                row.insertCell(1).textContent = item.bp;
-                                row.insertCell(2).textContent = item.std;
-                                row.insertCell(3).textContent = item.material;
-                                row.insertCell(4).textContent = item.periods ? JSON.parse(item.periods).map(p => p.periode).join(', ') : 'N/A';
-                                row.insertCell(5).textContent = item['typochronological units'] ? JSON.parse(item['typochronological units']).map(t => t.typochronological_unit).join(', ') : 'N/A';
-                                row.insertCell(6).textContent = item.reference ? JSON.parse(item.reference).map(r => r.reference).join(', ') : 'N/A';
-
-                                // Process for summary view - only needs to be done once
-                                if (!processedSummary) {
-                                    const summaryFields = ['site type', 'country', 'feature type', 'periods', 'typochronological units', 'ecochronological units', 'reference'];
-                                    summaryFields.forEach(key => {
-                                        if (item[key]) {
-                                            let value = item[key];
-                                            if (typeof value === 'string' && (value.startsWith('[') || value.startsWith('{'))) {
-                                                try {
-                                                    const parsed = JSON.parse(value);
-                                                    if (Array.isArray(parsed)) {
-                                                        const cleaned = parsed
-                                                            .map(obj => {
-                                                                if (obj && typeof obj === 'object') {
-                                                                    // Extract value from known keys
-                                                                    if (obj.periode) return obj.periode;
-                                                                    if (obj.typochronological_unit) return obj.typochronological_unit;
-                                                                    if (obj.ecochronological_unit) return obj.ecochronological_unit;
-                                                                    if (obj.reference) return obj.reference;
-                                                                    return Object.values(obj)[0] || '';
-                                                                }
-                                                                return String(obj);
-                                                            })
-                                                            .filter(v => v && v !== 'null' && v.trim() !== '')
-                                                            .join(', ');
-                                                        value = cleaned || '—';
-                                                    } else if (typeof parsed === 'object' && parsed !== null) {
-                                                        value = parsed.reference || JSON.stringify(parsed);
-                                                    }
-                                                } catch (e) {
-                                                    // Keep original string if parsing fails
-                                                }
-                                            }
-                                            const label = fieldLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
-                                            summaryHtml += `<p><strong>${label}:</strong> ${value}</p>`;
-                                        }
-                                    });
-                                    processedSummary = true;
-                                }
-                            });
-
-                            document.getElementById('summary').innerHTML = summaryHtml;
-
-                            // Create the chart
-                            const ctx = document.getElementById('date-chart').getContext('2d');
-                            const dates = siteData.map(item => item.bp);
-                            const bins = {};
-                            dates.forEach(date => {
-                                const bin = Math.floor(date / 500) * 500;
-                                bins[bin] = (bins[bin] || 0) + 1;
-                            });
-
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: Object.keys(bins).map(bin => `${bin}-${parseInt(bin) + 500} BP`),
-                                    datasets: [{
-                                        label: '# of Dates',
-                                        data: Object.values(bins),
-                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                        borderColor: 'rgba(75, 192, 192, 1)',
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    });
+            // Function to convert decimal degrees to DMS
+            function toDMS(deg, isLat) {
+                let d = Math.floor(Math.abs(deg));
+                let minfloat = (Math.abs(deg) - d) * 60;
+                let m = Math.floor(minfloat);
+                let secfloat = (minfloat - m) * 60;
+                let s = Math.round(secfloat);
+                if (s === 60) { m++; s = 0; }
+                if (m === 60) { d++; m = 0; }
+                let dir = isLat ? (deg >= 0 ? 'N' : 'S') : (deg >= 0 ? 'E' : 'W');
+                return `${d}° ${m}' ${s}" ${dir}`;
             }
+
+            fetch('output.json')
+                .then(response => response.json())
+                .then(data => {
+                    const siteRecords = data.filter(r => r.site === siteName);
+
+                    if (siteRecords.length > 0) {
+                        const firstRecord = siteRecords[0];
+                        const site = {
+                            name: firstRecord.site,
+                            country: firstRecord.country,
+                            lat: parseFloat(firstRecord.lat),
+                            lng: parseFloat(firstRecord.lng),
+                            c14_dates: [],
+                            periods: new Set()
+                        };
+
+                        siteRecords.forEach(record => {
+                            if (record.bp && record.std) {
+                                site.c14_dates.push({
+                                    lab_id: record.labnr || 'N/A',
+                                    context: `${record.feature || ''} ${record.feature_type || ''}`.trim() || 'N/A',
+                                    material: record.material || 'N/A',
+                                    bp: record.bp,
+                                    std: record.std,
+                                    cal_bp_start: record.cal_bp_start || 'N/A',
+                                    cal_bp_end: record.cal_bp_end || 'N/A',
+                                    reference: record.reference || 'N/A'
+                                });
+                            }
+                            if (record.periods) {
+                                try {
+                                    const parsedPeriods = JSON.parse(record.periods);
+                                    if (Array.isArray(parsedPeriods)) {
+                                        parsedPeriods.forEach(p => {
+                                            if (p.periode) site.periods.add(JSON.stringify({
+                                                name: p.periode,
+                                                reference: record.reference || 'N/A'
+                                            }));
+                                        });
+                                    }
+                                } catch (e) {
+                                    // no-op
+                                }
+                            }
+                        });
+                        site.periods = Array.from(site.periods).map(p => JSON.parse(p));
+
+                        document.title = site.name + " | Site Profile";
+                        document.getElementById('site-name').textContent = site.name;
+                        document.getElementById('site-country').textContent = site.country;
+                        document.getElementById('coords-deg').textContent = `${site.lat.toFixed(3)}° N, ${site.lng.toFixed(3)}° E`;
+                        document.getElementById('coords-dms').textContent = `${toDMS(site.lat, true)}, ${toDMS(site.lng, false)}`;
+                        document.getElementById('country').textContent = site.country;
+
+                        const map = L.map('map').setView([site.lat, site.lng], 10);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                        L.marker([site.lat, site.lng]).addTo(map).bindPopup(site.name).openPopup();
+
+                        const c14Table = document.getElementById('c14-table').querySelector('tbody');
+                        if (site.c14_dates.length > 0) {
+                            let c14Html = '';
+                            site.c14_dates.forEach(date => {
+                                c14Html += `<tr><td>${date.lab_id}</td><td>${date.context}</td><td>${date.material}</td><td>${date.bp}±${date.std}</td><td>${date.cal_bp_start}–${date.cal_bp_end} cal BP</td><td>${date.reference}</td></tr>`;
+                            });
+                            c14Table.innerHTML = c14Html;
+                        } else {
+                            c14Table.innerHTML = '<tr><td colspan="6">No radiocarbon dates available for this site.</td></tr>';
+                        }
+
+                        const typoTable = document.getElementById('typo-table').querySelector('tbody');
+                        if (site.periods.length > 0) {
+                            let typoHtml = '';
+                            site.periods.forEach(period => {
+                                typoHtml += `<tr><td>${period.name}</td><td>${period.reference}</td></tr>`;
+                            });
+                            typoTable.innerHTML = typoHtml;
+                        } else {
+                            typoTable.innerHTML = '<tr><td colspan="2">No typological dates available for this site.</td></tr>';
+                        }
+                    } else {
+                        document.getElementById('site-name').textContent = "Site not found";
+                    }
+                });
         });
     </script>
 </body>

@@ -5,147 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Sites</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" />
-    <style>
-        :root {
-            --primary: #1e40af;
-            --primary-dark: #1d4ed8;
-            --surface: #ffffff;
-            --background: #f8fafc;
-            --on-surface: #1e293b;
-            --on-background: #334155;
-            --outline: #cbd5e1;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --divider: #e2e8f0;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: var(--background);
-            color: var(--on-background);
-        }
-        header {
-            background: var(--surface);
-            padding: 16px 32px;
-            box-shadow: 0 2px 8px var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
-        .nav-links a {
-            color: var(--on-surface);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 24px;
-            flex: 1;
-        }
-        .header-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-size: 2rem;
-            font-weight: 500;
-        }
-        #search-input {
-            width: 100%;
-            max-width: 320px;
-            padding: 12px 16px;
-            border-radius: 24px;
-            border: 1px solid var(--outline);
-            font-size: 1rem;
-        }
-        .table-container {
-            overflow-x: auto;
-            background: var(--surface);
-            border: 1px solid var(--divider);
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        th, td {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--divider);
-            white-space: nowrap;
-        }
-        thead {
-            background-color: #f1f5f9;
-        }
-        th {
-            font-weight: 500;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--on-background);
-            cursor: pointer;
-        }
-        th.sort-asc::after,
-        th.sort-desc::after {
-            content: '';
-            display: inline-block;
-            margin-left: 8px;
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-        }
-        th.sort-asc::after {
-            border-bottom: 5px solid var(--primary);
-        }
-        th.sort-desc::after {
-            border-top: 5px solid var(--primary);
-        }
-        tbody tr:hover {
-            background-color: #f8fafc;
-        }
-        .pagination-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 24px;
-        }
-        .pagination-controls button {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: 1px solid var(--outline);
-            background: var(--surface);
-            cursor: pointer;
-        }
-        .pagination-controls button:disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header>
-        <div class="logo">XRONOS</div>
+        <div class="logo">GeoSearch</div>
         <nav class="nav-links">
             <a href="sites.html">Browse data</a>
             <a href="#">About</a>
@@ -231,6 +95,10 @@
 
         paginatedSites.forEach(site => {
             const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', () => {
+                window.location.href = `profile.html?id=${encodeURIComponent(site.name)}`;
+            });
             row.innerHTML = `
                 <td>${site.name}</td>
                 <td>${site.country || 'N/A'}</td>
@@ -256,8 +124,8 @@
 
             // Special handling for coordinates
             if (currentSort.column === 'coordinates') {
-                aValue = `${a.lat},${a.lng}`;
-                bValue = `${b.lat},${b.lng}`;
+                aValue = a.lat;
+                bValue = b.lat;
             }
 
             if (typeof aValue === 'string') {

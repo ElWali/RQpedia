@@ -545,7 +545,7 @@
           currentCoords = { lat, lon };
           infoCoordsEl.textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
           infoTitleEl.textContent = display_name;
-          infoTextEl.innerHTML = extract + `<br><p><a href="profile.html?site=${encodeURIComponent(display_name)}">Click for details</a></p>`;
+          infoTextEl.innerHTML = extract + `<br><p><a href="profile.html?id=${encodeURIComponent(display_name)}">Click for details</a></p>`;
           locationInfoEl.classList.add('show');
           statusMessageEl.style.display = 'none';
         }
