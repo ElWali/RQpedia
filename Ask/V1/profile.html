@@ -139,7 +139,7 @@
                         document.title = site.name + " | Site Profile";
                         document.getElementById('site-name').textContent = site.name;
                         document.getElementById('site-country').textContent = site.country;
-                        document.getElementById('coords-deg').textContent = `${site.lat.toFixed(3)}° N, ${site.lng.toFixed(3)}° E`;
+                        document.getElementById('coords-deg').textContent = `${Math.abs(site.lat).toFixed(3)}° ${site.lat >= 0 ? 'N' : 'S'}, ${Math.abs(site.lng).toFixed(3)}° ${site.lng >= 0 ? 'E' : 'W'}`;
                         document.getElementById('coords-dms').textContent = `${toDMS(site.lat, true)}, ${toDMS(site.lng, false)}`;
                         document.getElementById('country').textContent = site.country;
 
