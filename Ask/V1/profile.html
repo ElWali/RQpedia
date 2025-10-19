@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Profile</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="responsive.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
@@ -152,7 +151,14 @@
                         if (site.c14_dates.length > 0) {
                             let c14Html = '';
                             site.c14_dates.forEach(date => {
-                                c14Html += `<tr><td>${date.lab_id}</td><td>${date.context}</td><td>${date.material}</td><td>${date.bp}±${date.std}</td><td>${date.cal_bp_start}–${date.cal_bp_end} cal BP</td><td>${date.reference}</td></tr>`;
+                                c14Html += `<tr>
+                                    <td data-label="Lab ID">${date.lab_id}</td>
+                                    <td data-label="Context">${date.context}</td>
+                                    <td data-label="Material">${date.material}</td>
+                                    <td data-label="Uncalibrated age">${date.bp}±${date.std}</td>
+                                    <td data-label="Calibrated age">${date.cal_bp_start}–${date.cal_bp_end} cal BP</td>
+                                    <td data-label="References">${date.reference}</td>
+                                </tr>`;
                             });
                             c14Table.innerHTML = c14Html;
                         } else {
@@ -163,7 +169,10 @@
                         if (site.periods.length > 0) {
                             let typoHtml = '';
                             site.periods.forEach(period => {
-                                typoHtml += `<tr><td>${period.name}</td><td>${period.reference}</td></tr>`;
+                                typoHtml += `<tr>
+                                    <td data-label="Classification">${period.name}</td>
+                                    <td data-label="References">${period.reference}</td>
+                                </tr>`;
                             });
                             typoTable.innerHTML = typoHtml;
                         } else {
