@@ -1,6 +1,6 @@
-# XRONOS Database Schema
+# RQpedia Database Schema
 
-This document outlines the database schema for the XRONOS project, as inferred from the application code and the official documentation at [xronos.ch/database](https://xronos.ch/database).
+This document outlines the database schema for the RQpedia project, as inferred from the application code and the official documentation at [database](./database).
 
 The schema is centered around the concept of an **archaeological object** (`arch_object`), which represents a dated artifact or sample with archaeological context.
 
