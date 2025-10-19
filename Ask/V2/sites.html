@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Sites</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">GeoSearch</div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="#">About</a>
+            <a href="#">Tools</a>
+            <a href="#">News</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="header-controls">
+            <h1>All Sites</h1>
+            <input type="text" id="search-input" placeholder="Search sites...">
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-sort-by="name">Name</th>
+                        <th data-sort-by="country">Country</th>
+                        <th data-sort-by="coordinates">Coordinates</th>
+                        <th data-sort-by="radiocarbonDates">Radiocarbon dates</th>
+                        <th data-sort-by="typologicalDates">Typological dates</th>
+                    </tr>
+                </thead>
+                <tbody id="sites-table-body">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-controls">
+            <button id="prev-page">Previous</button>
+            <span id="page-info"></span>
+            <button id="next-page">Next</button>
+        </div>
+    </div>
+    <script src="parser.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    let sites = [];
+    let filteredSites = [];
+    let currentSort = { column: 'name', order: 'asc' };
+    let currentPage = 1;
+    const rowsPerPage = 15;
+
+    const tableBody = document.getElementById('sites-table-body');
+    const searchInput = document.getElementById('search-input');
+    const pageInfo = document.getElementById('page-info');
+    const prevButton = document.getElementById('prev-page');
+    const nextButton = document.getElementById('next-page');
+    const headers = document.querySelectorAll('th[data-sort-by]');
+
+    fetch('output.json')
+        .then(response => response.json())
+        .then(data => {
+            sites = processData(data);
+            filteredSites = [...sites];
+            updateDisplay();
+        });
+
+    function processData(data) {
+        const sitesMap = new Map();
+        data.forEach(item => {
+            if (!sitesMap.has(item.site)) {
+                sitesMap.set(item.site, {
+                    name: item.site,
+                    country: item.country,
+                    lat: parseFloat(item.lat),
+                    lng: parseFloat(item.lng),
+                    radiocarbonDates: 0,
+                    typologicalDates: 0,
+                });
+            }
+            const site = sitesMap.get(item.site);
+            if (item.c14) {
+                const dates = parseMalformedJson(item.c14);
+                site.radiocarbonDates += dates.length;
+            } else {
+                const dates = parseMalformedJson(item.periods);
+                site.typologicalDates += dates.length;
+            }
+        });
+        return Array.from(sitesMap.values());
+    }
+
+    function renderTable() {
+        tableBody.innerHTML = '';
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedSites = filteredSites.slice(start, end);
+
+        paginatedSites.forEach(site => {
+            const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', () => {
+                window.location.href = `profile.html?id=${encodeURIComponent(site.name)}`;
+            });
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = site.name;
+            row.appendChild(nameCell);
+
+            const countryCell = document.createElement('td');
+            countryCell.textContent = site.country || 'N/A';
+            row.appendChild(countryCell);
+
+            const coordsCell = document.createElement('td');
+            coordsCell.textContent = `${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}`;
+            row.appendChild(coordsCell);
+
+            const radioCell = document.createElement('td');
+            radioCell.textContent = site.radiocarbonDates;
+            row.appendChild(radioCell);
+
+            const typoCell = document.createElement('td');
+            typoCell.textContent = site.typologicalDates;
+            row.appendChild(typoCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredSites.length / rowsPerPage);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function sortData() {
+        filteredSites.sort((a, b) => {
+            let aValue = a[currentSort.column];
+            let bValue = b[currentSort.column];
+
+            // Special handling for coordinates
+            if (currentSort.column === 'coordinates') {
+                aValue = a.lat;
+                bValue = b.lat;
+            }
+
+            if (typeof aValue === 'string') {
+                aValue = aValue.toLowerCase();
+                bValue = bValue.toLowerCase();
+            }
+
+            if (aValue < bValue) return currentSort.order === 'asc' ? -1 : 1;
+            if (aValue > bValue) return currentSort.order === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+
+    function updateDisplay() {
+        sortData();
+        renderTable();
+        updatePagination();
+        updateHeaderStyles();
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        filteredSites = sites.filter(site =>
+            site.name.toLowerCase().includes(searchTerm) ||
+            (site.country && site.country.toLowerCase().includes(searchTerm))
+        );
+        currentPage = 1;
+        updateDisplay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateDisplay();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredSites.length / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateDisplay();
+        }
+    });
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.dataset.sortBy;
+            if (currentSort.column === column) {
+                currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.order = 'asc';
+            }
+            currentPage = 1;
+            updateDisplay();
+        });
+    });
+
+    function updateHeaderStyles() {
+        headers.forEach(header => {
+            header.classList.remove('sort-asc', 'sort-desc');
+            if (header.dataset.sortBy === currentSort.column) {
+                header.classList.add(currentSort.order === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+        });
+    }
+});
+    </script>
+</body>
+</html>

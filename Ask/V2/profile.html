@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Profile</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">XRONOS</a>
+        </div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="#">About</a>
+            <a href="#">Tools</a>
+            <a href="#">News</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-button">Search</button>
+            <button class="signin-button">Sign in</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="site-header">
+            <h1 id="site-name"></h1>
+            <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+            <div class="site-meta">
+                Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                <a href="#changelog">See changelog for details.</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>Location</h2>
+            <table>
+                <tr>
+                    <th>Coordinates (degrees)</th>
+                    <td id="coords-deg"></td>
+                </tr>
+                <tr>
+                    <th>Coordinates (DMS)</th>
+                    <td id="coords-dms"></td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td id="country"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+
+        <div class="info-card">
+            <h2>Linked Data</h2>
+            <p>There is no linked data available for this record.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Lab ID</th>
+                        <th>Context</th>
+                        <th>Material</th>
+                        <th>Taxon</th>
+                        <th>Method</th>
+                        <th>Uncalibrated age</th>
+                        <th>Calibrated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Estimated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Bibliographic References</h2>
+            <div id="references-container"></div>
+        </div>
+
+        <div class="info-card" id="changelog">
+            <h2>Changelog</h2>
+            <div id="changelog-container"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="parser.js"></script>
+    <script src="profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const siteName = decodeURIComponent(urlParams.get('id'));
+            fetch('output.json')
+                .then(response => response.json())
+                .then(data => {
+                    renderProfilePage(siteName, data);
+                })
+                .catch(error => {
+                    console.error("Failed to load site data:", error);
+                    document.getElementById('site-name').textContent = "Error loading site data";
+                });
+        });
+    </script>
+</body>
+</html>
