@@ -61,6 +61,12 @@
     </script>
     <script>
         // Inlined profile.js
+        const referencesMap = {
+            "EUROEVOL (via CalPal)": "Manning, K., Timpson, A., Colledge, S., Crema, E., & Shennan, S. (2015). The Cultural Evolution of Neolithic Europe. EUROEVOL Dataset [Data set]. https://discovery.ucl.ac.uk/id/eprint/1469811/",
+            "CalPal2022": "Weninger, B. (2022). CalPal Edition 2022.9. Zenodo. https://doi.org/10.1016/j.quaint.2015.02.018",
+            "p3k14c": "Bird, D., Miranda, L., Vander Linden, M., Robinson, E., Bocinsky, R. K., Nicholson, C., Capriles, J. M., Finley, J. B., Gayo, E. M., Gil, A., d’Alpoim Guedes, J., Hoggarth, J. A., Kay, A., Loftus, E., Lombardo, U., Mackie, M., Palmisano, A., Solheim, S., Kelly, R. L., & Freeman, J. (2022). P3k14c, a Synthetic Global Database of Archaeological Radiocarbon Dates. Scientific Data, 9(1), 27. https://doi.org/10.1038/s41597-022-01118-7",
+            "PetitMaire.1993URL": "PetitMaire.1993URL"
+        };
         function renderProfilePage(siteName, data) {
             function toDMS(deg, isLat) {
                 let d = Math.floor(Math.abs(deg));
@@ -89,9 +95,9 @@
                     return;
                 }
                 const ul = document.createElement('ul');
-                references.forEach(ref => {
+                references.forEach(refKey => {
                     const li = document.createElement('li');
-                    li.textContent = ref;
+                    li.textContent = referencesMap[refKey] || refKey;
                     ul.appendChild(li);
                 });
                 container.appendChild(ul);
@@ -195,14 +201,14 @@
             "std": "50",
             "cal_bp_start": "950",
             "cal_bp_end": "1050",
-            "reference": "[{\\"reference\\": \\"Test Ref 1\\"}]",
+            "reference": "[{\\"reference\\": \\"EUROEVOL (via CalPal)\\"}]",
             "periods": "[{\\"periode\\": \\"Test Period\\"}]"
         }, {
             "site": "Test Site",
             "country": "TS",
             "lat": "12.345",
             "lng": "-67.890",
-            "reference": "[{\\"reference\\": \\"Test Ref 2\\"}]"
+            "reference": "[{\\"reference\\": \\"PetitMaire.1993URL\\"}]"
         }];
         function assert(condition, message) {
             const results = document.getElementById('test-results');
@@ -223,7 +229,7 @@
             assert(profileDOM.querySelector('#c14-table tbody').rows.length === 1, 'Radiocarbon dates table should have one row');
             assert(profileDOM.querySelector('#typo-table tbody').rows.length === 1, 'Typological dates table should have one row');
             const references = profileDOM.querySelector('#references-container').textContent;
-            assert(references.includes('Test Ref 1') && references.includes('Test Ref 2'), 'Bibliographic references should be correct');
+            assert(references.includes('Manning, K., Timpson, A., Colledge, S., Crema, E., & Shennan, S.'), 'Bibliographic references should be correct');
         }
         runTests();
     </script>
