@@ -99,13 +99,27 @@
             row.addEventListener('click', () => {
                 window.location.href = `profile.html?id=${encodeURIComponent(site.name)}`;
             });
-            row.innerHTML = `
-                <td>${site.name}</td>
-                <td>${site.country || 'N/A'}</td>
-                <td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td>
-                <td>${site.radiocarbonDates}</td>
-                <td>${site.typologicalDates}</td>
-            `;
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = site.name;
+            row.appendChild(nameCell);
+
+            const countryCell = document.createElement('td');
+            countryCell.textContent = site.country || 'N/A';
+            row.appendChild(countryCell);
+
+            const coordsCell = document.createElement('td');
+            coordsCell.textContent = `${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}`;
+            row.appendChild(coordsCell);
+
+            const radioCell = document.createElement('td');
+            radioCell.textContent = site.radiocarbonDates;
+            row.appendChild(radioCell);
+
+            const typoCell = document.createElement('td');
+            typoCell.textContent = site.typologicalDates;
+            row.appendChild(typoCell);
+
             tableBody.appendChild(row);
         });
     }
