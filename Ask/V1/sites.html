@@ -15,18 +15,14 @@
             --on-background: #334155;
             --outline: #cbd5e1;
             --shadow: rgba(0, 0, 0, 0.1);
-            --shadow-strong: rgba(0, 0, 0, 0.15);
             --divider: #e2e8f0;
-            --hover-bg: #dbeafe;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
-
         body {
             display: flex;
             flex-direction: column;
@@ -34,218 +30,302 @@
             background-color: var(--background);
             color: var(--on-background);
         }
-
         header {
             background: var(--surface);
-            color: var(--on-surface);
-            padding: 16px;
+            padding: 16px 32px;
             box-shadow: 0 2px 8px var(--shadow);
-            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
         }
-
         .logo {
             font-size: 1.75rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
-
         .nav-links {
             display: flex;
-            gap: 16px;
+            gap: 24px;
         }
-
         .nav-links a {
             color: var(--on-surface);
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
         }
-
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
             flex: 1;
         }
-
         .header-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 16px;
+            margin-bottom: 24px;
         }
-
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
         #search-input {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             padding: 12px 16px;
             border-radius: 24px;
             border: 1px solid var(--outline);
-            font-size: 0.95rem;
-            background: var(--surface);
+            font-size: 1rem;
         }
-
-        .sort-options {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        #sort-by {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--outline);
-        }
-
-        .sites-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .site-card {
+        .table-container {
+            overflow-x: auto;
             background: var(--surface);
             border: 1px solid var(--divider);
-            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px var(--shadow);
+            box-shadow: 0 2px 8px var(--shadow);
         }
-
-        .site-card h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--divider);
+            white-space: nowrap;
+        }
+        thead {
+            background-color: #f1f5f9;
+        }
+        th {
             font-weight: 500;
-            color: var(--primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--on-background);
+            cursor: pointer;
+        }
+        th.sort-asc::after,
+        th.sort-desc::after {
+            content: '';
+            display: inline-block;
+            margin-left: 8px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        th.sort-asc::after {
+            border-bottom: 5px solid var(--primary);
+        }
+        th.sort-desc::after {
+            border-top: 5px solid var(--primary);
+        }
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+        .pagination-controls button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--outline);
+            background: var(--surface);
+            cursor: pointer;
+        }
+        .pagination-controls button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">XRONOS</div>
-        <div class="nav-links">
+        <nav class="nav-links">
             <a href="sites.html">Browse data</a>
             <a href="#">About</a>
             <a href="#">Tools</a>
             <a href="#">News</a>
-        </div>
+        </nav>
     </header>
     <div class="container">
         <div class="header-controls">
             <h1>All Sites</h1>
-            <div class="controls">
-                <input type="text" id="search-input" placeholder="Search sites...">
-                <div class="sort-options">
-                    <label for="sort-by">Sort by:</label>
-                    <select id="sort-by">
-                        <option value="name-asc">Name (A-Z)</option>
-                        <option value="name-desc">Name (Z-A)</option>
-                        <option value="dates-desc">Number of Dates (High-Low)</option>
-                        <option value="dates-asc">Number of Dates (Low-High)</option>
-                    </select>
-                </div>
-            </div>
+            <input type="text" id="search-input" placeholder="Search sites...">
         </div>
-        <div id="sites-grid" class="sites-grid">
-            <!-- Site cards will be dynamically inserted here -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-sort-by="name">Name</th>
+                        <th data-sort-by="country">Country</th>
+                        <th data-sort-by="coordinates">Coordinates</th>
+                        <th data-sort-by="radiocarbonDates">Radiocarbon dates</th>
+                        <th data-sort-by="typologicalDates">Typological dates</th>
+                    </tr>
+                </thead>
+                <tbody id="sites-table-body">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-controls">
+            <button id="prev-page">Previous</button>
+            <span id="page-info"></span>
+            <button id="next-page">Next</button>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('output.json')
-                .then(response => response.json())
-                .then(data => {
-                    let sites = processData(data);
-                    const sitesGrid = document.getElementById('sites-grid');
-                    const searchInput = document.getElementById('search-input');
-                    const sortBy = document.getElementById('sort-by');
+    let sites = [];
+    let filteredSites = [];
+    let currentSort = { column: 'name', order: 'asc' };
+    let currentPage = 1;
+    const rowsPerPage = 15;
 
-                    function renderSites(sitesToRender) {
-                        sitesGrid.innerHTML = '';
-                        sitesToRender.forEach(site => {
-                            const card = document.createElement('div');
-                            card.className = 'site-card';
-                            card.innerHTML = `
-                                <h3>${site.name}</h3>
-                                <p><strong>Dates:</strong> ${site.dateCount}</p>
-                                <p><strong>Date Range:</strong> ${site.dateRange}</p>
-                                <p><strong>Periods:</strong> ${site.periods || 'N/A'}</p>
-                                <p><strong>Materials:</strong> ${site.materials || 'N/A'}</p>
-                            `;
-                            sitesGrid.appendChild(card);
-                        });
-                    }
+    const tableBody = document.getElementById('sites-table-body');
+    const searchInput = document.getElementById('search-input');
+    const pageInfo = document.getElementById('page-info');
+    const prevButton = document.getElementById('prev-page');
+    const nextButton = document.getElementById('next-page');
+    const headers = document.querySelectorAll('th[data-sort-by]');
 
-                    function sortSites() {
-                        const sortValue = sortBy.value;
-                        sites.sort((a, b) => {
-                            if (sortValue === 'name-asc') return a.name.localeCompare(b.name);
-                            if (sortValue === 'name-desc') return b.name.localeCompare(a.name);
-                            if (sortValue === 'dates-desc') return b.dateCount - a.dateCount;
-                            if (sortValue === 'dates-asc') return a.dateCount - b.dateCount;
-                        });
-                    }
+    fetch('output.json')
+        .then(response => response.json())
+        .then(data => {
+            sites = processData(data);
+            filteredSites = [...sites];
+            updateDisplay();
+        });
 
-                    function filterSites() {
-                        const searchTerm = searchInput.value.toLowerCase();
-                        return sites.filter(site => site.name.toLowerCase().includes(searchTerm));
-                    }
-
-                    function updateDisplay() {
-                        sortSites();
-                        const filteredSites = filterSites();
-                        renderSites(filteredSites);
-                    }
-
-                    searchInput.addEventListener('input', updateDisplay);
-                    sortBy.addEventListener('change', updateDisplay);
-
-                    updateDisplay();
-                });
-
-            function processData(data) {
-                const sitesMap = new Map();
-
-                data.forEach(item => {
-                    if (!sitesMap.has(item.site)) {
-                        sitesMap.set(item.site, {
-                            name: item.site,
-                            dates: [],
-                            periods: new Set(),
-                            materials: new Set(),
-                        });
-                    }
-
-                    const site = sitesMap.get(item.site);
-                    site.dates.push(item.bp);
-                    if (item.periods) {
-                        try {
-                            const periods = JSON.parse(item.periods);
-                            periods.forEach(p => site.periods.add(p.periode));
-                        } catch (e) { /* ignore parse error */ }
-                    }
-                    if (item.material) {
-                        site.materials.add(item.material);
-                    }
-                });
-
-                return Array.from(sitesMap.values()).map(site => {
-                    const dateCount = site.dates.length;
-                    const minDate = Math.min(...site.dates);
-                    const maxDate = Math.max(...site.dates);
-                    return {
-                        ...site,
-                        dateCount,
-                        dateRange: `${minDate} - ${maxDate} BP`,
-                        periods: Array.from(site.periods).join(', '),
-                        materials: Array.from(site.materials).join(', '),
-                    };
+    function processData(data) {
+        const sitesMap = new Map();
+        data.forEach(item => {
+            if (!sitesMap.has(item.site)) {
+                sitesMap.set(item.site, {
+                    name: item.site,
+                    country: item.country,
+                    lat: parseFloat(item.lat),
+                    lng: parseFloat(item.lng),
+                    radiocarbonDates: 0,
+                    typologicalDates: 0,
                 });
             }
+            const site = sitesMap.get(item.site);
+            if (item.c14) site.radiocarbonDates++;
+            else site.typologicalDates++;
         });
+        return Array.from(sitesMap.values());
+    }
+
+    function renderTable() {
+        tableBody.innerHTML = '';
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedSites = filteredSites.slice(start, end);
+
+        paginatedSites.forEach(site => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${site.name}</td>
+                <td>${site.country || 'N/A'}</td>
+                <td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td>
+                <td>${site.radiocarbonDates}</td>
+                <td>${site.typologicalDates}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredSites.length / rowsPerPage);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function sortData() {
+        filteredSites.sort((a, b) => {
+            let aValue = a[currentSort.column];
+            let bValue = b[currentSort.column];
+
+            // Special handling for coordinates
+            if (currentSort.column === 'coordinates') {
+                aValue = `${a.lat},${a.lng}`;
+                bValue = `${b.lat},${b.lng}`;
+            }
+
+            if (typeof aValue === 'string') {
+                aValue = aValue.toLowerCase();
+                bValue = bValue.toLowerCase();
+            }
+
+            if (aValue < bValue) return currentSort.order === 'asc' ? -1 : 1;
+            if (aValue > bValue) return currentSort.order === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+
+    function updateDisplay() {
+        sortData();
+        renderTable();
+        updatePagination();
+        updateHeaderStyles();
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        filteredSites = sites.filter(site =>
+            site.name.toLowerCase().includes(searchTerm) ||
+            (site.country && site.country.toLowerCase().includes(searchTerm))
+        );
+        currentPage = 1;
+        updateDisplay();
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateDisplay();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredSites.length / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateDisplay();
+        }
+    });
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.dataset.sortBy;
+            if (currentSort.column === column) {
+                currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.order = 'asc';
+            }
+            currentPage = 1;
+            updateDisplay();
+        });
+    });
+
+    function updateHeaderStyles() {
+        headers.forEach(header => {
+            header.classList.remove('sort-asc', 'sort-desc');
+            if (header.dataset.sortBy === currentSort.column) {
+                header.classList.add(currentSort.order === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+        });
+    }
+});
     </script>
 </body>
 </html>
