@@ -1,10 +1,3 @@
-const referencesMap = {
-    "EUROEVOL (via CalPal)": "Manning, K., Timpson, A., Colledge, S., Crema, E., & Shennan, S. (2015). The Cultural Evolution of Neolithic Europe. EUROEVOL Dataset [Data set]. https://discovery.ucl.ac.uk/id/eprint/1469811/",
-    "CalPal2022": "Weninger, B. (2022). CalPal Edition 2022.9. Zenodo. https://doi.org/10.1016/j.quaint.2015.02.018",
-    "p3k14c": "Bird, D., Miranda, L., Vander Linden, M., Robinson, E., Bocinsky, R. K., Nicholson, C., Capriles, J. M., Finley, J. B., Gayo, E. M., Gil, A., d’Alpoim Guedes, J., Hoggarth, J. A., Kay, A., Loftus, E., Lombardo, U., Mackie, M., Palmisano, A., Solheim, S., Kelly, R. L., & Freeman, J. (2022). P3k14c, a Synthetic Global Database of Archaeological Radiocarbon Dates. Scientific Data, 9(1), 27. https://doi.org/10.1038/s41597-022-01118-7",
-    "PetitMaire.1993URL": "PetitMaire.1993URL"
-};
-
 function renderProfilePage(siteName, data) {
     // Function to convert decimal degrees to DMS
     function toDMS(deg, isLat) {
@@ -37,9 +30,9 @@ function renderProfilePage(siteName, data) {
             return;
         }
         const ul = document.createElement('ul');
-        references.forEach(refKey => {
+        references.forEach(ref => {
             const li = document.createElement('li');
-            li.textContent = referencesMap[refKey] || refKey;
+            li.textContent = ref;
             ul.appendChild(li);
         });
         container.appendChild(ul);
