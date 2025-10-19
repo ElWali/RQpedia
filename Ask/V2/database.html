@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XRONOS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://xronos.ch/assets/application-1542f77433224794101e12738d2f1f58.css" media="all" />
+    <script src="https://xronos.ch/assets/application-15223a492f588118f6f1c25146ed4e32.js"></script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg sticky-top bg-light">
+     <div class="container">
+       <a class="navbar-brand" href="https://xronos.ch/"><img alt="XRONOS" style="max-height: 2rem;" src="https://xronos.ch/assets/xronos_logo_light-d276f1c7.svg" /></a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+           <li class="nav-item">
+             <a class="nav-link" href="https://xronos.ch/data">Browse data</a>
+           </li>
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               About
+             </a>
+             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <li><a class="dropdown-item" href="https://xronos.ch/about/contact">Contact us</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/about/acknowledgements">Acknowledgements</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/about/disclaimer">Disclaimer</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/about/research">Research</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/about/xronos">What is XRONOS?</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/about/contribute">Contribute</a></li>
+             </ul>
+           </li>
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Tools
+             </a>
+             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <li><a class="dropdown-item active" href="https://xronos.ch/database">Schema</a></li>
+               <li><a class="dropdown-item" href="https://xronos.ch/api">API</a></li>
+               <li><a class="dropdown-item" href="https://r.xronos.ch">R package</a></li>
+             </ul>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="https://xronos.ch/news">News</a>
+           </li>
+         </ul>
+         <div class="d-flex">
+             <form class="me-1" action="https://xronos.ch/data" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" />
+               <div class="input-group">
+                 <input type="text" name="q" id="q" value="" class="form-control form-control-sm" />
+                 <input type="submit" name="commit" value="Search" class="btn btn-primary btn-sm" data-disable-with="Search" />
+               </div>
+</form>
+             <div class="nav-item dropdown">
+               <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i class="bi-box-arrow-in-right"></i> Sign in
+               </button>
+               <div class="dropdown-menu dropdown-menu-end p-4 text-muted" style="min-width: 300px" aria-labelledby="dropdownMenuButton1">
+                 <form class="form-horizontal" action="https://xronos.ch/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" />
+                   <div class="form-group mb-2">
+                     <label class="sr-only col-form-label col-form-label-sm" for="user_email">Email</label>
+                     <div class="input-group">
+                       <div class="input-group-text" style="width: 35px;"><i class="bi-envelope-fill"></i></div>
+                       <input class="form-control form-control-sm" placeholder="email" autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email" />
+                     </div>
+                   </div>
+                   <div class="form-group">
+                     <label class="sr-only col-form-label col-form-label-sm" for="user_password">Password</label>
+                     <div class="input-group">
+                       <div class="input-group-text" style="width: 35px;"><i class="bi-key-fill"></i></div>
+                       <input class="form-control form-control-sm" placeholder="password" type="password" name="user[password]" id="user_password" />
+                     </div>
+                   </div>
+                   <div class="form-check" style="display: inline-block;">
+                     <input name="user[remember_me]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input form-check-input-sm" type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
+                     <label class="form-check-label col-form-label-sm" for="user_remember_me">Remember me</label>
+                   </div>
+                   <input type="submit" name="commit" value="Sign in" class="btn btn-primary btn-sm pull-right" data-disable-with="Sign in" />
+</form>                 <!-- <div class="dropdown-divider"></div>
+                   <a class="dropdown-item" href="/users/password/new">Forgot your password?</a>
+                   <a class="dropdown-item" href="/users/sign_up">New around here? Sign up</a> -->
+               </div>
+             </div>
+         </div>
+       </div>
+     </div>
+</nav>
+
+
+    <div class="container">
+  <div class="row m-3">
+
+    <div class="col">
+
+      <h1>Database</h1>
+
+      <hr>
+
+      <p>
+      The general logic of the xronos.rails database is best understood from the perspective of the
+      <b>arch_object</b> entity. <b>Archaeological objects</b> are dated artefacts or samples with
+      archaeological context information.
+      </p>
+
+      <!-- #### Links to models #### -->
+      <svg height="190px" width="100%" xmlns:xlink=“http://www.w3.org/1999/xlink">
+        <!-- 1 -->
+        <a xlink:href="https://xronos.ch/database/arch_objects"><text transform="rotate(-90, 100, 100)" x="80" y="10" fill="#000">arch_object</text></a>
+        <!-- 2 -->
+        <a xlink:href="https://xronos.ch/database/samples"><text x="30" y="15" fill="#000">sample</text></a>
+        <a xlink:href="https://xronos.ch/database/site_phases"><text x="30" y="60" fill="#000">site_phase</text></a>
+        <a xlink:href="https://xronos.ch/database/on_site_object_positions"><text x="30" y="150" fill="#000">on_site</text></a>
+        <a xlink:href="https://xronos.ch/database/materials"><text x="30" y="165" fill="#000">material</text></a>
+        <a xlink:href="https://xronos.ch/database/species"><text x="30" y="180" fill="#000">species</text></a>
+        <!-- 3 -->
+        <a xlink:href="https://xronos.ch/database/measurements"><text x="120" y="15" fill="#000">meas</text></a>
+        <a xlink:href="https://xronos.ch/database/sites"><text x="120" y="60" fill="#000">site</text></a>
+        <a xlink:href="https://xronos.ch/database/site_types"><text x="120" y="90" fill="#000">site_t</text></a>
+        <a xlink:href="https://xronos.ch/database/periods"><text x="120" y="105" fill="#000">period</text></a>
+        <a xlink:href="https://xronos.ch/database/typochronological_units"><text x="120" y="120" fill="#000">typo</text></a>
+        <a xlink:href="https://xronos.ch/database/ecochronological_units"><text x="120" y="135" fill="#000">eco</text></a>
+        <a xlink:href="https://xronos.ch/database/feature_types"><text x="120" y="150" fill="#000">feature_t</text></a>
+        <!-- 4 -->
+        <a xlink:href="https://xronos.ch/database/c14_measurements"><text x="210" y="15" fill="#000">c14_meas</text></a>
+        <a xlink:href="https://xronos.ch/database/references"><text x="210" y="30" fill="#000">reference</text></a>
+        <a xlink:href="https://xronos.ch/database/labs"><text x="210" y="45" fill="#000">lab</text></a>
+        <a xlink:href="https://xronos.ch/database/countries"><text x="210" y="60" fill="#000">country</text></a>
+        <a xlink:href="https://xronos.ch/database/fell_phases"><text x="210" y="75" fill="#000">fell_phase</text></a>
+        <!-- vlines: left to right-->
+        <line y1="0"   x1="20"  y2="175" x2="20"  stroke-width="0.5" stroke="#000"/>
+        <line y1="0"   x1="110" y2="139" x2="110" stroke-width="0.5" stroke="#000"/>
+        <line y1="0"   x1="200" y2="79"  x2="200" stroke-width="0.5" stroke="#000"/>
+        <!-- hlines: top to bottom -->
+        <line y1="19"  x1="200" y2="19"  x2="290" stroke-width="0.5" stroke="#000"/>
+        <line y1="34"  x1="200" y2="34"  x2="290" stroke-width="0.5" stroke="#000"/>
+        <line y1="49"  x1="20"  y2="49"  x2="290" stroke-width="0.5" stroke="#000"/>
+        <line y1="64"  x1="200" y2="64"  x2="290" stroke-width="0.5" stroke="#000"/>
+        <line y1="79"  x1="110" y2="79"  x2="290" stroke-width="0.5" stroke="#000"/>
+        <line y1="94"  x1="110" y2="94"  x2="200" stroke-width="0.5" stroke="#000"/>
+        <line y1="109" x1="110" y2="109" x2="200" stroke-width="0.5" stroke="#000"/>
+        <line y1="124" x1="110" y2="124" x2="200" stroke-width="0.5" stroke="#000"/>
+        <line y1="139" x1="20"  y2="139" x2="200" stroke-width="0.5" stroke="#000"/>
+        <line y1="154" x1="20"  y2="154" x2="200" stroke-width="0.5" stroke="#000"/>
+        <line y1="169" x1="20"  y2="169" x2="110" stroke-width="0.5" stroke="#000"/>
+      </svg>
+
+      <p>
+      The database was modelled with an Entity Relationship (ER) diagram:
+      </p>
+
+      <img width="100%" src="https://xronos.ch/assets/xronos_erd-1c804ede.png" />
+
+      Some help on how to read this chart:
+
+      <ul>
+        <li>Boxes: Entity. An entity is a class of objects in the real world (e.g. *archaeological sites*)
+          that can be described with a set of attributes (e.g. *name, number of documented houses, spatial
+          position*). All entities will become tables in database.</li>
+        <li>Diamonds: Relationship. Relationships describe the relations and interaction of entities
+          (e.g. the *radiocarbon laboratory* is linked to the *sample* via the process of *measurement*).
+          Some relationships have additional arguments (the *measurement* produces a *labnr*, happens at
+          a certain *time* and has a specific *price* tag). Some relationships will become tables in the
+          database, others won't. That depends on the nature of the relationship.</li>
+        <li>Lines: Lines connect entities and relationships. Each line has a label to describe the amount
+          of objects within an entity that can or have to be part of that relationship. Some examples:
+          *(0,\*)*: Zero or many objects can be part of that that relationship. *(1,1)*: Exactly one object
+          can be part of that relationship. That also implies that each object has to have exactly one
+          partner in this specific relationship. *(0,1)*: Each object linked to the relationship has zero or
+          one partner within the other linked entity. </li>
+      </ul>
+
+      <p>
+      The source file for this visualisation can be found here:
+      <a href="https://github.com/xronos-ch/xronos.rails/blob/master/xronos_structure/xronos_erd.dia">xronos_erd.dia</a>
+      (this file can be opened and edited with the diagram editor software <a href="http://dia-installer.de/">Dia</a>)
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+    <footer class="mt-auto pb-3 text-bg-dark">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6 mt-5 mb-5">
+            <img alt="XRONOS" class="mt-3 mb-3" style="max-height: 3rem;" src="https://xronos.ch/assets/xronos_logo_light-d276f1c7.svg" />
+            <p class="mt-0 mb-3">XRONOS is an open repository and curation platform for chronometric data from archaeological contexts worldwide.</p>
+
+            <div class="row mt-5">
+              <div class="col"><a href="https://www.snf.ch"><img alt="Swiss National Science Foundation (SNF)" style="max-height: 3rem;" src="https://xronos.ch/assets/sponsors/snf-afb0c4aa.webp" /></a></div>
+              <div class="col"><a href="https://www.unibe.ch"><img alt="University of Bern" style="max-height: 3rem;" src="https://xronos.ch/assets/sponsors/unibe-d38c4933.webp" /></a></div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3 mt-md-5 text-md-end">
+            <h1 class="h6 mt-3 fw-bold text-uppercase">Data</h6>
+            <ul class="nav flex-column mb-3">
+              <li class="nav-item"><a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/data">Browser</a></li>
+              <li class="nav-item"><a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/database">Schema</a></li>
+              <li class="nav-item"><a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/api">API</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-3 mt-md-5 text-md-end">
+            <h1 class="h6 mt-3 fw-bold text-uppercase">About</h6>
+            <ul class="nav flex-column mb-3">
+                <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/contact">
+      Contact us
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/acknowledgements">
+      Acknowledgements
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/disclaimer">
+      Disclaimer
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/research">
+      Research
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/xronos">
+      What is XRONOS?
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ps-0 pe-0 link-light" href="https://xronos.ch/about/contribute">
+      Contribute
+    </a>
+  </li>
+
+            </ul>
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <div class="col-md-9">
+            <small class="rights">This work is licensed under a <a class="link-light" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</small>
+          </div>
+          <div class="col-md-3 text-md-end">
+            <small class="source-code">
+              <a class="link-light" href="https://github.com/xronos-ch/xronos.rails/"><span class="fa fa-github fa-lg me-1"></span>View source on GitHub</a>
+            </small>
+
+          </div>
+
+        </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
