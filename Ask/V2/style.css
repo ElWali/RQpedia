@@ -136,8 +136,14 @@ header {
     padding: 16px 20px;
     border-bottom: 1px solid var(--divider);
     white-space: normal;
-    word-break: break-all;
+    word-break: break-word;
 }
+
+#sites-table th:nth-child(1), #sites-table td:nth-child(1) { width: 30%; }
+#sites-table th:nth-child(2), #sites-table td:nth-child(2) { width: 20%; }
+#sites-table th:nth-child(3), #sites-table td:nth-child(3) { width: 25%; }
+#sites-table th:nth-child(4), #sites-table td:nth-child(4) { width: 12.5%; }
+#sites-table th:nth-child(5), #sites-table td:nth-child(5) { width: 12.5%; }
 
 .table thead {
     background-color: #f1f5f9;
