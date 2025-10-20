@@ -145,6 +145,20 @@ header {
 #sites-table th:nth-child(4), #sites-table td:nth-child(4) { width: 12.5%; }
 #sites-table th:nth-child(5), #sites-table td:nth-child(5) { width: 12.5%; }
 
+/* Profile page table column widths */
+#c14-table th:nth-child(1), #c14-table td:nth-child(1) { width: 10%; }
+#c14-table th:nth-child(2), #c14-table td:nth-child(2) { width: 15%; }
+#c14-table th:nth-child(3), #c14-table td:nth-child(3) { width: 10%; }
+#c14-table th:nth-child(4), #c14-table td:nth-child(4) { width: 10%; }
+#c14-table th:nth-child(5), #c14-table td:nth-child(5) { width: 10%; }
+#c14-table th:nth-child(6), #c14-table td:nth-child(6) { width: 15%; }
+#c14-table th:nth-child(7), #c14-table td:nth-child(7) { width: 15%; }
+#c14-table th:nth-child(8), #c14-table td:nth-child(8) { width: 15%; }
+
+#typo-table th:nth-child(1), #typo-table td:nth-child(1) { width: 40%; }
+#typo-table th:nth-child(2), #typo-table td:nth-child(2) { width: 30%; }
+#typo-table th:nth-child(3), #typo-table td:nth-child(3) { width: 30%; }
+
 .table thead {
     background-color: #f1f5f9;
 }
