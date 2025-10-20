@@ -188,6 +188,18 @@
       background-color: var(--hover-bg);
     }
 
+    .results-banner {
+        padding: 8px 12px;
+        background-color: var(--success-bg);
+        border: 1px solid var(--success-border);
+        color: var(--success);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        margin-top: 8px;
+        text-align: center;
+        display: none; /* Hidden by default */
+    }
+
     @keyframes blink {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
@@ -390,6 +402,7 @@
                 <div class="loading-indicator"><span class="spinner">●●●</span></div>
                 <div id="autocomplete-results"></div>
             </div>
+            <div id="results-banner" class="results-banner"></div>
         </div>
     </header>
 
@@ -451,6 +464,7 @@
         const infoCoordsEl = document.getElementById('info-coords');
         const copyCoordsBtn = document.getElementById('copy-coords-btn');
         const shareViewBtn = document.getElementById('share-view-btn');
+        const resultsBannerEl = document.getElementById('results-banner');
 
         let currentMarker = null;
         let currentCoords = null;
@@ -535,6 +549,7 @@
 
         function hideAutocomplete() {
             autocompleteResults.style.display = 'none';
+            resultsBannerEl.style.display = 'none';
         }
 
         function selectPlace(place) {
@@ -556,10 +571,16 @@
                 hideAutocomplete();
                 return;
             }
-            const filtered = allPlaces
-        .filter(p => p.site.toLowerCase().includes(query.toLowerCase()))
-                .slice(0, 5);
-            renderSuggestions(filtered);
+            const filtered = allPlaces.filter(p => p.site.toLowerCase().includes(query.toLowerCase()));
+
+            if (filtered.length > 0) {
+                resultsBannerEl.textContent = `Found ${filtered.length} matching sites.`;
+                resultsBannerEl.style.display = 'block';
+            } else {
+                resultsBannerEl.style.display = 'none';
+            }
+
+            renderSuggestions(filtered.slice(0, 5));
         }
 
         function handleManualSearch() {
