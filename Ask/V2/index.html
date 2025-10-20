@@ -462,13 +462,14 @@
 
     async function loadData() {
       try {
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error('data.json not found or invalid');
+        const response = await fetch('output.json');
+        if (!response.ok) throw new Error('output.json not found or invalid');
         allPlaces = await response.json();
-        if (!Array.isArray(allPlaces)) throw new Error('data.json must be an array of places');
+        if (!Array.isArray(allPlaces)) throw new Error('output.json must be an array of places');
+        document.dispatchEvent(new CustomEvent('dataLoaded'));
       } catch (err) {
-        console.error('Failed to load data.json:', err);
-        statusMessageEl.innerHTML = '⚠️ Error loading <code>data.json</code>. Make sure it exists in the same folder.';
+        console.error('Failed to load output.json:', err);
+        statusMessageEl.innerHTML = '⚠️ Error loading <code>output.json</code>. Make sure it exists in the same folder.';
         statusMessageEl.style.color = '#dc2626';
       }
     }
