@@ -679,9 +679,23 @@
         });
 
         window.addEventListener('resize', () => map.invalidateSize());
+        function showAllMarkers() {
+            allPlaces.forEach(place => {
+                if (place.lat && place.lon) {
+                    const marker = L.marker([place.lat, place.lon]).addTo(searchResultLayer);
+                    marker.bindPopup(`<b>${place.site}</b><br>ID: ${place.id}<br>Lab Nr: ${place.labnr}`);
+                    marker.on('click', () => {
+                        showPlaceInfo(place);
+                        map.setView([place.lat, place.lon], 10);
+                    });
+                }
+            });
+        }
+
         window.addEventListener('load', async () => {
             await loadData();
             parseHash();
+            showAllMarkers();
             map.invalidateSize();
         });
     </script>
