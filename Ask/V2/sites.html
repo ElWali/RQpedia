@@ -4,46 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Sites</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header>
-        <div class="logo">GeoSearch</div>
+        <div class="logo">
+            <a href="index.html">RQpedia</a>
+        </div>
         <nav class="nav-links">
             <a href="sites.html">Browse data</a>
             <a href="#">About</a>
-            <a href="#">Tools</a>
-            <a href="#">News</a>
+            <a href="#">Contribute</a>
+            <a href="#">Contact</a>
         </nav>
+        <div class="header-actions">
+            <button class="search-button">Search</button>
+            <button class="signin-button">Donate</button>
+        </div>
     </header>
-    <div class="container">
-        <div class="header-controls">
-            <h1>All Sites</h1>
-            <input type="text" id="search-input" placeholder="Search sites...">
+    <main class="container">
+        <div class="info-card">
+            <h2>All Sites</h2>
+            <div class="header-controls">
+                <input type="text" id="search-input" placeholder="Search sites...">
+            </div>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th data-sort-by="name">Name</th>
+                            <th data-sort-by="country">Country</th>
+                            <th data-sort-by="coordinates">Coordinates</th>
+                            <th data-sort-by="radiocarbonDates">Radiocarbon dates</th>
+                            <th data-sort-by="typologicalDates">Typological dates</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sites-table-body">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-controls">
+                <button id="prev-page">Previous</button>
+                <span id="page-info"></span>
+                <button id="next-page">Next</button>
+            </div>
         </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th data-sort-by="name">Name</th>
-                        <th data-sort-by="country">Country</th>
-                        <th data-sort-by="coordinates">Coordinates</th>
-                        <th data-sort-by="radiocarbonDates">Radiocarbon dates</th>
-                        <th data-sort-by="typologicalDates">Typological dates</th>
-                    </tr>
-                </thead>
-                <tbody id="sites-table-body">
-                    <!-- Data will be inserted here -->
-                </tbody>
-            </table>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
         </div>
-        <div class="pagination-controls">
-            <button id="prev-page">Previous</button>
-            <span id="page-info"></span>
-            <button id="next-page">Next</button>
-        </div>
-    </div>
+    </footer>
+
+
     <script src="parser.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
