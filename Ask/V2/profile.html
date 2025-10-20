@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Profile</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">RQpedia</a>
+        </div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="about.html">About</a>
+            <a href="contribute.html">Contribute</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-button">Search</button>
+            <button class="signin-button">Donate</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="site-header">
+            <h1 id="site-name"></h1>
+            <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+            <div class="site-meta">
+                Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                <a href="#changelog">See changelog for details.</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>Location</h2>
+            <table>
+                <tr>
+                    <th>Coordinates (degrees)</th>
+                    <td id="coords-deg"></td>
+                </tr>
+                <tr>
+                    <th>Coordinates (DMS)</th>
+                    <td id="coords-dms"></td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td id="country"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+
+        <div class="info-card" id="linked-data-section">
+            <h2>Linked Data</h2>
+            <div id="linked-data-content">
+                <p>Loading linked open data...</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Lab ID</th>
+                        <th>Context</th>
+                        <th>Material</th>
+                        <th>Taxon</th>
+                        <th>Method</th>
+                        <th>Uncalibrated age</th>
+                        <th>Calibrated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Estimated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Bibliographic References</h2>
+            <div id="references-container"></div>
+        </div>
+
+        <div class="info-card" id="changelog">
+            <h2>Open data related to the archaeological site</h2>
+            <p>Display open data related to the archaeological site fetched automatically from Wikimedia Commons, Wikidata and other open data sources (images, videos, ...)</p>
+            <div id="changelog-container"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+            <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="parser.js"></script>
+    <script src="profile.js"></script>
+    <script>
+        // Helper: Convert Wikidata entity to HTML
+        function renderWikidataEntity(entity) {
+            const id = entity.id;
+            const label = entity.labels?.en?.value || entity.labels?.Object?.value || id;
+            const description = entity.descriptions?.en?.value || '';
+            const url = `https://www.wikidata.org/wiki/${id}`;
+
+            let html = `<div class="linked-item"><h4><a href="${url}" target="_blank">${label}</a></h4>`;
+            if (description) html += `<p>${description}</p>`;
+            
+            // Try to get image (P18)
+            if (entity.claims?.P18) {
+                const imageName = entity.claims.P18[0].mainsnak.datavalue.value;
+                // Wikimedia Commons image URL (escaped)
+                const imageUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(imageName)}`;
+                html += `<img src="${imageUrl}" alt="${label}" style="max-width:200px; margin-top:8px;">`;
+            }
+            html += '</div>';
+            return html;
+        }
+
+        // Fetch linked data from Wikidata
+        async function fetchLinkedData(siteName, wikidataId = null) {
+            const container = document.getElementById('linked-data-content');
+            try {
+                let url;
+                if (wikidataId && wikidataId.startsWith('Q')) {
+                    // Direct fetch by QID
+                    url = `https://www.wikidata.org/wiki/Special:EntityData/${wikidataId}.json`;
+                } else {
+                    // Search by site name
+                    const searchUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(siteName)}&language=en&limit=1&format=json&origin=*`;
+                    const searchRes = await fetch(searchUrl);
+                    const searchData = await searchRes.json();
+                    if (!searchData.search || searchData.search.length === 0) {
+                        throw new Error('No results');
+                    }
+                    const qid = searchData.search[0].id;
+                    url = `https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`;
+                }
+
+                const res = await fetch(url);
+                const data = await res.json();
+                const entity = data.entities[Object.keys(data.entities)[0]];
+
+                if (entity) {
+                    container.innerHTML = renderWikidataEntity(entity);
+                } else {
+                    throw new Error('Entity not found');
+                }
+            } catch (error) {
+                console.warn('Failed to load linked data:', error);
+                container.innerHTML = '<p>No linked open data found for this site.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const siteName = decodeURIComponent(urlParams.get('id'));
+            fetch('output.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Render main profile (assumed to be in profile.js)
+                    renderProfilePage(siteName, data);
+
+                    // Extract Wikidata ID if available (assumes data structure like data[siteName].wikidata_id)
+                    const siteData = data[siteName] || {};
+                    const wikidataId = siteData.wikidata_id || null;
+
+                    // Fetch and populate linked data
+                    fetchLinkedData(siteName, wikidataId);
+                })
+                .catch(error => {
+                    console.error("Failed to load site data:", error);
+                    document.getElementById('site-name').textContent = "Error loading site data";
+                    document.getElementById('linked-data-content').innerHTML = '<p>Could not load linked data.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
