@@ -469,6 +469,7 @@
         let currentMarker = null;
         let currentCoords = null;
         let allPlaces = [];
+        const searchResultLayer = L.layerGroup().addTo(map);
 
         async function loadData() {
             try {
@@ -476,7 +477,7 @@
                 if (!response.ok) throw new Error('output.json not found or invalid');
                 allPlaces = await response.json();
                 if (!Array.isArray(allPlaces)) throw new Error('output.json must be an array of places');
-                document.dispatchEvent(new CustomEvent('dataLoaded'));
+                window.dispatchEvent(new CustomEvent('dataLoaded'));
             } catch (err) {
                 console.error('Failed to load output.json:', err);
                 statusMessageEl.innerHTML = '⚠️ Error loading <code>output.json</code>. Make sure it exists in the same folder.';
@@ -558,6 +559,7 @@
             hideAutocomplete();
             searchInput.blur();
             clearMarker();
+            searchResultLayer.clearLayers();
 
             const lat = parseFloat(place.lat);
             const lon = parseFloat(place.lon);
@@ -579,6 +581,16 @@
             } else {
                 resultsBannerEl.style.display = 'none';
             }
+
+            searchResultLayer.clearLayers();
+            filtered.forEach(place => {
+                const marker = L.marker([place.lat, place.lon]).addTo(searchResultLayer);
+                marker.bindPopup(place.site);
+                marker.on('click', () => {
+                    showPlaceInfo(place);
+                    map.setView([place.lat, place.lon], 10);
+                });
+            });
 
             renderSuggestions(filtered.slice(0, 5));
         }
