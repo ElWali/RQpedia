@@ -29,6 +29,7 @@
             <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
             <div class="site-meta">
                 Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                <a href="#changelog">See changelog for details.</a>
             </div>
         </div>
 
@@ -51,6 +52,11 @@
         </div>
 
         <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+
+        <div class="info-card">
+            <h2>Linked Data</h2>
+            <p>There is no linked data available for this record.</p>
+        </div>
 
         <div class="info-card">
             <h2>Radiocarbon Dates</h2>
@@ -94,6 +100,7 @@
 
         <div class="info-card" id="changelog">
             <h2>Open data related to the archaeological site</h2>
+            <p>display open data related to the archaeological site fetched automatically from Wikimedia Commons Wikidata and other open data sources ( images videos ...)</p>
             <div id="changelog-container"></div>
         </div>
     </main>
@@ -112,63 +119,17 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const siteId = urlParams.get('id');
+            const siteName = decodeURIComponent(urlParams.get('id'));
             fetch('output.json')
                 .then(response => response.json())
                 .then(data => {
-                    const siteRecord = data.find(r => r.id === siteId);
-                    if (siteRecord) {
-                        const siteName = siteRecord.site;
-                        renderProfilePage(siteName, data);
-                        fetchOpenData(siteName);
-                    } else {
-                         document.getElementById('site-name').textContent = "Site not found";
-                    }
+                    renderProfilePage(siteName, data);
                 })
                 .catch(error => {
                     console.error("Failed to load site data:", error);
                     document.getElementById('site-name').textContent = "Error loading site data";
                 });
         });
-
-        function fetchOpenData(siteName) {
-            const openDataContainer = document.getElementById('changelog-container');
-            const searchUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(siteName)}&language=en&format=json&origin=*`;
-
-            fetch(searchUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.search && data.search.length > 0) {
-                        const entityId = data.search[0].id;
-                        return fetch(`https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=claims&format=json&origin=*`);
-                    } else {
-                        openDataContainer.innerHTML = '<p>No open data found for this site.</p>';
-                        throw new Error('No Wikidata entity found for this site.');
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const entityId = Object.keys(data.entities)[0];
-                    const claims = data.entities[entityId].claims;
-                    if (claims.P18) {
-                        const imageName = claims.P18[0].mainsnak.datavalue.value;
-                        const imageUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${imageName}`;
-                        const imgElement = document.createElement('img');
-                        imgElement.src = imageUrl;
-                        imgElement.style.maxWidth = '100%';
-                        openDataContainer.appendChild(imgElement);
-                    } else {
-                        openDataContainer.innerHTML = '<p>No open data found for this site.</p>';
-                    }
-                })
-                .catch(error => {
-                    // This will catch the "No Wikidata entity" error and prevent it from being logged to the console.
-                    if (error.message !== 'No Wikidata entity found for this site.') {
-                        console.error('Error fetching open data:', error);
-                        openDataContainer.innerHTML = '<p>There was an error fetching open data.</p>';
-                    }
-                });
-        }
     </script>
 </body>
 </html>
