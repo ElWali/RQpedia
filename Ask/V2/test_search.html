@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test for Search Functionality</title>
+    <style>
+        body { font-family: sans-serif; }
+        #test-results { margin-top: 20px; border: 1px solid #ccc; padding: 10px; }
+        .success { color: green; }
+        .failure { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test for Search Functionality</h1>
+    <p>This page tests whether the search input on <code>index.html</code> correctly filters data and displays the result count.</p>
+    <iframe id="test-frame" src="index.html" style="width: 100%; height: 500px; border: 1px solid #ccc;"></iframe>
+    <div id="test-results">
+        <h2>Test Results</h2>
+        <p id="test-status">Running test...</p>
+    </div>
+    <script>
+        document.getElementById('test-frame').addEventListener('load', () => {
+            const iframeWindow = document.getElementById('test-frame').contentWindow;
+            const iframeDocument = iframeWindow.document;
+            const testStatus = document.getElementById('test-status');
+
+            iframeWindow.addEventListener('dataLoaded', () => {
+                const searchInput = iframeDocument.getElementById('search-input');
+                const resultsBanner = iframeDocument.getElementById('results-banner');
+
+                // Simulate user input
+                searchInput.value = 'ifri';
+                searchInput.dispatchEvent(new iframeWindow.Event('input'));
+
+                // Check the results banner
+                setTimeout(() => {
+                    const expectedText = 'Found 325 matching sites.';
+                    if (resultsBanner.style.display === 'block' && resultsBanner.textContent === expectedText) {
+                        testStatus.textContent = 'Test PASSED: The results banner is visible and displays the correct count.';
+                        testStatus.className = 'success';
+                    } else {
+                        testStatus.textContent = `Test FAILED: The results banner is incorrect. Expected "${expectedText}", but got "${resultsBanner.textContent}" and display is "${resultsBanner.style.display}".`;
+                        testStatus.className = 'failure';
+                    }
+                }, 1000); // Wait for the search to process
+            });
+
+            setTimeout(() => {
+                if (testStatus.className !== 'success') {
+                    testStatus.textContent = 'Test FAILED: The dataLoaded event was not fired.';
+                    testStatus.className = 'failure';
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
