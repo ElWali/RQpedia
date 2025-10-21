@@ -136,23 +136,38 @@
                 ? str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '<', '>': '>', '"': '&quot;', "'": '&#039;' }[m]))
                 : '';
 
-        function createLinkedDataCard(source, title, description = '', imageUrl = '', url = '#') {
+        function createLinkedDataEntry(source, title, url, iconClass) {
             const safeTitle = escapeHtml(title);
-            const safeDesc = escapeHtml(description || '');
-            const safeImg = imageUrl ? escapeHtml(imageUrl) : '';
             const safeUrl = escapeHtml(url);
+            const sourceName = escapeHtml(source);
+            return `
+                <div class="linked-data-item">
+                    <div class="linked-data-icon"><i class="bi ${iconClass}"></i></div>
+                    <div>
+                        <div class="linked-data-source">${sourceName}</div>
+                        <a href="${safeUrl}" target="_blank" rel="noopener" class="linked-data-link">${safeTitle}</a>
+                    </div>
+                </div>
+            `;
+        }
 
-            let card = `<div style="margin-bottom: 16px; padding: 16px; border: 1px solid var(--divider); border-radius: 8px; background: var(--surface);">`;
-            if (safeImg) {
-                card += `<img src="${safeImg}" alt="${safeTitle}" style="width:100%; height:160px; object-fit:cover; border-radius: 4px; margin-bottom: 12px;" loading="lazy">`;
+        async function fetchWikipediaAbstract(pageTitle) {
+            try {
+                const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`, {
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!res.ok) return null;
+                const data = await res.json();
+                return {
+                    source: 'Wikipedia',
+                    title: data.title,
+                    description: data.extract,
+                    url: data.content_urls.desktop.page
+                };
+            } catch (e) {
+                console.warn('Wikipedia abstract fetch failed:', e);
+                return null;
             }
-            card += `<h3 style="font-size: 1.1rem; font-weight: 500; margin: 0 0 8px;">${safeTitle} <span style="font-size: 0.75rem; background: var(--divider); padding: 2px 6px; border-radius: 4px; color: var(--on-background);">${escapeHtml(source)}</span></h3>`;
-            if (safeDesc) {
-                card += `<p style="font-size: 0.95rem; color: var(--on-background); margin: 0 0 12px;">${safeDesc}</p>`;
-            }
-            card += `<a href="${safeUrl}" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-weight: 500; font-size: 0.9rem;">View on ${escapeHtml(source)}</a>`;
-            card += `</div>`;
-            return card;
         }
 
         async function fetchWikidata(siteName, wikidataId = null) {
@@ -237,26 +252,45 @@
             container.innerHTML = '<p style="color: #64748b;">Loading linked open data…</p>';
 
             try {
-                const [wd, db] = await Promise.all([fetchWikidata(siteName, wikidataId), fetchDBpedia(siteName)]);
-                const cards = [];
+                const [wd, db, wiki] = await Promise.all([
+                    fetchWikidata(siteName, wikidataId),
+                    fetchDBpedia(siteName),
+                    fetchWikipediaAbstract(siteName)
+                ]);
+
+                const entries = [];
+                let summaryHtml = '';
+
+                if (wiki && wiki.description) {
+                    summaryHtml = `
+                        <div class="linked-data-summary">
+                            <p>${escapeHtml(wiki.description)}</p>
+                            <a href="${escapeHtml(wiki.url)}" target="_blank" rel="noopener">Read more on Wikipedia</a>
+                        </div>
+                    `;
+                }
 
                 if (wd) {
-                    cards.push(createLinkedDataCard(wd.source, wd.title, wd.description, wd.imageUrl, wd.url));
+                    entries.push(createLinkedDataEntry('Wikidata', wd.title, wd.url, 'bi-archive'));
                     if (wd.entityId) {
                         const media = await fetchCommonsMedia(wd.entityId);
-                        cards.push(...media.map(m => createLinkedDataCard(m.source, m.title, '', m.imageUrl, m.url)));
+                        media.forEach(m => {
+                           entries.push(createLinkedDataEntry('Wikimedia Commons', 'Media file', m.url, 'bi-camera'));
+                        });
                     }
                 }
-                if (db && !cards.some(c => c.includes(db.url))) {
-                    cards.push(createLinkedDataCard(db.source, db.title, db.description, db.imageUrl, db.url));
+
+                if (db) {
+                    entries.push(createLinkedDataEntry('DBpedia', db.title, db.url, 'bi-database'));
                 }
 
-                if (cards.length > 0) {
-                    container.innerHTML = cards.join('');
+                if (summaryHtml || entries.length > 0) {
+                    const linksHtml = entries.length > 0 ? `<div class="linked-data-grid">${entries.join('')}</div>` : '';
+                    container.innerHTML = summaryHtml + linksHtml;
                 } else {
                     container.innerHTML = `
                         <p style="color: #64748b;">No linked open data found for this site.</p>
-                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px;">
+                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items-center; gap: 6px;">
                             <i class="bi bi-link-45deg"></i> Report missing link
                         </button>
                     `;
