@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rows = filteredSites.slice(start,end);
         rows.forEach(site=>{
             const tr=document.createElement('tr');
-            tr.addEventListener('click',()=>window.location.href=`profile.html?id=${encodeURIComponent(site.name)}`);
+            tr.addEventListener('click',()=>window.location.href=`../Ask/profile.html?id=${encodeURIComponent(site.name)}`);
             tr.innerHTML=`<td>${site.name}</td><td>${site.country||'N/A'}</td><td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td><td>${site.radiocarbonDates}</td><td>${site.typologicalDates}</td>`;
             tableBody.appendChild(tr);
         });
