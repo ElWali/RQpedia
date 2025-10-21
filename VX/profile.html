@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Profile — RQpedia</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.html">RQpedia</a></div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="about.html">About</a>
+            <a href="contribute.html">Contribute</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="info-card" id="site-header">
+            <h1 id="site-name"></h1>
+            <p id="site-coords"></p>
+        </div>
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table">
+                <thead><tr><th>Lab Code</th><th>Date (BP)</th><th>Std. Dev.</th><th>Material</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table">
+                <thead><tr><th>Period</th><th>Industry</th><th>Reference</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+        <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+    </footer>
+
+    <script src="parser.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const siteNameEl = document.getElementById('site-name');
+        const siteCoordsEl = document.getElementById('site-coords');
+        const c14TableBody = document.querySelector('#c14-table tbody');
+        const typoTableBody = document.querySelector('#typo-table tbody');
+
+        const params = new URLSearchParams(window.location.search);
+        const siteId = params.get('id');
+
+        if (siteId) {
+            siteNameEl.textContent = `Loading data for ${siteId}...`;
+            fetch('output.json')
+                .then(response => response.json())
+                .then(data => {
+                    const siteData = data.filter(item => item.site === siteId);
+                    if (siteData.length > 0) {
+                        const site = siteData[0];
+                        siteNameEl.textContent = site.site;
+                        siteCoordsEl.textContent = `Coordinates: ${parseFloat(site.lat).toFixed(4)}, ${parseFloat(site.lng).toFixed(4)}`;
+
+                        siteData.forEach(item => {
+                            if (item.c14) {
+                                const c14Dates = parseMalformedJson(item.c14);
+                                c14Dates.forEach(date => {
+                                    const row = c14TableBody.insertRow();
+                                    row.innerHTML = `<td>${date.labnr || 'N/A'}</td><td>${date.bp}</td><td>${date.std}</td><td>${item.material || 'N/A'}</td>`;
+                                });
+                            }
+                            if (item.periods) {
+                                const periods = parseMalformedJson(item.periods);
+                                periods.forEach(period => {
+                                    const row = typoTableBody.insertRow();
+                                    row.innerHTML = `<td>${period.period || 'N/A'}</td><td>${period.industry || 'N/A'}</td><td>${item.reference || ''}</td>`;
+                                });
+                            }
+                        });
+
+                    } else {
+                        siteNameEl.textContent = `Site not found: ${siteId}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching site data:', error);
+                    siteNameEl.textContent = 'Error loading site data.';
+                });
+        } else {
+            siteNameEl.textContent = 'No site specified.';
+        }
+    });
+    </script>
+</body>
+</html>
