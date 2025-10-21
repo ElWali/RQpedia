@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<meta name="description" content="Search and view Moroccan archaeological sites with interactive map, coordinates, and brief information.">
+
+<!-- Fonts & icons -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+:root{
+    --bg:#0f1724; --surface:#0b1220; --muted:#94a3b8; --text:#e6eef8; --accent:#06b6d4;
+    --outline: rgba(255,255,255,0.06); --shadow: rgba(2,6,23,0.6); --hover-bg: rgba(6,182,212,0.1);
+    font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);}
+header{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--outline);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent);}
+.logo a{font-weight:700;color:var(--text);text-decoration:none;font-size:1.05rem;}
+nav.nav-links{display:flex;gap:12px;margin-left:8px;}
+nav.nav-links a{color:var(--muted);text-decoration:none;font-size:0.95rem;}
+.header-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+.header-actions input{padding:8px 12px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);width:250px;}
+.header-actions button{padding:8px 12px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);cursor:pointer;}
+.suggestion-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--outline);border-radius:8px;max-height:200px;overflow-y:auto;z-index:100;}
+.suggestion-list div{padding:6px 12px;cursor:pointer;display:flex;justify-content:space-between;}
+.suggestion-list div:hover, .suggestion-active{background:var(--hover-bg);}
+.suggestion-text{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+
+/* Main layout */
+main{padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+#map{width:100%;max-width:1000px;height:450px;border-radius:8px;border:1px solid var(--outline);}
+#site-brief{width:100%;max-width:1000px;background:var(--surface);border:1px solid var(--outline);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+#site-brief .brief-text{flex:1;color:var(--text);}
+#site-brief button{padding:6px 12px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);cursor:pointer;}
+
+/* Footer */
+footer{width:100%;position:sticky;bottom:0;background:linear-gradient(180deg,#071024,#071a2b);border-top:1px solid var(--outline);padding:12px 20px;color:var(--muted);text-align:center;font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><a href="index.html">RQpedia</a></div>
+    <nav class="nav-links">
+        <a href="sites.html">Browse data</a>
+        <a href="about.html">About</a>
+        <a href="contribute.html">Contribute</a>
+    </nav>
+    <div class="header-actions" role="toolbar">
+        <div style="position:relative;">
+            <input id="search-input" placeholder="Search sites..." aria-label="Search sites">
+            <div id="suggestions" class="suggestion-list" style="display:none;"></div>
+        </div>
+        <button id="download-all">Download JSON</button>
+    </div>
+</header>
+
+<main>
+    <div id="map"></div>
+    <div id="site-brief">
+        <div class="brief-text" id="brief-text">Select a site to see a brief here.</div>
+        <div>
+            <button id="copy-coords">Copy coordinates</button>
+            <button id="share-site">Share</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    This work is licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:var(--accent)">CC BY 4.0</a> | <a href="https://github.com/ElWali/Jules" target="_blank" style="color:var(--muted)">Project repo</a>
+</footer>
+
+<script>
+let map, marker=null;
+let sitesData = [];
+let filteredSites = [];
+let activeIndex = -1;
+
+async function loadSites(){
+    try{
+        const res = await fetch('output.json');
+        if(!res.ok) throw new Error('Failed to load data');
+        sitesData = await res.json();
+    }catch(e){console.error(e);}
+}
+
+function initMap(){
+    map = L.map('map').setView([31.8,-6],6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+}
+
+function showSite(site){
+    if(marker) map.removeLayer(marker);
+    marker = L.marker([site.lat, site.lon]).addTo(map).bindPopup(`<b>${site.site}</b><br>${site.country}`).openPopup();
+    map.setView([site.lat, site.lon],13);
+    document.getElementById('brief-text').textContent = site.description || 'No brief available.';
+}
+
+const searchInput = document.getElementById('search-input');
+const suggestionsDiv = document.getElementById('suggestions');
+
+function highlightMatch(text, query){
+    const re = new RegExp(`(${query})`, 'ig');
+    return text.replace(re,'<b>$1</b>');
+}
+
+searchInput.addEventListener('input', ()=>{
+    const val = searchInput.value.trim();
+    filteredSites = sitesData.filter(s=>s.site.toLowerCase().includes(val));
+    suggestionsDiv.innerHTML = '';
+    activeIndex = -1;
+    if(val && filteredSites.length>0){
+        suggestionsDiv.style.display='block';
+        filteredSites.forEach((s,i)=>{
+            const div = document.createElement('div');
+            div.innerHTML = `<span class="suggestion-text">${highlightMatch(s.site,val)}</span><span style="color:var(--muted)"> ${s.country} | ${s.type||'N/A'}</span>`;
+            div.addEventListener('click', ()=>{
+                searchInput.value = s.site;
+                showSite(s);
+                suggestionsDiv.style.display='none';
+            });
+            suggestionsDiv.appendChild(div);
+        });
+    } else { suggestionsDiv.style.display='none'; }
+});
+
+// Keyboard navigation
+searchInput.addEventListener('keydown', (e)=>{
+    const items = suggestionsDiv.querySelectorAll('div');
+    if(!items.length) return;
+    if(e.key==='ArrowDown'){
+        e.preventDefault();
+        activeIndex = (activeIndex+1)%items.length;
+        items.forEach((el,i)=>el.classList.toggle('suggestion-active', i===activeIndex));
+    } else if(e.key==='ArrowUp'){
+        e.preventDefault();
+        activeIndex = (activeIndex-1+items.length)%items.length;
+        items.forEach((el,i)=>el.classList.toggle('suggestion-active', i===activeIndex));
+    } else if(e.key==='Enter'){
+        e.preventDefault();
+        if(activeIndex>=0){
+            items[activeIndex].click();
+        }
+    }
+});
+
+// Copy & Share buttons
+document.getElementById('copy-coords').addEventListener('click', ()=>{
+    if(!marker) return alert('Select a site first.');
+    navigator.clipboard.writeText(marker.getLatLng().lat.toFixed(5)+', '+marker.getLatLng().lng.toFixed(5));
+    alert('Coordinates copied!');
+});
+
+document.getElementById('share-site').addEventListener('click', ()=>{
+    if(!marker) return alert('Select a site first.');
+    const url = `${location.origin}${location.pathname}?lat=${marker.getLatLng().lat}&lon=${marker.getLatLng().lng}`;
+    prompt('Share this URL:', url);
+});
+
+// Download all JSON
+document.getElementById('download-all').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(sitesData,null,2)],{type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'all-sites.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+});
+
+loadSites().then(initMap);
+</script>
+
+</body>
+</html>
