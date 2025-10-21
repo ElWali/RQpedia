@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site Profile — RQpedia</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">RQpedia</a>
+        </div>
+        <nav class="nav-links">
+            <a href="sites.html">Browse data</a>
+            <a href="about.html">About</a>
+            <a href="contribute.html">Contribute</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-button">Search</button>
+            <button class="signin-button">Donate</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="site-header">
+            <h1 id="site-name">Loading…</h1>
+            <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+            <div class="site-meta">
+                Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                <a href="#changelog">See changelog for details.</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>Location</h2>
+            <table>
+                <tr>
+                    <th>Coordinates (degrees)</th>
+                    <td id="coords-deg" data-label="Coordinates (degrees)"></td>
+                </tr>
+                <tr>
+                    <th>Coordinates (DMS)</th>
+                    <td id="coords-dms" data-label="Coordinates (DMS)"></td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td id="country" data-label="Country"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="map" style="height: 400px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 8px var(--shadow);"></div>
+
+        <div class="info-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; padding: 16px 20px;">
+                <h2>Linked Open Data</h2>
+                <button id="report-link-btn" style="padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-link-45deg"></i> Report missing link
+                </button>
+            </div>
+            <div id="linked-data-content" style="padding: 0 20px 16px;">
+                <p style="color: #64748b;">Loading linked open data from Wikidata, Wikimedia Commons, and DBpedia…</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>Radiocarbon Dates</h2>
+            <table id="c14-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Lab ID</th>
+                        <th>Context</th>
+                        <th>Material</th>
+                        <th>Taxon</th>
+                        <th>Method</th>
+                        <th>Uncalibrated age</th>
+                        <th>Calibrated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Typological Dates</h2>
+            <table id="typo-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Estimated age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="info-card">
+            <h2>Bibliographic References</h2>
+            <div id="references-container" style="padding: 16px 20px;"></div>
+        </div>
+
+        <div class="info-card" id="changelog">
+            <h2>Open data related to the archaeological site</h2>
+            <div style="padding: 16px 20px;">
+                <p>Display open data related to the archaeological site fetched automatically from Wikimedia Commons, Wikidata and other open data sources (images, videos, …)</p>
+                <div id="changelog-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>
+                This work is licensed under a
+                <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+            </p>
+            <p>
+                <a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="parser.js"></script>
+    <script src="profile.js"></script>
+    <script>
+        // === Linked Data & Report Logic ===
+        const escapeHtml = (str) =>
+            typeof str === 'string'
+                ? str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '<', '>': '>', '"': '&quot;', "'": '&#039;' }[m]))
+                : '';
+
+        function createLinkedDataCard(source, title, description = '', imageUrl = '', url = '#') {
+            const safeTitle = escapeHtml(title);
+            const safeDesc = escapeHtml(description || '');
+            const safeImg = imageUrl ? escapeHtml(imageUrl) : '';
+            const safeUrl = escapeHtml(url);
+
+            let card = `<div style="margin-bottom: 16px; padding: 16px; border: 1px solid var(--divider); border-radius: 8px; background: var(--surface);">`;
+            if (safeImg) {
+                card += `<img src="${safeImg}" alt="${safeTitle}" style="width:100%; height:160px; object-fit:cover; border-radius: 4px; margin-bottom: 12px;" loading="lazy">`;
+            }
+            card += `<h3 style="font-size: 1.1rem; font-weight: 500; margin: 0 0 8px;">${safeTitle} <span style="font-size: 0.75rem; background: var(--divider); padding: 2px 6px; border-radius: 4px; color: var(--on-background);">${escapeHtml(source)}</span></h3>`;
+            if (safeDesc) {
+                card += `<p style="font-size: 0.95rem; color: var(--on-background); margin: 0 0 12px;">${safeDesc}</p>`;
+            }
+            card += `<a href="${safeUrl}" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-weight: 500; font-size: 0.9rem;">View on ${escapeHtml(source)}</a>`;
+            card += `</div>`;
+            return card;
+        }
+
+        async function fetchWikidata(siteName, wikidataId = null) {
+            let entityId = wikidataId;
+            if (!entityId?.startsWith('Q')) {
+                const res = await fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(siteName)}&language=en&limit=1&format=json&origin=*`);
+                const data = await res.json();
+                entityId = data.search?.[0]?.id;
+            }
+            if (!entityId) return null;
+
+            const res = await fetch(`https://www.wikidata.org/wiki/Special:EntityData/${entityId}.json`);
+            const data = await res.json();
+            const entity = data.entities?.[entityId];
+            if (!entity) return null;
+
+            const label = entity.labels?.en?.value || siteName;
+            const desc = entity.descriptions?.en?.value || '';
+            const wdUrl = `https://www.wikidata.org/wiki/${entityId}`;
+            let img = '';
+            if (entity.claims?.P18?.[0]?.mainsnak?.datavalue?.value) {
+                const name = entity.claims.P18[0].mainsnak.datavalue.value;
+                img = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(name)}?width=400`;
+            }
+            return { source: 'Wikidata', title: label, description: desc, imageUrl: img, url: wdUrl, entityId };
+        }
+
+        async function fetchCommonsMedia(entityId) {
+            if (!entityId) return [];
+            const query = `SELECT ?file ?fileUrl WHERE { wd:${entityId} (wdt:P18|wdt:P180) ?file . BIND(REPLACE(STR(?file), "http://commons.wikimedia.org/wiki/File:", "") AS ?fileName) BIND(CONCAT("https://commons.wikimedia.org/wiki/Special:FilePath/", REPLACE(?fileName, " ", "_")) AS ?fileUrl) } LIMIT 2`;
+            const res = await fetch(`https://query.wikidata.org/sparql?query=${encodeURIComponent(query)}&format=json`, {
+                headers: { Accept: 'application/sparql-results+json' }
+            });
+            const data = await res.json();
+            return data.results.bindings.map(b => ({
+                source: 'Wikimedia Commons',
+                title: 'Media file',
+                imageUrl: b.fileUrl.value + '?width=400',
+                url: b.file.value
+            }));
+        }
+
+        async function fetchDBpedia(siteName) {
+            const clean = siteName.replace(/ /g, '_');
+            try {
+                const res = await fetch(`https://dbpedia.org/data/${encodeURIComponent(clean)}.json`);
+                if (!res.ok) return null;
+                const data = await res.json();
+                const uri = `http://dbpedia.org/resource/${clean}`;
+                const graph = data[uri];
+                if (!graph) return null;
+
+                const abstract = graph['http://dbpedia.org/ontology/abstract']?.find(a => a.lang === 'en')?.value;
+                const thumb = graph['http://dbpedia.org/ontology/thumbnail']?.[0]?.value;
+                const dbUrl = `https://dbpedia.org/page/${clean}`;
+                if (abstract || thumb) {
+                    return { source: 'DBpedia', title: siteName, description: abstract, imageUrl: thumb, url: dbUrl };
+                }
+            } catch (e) {
+                console.warn('DBpedia failed:', e);
+            }
+            return null;
+        }
+
+        function attachReportHandler(siteName) {
+            const handler = (e) => {
+                e.preventDefault();
+                const subject = encodeURIComponent(`Missing linked data for: ${siteName}`);
+                const body = encodeURIComponent(
+                    `Hello,\n\nThe archaeological site "${siteName}" appears to be missing links to Wikidata, DBpedia, or other open data sources.\n\nPlease consider adding a Wikidata QID or other identifiers.\n\nThank you!`
+                );
+                window.location.href = `mailto:contact@xronos.ch?subject=${subject}&body=${body}`;
+            };
+            document.querySelectorAll('#report-link-btn, #report-link-btn-secondary').forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+
+        async function fetchAndRenderLinkedData(siteName, wikidataId = null) {
+            const container = document.getElementById('linked-data-content');
+            container.innerHTML = '<p style="color: #64748b;">Loading linked open data…</p>';
+
+            try {
+                const [wd, db] = await Promise.all([fetchWikidata(siteName, wikidataId), fetchDBpedia(siteName)]);
+                const cards = [];
+
+                if (wd) {
+                    cards.push(createLinkedDataCard(wd.source, wd.title, wd.description, wd.imageUrl, wd.url));
+                    if (wd.entityId) {
+                        const media = await fetchCommonsMedia(wd.entityId);
+                        cards.push(...media.map(m => createLinkedDataCard(m.source, m.title, '', m.imageUrl, m.url)));
+                    }
+                }
+                if (db && !cards.some(c => c.includes(db.url))) {
+                    cards.push(createLinkedDataCard(db.source, db.title, db.description, db.imageUrl, db.url));
+                }
+
+                if (cards.length > 0) {
+                    container.innerHTML = cards.join('');
+                } else {
+                    container.innerHTML = `
+                        <p style="color: #64748b;">No linked open data found for this site.</p>
+                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="bi bi-link-45deg"></i> Report missing link
+                        </button>
+                    `;
+                    attachReportHandler(siteName);
+                }
+            } catch (e) {
+                console.error('Linked data error:', e);
+                container.innerHTML = `
+                    <p style="color: #dc3545;">Failed to load linked data.</p>
+                    <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-link-45deg"></i> Report missing link
+                    </button>
+                `;
+                attachReportHandler(siteName);
+            }
+        }
+
+        // === Main Init ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const siteName = decodeURIComponent(urlParams.get('id') || '').trim();
+            if (!siteName) {
+                document.getElementById('site-name').textContent = 'Site not specified';
+                return;
+            }
+
+            fetch('output.json')
+                .then(res => {
+                    if (!res.ok) throw new Error('output.json not found');
+                    return res.json();
+                })
+                .then(data => {
+                    const siteMeta = renderProfilePage(siteName, data);
+                    fetchAndRenderLinkedData(siteMeta.siteName, siteMeta.wikidata_id);
+                    attachReportHandler(siteMeta.siteName);
+                })
+                .catch(err => {
+                    console.error('Failed to load site data:', err);
+                    document.getElementById('site-name').textContent = 'Error loading site data';
+                    const fallbackName = siteName || 'Unknown site';
+                    document.getElementById('linked-data-content').innerHTML = `
+                        <p style="color: #dc3545;">Could not load linked data.</p>
+                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 6px 12px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="bi bi-link-45deg"></i> Report missing link
+                        </button>
+                    `;
+                    attachReportHandler(fallbackName);
+                });
+        });
+    </script>
+</body>
+</html>
