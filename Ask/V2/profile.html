@@ -194,7 +194,7 @@
             return { source: 'Wikidata', title: label, description: desc, imageUrl: img, url: wdUrl, entityId };
         }
 
-        async function fetchCommonsMedia(entityId) {
+        /*async function fetchCommonsMedia(entityId) {
             if (!entityId) return [];
             const query = `SELECT ?file ?fileUrl WHERE { wd:${entityId} (wdt:P18|wdt:P180) ?file . BIND(REPLACE(STR(?file), "http://commons.wikimedia.org/wiki/File:", "") AS ?fileName) BIND(CONCAT("https://commons.wikimedia.org/wiki/Special:FilePath/", REPLACE(?fileName, " ", "_")) AS ?fileUrl) } LIMIT 2`;
             const res = await fetch(`https://query.wikidata.org/sparql?query=${encodeURIComponent(query)}&format=json`, {
@@ -207,7 +207,7 @@
                 imageUrl: b.fileUrl.value + '?width=400',
                 url: b.file.value
             }));
-        }
+        }*/
 
         async function fetchDBpedia(siteName) {
             const clean = siteName.replace(/ /g, '_');
