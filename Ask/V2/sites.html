@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Sites • RQpedia</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    /* Main container & card styling */
+    .main-container { padding: 1rem; max-width: 1200px; margin: auto; }
+    .card { background: var(--surface); border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 2rem; }
+    .card-header { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; }
+    .card-header h1 { font-size: 1.75rem; color: var(--on-surface); }
+    .search-input { padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #ccc; font-size: 1rem; width: 100%; max-width: 400px; }
+
+    /* Table styling */
+    .table-wrapper { overflow-x: auto; }
+    table.table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    table th, table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    table th { position: sticky; top: 0; background: var(--surface); cursor: pointer; z-index: 1; }
+    table th.sort-asc::after { content: ' ▲'; font-size: 0.75rem; }
+    table th.sort-desc::after { content: ' ▼'; font-size: 0.75rem; }
+    .clickable-row { cursor: pointer; transition: background 0.2s; }
+    .clickable-row:hover { background-color: var(--primary-dark, #1d4ed8, 0.05); color: var(--surface); }
+
+    /* Buttons */
+    .btn { padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    .primary-btn { background-color: var(--primary); color: var(--surface); }
+
+    /* Header */
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--surface); box-shadow: 0 2px 8px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 1rem; }
+    .header-left { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .logo { font-weight: bold; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+    .nav-links a { text-decoration: none; color: var(--on-surface); margin-right: 1rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary-dark); }
+    .header-right { display: flex; align-items: center; gap: 1rem; }
+
+    /* Loader */
+    .loader { text-align: center; padding: 1rem; font-size: 1rem; color: var(--primary-dark); display: none; }
+
+    /* Footer */
+    .footer { padding: 2rem; text-align: center; font-size: 0.9rem; color: var(--on-surface); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header { flex-direction: column; align-items: flex-start; }
+        .header-left { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        .search-input { max-width: 100%; }
+        table th, table td { padding: 0.5rem; font-size: 0.875rem; }
+    }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <a href="index.html" class="logo">RQpedia</a>
+        <nav class="nav-links">
+            <a href="sites.html" class="active">Browse Data</a>
+            <a href="about.html">About</a>
+            <a href="contribute.html">Contribute</a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <button class="btn search-button">Search</button>
+        <button class="btn primary-btn">Donate</button>
+    </div>
+</header>
+
+<main class="main-container">
+    <section class="card info-card">
+        <div class="card-header">
+            <h1>All Sites</h1>
+            <input type="text" id="search-input" class="search-input" placeholder="Search sites...">
+        </div>
+
+        <div class="table-wrapper">
+            <table id="sites-table" class="table">
+                <thead>
+                    <tr>
+                        <th data-sort-by="name">Name</th>
+                        <th data-sort-by="country">Country</th>
+                        <th data-sort-by="coordinates">Coordinates</th>
+                        <th data-sort-by="radiocarbonDates">Radiocarbon Dates</th>
+                        <th data-sort-by="typologicalDates">Typological Dates</th>
+                    </tr>
+                </thead>
+                <tbody id="sites-table-body"></tbody>
+            </table>
+            <div class="loader" id="loader">Loading more sites...</div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>This work is licensed under a 
+            <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a>.
+        </p>
+        <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+    </div>
+</footer>
+
+<script src="parser.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let sites = [];
+    let filteredSites = [];
+    let currentSort = { column: 'name', order: 'asc' };
+    let rowsLoaded = 0;
+    const rowsPerBatch = 30;
+    const tableBody = document.getElementById('sites-table-body');
+    const searchInput = document.getElementById('search-input');
+    const headers = document.querySelectorAll('th[data-sort-by]');
+    const loader = document.getElementById('loader');
+    let isLoading = false;
+
+    fetch('output.json')
+        .then(res => res.json())
+        .then(data => {
+            sites = processData(data);
+            filteredSites = [...sites];
+            sortData();
+            loadMoreRows();
+        });
+
+    function processData(data) {
+        const sitesMap = new Map();
+        data.forEach(item => {
+            if (!sitesMap.has(item.site)) {
+                sitesMap.set(item.site, {
+                    name: item.site,
+                    country: item.country,
+                    lat: parseFloat(item.lat),
+                    lng: parseFloat(item.lng),
+                    radiocarbonDates: 0,
+                    typologicalDates: 0,
+                });
+            }
+            const site = sitesMap.get(item.site);
+            if (item.c14) {
+                const dates = parseMalformedJson(item.c14);
+                site.radiocarbonDates += dates.length;
+            } else {
+                const dates = parseMalformedJson(item.periods);
+                site.typologicalDates += dates.length;
+            }
+        });
+        return Array.from(sitesMap.values());
+    }
+
+    function renderRows(start, end) {
+        const rows = filteredSites.slice(start, end);
+        rows.forEach(site => {
+            const row = document.createElement('tr');
+            row.classList.add('clickable-row');
+            row.addEventListener('click', () => {
+                window.location.href = `profile.html?id=${encodeURIComponent(site.name)}`;
+            });
+            row.innerHTML = `
+                <td>${site.name}</td>
+                <td>${site.country || 'N/A'}</td>
+                <td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td>
+                <td>${site.radiocarbonDates}</td>
+                <td>${site.typologicalDates}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        rowsLoaded += rows.length;
+        isLoading = false;
+        loader.style.display = 'none';
+    }
+
+    function loadMoreRows() {
+        if (rowsLoaded >= filteredSites.length || isLoading) return;
+        isLoading = true;
+        loader.style.display = 'block';
+        setTimeout(() => renderRows(rowsLoaded, rowsLoaded + rowsPerBatch), 300); // slight delay for UX
+    }
+
+    function sortData() {
+        filteredSites.sort((a, b) => {
+            let aVal = a[currentSort.column];
+            let bVal = b[currentSort.column];
+            if (currentSort.column === 'coordinates') { aVal = a.lat; bVal = b.lat; }
+            if (typeof aVal === 'string') { aVal = aVal.toLowerCase(); bVal = bVal.toLowerCase(); }
+            return (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) * (currentSort.order === 'asc' ? 1 : -1);
+        });
+        tableBody.innerHTML = '';
+        rowsLoaded = 0;
+        loadMoreRows();
+        updateHeaderStyles();
+    }
+
+    searchInput.addEventListener('input', e => {
+        const term = e.target.value.toLowerCase();
+        filteredSites = sites.filter(site =>
+            site.name.toLowerCase().includes(term) ||
+            (site.country && site.country.toLowerCase().includes(term))
+        );
+        sortData();
+    });
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const col = header.dataset.sortBy;
+            currentSort.order = (currentSort.column === col && currentSort.order === 'asc') ? 'desc' : 'asc';
+            currentSort.column = col;
+            sortData();
+        });
+    });
+
+    function updateHeaderStyles() {
+        headers.forEach(header => {
+            header.classList.remove('sort-asc', 'sort-desc');
+            if (header.dataset.sortBy === currentSort.column) {
+                header.classList.add(currentSort.order === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+        });
+    }
+
+    // Infinite scroll with loader
+    window.addEventListener('scroll', () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+            loadMoreRows();
+        }
+    });
+});
+</script>
+</body>
+</html>
