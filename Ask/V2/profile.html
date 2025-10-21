@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Site Profile — RQpedia</title>
+    <meta name="description" content="Detailed profile of an archaeological site with radiocarbon dates, location, open data links, and bibliographic references." />
+
+    <!-- Fonts & icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin=""></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        :root{
+            --bg:#0f1724;
+            --surface:#0b1220;
+            --muted:#94a3b8;
+            --text:#e6eef8;
+            --accent:#06b6d4;
+            --outline: rgba(255,255,255,0.06);
+            --shadow: rgba(2,6,23,0.6);
+            font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+        html,body{height:100%;margin:0;background:linear-gradient(180deg,#071024,#071a2b);color:var(--text)}
+        header{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--outline);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
+        .logo a{font-weight:700;color:var(--text);text-decoration:none;font-size:1.05rem}
+        nav.nav-links{display:flex;gap:12px;margin-left:8px}
+        nav.nav-links a{color:var(--muted);text-decoration:none;font-size:0.95rem}
+        .header-actions{margin-left:auto;display:flex;gap:8px}
+        .header-actions button{background:transparent;border:1px solid var(--outline);color:var(--muted);padding:8px 10px;border-radius:8px;cursor:pointer}
+        main.container{max-width:1100px;margin:20px auto;padding:18px;display:grid;grid-template-columns:320px 1fr;gap:18px}
+        /* Left column (controls) */
+        .panel{background:linear-gradient(180deg,#061028,#071a2b);border:1px solid var(--outline);border-radius:10px;padding:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+        .panel h3{margin:0 0 8px 0;font-size:1rem}
+        #site-selector{width:100%;padding:8px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text)}
+        #search-filter{width:100%;padding:8px;margin:8px 0;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text)}
+        .meta-small{font-size:0.85rem;color:var(--muted);margin-top:8px}
+        /* Right column content */
+        .site-header{grid-column:2;display:flex;flex-direction:column;gap:6px}
+        h1#site-name{margin:0;font-size:1.6rem}
+        .site-type{color:var(--muted);margin:0}
+        .info-card{background:linear-gradient(180deg,#07132a,#071228);border:1px solid var(--outline);border-radius:10px;padding:14px;margin-bottom:12px}
+        table{width:100%;border-collapse:collapse;color:var(--text)}
+        table th{ text-align:left;font-weight:600;padding:8px 6px;color:var(--muted);font-size:0.85rem}
+        table td{padding:8px 6px;border-top:1px dashed rgba(255,255,255,0.02);font-size:0.95rem}
+        #map{height:320px;border-radius:8px;border:1px solid var(--outline);overflow:hidden}
+        .linked-data-grid{display:grid;grid-template-columns:1fr;gap:10px}
+        .linked-data-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;border:1px solid var(--outline);background:rgba(255,255,255,0.01)}
+        .linked-data-item img{max-width:120px;border-radius:6px}
+        .table-container{overflow:auto}
+        .table{width:100%;border-collapse:collapse}
+        .table thead th{border-bottom:1px solid rgba(255,255,255,0.04);padding:10px 8px}
+        .table tbody td{padding:8px}
+        .controls-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+        .small-btn{padding:6px 10px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);cursor:pointer}
+        #charts{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+        .chart-card{flex:1;min-width:280px;background:linear-gradient(180deg,#081428,#071424);padding:12px;border-radius:8px;border:1px solid var(--outline)}
+        footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;padding:0 18px}
+        @media (max-width:980px){main.container{grid-template-columns:1fr;padding:12px} .site-header{grid-column:1}}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.html">RQpedia</a></div>
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="sites.html">Browse data</a>
+            <a href="about.html">About</a>
+            <a href="contribute.html">Contribute</a>
+        </nav>
+        <div class="header-actions" role="toolbar" aria-label="Top actions">
+            <button class="small-btn" id="download-all">Download all JSON</button>
+        </div>
+    </header>
+
+    <main class="container" id="main">
+        <!-- LEFT PANEL: selector + search + linked data -->
+        <aside>
+            <div class="panel" aria-labelledby="browse-label">
+                <h3 id="browse-label">Browse sites</h3>
+                <input id="search-filter" placeholder="Filter sites by name or country" aria-label="Filter sites" />
+                <label for="site-selector" class="meta-small">Select a site</label>
+                <select id="site-selector" aria-label="Site selector"></select>
+
+                <div class="meta-small" id="selected-count" style="margin-top:12px"></div>
+                <div style="margin-top:12px">
+                    <button id="prev-site" class="small-btn" title="Previous site"><i class="bi bi-skip-start"></i> Prev</button>
+                    <button id="next-site" class="small-btn" title="Next site">Next <i class="bi bi-skip-end"></i></button>
+                </div>
+            </div>
+
+            <div class="panel" style="margin-top:12px;">
+                <h3>Linked Data (cached)</h3>
+                <div id="linked-data-content" style="min-height:80px;color:var(--muted)">No site selected.</div>
+                <div style="margin-top:8px">
+                    <button id="clear-linked-cache" class="small-btn">Clear linked-data cache</button>
+                </div>
+            </div>
+
+            <div class="panel" style="margin-top:12px;">
+                <h3>Media</h3>
+                <div id="media-content" style="min-height:80px;color:var(--muted)">No site selected.</div>
+            </div>
+        </aside>
+
+        <!-- RIGHT: profile content -->
+        <section>
+            <div class="site-header">
+                <h1 id="site-name">Loading…</h1>
+                <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+                <div class="meta-small site-meta" id="site-meta">Record created: <span id="created-date">—</span> — updated: <span id="updated-date">—</span></div>
+            </div>
+
+            <div class="info-card" style="margin-top:12px">
+                <h2 style="display:flex;align-items:center;justify-content:space-between">
+                    <span>Location</span>
+                    <div class="controls-row">
+                        <button id="center-map" class="small-btn" title="Center map">Center map</button>
+                    </div>
+                </h2>
+                <table>
+                    <tr><th scope="row">Coordinates (degrees)</th><td id="coords-deg">—</td></tr>
+                    <tr><th scope="row">Coordinates (DMS)</th><td id="coords-dms">—</td></tr>
+                    <tr><th scope="row">Country</th><td id="country">—</td></tr>
+                    <tr><th scope="row">Site type</th><td id="site-type">—</td></tr>
+                </table>
+                <div id="map" aria-label="Site map"></div>
+            </div>
+
+            <div class="info-card">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                    <h2 style="margin:0"><i class="bi bi-radioactive"></i> Radiocarbon dates <small id="c14-count" style="color:var(--muted);margin-left:8px"></small></h2>
+                    <div class="controls-row">
+                        <button id="download-csv" class="small-btn" title="Download radiocarbon CSV"><i class="bi bi-download"></i> CSV</button>
+                        <button id="toggle-chart" class="small-btn" title="Toggle charts"><i class="bi bi-bar-chart"></i> Charts</button>
+                    </div>
+                </div>
+
+                <div id="charts" style="margin-top:12px;display:none">
+                    <div class="chart-card">
+                        <canvas id="timeline-chart" aria-label="Timeline chart" role="img"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <canvas id="histogram-chart" aria-label="Histogram chart" role="img"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-container" style="margin-top:12px">
+                    <table id="c14-table" class="table" role="table" aria-label="Radiocarbon table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Lab ID</th>
+                                <th scope="col">Context</th>
+                                <th scope="col">Material</th>
+                                <th scope="col">Taxon</th>
+                                <th scope="col">Uncalibrated age (BP ± σ)</th>
+                                <th scope="col">Calibrated age</th>
+                                <th scope="col">Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>Typological Dates</h2>
+                <table id="typo-table" class="table" role="table" aria-label="Typological table">
+                    <thead><tr><th>Classification</th><th>Estimated age</th><th>Reference</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h2>Bibliographic References</h2>
+                <div id="references-container" style="padding-top:8px;color:var(--muted)">No references.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--accent)">CC BY 4.0</a>.</p>
+            <p><a href="https://github.com/ElWali/Jules" target="_blank" rel="noopener" style="color:var(--muted)">Project repo</a></p>
+        </div>
+    </footer>
+
+    <!-- Profile JS -->
+    <script src="profile.js" type="module"></script>
+</body>
+</html>
