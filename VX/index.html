@@ -36,12 +36,24 @@ nav.nav-links a{color:var(--muted);text-decoration:none;font-size:0.95rem;}
 /* Main layout */
 main{padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px;}
 #map{width:100%;max-width:1000px;height:450px;border-radius:8px;border:1px solid var(--outline);}
-#site-brief{width:100%;max-width:1000px;background:var(--surface);border:1px solid var(--outline);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-#site-brief .brief-text{flex:1;color:var(--text);}
-#site-brief button{padding:6px 12px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);cursor:pointer;}
 
 /* Footer */
 footer{width:100%;position:sticky;bottom:0;background:linear-gradient(180deg,#071024,#071a2b);border-top:1px solid var(--outline);padding:12px 20px;color:var(--muted);text-align:center;font-size:0.9rem;}
+
+#site-preview {
+    display: none;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+#site-preview h3 { margin: 0 0 10px 0; color: var(--accent); }
+#site-preview p { margin: 4px 0; }
+#site-preview a { color: var(--accent); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -64,8 +76,10 @@ footer{width:100%;position:sticky;bottom:0;background:linear-gradient(180deg,#07
 
 <main>
     <div id="map"></div>
-    <div id="site-brief">
-        <div class="brief-text" id="brief-text">Select a site to see a brief here.</div>
+    <div id="site-preview" style="display: none;">
+        <h3 id="preview-title"></h3>
+        <p id="preview-country"></p>
+        <p><a id="preview-link" href="#" target="_blank">View full profile &rarr;</a></p>
         <div>
             <button id="copy-coords">Copy coordinates</button>
             <button id="share-site">Share</button>
@@ -78,98 +92,205 @@ footer{width:100%;position:sticky;bottom:0;background:linear-gradient(180deg,#07
 </footer>
 
 <script>
-let map, marker=null;
-let sitesData = [];
+// --- GLOBAL STATE ---
+let map, marker = null;
+let sitesData = []; // This will become the unique site index.
+let allRecords = []; // This will store all normalized records.
 let filteredSites = [];
 let activeIndex = -1;
 
-async function loadSites(){
-    try{
-        const res = await fetch('output.json');
-        if(!res.ok) throw new Error('Failed to load data');
-        sitesData = await res.json();
-    }catch(e){console.error(e);}
+// --- DATA HANDLING ---
+
+/**
+ * Normalizes a string by trimming whitespace. Returns empty string for null/undefined.
+ * @param {string | null | undefined} s The string to normalize.
+ * @returns {string} The normalized string.
+ */
+function normalizeString(s) {
+    if (s == null) return '';
+    return String(s).trim();
 }
 
-function initMap(){
-    map = L.map('map').setView([31.8,-6],6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+/**
+ * Parses a value into a number. Returns null if not a finite number.
+ * @param {any} s The value to parse.
+ * @returns {number | null} The parsed number or null.
+ */
+function parseNumber(s) {
+    const n = Number(String(s).trim());
+    return Number.isFinite(n) ? n : null;
+}
+
+/**
+ * Fetches, parses, and normalizes site data from output.json.
+ * It builds a unique index of sites for searching and stores all records.
+ */
+async function loadSites() {
+    try {
+        const res = await fetch('output.json');
+        if (!res.ok) throw new Error('Failed to load data');
+        const rawData = await res.json();
+
+        // Normalize all records from the JSON file.
+        allRecords = rawData.map(row => ({
+            ...row,
+            site: normalizeString(row.site || row.site_name || row.Site || ''),
+            lat: parseNumber(row.lat),
+            lng: parseNumber(row.lng),
+            country: normalizeString(row.country)
+        }));
+
+        // Create a unique index of sites for search suggestions.
+        const siteMap = new Map();
+        allRecords.forEach(r => {
+            if (!r.site) return; // Skip records without a site name.
+            if (!siteMap.has(r.site)) {
+                const siteRecordWithCoords = allRecords.find(rec => rec.site === r.site && rec.lat != null && rec.lng != null);
+                siteMap.set(r.site, {
+                    site: r.site,
+                    country: r.country || '',
+                    lat: siteRecordWithCoords ? siteRecordWithCoords.lat : null,
+                    lng: siteRecordWithCoords ? siteRecordWithCoords.lng : null,
+                    type: r.site_type || r.feature_type || '',
+                });
+            }
+        });
+        sitesData = Array.from(siteMap.values());
+
+    } catch (e) {
+        console.error(e);
+        // Display an error to the user on the page.
+        document.getElementById('map').innerHTML = '<p style="color:red; text-align:center;">Could not load site data.</p>';
+    }
+}
+
+
+// --- UI & MAP ---
+
+/**
+ * Initializes the Leaflet map and sets the Esri satellite tile layer.
+ */
+function initMap() {
+    map = L.map('map').setView([31.8, -6], 6);
+
+    // Add satellite imagery layer
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map);
+
+    // Add borders and labels layer
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: ''
     }).addTo(map);
 }
 
-function showSite(site){
-    if(marker) map.removeLayer(marker);
-    marker = L.marker([site.lat, site.lon]).addTo(map).bindPopup(`<b>${site.site}</b><br>${site.country}`).openPopup();
-    map.setView([site.lat, site.lon],13);
-    document.getElementById('brief-text').textContent = site.description || 'No brief available.';
+/**
+ * Displays a selected site on the map and in the preview panel.
+ * @param {object} site The site object to display.
+ */
+function showSite(site) {
+    const previewPanel = document.getElementById('site-preview');
+    if (!site || site.lat == null || site.lng == null) {
+        if (marker) map.removeLayer(marker);
+        marker = null;
+        previewPanel.style.display = 'none';
+        return;
+    }
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([site.lat, site.lng]).addTo(map).bindPopup(`<b>${site.site}</b><br>${site.country}`).openPopup();
+    map.setView([site.lat, site.lng], 13);
+
+    // Populate and show the preview panel.
+    document.getElementById('preview-title').textContent = site.site;
+    document.getElementById('preview-country').textContent = site.country || 'Country not specified';
+    document.getElementById('preview-link').href = `profile.html?id=${encodeURIComponent(site.site)}`;
+    previewPanel.style.display = 'block';
 }
+
+/**
+ * Highlights the matching part of a text string based on a query.
+ * @param {string} text The text to highlight.
+ * @param {string} query The query to match.
+ * @returns {string} The HTML string with highlighted text.
+ */
+function highlightMatch(text, query) {
+    if (!text || !query) return text || '';
+    const re = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'ig');
+    return text.replace(re, '<b>$1</b>');
+}
+
+// --- EVENT LISTENERS ---
 
 const searchInput = document.getElementById('search-input');
 const suggestionsDiv = document.getElementById('suggestions');
 
-function highlightMatch(text, query){
-    const re = new RegExp(`(${query})`, 'ig');
-    return text.replace(re,'<b>$1</b>');
-}
-
-searchInput.addEventListener('input', ()=>{
-    const val = searchInput.value.trim();
-    filteredSites = sitesData.filter(s=>s.site.toLowerCase().includes(val));
+// Search input event listener for autocomplete.
+searchInput.addEventListener('input', () => {
+    const val = searchInput.value.trim().toLowerCase();
     suggestionsDiv.innerHTML = '';
     activeIndex = -1;
-    if(val && filteredSites.length>0){
-        suggestionsDiv.style.display='block';
-        filteredSites.forEach((s,i)=>{
-            const div = document.createElement('div');
-            div.innerHTML = `<span class="suggestion-text">${highlightMatch(s.site,val)}</span><span style="color:var(--muted)"> ${s.country} | ${s.type||'N/A'}</span>`;
-            div.addEventListener('click', ()=>{
-                searchInput.value = s.site;
-                showSite(s);
-                suggestionsDiv.style.display='none';
+    if (val) {
+        filteredSites = sitesData.filter(s => s.site.toLowerCase().includes(val));
+        if (filteredSites.length > 0) {
+            suggestionsDiv.style.display = 'block';
+            filteredSites.forEach((s) => {
+                const div = document.createElement('div');
+                div.innerHTML = `<span class="suggestion-text">${highlightMatch(s.site,val)}</span><span style="color:var(--muted)"> ${s.country} | ${s.type||'N/A'}</span>`;
+                div.addEventListener('click', () => {
+                    searchInput.value = s.site;
+                    showSite(s);
+                    suggestionsDiv.style.display = 'none';
+                });
+                suggestionsDiv.appendChild(div);
             });
-            suggestionsDiv.appendChild(div);
-        });
-    } else { suggestionsDiv.style.display='none'; }
+        } else {
+            suggestionsDiv.style.display = 'none';
+        }
+    } else {
+        suggestionsDiv.style.display = 'none';
+    }
 });
 
-// Keyboard navigation
-searchInput.addEventListener('keydown', (e)=>{
+// Keyboard navigation for search suggestions.
+searchInput.addEventListener('keydown', (e) => {
     const items = suggestionsDiv.querySelectorAll('div');
-    if(!items.length) return;
-    if(e.key==='ArrowDown'){
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') {
         e.preventDefault();
-        activeIndex = (activeIndex+1)%items.length;
-        items.forEach((el,i)=>el.classList.toggle('suggestion-active', i===activeIndex));
-    } else if(e.key==='ArrowUp'){
+        activeIndex = (activeIndex + 1) % items.length;
+        items.forEach((el, i) => el.classList.toggle('suggestion-active', i === activeIndex));
+    } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        activeIndex = (activeIndex-1+items.length)%items.length;
-        items.forEach((el,i)=>el.classList.toggle('suggestion-active', i===activeIndex));
-    } else if(e.key==='Enter'){
+        activeIndex = (activeIndex - 1 + items.length) % items.length;
+        items.forEach((el, i) => el.classList.toggle('suggestion-active', i === activeIndex));
+    } else if (e.key === 'Enter') {
         e.preventDefault();
-        if(activeIndex>=0){
+        if (activeIndex >= 0) {
             items[activeIndex].click();
         }
     }
 });
 
-// Copy & Share buttons
-document.getElementById('copy-coords').addEventListener('click', ()=>{
-    if(!marker) return alert('Select a site first.');
-    navigator.clipboard.writeText(marker.getLatLng().lat.toFixed(5)+', '+marker.getLatLng().lng.toFixed(5));
+// Button event listeners.
+document.getElementById('copy-coords').addEventListener('click', () => {
+    if (!marker) return alert('Select a site first.');
+    navigator.clipboard.writeText(marker.getLatLng().lat.toFixed(5) + ', ' + marker.getLatLng().lng.toFixed(5));
     alert('Coordinates copied!');
 });
 
-document.getElementById('share-site').addEventListener('click', ()=>{
-    if(!marker) return alert('Select a site first.');
-    const url = `${location.origin}${location.pathname}?lat=${marker.getLatLng().lat}&lon=${marker.getLatLng().lng}`;
+document.getElementById('share-site').addEventListener('click', () => {
+    if (!marker) return alert('Select a site first.');
+    const url = `${location.origin}${location.pathname}?lat=${marker.getLatLng().lat}&lng=${marker.getLatLng().lng}`;
     prompt('Share this URL:', url);
 });
 
-// Download all JSON
-document.getElementById('download-all').addEventListener('click', ()=>{
-    const blob = new Blob([JSON.stringify(sitesData,null,2)],{type:'application/json'});
+document.getElementById('download-all').addEventListener('click', () => {
+    const dataToDownload = allRecords.length > 0 ? allRecords : sitesData;
+    const blob = new Blob([JSON.stringify(dataToDownload, null, 2)], {
+        type: 'application/json'
+    });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'all-sites.json';
@@ -177,6 +298,7 @@ document.getElementById('download-all').addEventListener('click', ()=>{
     URL.revokeObjectURL(a.href);
 });
 
+// --- INITIALIZATION ---
 loadSites().then(initMap);
 </script>
 
