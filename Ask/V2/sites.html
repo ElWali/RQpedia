@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Sites • RQpedia</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+:root {
+    --primary: #1e88e5;
+    --primary-dark: #1565c0;
+    --surface: #ffffff;
+    --background: #f5f5f5;
+    --on-surface: #212121;
+    --on-background: #424242;
+    --divider: #e0e0e0;
+    --shadow: rgba(0,0,0,0.1);
+}
+
+/* Global */
+body { margin: 0; font-family: 'Roboto', sans-serif; background: var(--background); color: var(--on-background); }
+a { text-decoration: none; color: inherit; }
+
+/* Header */
+header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--surface); box-shadow: 0 2px 4px var(--shadow); flex-wrap: wrap; }
+.logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); }
+nav a { margin-right: 1rem; font-weight: 500; color: var(--on-surface); }
+nav a.active { color: var(--primary-dark); }
+.header-actions { display: flex; gap: 0.5rem; }
+.btn { padding: 0.5rem 1rem; border-radius: 4px; border: none; font-weight: 500; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.btn:hover { opacity: 0.9; }
+.btn-primary { background: var(--primary); color: var(--surface); }
+
+/* Main */
+main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+
+/* Card */
+.card { background: var(--surface); border-radius: 8px; box-shadow: 0 2px 8px var(--shadow); padding: 1.5rem; }
+
+/* Card Header */
+.card-header { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; }
+.card-header h1 { font-size: 1.75rem; font-weight: 700; color: var(--on-surface); }
+.search-input { padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid #ccc; font-size: 1rem; width: 100%; max-width: 400px; }
+
+/* Table */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--divider); }
+th { position: sticky; top: 0; background: var(--surface); cursor: pointer; font-weight: 500; }
+th.sort-asc::after { content: ' ▲'; font-size: 0.75rem; }
+th.sort-desc::after { content: ' ▼'; font-size: 0.75rem; }
+tr:hover { background: rgba(30, 136, 229, 0.08); cursor: pointer; transition: background 0.2s; }
+
+/* Loader */
+.loader { text-align: center; padding: 1rem; display: none; color: var(--primary-dark); font-weight: 500; }
+
+/* Scroll-to-top button */
+#scrollTopBtn {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+    background: var(--primary); color: var(--surface); border: none; padding: 0.75rem 1rem; border-radius: 50%; font-size: 1.25rem;
+    cursor: pointer; box-shadow: 0 2px 6px var(--shadow); display: none; transition: opacity 0.3s;
+}
+#scrollTopBtn:hover { opacity: 0.85; }
+
+/* Footer */
+footer { padding: 2rem 1rem; text-align: center; font-size: 0.875rem; color: var(--on-surface); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    nav a { margin-right: 0.5rem; }
+    th, td { padding: 0.5rem; font-size: 0.875rem; }
+    .search-input { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">RQpedia</div>
+    <nav>
+        <a href="sites.html" class="active">Browse Data</a>
+        <a href="about.html">About</a>
+        <a href="contribute.html">Contribute</a>
+    </nav>
+    <div class="header-actions">
+        <button class="btn">Search</button>
+        <button class="btn btn-primary">Donate</button>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-header">
+            <h1>All Sites</h1>
+            <input type="text" id="search-input" class="search-input" placeholder="Search sites...">
+        </div>
+        <div class="table-wrapper">
+            <table id="sites-table">
+                <thead>
+                    <tr>
+                        <th data-sort-by="name">Name</th>
+                        <th data-sort-by="country">Country</th>
+                        <th data-sort-by="coordinates">Coordinates</th>
+                        <th data-sort-by="radiocarbonDates">Radiocarbon Dates</th>
+                        <th data-sort-by="typologicalDates">Typological Dates</th>
+                    </tr>
+                </thead>
+                <tbody id="sites-table-body"></tbody>
+            </table>
+            <div id="loader" class="loader">Loading more sites...</div>
+        </div>
+    </div>
+</main>
+
+<!-- Scroll-to-top button -->
+<button id="scrollTopBtn" title="Go to top">↑</button>
+
+<footer>
+    <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a>.</p>
+    <p><a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a></p>
+</footer>
+
+<script src="parser.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let sites = [], filteredSites = [];
+    let rowsLoaded = 0, rowsPerBatch = 30;
+    let currentSort = { column: 'name', order: 'asc' };
+    const tableBody = document.getElementById('sites-table-body');
+    const loader = document.getElementById('loader');
+    const searchInput = document.getElementById('search-input');
+    const headers = document.querySelectorAll('th[data-sort-by]');
+    let isLoading = false;
+
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) scrollBtn.style.display = 'block';
+        else scrollBtn.style.display = 'none';
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) loadMoreRows();
+    });
+
+    fetch('output.json')
+        .then(res => res.json())
+        .then(data => {
+            sites = processData(data);
+            filteredSites = [...sites];
+            sortData();
+            loadMoreRows();
+        });
+
+    function processData(data) {
+        const map = new Map();
+        data.forEach(item => {
+            if (!map.has(item.site)) map.set(item.site, {
+                name: item.site,
+                country: item.country,
+                lat: parseFloat(item.lat),
+                lng: parseFloat(item.lng),
+                radiocarbonDates: 0,
+                typologicalDates: 0
+            });
+            const site = map.get(item.site);
+            if (item.c14) site.radiocarbonDates += parseMalformedJson(item.c14).length;
+            else site.typologicalDates += parseMalformedJson(item.periods).length;
+        });
+        return Array.from(map.values());
+    }
+
+    function renderRows(start, end) {
+        const rows = filteredSites.slice(start, end);
+        rows.forEach(site => {
+            const tr = document.createElement('tr');
+            tr.addEventListener('click', () => window.location.href = `profile.html?id=${encodeURIComponent(site.name)}`);
+            tr.innerHTML = `
+                <td>${site.name}</td>
+                <td>${site.country || 'N/A'}</td>
+                <td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td>
+                <td>${site.radiocarbonDates}</td>
+                <td>${site.typologicalDates}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+        rowsLoaded += rows.length;
+        loader.style.display = 'none';
+        isLoading = false;
+    }
+
+    function loadMoreRows() {
+        if (rowsLoaded >= filteredSites.length || isLoading) return;
+        isLoading = true;
+        loader.style.display = 'block';
+        setTimeout(() => renderRows(rowsLoaded, rowsLoaded + rowsPerBatch), 300);
+    }
+
+    function sortData() {
+        filteredSites.sort((a, b) => {
+            let aVal = a[currentSort.column], bVal = b[currentSort.column];
+            if (currentSort.column === 'coordinates') { aVal = a.lat; bVal = b.lat; }
+            if (typeof aVal === 'string') { aVal = aVal.toLowerCase(); bVal = bVal.toLowerCase(); }
+            return (aVal < bVal ? -1 : aVal > bVal ? 1 : 0) * (currentSort.order === 'asc' ? 1 : -1);
+        });
+        tableBody.innerHTML = '';
+        rowsLoaded = 0;
+        loadMoreRows();
+        updateHeaderStyles();
+    }
+
+    searchInput.addEventListener('input', () => {
+        const term = searchInput.value.toLowerCase();
+        filteredSites = sites.filter(site => 
+            site.name.toLowerCase().includes(term) || 
+            (site.country && site.country.toLowerCase().includes(term))
+        );
+        sortData();
+    });
+
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const col = header.dataset.sortBy;
+            currentSort.order = (currentSort.column === col && currentSort.order === 'asc') ? 'desc' : 'asc';
+            currentSort.column = col;
+            sortData();
+        });
+    });
+
+    function updateHeaderStyles() {
+        headers.forEach(header => {
+            header.classList.remove('sort-asc', 'sort-desc');
+            if (header.dataset.sortBy === currentSort.column) {
+                header.classList.add(currentSort.order === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
