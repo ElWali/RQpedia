@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>All Sites — RQpedia</title>
+<meta name="description" content="Browse all archaeological sites with radiocarbon dates, coordinates, and typological information." />
+
+<!-- Fonts & icons -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<style>
+:root{
+    --bg:#0f1724;
+    --surface:#0b1220;
+    --muted:#94a3b8;
+    --text:#e6eef8;
+    --accent:#06b6d4;
+    --outline: rgba(255,255,255,0.06);
+    --shadow: rgba(2,6,23,0.6);
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,#071024,#071a2b);color:var(--text)}
+header{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--outline);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
+.logo a{font-weight:700;color:var(--text);text-decoration:none;font-size:1.05rem}
+nav.nav-links{display:flex;gap:12px;margin-left:8px}
+nav.nav-links a{color:var(--muted);text-decoration:none;font-size:0.95rem}
+.header-actions{margin-left:auto;display:flex;gap:8px}
+.header-actions button{background:transparent;border:1px solid var(--outline);color:var(--muted);padding:8px 10px;border-radius:8px;cursor:pointer}
+
+/* Layout */
+main.container{max-width:1100px;margin:20px auto;padding:18px;display:grid;grid-template-columns:300px 1fr;gap:18px}
+aside.panel{background:linear-gradient(180deg,#061028,#071a2b);border:1px solid var(--outline);border-radius:10px;padding:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+aside.panel h3{margin:0 0 8px 0;font-size:1rem}
+#site-selector,#search-filter{width:100%;padding:8px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);margin-bottom:12px}
+.small-btn{padding:6px 10px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--text);cursor:pointer;margin-top:4px}
+.meta-small{font-size:0.85rem;color:var(--muted);margin-top:8px}
+
+/* Table */
+.info-card{background:linear-gradient(180deg,#07132a,#071228);border:1px solid var(--outline);border-radius:10px;padding:14px;margin-bottom:12px}
+.table-container{overflow:auto;max-height:600px}
+table{width:100%;border-collapse:collapse;color:var(--text)}
+table thead th{border-bottom:1px solid rgba(255,255,255,0.04);padding:10px 8px;text-align:left;color:var(--muted);font-weight:600;font-size:0.85rem;position:sticky;top:0;background:var(--surface);cursor:pointer}
+table tbody td{padding:8px;border-top:1px dashed rgba(255,255,255,0.02);font-size:0.95rem}
+tr:hover{background:rgba(6,182,212,0.08);cursor:pointer;transition:background 0.2s}
+.sort-asc::after{content:" ▲";font-size:0.75rem}
+.sort-desc::after{content:" ▼";font-size:0.75rem}
+
+/* Scroll-to-top */
+#scrollTopBtn{position:fixed;bottom:2rem;right:2rem;z-index:100;background:var(--accent);color:var(--surface);border:none;padding:0.75rem 1rem;border-radius:50%;font-size:1.25rem;cursor:pointer;box-shadow:0 2px 6px var(--shadow);display:none;transition:opacity 0.3s}
+#scrollTopBtn:hover{opacity:0.85}
+
+/* Footer */
+footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;padding:0 18px}
+
+@media (max-width:980px){
+    main.container{grid-template-columns:1fr;padding:12px}
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="logo"><a href="index.html">RQpedia</a></div>
+    <nav class="nav-links" aria-label="Main navigation">
+        <a href="sites.html" class="active">Browse data</a>
+        <a href="about.html">About</a>
+        <a href="contribute.html">Contribute</a>
+    </nav>
+    <div class="header-actions" role="toolbar" aria-label="Top actions">
+        <button class="small-btn">Download all JSON</button>
+    </div>
+</header>
+
+<main class="container">
+    <!-- LEFT PANEL -->
+    <aside class="panel">
+        <h3>Browse Sites</h3>
+        <input id="search-filter" placeholder="Filter sites by name or country" aria-label="Filter sites" />
+        <label for="site-selector" class="meta-small">Select a site</label>
+        <select id="site-selector" aria-label="Site selector"></select>
+        <div class="meta-small" id="selected-count">Total sites: 0</div>
+        <div style="margin-top:12px">
+            <button id="prev-site" class="small-btn"><i class="bi bi-skip-start"></i> Prev</button>
+            <button id="next-site" class="small-btn">Next <i class="bi bi-skip-end"></i></button>
+        </div>
+    </aside>
+
+    <!-- RIGHT: Table -->
+    <section>
+        <div class="info-card">
+            <h2>All Sites</h2>
+            <div class="table-container">
+                <table id="sites-table">
+                    <thead>
+                        <tr>
+                            <th data-sort-by="name">Name</th>
+                            <th data-sort-by="country">Country</th>
+                            <th data-sort-by="coordinates">Coordinates</th>
+                            <th data-sort-by="radiocarbonDates">Radiocarbon Dates</th>
+                            <th data-sort-by="typologicalDates">Typological Dates</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sites-table-body"></tbody>
+                </table>
+                <div id="loader" style="color:var(--accent);padding:8px;text-align:center;display:none">Loading more sites...</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<button id="scrollTopBtn" title="Go to top">↑</button>
+
+<footer>
+    <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--accent)">CC BY 4.0</a>.</p>
+    <p><a href="https://github.com/ElWali/Jules" target="_blank" rel="noopener" style="color:var(--muted)">Project repo</a></p>
+</footer>
+
+<script src="parser.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let sites = [], filteredSites = [], currentIndex = 0;
+    const rowsPerBatch = 30;
+    let rowsLoaded = 0;
+    let currentSort = { column:'name', order:'asc' };
+    const tableBody = document.getElementById('sites-table-body');
+    const loader = document.getElementById('loader');
+    const searchInput = document.getElementById('search-filter');
+    const siteSelector = document.getElementById('site-selector');
+    const headers = document.querySelectorAll('th[data-sort-by]');
+    const scrollBtn = document.getElementById('scrollTopBtn');
+
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+    window.addEventListener('scroll', () => {
+        if(window.scrollY>300) scrollBtn.style.display='block'; else scrollBtn.style.display='none';
+        if((window.innerHeight+window.scrollY)>=document.body.offsetHeight-200) loadMoreRows();
+    });
+
+    fetch('output.json').then(r=>r.json()).then(data=>{
+        sites = processData(data);
+        filteredSites = [...sites];
+        populateSelector();
+        sortData();
+        loadMoreRows();
+    });
+
+    function processData(data){
+        const map = new Map();
+        data.forEach(item=>{
+            if(!map.has(item.site)) map.set(item.site,{name:item.site,country:item.country,lat:parseFloat(item.lat),lng:parseFloat(item.lng),radiocarbonDates:0,typologicalDates:0});
+            const s = map.get(item.site);
+            if(item.c14) s.radiocarbonDates+=parseMalformedJson(item.c14).length;
+            else s.typologicalDates+=parseMalformedJson(item.periods).length;
+        });
+        return Array.from(map.values());
+    }
+
+    function populateSelector(){
+        siteSelector.innerHTML='';
+        filteredSites.forEach((site,i)=>{
+            const opt = document.createElement('option'); opt.value=i; opt.textContent=site.name; siteSelector.appendChild(opt);
+        });
+        document.getElementById('selected-count').textContent=`Total sites: ${filteredSites.length}`;
+    }
+
+    siteSelector.addEventListener('change',()=>{currentIndex=parseInt(siteSelector.value);scrollToSite(currentIndex);});
+    document.getElementById('prev-site').addEventListener('click',()=>{if(currentIndex>0)currentIndex--;siteSelector.value=currentIndex;scrollToSite(currentIndex);});
+    document.getElementById('next-site').addEventListener('click',()=>{if(currentIndex<filteredSites.length-1)currentIndex++;siteSelector.value=currentIndex;scrollToSite(currentIndex);});
+
+    function scrollToSite(index){
+        const row = tableBody.children[index];
+        if(row){row.scrollIntoView({behavior:'smooth',block:'center'});row.style.background='rgba(6,182,212,0.12)';setTimeout(()=>row.style.background='transparent',800);}
+    }
+
+    function renderRows(start,end){
+        const rows = filteredSites.slice(start,end);
+        rows.forEach(site=>{
+            const tr=document.createElement('tr');
+            tr.addEventListener('click',()=>window.location.href=`profile.html?id=${encodeURIComponent(site.name)}`);
+            tr.innerHTML=`<td>${site.name}</td><td>${site.country||'N/A'}</td><td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td><td>${site.radiocarbonDates}</td><td>${site.typologicalDates}</td>`;
+            tableBody.appendChild(tr);
+        });
+        rowsLoaded+=rows.length;
+        loader.style.display='none';
+    }
+
+    function loadMoreRows(){if(rowsLoaded>=filteredSites.length)return; loader.style.display='block';setTimeout(()=>renderRows(rowsLoaded,rowsLoaded+rowsPerBatch),200);}
+
+    function sortData(){
+        filteredSites.sort((a,b)=>{
+            let aV=a[currentSort.column],bV=b[currentSort.column];
+            if(currentSort.column==='coordinates'){aV=a.lat;bV=b.lat;}
+            if(typeof aV==='string'){aV=aV.toLowerCase();bV=bV.toLowerCase();}
+            return (aV<bV?-1:aV>bV?1:0)*(currentSort.order==='asc'?1:-1);
+        });
+        tableBody.innerHTML=''; rowsLoaded=0; loadMoreRows(); updateHeaderStyles(); populateSelector();
+    }
+
+    searchInput.addEventListener('input',()=>{
+        const term=searchInput.value.toLowerCase();
+        filteredSites=sites.filter(site=>site.name.toLowerCase().includes(term)||(site.country&&site.country.toLowerCase().includes(term)));
+        sortData();
+    });
+
+    headers.forEach(h=>{
+        h.addEventListener('click',()=>{
+            const col=h.dataset.sortBy;
+            currentSort.order=(currentSort.column===col&&currentSort.order==='asc')?'desc':'asc';
+            currentSort.column=col;
+            sortData();
+        });
+    });
+
+    function updateHeaderStyles(){
+        headers.forEach(h=>{h.classList.remove('sort-asc','sort-desc');if(h.dataset.sortBy===currentSort.column)h.classList.add(currentSort.order==='asc'?'sort-asc':'sort-desc');});
+    }
+
+});
+</script>
+</body>
+</html>
