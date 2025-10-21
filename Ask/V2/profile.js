@@ -93,6 +93,8 @@ function renderProfilePage(siteName, data) {
                 lab_id: record.labnr || 'N/A',
                 context: [record.feature, record.feature_type].filter(Boolean).join(' ') || 'N/A',
                 material: record.material || 'N/A',
+                taxon: record.taxon || 'N/A',
+                method: record.method || 'N/A',
                 bp: record.bp,
                 std: record.std,
                 cal_bp_start: record.cal_bp_start || 'N/A',
@@ -117,6 +119,7 @@ function renderProfilePage(siteName, data) {
     });
 
     // --- Radiocarbon table ---
+    document.getElementById('c14-count').textContent = `(${c14_dates.length})`;
     const c14Body = document.getElementById('c14-table').querySelector('tbody');
     c14Body.innerHTML = '';
     if (c14_dates.length > 0) {
@@ -126,10 +129,16 @@ function renderProfilePage(siteName, data) {
                 <td data-label="Lab ID">${date.lab_id}</td>
                 <td data-label="Context">${date.context}</td>
                 <td data-label="Material">${date.material}</td>
-                <td data-label="Taxon">N/A</td>
-                <td data-label="Method">N/A</td>
-                <td data-label="Uncalibrated age">${date.bp}±${date.std}</td>
-                <td data-label="Calibrated age">${date.cal_bp_start}–${date.cal_bp_end} cal BP</td>
+                <td data-label="Taxon">${date.taxon}</td>
+                <td data-label="Method">${date.method}</td>
+                <td data-label="Uncalibrated age">
+                    <div>${date.bp} ± ${date.std}</div>
+                    <div class="age-secondary">BP</div>
+                </td>
+                <td data-label="Calibrated age">
+                    <div>${date.cal_bp_start}–${date.cal_bp_end}</div>
+                    <div class="age-secondary">cal BP</div>
+                </td>
                 <td data-label="References">${date.references}</td>
             `;
         });

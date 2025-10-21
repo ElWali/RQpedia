@@ -98,7 +98,7 @@ header {
     margin-bottom: 20px;
 }
 
-.info-card h2 {
+.info-card > h2 {
     padding: 16px 20px;
     border-bottom: 1px solid var(--divider);
     font-size: 1.25rem;
@@ -189,7 +189,62 @@ footer a {
     text-decoration: none;
 }
 
+.info-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--divider);
+}
+
+.info-card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card-header h2 i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.info-card-header h2 span {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+.info-card-actions .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--on-background);
+}
+
+.table-container {
+    padding: 0;
+    overflow-x: auto;
+}
+
+.age-secondary {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
 @media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        padding: 0 16px;
+        margin: 0 -16px;
+    }
+
+    .table {
+        white-space: nowrap;
+    }
+
     .container {
         padding: 16px;
     }
