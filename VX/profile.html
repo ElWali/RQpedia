@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XRONOS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <main class="container">
+        <header class="d-flex my-3 justify-content-between align-items-center">
+            <div>
+                <h1 id="site-name" class="h3"></h1>
+                <p id="site-country-subheader" class="lead text-muted"></p>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-md-8">
+                <section id="site-c14" class="my-5">
+                    <div id="sites-c14-toolbar" class="d-flex">
+                        <h2>
+                            Radiocarbon dates
+                            <small id="c14-count" class="text-muted"></small>
+                        </h2>
+                        <div class="ms-auto">
+                            <a id="download-csv" class="btn btn-sm btn-outline-primary" title="Download CSV"><i class="bi-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="c14-table" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Labnr</th>
+                                    <th>Feature</th>
+                                    <th>Material</th>
+                                    <th>Species</th>
+                                    <th>BP</th>
+                                    <th>Cal BP</th>
+                                    <th>Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section id="site-typos" class="my-5">
+                    <div id="sites-typos-toolbar" class="d-flex">
+                        <h2>
+                            Typological dates
+                            <small id="typo-count" class="text-muted"></small>
+                        </h2>
+                    </div>
+                    <div class="table-container">
+                        <table id="typo-table" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Classification</th>
+                                    <th>Estimated age</th>
+                                    <th>References</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section id="site-references" class="my-5">
+                    <h2>
+                        Bibliographic references
+                    </h2>
+                    <div id="references-container"></div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Site Information</div>
+                    <div class="card-body">
+                        <dl>
+                            <dt>Country</dt>
+                            <dd id="country"></dd>
+                            <dt>Site Type</dt>
+                            <dd id="site-type"></dd>
+                            <dt>Coordinates</dt>
+                            <dd id="coords-deg"></dd>
+                            <dd id="coords-dms"></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div id="map" style="height: 300px; margin-top: 20px;"></div>
+                <div id="linked-data" class="my-5">
+                    <h5>Linked Open Data</h5>
+                    <div id="linked-data-content"></div>
+                </div>
+                <div id="media" class="my-5">
+                    <h5>Media</h5>
+                    <div id="media-content"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="parser.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

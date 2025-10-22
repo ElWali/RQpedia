@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function processData(data){
         const map = new Map();
         data.forEach(item=>{
-            if(!map.has(item.site)) map.set(item.site,{name:item.site,country:item.country,lat:parseFloat(item.lat),lng:parseFloat(item.lng),radiocarbonDates:0,typologicalDates:0});
+            if(!map.has(item.site)) map.set(item.site,{id: item.id, name:item.site,country:item.country,lat:parseFloat(item.lat),lng:parseFloat(item.lng),radiocarbonDates:0,typologicalDates:0});
             const s = map.get(item.site);
             if(item.c14) s.radiocarbonDates+=parseMalformedJson(item.c14).length;
             else s.typologicalDates+=parseMalformedJson(item.periods).length;
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rows = filteredSites.slice(start,end);
         rows.forEach(site=>{
             const tr=document.createElement('tr');
-            tr.addEventListener('click',()=>window.location.href=`../Ask/profile.html?id=${encodeURIComponent(site.name)}`);
+            tr.addEventListener('click',()=>window.location.href=`profile.html?id=${site.id}`);
             tr.innerHTML=`<td>${site.name}</td><td>${site.country||'N/A'}</td><td>${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}</td><td>${site.radiocarbonDates}</td><td>${site.typologicalDates}</td>`;
             tableBody.appendChild(tr);
         });
