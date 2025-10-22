@@ -78,7 +78,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Populated by profile.js with data-label -->
+                        <!-- Populated by script -->
                     </tbody>
                 </table>
             </div>
@@ -95,7 +95,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Populated by profile.js with data-label -->
+                        <!-- Populated by script -->
                     </tbody>
                 </table>
             </div>
@@ -143,184 +143,167 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="parser.js"></script>
-    <script src="profile.js"></script>
     <script>
-        // === Utility: HTML escaping ===
+        // === UTILITIES ===
         const escapeHtml = (str) => {
             if (typeof str !== 'string') return '';
-            return str
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '<')
-                .replace(/>/g, '>')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         };
 
-        // === Create Linked Data Card ===
-        function createLinkedDataCard(source, title, description = '', imageUrl = '', url = '#') {
-            const safeTitle = escapeHtml(title);
-            const safeDesc = escapeHtml(description);
-            const safeImg = imageUrl ? escapeHtml(imageUrl) : '';
-            const safeUrl = escapeHtml(url);
-
-            let card = `<div style="margin-bottom: 16px; padding: 16px; border: 1px solid var(--divider); border-radius: 8px; background: var(--surface);">`;
-            if (safeImg) {
-                card += `<img src="${safeImg}" alt="${safeTitle}" style="width:100%; height:160px; object-fit:cover; border-radius: 4px; margin-bottom: 12px;" loading="lazy">`;
-            }
-            card += `<h3 style="font-size: 1.1rem; font-weight: 500; margin: 0 0 8px;">${safeTitle} <span style="font-size: 0.75rem; background: var(--divider); padding: 2px 6px; border-radius: 4px; color: var(--on-background);">${escapeHtml(source)}</span></h3>`;
-            if (safeDesc) {
-                card += `<p style="font-size: 0.95rem; color: var(--on-background); margin: 0 0 12px;">${safeDesc}</p>`;
-            }
-            card += `<a href="${safeUrl}" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; font-weight: 500; font-size: 0.9rem;">View on ${escapeHtml(source)}</a>`;
-            card += `</div>`;
-            return card;
-        }
-
-        // === Fetch from Wikidata ===
-        async function fetchWikidata(siteName, wikidataId = null) {
-            let entityId = wikidataId;
-            if (!entityId || !entityId.startsWith('Q')) {
+        function safeParsePossibleJSONField(val) {
+            if (!val && val !== 0) return null;
+            if (Array.isArray(val) || typeof val === 'object') return val;
+            try {
+                return JSON.parse(val);
+            } catch (e) {
                 try {
-                    const searchRes = await fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(siteName)}&language=en&limit=1&format=json&origin=*`);
-                    const searchData = await searchRes.json();
-                    if (searchData.search && searchData.search.length > 0) {
-                        entityId = searchData.search[0].id;
-                    } else {
-                        return null;
-                    }
-                } catch (e) {
-                    console.warn('Wikidata search failed:', e);
-                    return null;
+                    let v = val.replace(/\"\"/g, '"');
+                    v = v.replace(/\s+\\n\s+/g, ' ');
+                    if (/^\{.*\}$/.test(v) && !v.startsWith('[')) v = `[${v}]`;
+                    return JSON.parse(v);
+                } catch (e2) {
+                    const stripped = val.replace(/^[\[\]"\s]+|[\[\]"\s]+$/g, '');
+                    if (!stripped) return null;
+                    const parts = stripped.split(/\}\s*,\s*\{/).map(s => s.replace(/^[\{\}]+|[\{\}]+$/g,''));
+                    const out = parts.map(p => {
+                        const obj = {};
+                        p.split(/\s*,\s*/).forEach(kv => {
+                            const m = kv.match(/([^:]+):\s*(.*)/) || kv.match(/"([^"]+)"\s*:\s*"([^"]+)"/);
+                            if (m) {
+                                const key = m[1].replace(/^"|"$/g,'').trim();
+                                const value = (m[2] || '').replace(/^"|"$/g,'').trim();
+                                obj[key] = value;
+                            }
+                        });
+                        return obj;
+                    });
+                    return out.length ? out : null;
                 }
-            }
-
-            try {
-                const entityRes = await fetch(`https://www.wikidata.org/wiki/Special:EntityData/${entityId}.json`);
-                const entityData = await entityRes.json();
-                const entity = entityData.entities?.[entityId];
-                if (!entity) return null;
-
-                const label = entity.labels?.en?.value || siteName;
-                const description = entity.descriptions?.en?.value || '';
-                const wdUrl = `https://www.wikidata.org/wiki/${entityId}`;
-                let imageUrl = '';
-                if (entity.claims?.P18?.[0]?.mainsnak?.datavalue?.value) {
-                    const fileName = entity.claims.P18[0].mainsnak.datavalue.value;
-                    imageUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}?width=400`;
-                }
-                return { source: 'Wikidata', title: label, description: description, imageUrl: imageUrl, url: wdUrl };
-            } catch (e) {
-                console.warn('Wikidata entity fetch failed:', e);
-                return null;
             }
         }
 
-        // === Fetch from DBpedia ===
-        async function fetchDBpedia(siteName) {
-            const cleanName = siteName.replace(/ /g, '_');
-            const dbpediaUrl = `https://dbpedia.org/data/${encodeURIComponent(cleanName)}.json`;
-
-            try {
-                const res = await fetch(dbpediaUrl);
-                if (!res.ok) return null;
-                const data = await res.json();
-                const resourceUri = `http://dbpedia.org/resource/${cleanName}`;
-                const graph = data[resourceUri];
-                if (!graph) return null;
-
-                const abstractObj = graph['http://dbpedia.org/ontology/abstract']?.find(a => a.lang === 'en');
-                const thumbnailObj = graph['http://dbpedia.org/ontology/thumbnail']?.[0];
-                const abstract = abstractObj ? abstractObj.value : '';
-                const thumbnail = thumbnailObj ? thumbnailObj.value : '';
-
-                if (abstract || thumbnail) {
-                    return {
-                        source: 'DBpedia',
-                        title: siteName,
-                        description: abstract,
-                        imageUrl: thumbnail,
-                        url: `https://dbpedia.org/page/${cleanName}`
-                    };
-                }
-            } catch (e) {
-                console.warn('DBpedia fetch failed:', e);
+        function formatDMS(deg, latOrLng = 'lat') {
+            if (deg == null || Number.isNaN(deg)) return '—';
+            const sign = deg >= 0 ? 1 : -1;
+            const abs = Math.abs(deg);
+            const d = Math.floor(abs);
+            const mFloat = (abs - d) * 60;
+            const m = Math.floor(mFloat);
+            const s = ((mFloat - m) * 60).toFixed(1);
+            if (latOrLng === 'lat') {
+                return `${d}°${m}'${s}" ${deg >= 0 ? 'N' : 'S'}`;
             }
-            return null;
+            return `${d}°${m}'${s}" ${deg >= 0 ? 'E' : 'W'}`;
         }
 
-        // === Report Handler ===
-        function attachReportHandler(siteName) {
-            const handleClick = (e) => {
-                e.preventDefault();
-                const subject = encodeURIComponent(`Missing linked data for: ${siteName}`);
-                const body = encodeURIComponent(
-                    `Hello,\n\nThe archaeological site "${siteName}" appears to be missing links to Wikidata or DBpedia.\n\nPlease consider adding a Wikidata QID to improve discoverability.\n\nThank you!`
-                );
-                window.location.href = `mailto:contact@xronos.ch?subject=${subject}&body=${body}`;
-            };
+        let mapInstance = null;
+        let mapMarker = null;
 
-            const buttons = document.querySelectorAll('#report-link-btn, #report-link-btn-secondary');
-            buttons.forEach(btn => {
-                btn.removeEventListener('click', handleClick);
-                btn.addEventListener('click', handleClick);
-            });
+        function renderMap(lat, lng, siteName) {
+            const mapEl = document.getElementById('map');
+            if (!mapInstance) {
+                mapInstance = L.map(mapEl, { zoomControl: true, attributionControl: true });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(mapInstance);
+            }
+            if (mapMarker) {
+                mapMarker.remove();
+                mapMarker = null;
+            }
+            if (lat != null && lng != null) {
+                mapInstance.setView([lat, lng], 9);
+                mapMarker = L.marker([lat, lng]).addTo(mapInstance).bindPopup(`<strong>${escapeHtml(siteName)}</strong>`);
+            } else {
+                mapInstance.setView([30, 0], 3);
+            }
         }
 
-        // === Main Fetch & Render ===
-        async function fetchAndRenderLinkedData(siteName, wikidataId = null) {
-            const container = document.getElementById('linked-data-content');
-            container.innerHTML = `<p style="color: var(--muted);">Loading linked open data from Wikidata and DBpedia…</p>`;
+        // === RENDER PROFILE ===
+        function renderProfilePage(siteData, allData) {
+            const siteName = siteData.site;
+            const records = allData.filter(d => (d.site || '').toLowerCase() === siteName.toLowerCase());
 
-            try {
-                const [wdData, dbData] = await Promise.all([
-                    fetchWikidata(siteName, wikidataId),
-                    fetchDBpedia(siteName)
-                ]);
+            // Header
+            document.getElementById('site-name').textContent = siteName;
+            document.getElementById('site-country-subheader').textContent = siteData.country || '—';
+            document.getElementById('country').textContent = siteData.country || '—';
+            const created = siteData.created_at ? new Date(siteData.created_at).toLocaleDateString() : 'N/A';
+            const updated = siteData.updated_at ? new Date(siteData.updated_at).toLocaleDateString() : 'N/A';
+            document.getElementById('created-date').textContent = created;
+            document.getElementById('updated-date').textContent = updated;
 
-                const cards = [];
+            // Coordinates
+            const lat = parseFloat(siteData.lat);
+            const lng = parseFloat(siteData.lng);
+            document.getElementById('coords-deg').textContent = (lat && lng) ? `${lat.toFixed(5)}, ${lng.toFixed(5)}` : '—';
+            document.getElementById('coords-dms').textContent = (lat && lng) ? `${formatDMS(lat, 'lat')}, ${formatDMS(lng, 'lng')}` : '—';
 
-                if (wdData) {
-                    cards.push(createLinkedDataCard(wdData.source, wdData.title, wdData.description, wdData.imageUrl, wdData.url));
-                }
+            // Map
+            renderMap(lat, lng, siteName);
 
-                if (dbData) {
-                    // Avoid duplicate if same URL (unlikely but safe)
-                    const exists = cards.some(card => card.includes(escapeHtml(dbData.url)));
-                    if (!exists) {
-                        cards.push(createLinkedDataCard(dbData.source, dbData.title, dbData.description, dbData.imageUrl, dbData.url));
-                    }
-                }
-
-                if (cards.length > 0) {
-                    container.innerHTML = cards.join('');
-                } else {
-                    container.innerHTML = `
-                        <p style="color: var(--muted);">No linked open data found for this site.</p>
-                        <button id="report-link-btn-secondary" class="small-btn">
-                            <i class="bi bi-link-45deg"></i> Report missing link
-                        </button>
+            // Radiocarbon Table
+            const c14Tbody = document.querySelector('#c14-table tbody');
+            c14Tbody.innerHTML = '';
+            const c14Records = records.filter(r => r.bp && r.std);
+            if(c14Records.length > 0) {
+                c14Records.forEach(r => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td data-label="Lab ID">${escapeHtml(r.labnr || '—')}</td>
+                        <td data-label="Context">${escapeHtml(r.feature_type || '—')}</td>
+                        <td data-label="Material">${escapeHtml(r.material || '—')}</td>
+                        <td data-label="Taxon">${escapeHtml(r.species || '—')}</td>
+                        <td data-label="Method">Radiocarbon</td>
+                        <td data-label="Uncalibrated age">${r.bp} ± ${r.std}</td>
+                        <td data-label="Calibrated age">${escapeHtml(r.cal_bp || '—')}</td>
+                        <td data-label="References">${escapeHtml(r.reference || '—')}</td>
                     `;
-                    attachReportHandler(siteName);
-                }
-            } catch (error) {
-                console.error('Error in fetchAndRenderLinkedData:', error);
-                container.innerHTML = `
-                    <p style="color: #dc3545;">Failed to load linked data.</p>
-                    <button id="report-link-btn-secondary" class="small-btn">
-                        <i class="bi bi-link-45deg"></i> Report missing link
-                    </button>
-                `;
-                attachReportHandler(siteName);
+                    c14Tbody.appendChild(tr);
+                });
+            } else {
+                c14Tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color: var(--muted);">No radiocarbon data available.</td></tr>';
+            }
+
+            // Typological Table
+            const typoTbody = document.querySelector('#typo-table tbody');
+            typoTbody.innerHTML = '';
+            const typoRecords = records.flatMap(r => safeParsePossibleJSONField(r.typochronological_units) || []);
+             if(typoRecords.length > 0) {
+                typoRecords.forEach(t => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td data-label="Classification">${escapeHtml(t.typochronological_unit || '—')}</td>
+                        <td data-label="Estimated age">—</td>
+                        <td data-label="References">${escapeHtml(siteData.reference || '—')}</td>
+                    `;
+                    typoTbody.appendChild(tr);
+                });
+            } else {
+                typoTbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color: var(--muted);">No typological data available.</td></tr>';
+            }
+
+            // References
+            const refs = [...new Set(records.map(r => r.reference).filter(Boolean))];
+            const refsContainer = document.getElementById('references-container');
+            refsContainer.innerHTML = '';
+            if (refs.length > 0) {
+                refs.forEach(ref => {
+                    refsContainer.innerHTML += `<p>${escapeHtml(ref)}</p>`;
+                });
+            } else {
+                refsContainer.innerHTML = '<p style="color: var(--muted);">No bibliographic references available.</p>';
             }
         }
 
-        // === Page Initialization ===
+
+        // === DATA FETCHING & INITIALIZATION ===
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const siteName = decodeURIComponent(urlParams.get('id') || '').trim();
+            const siteId = decodeURIComponent(urlParams.get('id') || '').trim();
 
-            if (!siteName) {
+            if (!siteId) {
                 document.getElementById('site-name').textContent = 'Site not specified';
                 return;
             }
@@ -331,26 +314,19 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Assume renderProfilePage is defined in profile.js and populates all other fields
-                    // It must also populate table rows with data-label attributes
-                    renderProfilePage(siteName, data);
+                    const siteData = data.find(s => s.id === siteId);
 
-                    const siteData = data[siteName] || {};
-                    const wikidataId = siteData.wikidata_id || null;
+                    if (!siteData) {
+                        document.getElementById('site-name').textContent = 'Site not found';
+                        return;
+                    }
 
-                    fetchAndRenderLinkedData(siteName, wikidataId);
-                    attachReportHandler(siteName);
+                    renderProfilePage(siteData, data);
+
                 })
                 .catch(error => {
                     console.error('Failed to load site data:', error);
                     document.getElementById('site-name').textContent = 'Error loading site data';
-                    document.getElementById('linked-data-content').innerHTML = `
-                        <p style="color: #dc3545;">Could not load linked data.</p>
-                        <button id="report-link-btn-secondary" class="small-btn">
-                            <i class="bi bi-link-45deg"></i> Report missing link
-                        </button>
-                    `;
-                    attachReportHandler(siteName);
                 });
         });
     </script>
