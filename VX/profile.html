@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Site Profile — RQpedia</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -20,123 +20,126 @@
             <a href="contribute.html">Contribute</a>
         </nav>
         <div class="header-actions">
-            <button class="search-button">Search</button>
-            <button class="signin-button">Donate</button>
+            <button class="small-btn">Download all JSON</button>
         </div>
     </header>
 
     <main class="container">
-        <div class="site-header">
-            <h1 id="site-name">Loading…</h1>
-            <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
-            <div class="site-meta">
-                Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
-                <a href="#changelog">See changelog for details.</a>
+        <aside class="panel">
+            <div class="info-card">
+                <div class="site-header">
+                    <h1 id="site-name">Loading…</h1>
+                    <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
+                    <div class="site-meta">
+                        Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
+                        <a href="#changelog">See changelog for details.</a>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Location -->
-        <div class="info-card">
-            <h2>Location</h2>
-            <table>
-                <tr>
-                    <th>Coordinates (degrees)</th>
-                    <td id="coords-deg" data-label="Coordinates (degrees)"></td>
-                </tr>
-                <tr>
-                    <th>Coordinates (DMS)</th>
-                    <td id="coords-dms" data-label="Coordinates (DMS)"></td>
-                </tr>
-                <tr>
-                    <th>Country</th>
-                    <td id="country" data-label="Country"></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Map -->
-        <div id="map" style="height: clamp(250px, 40vh, 400px); margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 8px var(--shadow);"></div>
-
-        <!-- Radiocarbon Dates -->
-        <div class="info-card">
-            <h2>Radiocarbon Dates</h2>
-            <table id="c14-table" class="table">
-                <thead>
+            <!-- Location -->
+            <div class="info-card">
+                <h2 class="info-card-header">Location</h2>
+                <table>
                     <tr>
-                        <th>Lab ID</th>
-                        <th>Context</th>
-                        <th>Material</th>
-                        <th>Taxon</th>
-                        <th>Method</th>
-                        <th>Uncalibrated age</th>
-                        <th>Calibrated age</th>
-                        <th>References</th>
+                        <th>Coordinates (degrees)</th>
+                        <td id="coords-deg" data-label="Coordinates (degrees)"></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <!-- Populated by profile.js with data-label -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Typological Dates -->
-        <div class="info-card">
-            <h2>Typological Dates</h2>
-            <table id="typo-table" class="table">
-                <thead>
                     <tr>
-                        <th>Classification</th>
-                        <th>Estimated age</th>
-                        <th>References</th>
+                        <th>Coordinates (DMS)</th>
+                        <td id="coords-dms" data-label="Coordinates (DMS)"></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <!-- Populated by profile.js with data-label -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Bibliographic References -->
-        <div class="info-card">
-            <h2>Bibliographic References</h2>
-            <div id="references-container" style="padding: 16px 20px;" aria-live="polite"></div>
-        </div>
-
-        <!-- Changelog / Open Data -->
-        <div class="info-card" id="changelog">
-            <h2>Open data related to the archaeological site</h2>
-            <div style="padding: 16px 20px;">
-                <p>
-                    Display open data related to the archaeological site fetched automatically from Wikimedia Commons, Wikidata and other open data sources (images, videos, …)
-                </p>
-                <div id="changelog-container" aria-live="polite"></div>
+                    <tr>
+                        <th>Country</th>
+                        <td id="country" data-label="Country"></td>
+                    </tr>
+                </table>
             </div>
-        </div>
 
-        <!-- Linked Open Data – moved to bottom -->
-        <div class="info-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; padding: 16px 20px;">
-                <h2>Linked Open Data</h2>
-                <button id="report-link-btn" style="padding: 8px 16px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px; min-height: 44px;">
-                    <i class="bi bi-link-45deg"></i> Report missing link
-                </button>
+            <!-- Map -->
+            <div id="map"></div>
+        </aside>
+
+        <section>
+            <!-- Radiocarbon Dates -->
+            <div class="info-card">
+                <h2 class="info-card-header">Radiocarbon Dates</h2>
+                <table id="c14-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Lab ID</th>
+                            <th>Context</th>
+                            <th>Material</th>
+                            <th>Taxon</th>
+                            <th>Method</th>
+                            <th>Uncalibrated age</th>
+                            <th>Calibrated age</th>
+                            <th>References</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by profile.js with data-label -->
+                    </tbody>
+                </table>
             </div>
-            <div id="linked-data-content" style="padding: 0 20px 16px;" aria-live="polite">
-                <p style="color: #64748b;">Loading linked open data from Wikidata and DBpedia…</p>
+
+            <!-- Typological Dates -->
+            <div class="info-card">
+                <h2 class="info-card-header">Typological Dates</h2>
+                <table id="typo-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Classification</th>
+                            <th>Estimated age</th>
+                            <th>References</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by profile.js with data-label -->
+                    </tbody>
+                </table>
             </div>
-        </div>
+
+            <!-- Bibliographic References -->
+            <div class="info-card">
+                <h2 class="info-card-header">Bibliographic References</h2>
+                <div id="references-container" style="padding: 16px 20px;" aria-live="polite"></div>
+            </div>
+
+            <!-- Changelog / Open Data -->
+            <div class="info-card" id="changelog">
+                <h2 class="info-card-header">Open data related to the archaeological site</h2>
+                <div style="padding: 16px 20px;">
+                    <p>
+                        Display open data related to the archaeological site fetched automatically from Wikimedia Commons, Wikidata and other open data sources (images, videos, …)
+                    </p>
+                    <div id="changelog-container" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <!-- Linked Open Data – moved to bottom -->
+            <div class="info-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; padding: 16px 20px;">
+                    <h2 class="info-card-header">Linked Open Data</h2>
+                    <button id="report-link-btn" class="small-btn">
+                        <i class="bi bi-link-45deg"></i> Report missing link
+                    </button>
+                </div>
+                <div id="linked-data-content" style="padding: 0 20px 16px;" aria-live="polite">
+                    <p style="color: var(--muted);">Loading linked open data from Wikidata and DBpedia…</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>
-                This work is licensed under a
-                <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-            </p>
-            <p>
-                <a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a>
-            </p>
-        </div>
+        <p>
+            This work is licensed under a
+            <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+        </p>
+        <p>
+            <a href="https://github.com/xronos-ch/xronos.rails/">View source on GitHub</a>
+        </p>
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -267,7 +270,7 @@
         // === Main Fetch & Render ===
         async function fetchAndRenderLinkedData(siteName, wikidataId = null) {
             const container = document.getElementById('linked-data-content');
-            container.innerHTML = '<p style="color: #64748b;">Loading linked open data from Wikidata and DBpedia…</p>';
+            container.innerHTML = `<p style="color: var(--muted);">Loading linked open data from Wikidata and DBpedia…</p>`;
 
             try {
                 const [wdData, dbData] = await Promise.all([
@@ -293,8 +296,8 @@
                     container.innerHTML = cards.join('');
                 } else {
                     container.innerHTML = `
-                        <p style="color: #64748b;">No linked open data found for this site.</p>
-                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 8px 16px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px; min-height: 44px;">
+                        <p style="color: var(--muted);">No linked open data found for this site.</p>
+                        <button id="report-link-btn-secondary" class="small-btn">
                             <i class="bi bi-link-45deg"></i> Report missing link
                         </button>
                     `;
@@ -304,7 +307,7 @@
                 console.error('Error in fetchAndRenderLinkedData:', error);
                 container.innerHTML = `
                     <p style="color: #dc3545;">Failed to load linked data.</p>
-                    <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 8px 16px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px; min-height: 44px;">
+                    <button id="report-link-btn-secondary" class="small-btn">
                         <i class="bi bi-link-45deg"></i> Report missing link
                     </button>
                 `;
@@ -343,7 +346,7 @@
                     document.getElementById('site-name').textContent = 'Error loading site data';
                     document.getElementById('linked-data-content').innerHTML = `
                         <p style="color: #dc3545;">Could not load linked data.</p>
-                        <button id="report-link-btn-secondary" style="margin-top: 12px; padding: 8px 16px; border: 1px solid var(--outline); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px; min-height: 44px;">
+                        <button id="report-link-btn-secondary" class="small-btn">
                             <i class="bi bi-link-45deg"></i> Report missing link
                         </button>
                     `;
