@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!map.has(item.site)) map.set(item.site,{id: item.id, name:item.site,country:item.country,lat:parseFloat(item.lat),lng:parseFloat(item.lng),radiocarbonDates:0,typologicalDates:0});
             const s = map.get(item.site);
             if(item.c14) s.radiocarbonDates+=parseMalformedJson(item.c14).length;
-            else s.typologicalDates+=parseMalformedJson(item.periods).length;
+            if(item.periods) s.typologicalDates+=parseMalformedJson(item.periods).length;
         });
         return Array.from(map.values());
     }
