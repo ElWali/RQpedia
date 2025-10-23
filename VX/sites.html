@@ -188,8 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function sortData(){
         filteredSites.sort((a,b)=>{
+            if (currentSort.column === 'coordinates') {
+                const dir = currentSort.order === 'asc' ? 1 : -1;
+                if (a.lat > b.lat) return 1 * dir;
+                if (a.lat < b.lat) return -1 * dir;
+                if (a.lng > b.lng) return 1 * dir;
+                if (a.lng < b.lng) return -1 * dir;
+                return 0;
+            }
             let aV=a[currentSort.column],bV=b[currentSort.column];
-            if(currentSort.column==='coordinates'){aV=a.lat;bV=b.lat;}
             if(typeof aV==='string'){aV=aV.toLowerCase();bV=bV.toLowerCase();}
             return (aV<bV?-1:aV>bV?1:0)*(currentSort.order==='asc'?1:-1);
         });
