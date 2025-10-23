@@ -377,7 +377,8 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
+  <script type="module">
+    import { parseReferences } from './parser.js';
     let allPlaces = [];
 
     // === DATA FETCHING & PROCESSING ===
@@ -441,41 +442,15 @@
               let value = item[key];
               if (value === null || value === '' || value === undefined) continue;
 
-              // Parse JSON strings if possible
-              if (typeof value === 'string' && (value.startsWith('[') || value.startsWith('{'))) {
-                try {
-                  const cleanedValue = cleanJsonString(value);
-                  const parsed = JSON.parse(cleanedValue);
-                  if (Array.isArray(parsed)) {
-                    const cleaned = parsed
-                      .map(obj => {
-                        if (obj && typeof obj === 'object') {
-                          // Extract value from known keys
-                          if (obj.periode) return obj.periode;
-                          if (obj.typochronological_unit) return obj.typochronological_unit;
-                          if (obj.ecochronological_unit) return obj.ecochronological_unit;
-                          if (obj.reference) return obj.reference;
-                          return Object.values(obj)[0] || '';
-                        }
-                        return String(obj);
-                      })
-                      .filter(v => v && v !== 'null' && v.trim() !== '')
-                      .join(', ');
-                    value = cleaned || '—';
-                  } else if (typeof parsed === 'object' && parsed !== null) {
-                    value = parsed.reference || JSON.stringify(parsed);
-                  }
-                } catch (e) {
-                  // Keep original string if parsing fails
-                }
-              }
-
               // Skip unwanted fields
               if (skipFields.includes(key)) continue;
 
               // Format special values
               let displayValue = value;
-              if (key === 'country' && value === 'MA') {
+              if (key === 'reference' || key === 'references') {
+                displayValue = parseReferences(value);
+              }
+              else if (key === 'country' && value === 'MA') {
                 displayValue = 'Morocco';
               } else if (key === 'bp') {
                 displayValue = `${parseFloat(value).toFixed(1)} years BP`;

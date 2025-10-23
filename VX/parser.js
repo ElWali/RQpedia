@@ -39,3 +39,39 @@ export function parseMalformedJson(val) {
     }
   }
 }
+
+/**
+ * Formats an array of reference objects into a readable string.
+ * @param {Array<Object>|string|null} refs - The references to format.
+ * @returns {string} A formatted string of references, or '—' if none are valid.
+ */
+export function parseReferences(refs) {
+  if (!refs) return '—';
+
+  let references = [];
+  if (typeof refs === 'string') {
+    try {
+      references = JSON.parse(refs);
+    } catch (e) {
+      return refs; // Return the original string if it's not valid JSON
+    }
+  } else {
+    references = refs;
+  }
+
+  if (!Array.isArray(references)) {
+    return '—';
+  }
+
+  const formattedRefs = references
+    .map(ref => {
+      if (typeof ref === 'object' && ref !== null && ref.author && ref.year) {
+        return `${ref.author} (${ref.year})`;
+      }
+      return null;
+    })
+    .filter(Boolean) // Remove null entries
+    .join('; ');
+
+  return formattedRefs || '—';
+}
