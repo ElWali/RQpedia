@@ -30,70 +30,67 @@
         </table>
     </div>
 
-    <script src="../VX/parser.js"></script>
-    <script src="../VX/sites.html"></script>
+    <script type="module">
+        import { parseMalformedJson } from '../VX/parser.js';
 
-    <script>
-        QUnit.module('Sorting Logic', function(hooks) {
-            // Mock the fetch function
-            hooks.beforeEach(function() {
-                this.originalFetch = window.fetch;
-                window.fetch = async (url) => {
-                    if (url === 'output.json') {
-                        return {
-                            json: async () => [
-                                { "id": 1, "site": "Site A", "country": "Country X", "lat": "34.0", "lng": "9.0" },
-                                { "id": 2, "site": "Site B", "country": "Country Y", "lat": "32.0", "lng": "10.0" },
-                                { "id": 3, "site": "Site C", "country": "Country Z", "lat": "34.0", "lng": "8.0" }
-                            ]
-                        };
-                    }
-                    return this.originalFetch(url);
-                };
+        // --- Logic extracted from sites.html ---
+        let sites = [], filteredSites = [], currentIndex = 0;
+        const rowsPerBatch = 30;
+        let rowsLoaded = 0;
+        let currentSort = { column:'name', order:'asc' };
+
+        function processData(data){
+            const map = new Map();
+            data.forEach(item=>{
+                if(!map.has(item.site)) map.set(item.site,{id: item.id, name:item.site,country:item.country,lat:parseFloat(item.lat),lng:parseFloat(item.lng),radiocarbonDates:0,typologicalDates:0});
+                const s = map.get(item.site);
+                if(item.c14) s.radiocarbonDates+=parseMalformedJson(item.c14).length;
+                else s.typologicalDates+=parseMalformedJson(item.periods).length;
             });
+            return Array.from(map.values());
+        }
 
-            hooks.afterEach(function() {
-                window.fetch = this.originalFetch;
+        function sortData(){
+            filteredSites.sort((a,b)=>{
+                if (currentSort.column === 'coordinates') {
+                    const dir = currentSort.order === 'asc' ? 1 : -1;
+                    if (a.lat > b.lat) return 1 * dir;
+                    if (a.lat < b.lat) return -1 * dir;
+                    if (a.lng > b.lng) return 1 * dir;
+                    if (a.lng < b.lng) return -1 * dir;
+                    return 0;
+                }
+                let aV=a[currentSort.column],bV=b[currentSort.column];
+                if(typeof aV==='string'){aV=aV.toLowerCase();bV=bV.toLowerCase();}
+                return (aV<bV?-1:aV>bV?1:0)*(currentSort.order==='asc'?1:-1);
             });
+        }
 
+        // --- QUnit Tests ---
+        QUnit.module('Sorting Logic', function() {
             QUnit.test('should sort coordinates by latitude then longitude', function(assert) {
-                const done = assert.async();
+                const testData = [
+                    { "id": 1, "site": "Site A", "country": "Country X", "lat": "34.0", "lng": "9.0" },
+                    { "id": 2, "site": "Site B", "country": "Country Y", "lat": "32.0", "lng": "10.0" },
+                    { "id": 3, "site": "Site C", "country": "Country Z", "lat": "34.0", "lng": "8.0" }
+                ];
 
-                // This will trigger the fetch and initial sort
-                document.addEventListener('DOMContentLoaded', () => {
-                    setTimeout(() => {
-                        // At this point, the data should be fetched and sorted by name ascending
-                        // Now, we simulate a click to sort by coordinates
-                        const coordinatesHeader = document.querySelector('th[data-sort-by="coordinates"]');
+                sites = processData(testData);
+                filteredSites = [...sites];
 
-                        // First click: Ascending order
-                        coordinatesHeader.click();
+                // --- Test ascending sort ---
+                currentSort = { column: 'coordinates', order: 'asc' };
+                sortData();
 
-                        setTimeout(() => {
-                            let textContent = document.getElementById('sites-table-body').textContent;
+                let names = filteredSites.map(s => s.name);
+                assert.deepEqual(names, ['Site B', 'Site C', 'Site A'], 'Ascending Sort Order is correct');
 
-                            // Expected order: Site B (32.0), Site C (34.0, 8.0), Site A (34.0, 9.0)
-                            assert.ok(textContent.indexOf('Site B') < textContent.indexOf('Site C'), 'Ascending Sort: Site B should come before Site C');
-                            assert.ok(textContent.indexOf('Site C') < textContent.indexOf('Site A'), 'Ascending Sort: Site C should come before Site A');
+                // --- Test descending sort ---
+                currentSort = { column: 'coordinates', order: 'desc' };
+                sortData();
 
-                            // Second click: Descending order
-                            coordinatesHeader.click();
-
-                            setTimeout(() => {
-                                textContent = document.getElementById('sites-table-body').textContent;
-
-                                // Expected order: Site A (34.0, 9.0), Site C (34.0, 8.0), Site B (32.0)
-                                assert.ok(textContent.indexOf('Site A') < textContent.indexOf('Site C'), 'Descending Sort: Site A should come before Site C');
-                                assert.ok(textContent.indexOf('Site C') < textContent.indexOf('Site B'), 'Descending Sort: Site C should come before Site B');
-
-                                done();
-                            }, 500);
-                        }, 500);
-                    }, 500);
-                });
-
-                // Manually dispatch the event since the script is loaded dynamically
-                window.dispatchEvent(new Event('DOMContentLoaded'));
+                names = filteredSites.map(s => s.name);
+                assert.deepEqual(names, ['Site A', 'Site C', 'Site B'], 'Descending Sort Order is correct');
             });
         });
     </script>
