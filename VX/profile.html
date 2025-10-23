@@ -30,10 +30,6 @@
                 <div class="site-header">
                     <h1 id="site-name">Loading…</h1>
                     <p class="site-type">Archaeological site in <span id="site-country-subheader"></span></p>
-                    <div class="site-meta">
-                        Record created in XRONOS on <span id="created-date"></span>. Last updated on <span id="updated-date"></span>.
-                        <a href="#changelog">See changelog for details.</a>
-                    </div>
                 </div>
             </div>
 
@@ -222,10 +218,6 @@
             document.getElementById('site-name').textContent = siteName;
             document.getElementById('site-country-subheader').textContent = siteData.country || '—';
             document.getElementById('country').textContent = siteData.country || '—';
-            const created = siteData.created_at ? new Date(siteData.created_at).toLocaleDateString() : 'N/A';
-            const updated = siteData.updated_at ? new Date(siteData.updated_at).toLocaleDateString() : 'N/A';
-            document.getElementById('created-date').textContent = created;
-            document.getElementById('updated-date').textContent = updated;
 
             // Coordinates
             const lat = parseFloat(siteData.lat);
