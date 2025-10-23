@@ -1,0 +1,147 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "1",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "Cave",
+        "feature_type": "Burial",
+        "periods": "Iberomaurusian",
+        "bp": 13000,
+        "std": 150,
+        "delta_c13": -19.5,
+        "labnr": "OxA-12345",
+        "reference": "Barton et al. 2013"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3889,
+          34.8256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "2",
+        "site": "Rhafas",
+        "country": "MA",
+        "site_type": "Rock shelter",
+        "feature_type": "Occupation layer",
+        "periods": "Middle Stone Age",
+        "bp": 75000,
+        "std": 500,
+        "delta_c13": -20.2,
+        "labnr": "AMS-67890",
+        "reference": "Dibble et al. 2012"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.2055,
+          34.8397
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "3",
+        "site": "Ifri n'Ammar",
+        "country": "MA",
+        "site_type": "Cave",
+        "feature_type": "Hearth",
+        "periods": "Aterian",
+        "bp": 85000,
+        "std": 600,
+        "delta_c13": -18.8,
+        "labnr": "OxA-54321",
+        "reference": "Bouzouggar et al. 2007"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1192,
+          35.1243
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "4",
+        "site": "Grotte des Pigeons",
+        "country": "MA",
+        "site_type": "Cave",
+        "feature_type": "Burial",
+        "periods": "Upper Paleolithic",
+        "bp": 22000,
+        "std": 200,
+        "delta_c13": -21.0,
+        "labnr": "LTL-11223",
+        "reference": "Smith et al. 2009"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.3869,
+          34.8111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "5",
+        "site": "Tamegroute",
+        "country": "MA",
+        "site_type": "Settlement",
+        "feature_type": "Surface finds",
+        "periods": "Medieval",
+        "bp": 650,
+        "std": 30,
+        "delta_c13": -24.3,
+        "labnr": "Med-00987",
+        "reference": "ElWali 2018"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.3789,
+          29.7146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "6",
+        "site": "Mechta-Afalou",
+        "country": "MA",
+        "site_type": "Open site",
+        "feature_type": "Scatter",
+        "periods": "Upper Paleolithic",
+        "bp": 18000,
+        "std": 220,
+        "delta_c13": -20.7,
+        "labnr": "PA-33445",
+        "reference": "Jones & Benn 2011"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0,
+          32.5
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "generated_from": "inferred schema / synthetic preview",
+    "feature_count": 6
+  }
+}
