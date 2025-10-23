@@ -140,7 +140,7 @@
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script type="module">
-        import { parseReferences } from './parser.js';
+        import { parseReferences, parseMalformedJson } from './parser.js';
         // === UTILITIES ===
         function cleanJsonString(str) {
           if (typeof str !== 'string') return str;
@@ -253,7 +253,15 @@
                         <td data-label="Method">Radiocarbon</td>
                         <td data-label="Uncalibrated age">${r.bp} ± ${r.std}</td>
                         <td data-label="Calibrated age">${escapeHtml(r.cal_bp || '—')}</td>
-                        <td data-label="References">${parseReferences(r.reference || siteData.references)}</td>
+                        <td data-label="References">${
+                          parseReferences(parseMalformedJson(r.reference || siteData.references).map(ref => {
+                            if (typeof ref === 'string') {
+                              const parts = ref.split(/(\d{4})/);
+                              return { author: parts[0].trim(), year: parts[1] };
+                            }
+                            return ref;
+                          }))
+                        }</td>
                     `;
                     c14Tbody.appendChild(tr);
                 });
@@ -300,8 +308,17 @@
             const allReferences = new Set();
 
             records.forEach(r => {
-                if (r.references) {
-                    const parsed = parseReferences(r.references);
+                const refs = r.references || r.reference;
+                if (refs) {
+                    const cleanedRefs = parseMalformedJson(refs);
+                    const formattedRefs = cleanedRefs.map(ref => {
+                        if (typeof ref === 'string') {
+                            const parts = ref.split(/(\d{4})/);
+                            return { author: parts[0].trim(), year: parts[1] };
+                        }
+                        return ref;
+                    });
+                    const parsed = parseReferences(formattedRefs);
                     if (parsed !== '—') {
                         // Split by semicolon to add each reference individually
                         parsed.split('; ').forEach(ref => allReferences.add(ref));
