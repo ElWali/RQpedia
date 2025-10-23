@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+--gm-blue:#4285F4;--surface:#fff;--muted:#5f6368;--text:#202124;--card-shadow:0 6px 18px rgba(32,33,36,0.12);--glass:rgba(255,255,255,0.95);--ease:cubic-bezier(.2,.9,.2,1);
+}
+html,body{height:100%;margin:0;font-family:Roboto,system-ui,Segoe UI,Arial,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+#map-root{position:absolute;inset:0;display:flex;flex-direction:column}
+#map{height:100%;width:100%}
+.map-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1201;width:min(760px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center}
+.search-card{pointer-events:auto;width:100%;background:var(--glass);border-radius:28px;padding:8px 12px;box-shadow:var(--card-shadow);display:flex;align-items:center;gap:10px}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px 6px;color:var(--text)}
+.search-clear{border:none;background:none;color:var(--muted);cursor:pointer;display:none}
+.autocomplete-list{position:absolute;top:calc(18px + 56px);left:50%;transform:translateX(-50%);z-index:1300;width:min(720px,calc(100% - 64px));background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(32,33,36,0.12);overflow:hidden;max-height:320px;overflow-y:auto;display:none}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:14px;color:var(--text)}
+.autocomplete-item:hover{background:#f1f3f4}
+.dim-overlay{position:absolute;inset:0;z-index:1250;pointer-events:none;opacity:0;transition:opacity .22s var(--ease)}
+.info-sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;z-index:1260;max-width:980px;border-radius:12px 12px 0 0;background:var(--surface);box-shadow:0 20px 60px rgba(0,0,0,0.18);transform:translateY(88%);transition:transform .32s var(--ease);will-change:transform;display:flex;flex-direction:column}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #f1f3f4;background:#fff;border-radius:12px 12px 0 0}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#e0e0e0}
+.sheet-title{font-weight:500;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-sub{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-body{padding:12px 16px;overflow:auto;background:#fff;max-height:56vh}
+.row{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-size:14px;color:var(--muted)}
+.label{color:#6b6b6b;font-weight:600;margin-right:8px}
+.copy-btn{background:var(--gm-blue);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600;box-shadow:0 8px 26px rgba(66,133,244,0.16)}
+.marker-icon{width:26px;height:26px;border-radius:50%;background:var(--gm-blue);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 22px rgba(66,133,244,0.28);transform-origin:center bottom;opacity:0;transform:translateY(-6px) scale(0.92);transition:transform .42s cubic-bezier(.22,.9,.2,1),opacity .22s}
+.marker-icon.pop{opacity:1;transform:translateY(-18px) scale(1);animation:bounce .6s both}
+@keyframes bounce{0%{transform:translateY(-6px) scale(.95)}40%{transform:translateY(-22px) scale(1.12)}70%{transform:translateY(-14px) scale(.98)}100%{transform:translateY(-18px) scale(1)}}
+@media(min-width:900px){.info-sheet{left:50%;transform:translate(-50%,88%);width:min(880px,96%)}.info-sheet.open{transform:translate(-50%,0)}}
+</style>
+</head>
+<body>
+<div id="map-root">
+<div id="map"></div>
+<div class="map-controls">
+<div class="search-card" role="search">
+<div style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--muted)">🔎</div>
+<input id="search-input" class="search-input" placeholder="Search a Moroccan site (e.g., Taforalt, Rhafas)" autocomplete="off" aria-label="Search sites"/>
+<button id="clear-btn" class="search-clear" aria-label="Clear search">✕</button>
+</div>
+</div>
+<div id="autocomplete-list" class="autocomplete-list" role="listbox"></div>
+<div id="overlay" class="dim-overlay"></div>
+<div id="infoSheet" class="info-sheet" aria-hidden="true">
+<div class="sheet-handle" id="sheetHandle" role="button" tabindex="0" aria-label="Open site details">
+<div class="handle-bar"></div>
+<div style="display:flex;flex-direction:column;min-width:0">
+<div class="sheet-title" id="sheetTitle"></div>
+<div class="sheet-sub" id="sheetSub"></div>
+</div>
+</div>
+<div class="sheet-body" id="sheetBody"></div>
+<div style="padding:12px 16px;border-top:1px solid #f1f3f4;background:#fff;display:flex;gap:12px;align-items:center">
+<button id="copyCoords" class="copy-btn">Copy coordinates</button>
+<div style="flex:1"></div>
+<button id="closeSheet" style="background:none;border:none;color:var(--muted);cursor:pointer">Close</button>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const GEO='output_full.geojson';
+let sites=[],currentMarker=null,currentSite=null;
+const map=L.map('map',{zoomControl:true}).setView([31.8,-6.0],6);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles © Esri'}).addTo(map);
+const searchInput=document.getElementById('search-input'),clearBtn=document.getElementById('clear-btn'),autoList=document.getElementById('autocomplete-list'),infoSheet=document.getElementById('infoSheet'),sheetHandle=document.getElementById('sheetHandle'),sheetTitle=document.getElementById('sheetTitle'),sheetSub=document.getElementById('sheetSub'),sheetBody=document.getElementById('sheetBody'),copyCoords=document.getElementById('copyCoords'),closeSheet=document.getElementById('closeSheet');
+async function load(){try{const r=await fetch(GEO);const g=await r.json();sites=g.features.map(f=>({name:f.properties?.site||f.properties?.name||'Unnamed',lat:parseFloat(f.geometry?.coordinates[1]),lng:parseFloat(f.geometry?.coordinates[0]),props:f.properties||{}})).filter(s=>s.lat&&s.lng);}catch(e){alert('Failed to load data:'+e)}}
+function mkMarker(lat,lng){const el=document.createElement('div');el.className='marker-icon';el.textContent='•';const ic=L.divIcon({className:'',html:el,iconSize:[26,26],iconAnchor:[13,26]});const m=L.marker([lat,lng],{icon:ic});m.on('add',()=>setTimeout(()=>{const n=m.getElement();if(n){const inner=n.querySelector('.marker-icon');if(inner)inner.classList.add('pop')}},20));return m}
+function formatVal(v){if(v==null||v==='')return'';if(Array.isArray(v))return v.map(formatVal).join('; ');if(typeof v==='object'){if(v.doi||v.url){const href=v.url||('https://doi.org/'+v.doi);const label=[v.author,v.year,v.title].filter(Boolean).join(', ');return `<a href="${href}" target="_blank" rel="noopener">${label||href}</a>`}if(v.author||v.year||v.title){const q=[v.author||'',v.year||''].join(' ');return `<a href="https://scholar.google.com/scholar?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">${[v.author,v.year,v.title].filter(Boolean).join(', ')}</a>`}return Object.values(v).map(formatVal).join(', ')}return String(v)}
+function openSheet(){infoSheet.classList.add('open');infoSheet.setAttribute('aria-hidden','false')}
+function closeSheet(){infoSheet.classList.remove('open');infoSheet.setAttribute('aria-hidden','true')}
+function showSite(s){currentSite=s;sheetTitle.textContent=s.name;sheetSub.textContent=`${s.lat.toFixed(5)}, ${s.lng.toFixed(5)}`;const kp=['bp','std','delta c13','labnr','periods','site_type','feature_type','typochronological_units','ecochronological_units','references','reference'];let rows=[];for(const k of kp){if(s.props[k])rows.push(`<div class="row"><div class="label">${k.replace(/_/g,' ')}</div><div>${formatVal(s.props[k])}</div></div>`)}for(const [k,v] of Object.entries(s.props)){if(k==='site'||kp.includes(k)||!v)continue;rows.push(`<div class="row"><div class="label">${k.replace(/_/g,' ')}</div><div>${formatVal(v)}</div></div>`)}rows.push(`<div class="row"><div class="label">Latitude</div><div>${s.lat.toFixed(6)}</div></div>`);rows.push(`<div class="row"><div class="label">Longitude</div><div>${s.lng.toFixed(6)}</div></div>`);sheetBody.innerHTML=rows.join('');openSheet()}
+function select(s){if(currentMarker)map.removeLayer(currentMarker);currentMarker=mkMarker(s.lat,s.lng).addTo(map);map.setView([s.lat,s.lng],10);showSite(s)}
+function suggest(q){autoList.innerHTML='';if(!q.trim()){autoList.style.display='none';return}const s=q.toLowerCase();const list=sites.filter(x=>x.name.toLowerCase().includes(s)).slice(0,12);if(!list.length){autoList.style.display='none';return}for(const it of list){const d=document.createElement('div');d.className='autocomplete-item';d.textContent=it.name;d.onclick=()=>{select(it);autoList.style.display='none'};autoList.appendChild(d)}autoList.style.display='block'}
+searchInput.addEventListener('input',e=>{const v=e.target.value;clearBtn.style.display=v.trim()?'block':'none';suggest(v)});clearBtn.addEventListener('click',()=>{searchInput.value='';clearBtn.style.display='none';autoList.style.display='none';searchInput.focus()});document.addEventListener('click',e=>{if(!e.target.closest('.search-card')&&!e.target.closest('.autocomplete-list'))autoList.style.display='none'});searchInput.addEventListener('keydown',e=>{if(e.key==='Enter'){const q=searchInput.value.trim().toLowerCase();if(!q)return;const exact=sites.find(s=>s.name.toLowerCase()===q);if(exact)select(exact);else{const partial=sites.find(s=>s.name.toLowerCase().includes(q));if(partial)select(partial)}}});
+copyCoords.addEventListener('click',async()=>{if(!currentSite)return;await navigator.clipboard.writeText(`${currentSite.lat.toFixed(6)}, ${currentSite.lng.toFixed(6)}`);copyCoords.textContent='Copied ✓';setTimeout(()=>copyCoords.textContent='Copy coordinates',1200)});
+closeSheet.addEventListener('click',closeSheet);
+sheetHandle.addEventListener('click',()=>infoSheet.classList.contains('open')?closeSheet():openSheet());
+(function addSwipe(){let startY=0,currentY=0,drag=false;infoSheet.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;drag=true;infoSheet.style.transition='none'},{passive:true});infoSheet.addEventListener('touchmove',e=>{if(!drag)return;currentY=e.touches[0].clientY;const dy=currentY-startY;if(dy>0){infoSheet.style.transform=`translateY(${dy}px)`}else infoSheet.style.transform=`translateY(${dy}px)`},{passive:true});infoSheet.addEventListener('touchend',()=>{drag=false;infoSheet.style.transition='transform .32s var(--ease)';const dy=currentY-startY;if(dy>80)closeSheet();else infoSheet.style.transform='';startY=currentY=0})})();
+load();
+</script>
+</body>
+</html>
