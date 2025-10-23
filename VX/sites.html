@@ -116,8 +116,8 @@ footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:0.9rem;pad
     <p><a href="https://github.com/ElWali/Jules" target="_blank" rel="noopener" style="color:var(--muted)">Project repo</a></p>
 </footer>
 
-<script src="parser.js"></script>
-<script>
+<script type="module">
+    import { parseMalformedJson } from './parser.js';
 document.addEventListener('DOMContentLoaded', () => {
     let sites = [], filteredSites = [], currentIndex = 0;
     const rowsPerBatch = 30;
