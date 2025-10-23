@@ -143,7 +143,8 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
+    <script type="module">
+        import { parseReferences } from './parser.js';
         // === UTILITIES ===
         function cleanJsonString(str) {
           if (typeof str !== 'string') return str;
@@ -260,7 +261,7 @@
                         <td data-label="Method">Radiocarbon</td>
                         <td data-label="Uncalibrated age">${r.bp} ± ${r.std}</td>
                         <td data-label="Calibrated age">${escapeHtml(r.cal_bp || '—')}</td>
-                        <td data-label="References">${escapeHtml(r.reference || '—')}</td>
+                        <td data-label="References">${parseReferences(r.reference || siteData.references)}</td>
                     `;
                     c14Tbody.appendChild(tr);
                 });
@@ -307,12 +308,12 @@
             const allReferences = new Set();
 
             records.forEach(r => {
-                if (r.references && Array.isArray(r.references)) {
-                    r.references.forEach(ref => {
-                        if (ref.author && ref.year) {
-                            allReferences.add(`${ref.author} (${ref.year})`);
-                        }
-                    });
+                if (r.references) {
+                    const parsed = parseReferences(r.references);
+                    if (parsed !== '—') {
+                        // Split by semicolon to add each reference individually
+                        parsed.split('; ').forEach(ref => allReferences.add(ref));
+                    }
                 }
             });
 
