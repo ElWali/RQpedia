@@ -240,7 +240,17 @@
             c14Tbody.innerHTML = '';
             const c14Records = records.filter(r => r.bp && r.std);
             if(c14Records.length > 0) {
+                const uniqueC14Records = [];
+                const seen = new Set();
                 c14Records.forEach(r => {
+                    const key = `${r.bp}-${r.std}`;
+                    if (!seen.has(key)) {
+                        uniqueC14Records.push(r);
+                        seen.add(key);
+                    }
+                });
+
+                uniqueC14Records.forEach(r => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td data-label="Lab ID">${escapeHtml(r.labnr || '—')}</td>
