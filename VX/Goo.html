@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+  --gm-blue:#4285F4;--surface:#fff;--muted:#6b6b6b;--text:#202124;
+  --glass:rgba(255,255,255,0.95);--card-shadow:0 6px 18px rgba(32,33,36,0.12);
+  --ease:cubic-bezier(.2,.9,.2,1);
+}
+html,body{height:100%;margin:0;font-family:Roboto,system-ui,Arial,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;background:#fff;overflow:hidden}
+#map{position:absolute;inset:0;height:100%;width:100%;z-index:0}
+.map-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1000;width:min(820px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center}
+.search-card{pointer-events:auto;width:100%;background:var(--glass);border-radius:28px;padding:10px 14px;box-shadow:var(--card-shadow);display:flex;align-items:center;gap:12px}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px;color:var(--text)}
+.search-clear{border:none;background:none;color:var(--muted);cursor:pointer;display:none}
+.autocomplete-list{position:absolute;top:74px;left:50%;transform:translateX(-50%);z-index:1100;width:min(760px,calc(100% - 64px));background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.14);overflow:hidden;max-height:320px;overflow-y:auto;display:none}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:14px;color:var(--text)}
+.autocomplete-item:hover{background:#f1f3f4}
+
+.info-sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;z-index:1200;max-width:980px;border-radius:12px 12px 0 0;background:var(--surface);box-shadow:0 20px 60px rgba(0,0,0,0.18);transform:translateY(88%);transition:transform .34s var(--ease);will-change:transform;display:flex;flex-direction:column}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #f1f3f4;background:#fff;border-radius:12px 12px 0 0}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#e0e0e0}
+.sheet-title{font-weight:600;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-sub{font-size:13px;color:var(--muted)}
+.sheet-body{padding:14px;overflow:auto;background:#fff;max-height:62vh}
+
+/* Chronology card */
+.chrono-card{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:10px;background:#fafafa;border:1px solid #f1f3f4;box-shadow:0 6px 18px rgba(16,24,40,0.02);margin-bottom:12px}
+.chrono-top{display:flex;align-items:baseline;gap:12px}
+.bp-large{font-weight:700;font-size:20px}
+.bp-std{font-size:13px;color:var(--muted)}
+.uncertainty-bar{height:10px;background:#eee;border-radius:999px;position:relative;overflow:hidden}
+.uncertainty-fill{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,var(--gm-blue),#7fb0ff);border-radius:999px;transform-origin:center;transition:width .4s var(--ease)}
+.delta-value{font-weight:600;color:var(--muted);font-size:13px}
+
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:12px}
+.grid-item{background:#fff;padding:8px;border-radius:8px;border:1px solid #f3f4f5;display:flex;flex-direction:column}
+.grid-label{font-size:12px;color:#6b6b6b;margin-bottom:6px;font-weight:600}
+.grid-value{font-size:14px;color:var(--text);word-break:break-word}
+
+/* References */
+.refs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ref-pill{padding:8px 10px;border-radius:999px;background:#f4f6fb;color:var(--gm-blue);font-weight:600;border:1px solid #e6eefc;font-size:13px;text-decoration:none}
+
+/* responsive width */
+@media(min-width:900px){.info-sheet{left:50%;transform:translate(-50%,88%);width:min(880px,96%)}.info-sheet.open{transform:translate(-50%,0)}}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="map-controls">
+  <div class="search-card" role="search">
+    <div style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--muted)">🔎</div>
+    <input id="search-input" class="search-input" placeholder="Search a Moroccan site (e.g., Taforalt, Rhafas)" autocomplete="off" aria-label="Search sites"/>
+    <button id="clear-btn" class="search-clear" aria-label="Clear search">✕</button>
+  </div>
+</div>
+
+<div id="autocomplete-list" class="autocomplete-list" role="listbox"></div>
+
+<div id="infoSheet" class="info-sheet" aria-hidden="true">
+  <div class="sheet-handle" id="sheetHandle" role="button" tabindex="0" aria-label="Open site details">
+    <div class="handle-bar"></div>
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <div class="sheet-title" id="sheetTitle"></div>
+      <div class="sheet-sub" id="sheetSub"></div>
+    </div>
+  </div>
+
+  <div class="sheet-body" id="sheetBody">
+    <!-- Dynamically populated with Chronology card, Info grid, References -->
+  </div>
+
+  <div style="padding:12px 16px;border-top:1px solid #f1f3f4;background:#fff;display:flex;gap:12px;align-items:center">
+    <button id="copyCoords" class="copy-btn">Copy coordinates</button>
+    <div style="flex:1"></div>
+    <button id="closeSheet" style="background:none;border:none;color:var(--muted);cursor:pointer">Close</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const GEOFILE = 'output_full.geojson';
+let sites = [], currentMarker = null, currentSite = null;
+
+const map = L.map('map', { zoomControl: true }).setView([31.8, -6.0], 6);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles © Esri'
+}).addTo(map);
+
+const searchInput = document.getElementById('search-input');
+const clearBtn = document.getElementById('clear-btn');
+const autoList = document.getElementById('autocomplete-list');
+const infoSheet = document.getElementById('infoSheet');
+const sheetHandle = document.getElementById('sheetHandle');
+const sheetTitle = document.getElementById('sheetTitle');
+const sheetSub = document.getElementById('sheetSub');
+const sheetBody = document.getElementById('sheetBody');
+const copyCoords = document.getElementById('copyCoords');
+const closeSheet = document.getElementById('closeSheet');
+
+async function loadGeo() {
+  try {
+    const r = await fetch(GEOFILE);
+    const gj = await r.json();
+    sites = gj.features.map(f => ({
+      name: f.properties?.site || f.properties?.name || 'Unnamed site',
+      lat: Number(f.geometry?.coordinates?.[1]),
+      lng: Number(f.geometry?.coordinates?.[0]),
+      props: f.properties || {}
+    })).filter(s => !isNaN(s.lat) && !isNaN(s.lng));
+    if (sites.length) {
+      const coords = sites.map(s => [s.lat, s.lng]);
+      try { map.fitBounds(coords, { padding: [40, 40], maxZoom: 7 }); } catch(e){}
+    }
+  } catch (e) {
+    alert('Failed to load GeoJSON: ' + e);
+  }
+}
+
+function mkMarker(lat, lng) {
+  const el = document.createElement('div');
+  el.className = 'marker-icon';
+  el.textContent = '•';
+  const icon = L.divIcon({ className: '', html: el, iconSize: [26, 26], iconAnchor: [13, 26] });
+  const m = L.marker([lat, lng], { icon });
+  m.on('add', () => setTimeout(() => {
+    const node = m.getElement();
+    if (node) {
+      const inner = node.querySelector('.marker-icon');
+      if (inner) inner.classList.add('pop');
+    }
+  }, 20));
+  return m;
+}
+
+function safeStr(v) {
+  if (v == null) return '';
+  return String(v);
+}
+
+function formatVal(v) {
+  if (v == null || v === '') return '';
+  if (Array.isArray(v)) return v.map(formatVal).join('; ');
+  if (typeof v === 'object') {
+    if (v.doi || v.url) {
+      const href = v.url || `https://doi.org/${v.doi}`;
+      const label = [v.author, v.year, v.title].filter(Boolean).join(', ') || href;
+      return `<a class="ref-pill" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+    }
+    if (v.author || v.year || v.title) {
+      const label = [v.author, v.year, v.title].filter(Boolean).join(', ');
+      const q = encodeURIComponent([v.author || '', v.year || ''].join(' ').trim());
+      return `<a class="ref-pill" href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener">${label}</a>`;
+    }
+    return Object.values(v).map(formatVal).join(', ');
+  }
+  return String(v);
+}
+
+function renderChrono(props) {
+  const bpRaw = props.bp ?? props.BP ?? props.age;
+  const stdRaw = props.std ?? props.STD ?? props.uncertainty;
+  const deltaRaw = props['delta c13'] ?? props['δ13c'] ?? props.delta_c13;
+
+  const bp = (bpRaw != null && !isNaN(Number(bpRaw))) ? Number(bpRaw) : null;
+  const std = (stdRaw != null && !isNaN(Number(stdRaw))) ? Number(stdRaw) : null;
+  const delta = (deltaRaw != null && !isNaN(Number(deltaRaw))) ? Number(deltaRaw) : null;
+
+  const maxSpan = 2000; // years scale cap for bar visualization
+  const barWidth = 100; // percent basis
+  let fillWidth = 6; // fallback minimal
+
+  if (bp != null && std != null && std > 0) {
+    const span = Math.min(std * 2, maxSpan);
+    fillWidth = Math.max(8, Math.min(100, (span / maxSpan) * 100));
+  } else if (bp != null) {
+    fillWidth = 12;
+  }
+
+  return `
+    <div class="chrono-card">
+      <div class="chrono-top">
+        <div>
+          <div class="bp-large">${bp != null ? `${bp.toFixed(0)} BP` : 'No age'}</div>
+          <div class="bp-std">${std != null ? `± ${std.toFixed(1)} years` : ''}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div class="delta-value">${delta != null ? `${delta.toFixed(1)} ‰` : ''}</div>
+          <div style="font-size:12px;color:var(--muted)">δ¹³C</div>
+        </div>
+      </div>
+      <div class="uncertainty-bar" aria-hidden="true">
+        <div class="uncertainty-fill" style="width:${fillWidth}%;"></div>
+      </div>
+    </div>
+  `;
+}
+
+function buildInfoGrid(props) {
+  const get = (k) => props[k] ?? props[k.toLowerCase()] ?? props[k.toUpperCase()] ?? null;
+  const gridFields = [
+    ['Site type','site_type'],
+    ['Feature type','feature_type'],
+    ['Typochronological units','typochronological_units'],
+    ['Ecochronological units','ecochronological_units'],
+    ['Periods','periods'],
+    ['Laboratory No.','labnr'],
+    ['Material','material'],
+    ['Country','country']
+  ];
+  const items = gridFields.map(([label,key]) => {
+    const v = get(key);
+    if (!v) return '';
+    return `<div class="grid-item"><div class="grid-label">${label}</div><div class="grid-value">${formatVal(v)}</div></div>`;
+  }).filter(Boolean);
+  if (!items.length) return '';
+  return `<div class="info-grid">${items.join('')}</div>`;
+}
+
+function renderReferences(props) {
+  const refKey = props.references ?? props.reference ?? props.refs ?? null;
+  let refs = [];
+  if (!refKey) return '';
+  if (Array.isArray(refKey)) refs = refKey;
+  else refs = [refKey];
+  const pills = refs.map(r => {
+    if (!r) return '';
+    if (typeof r === 'string') {
+      const yearMatch = r.match(/(\d{4})/);
+      const text = r;
+      // try to detect DOI or URL
+      const doiMatch = r.match(/(10\.\d{4,9}\/[-._;()\/:A-Z0-9]+)/i);
+      const urlMatch = r.match(/https?:\/\/\S+/i);
+      if (urlMatch) return `<a class="ref-pill" href="${urlMatch[0]}" target="_blank" rel="noopener">${text}</a>`;
+      if (doiMatch) return `<a class="ref-pill" href="https://doi.org/${doiMatch[1]}" target="_blank" rel="noopener">${text}</a>`;
+      // fallback: scholar search
+      const scholarQ = encodeURIComponent(text);
+      return `<a class="ref-pill" href="https://scholar.google.com/scholar?q=${scholarQ}" target="_blank" rel="noopener">${text}</a>`;
+    } else if (typeof r === 'object') {
+      if (r.doi || r.url) {
+        const href = r.url || `https://doi.org/${r.doi}`;
+        const label = [r.author, r.year, r.title].filter(Boolean).join(', ') || href;
+        return `<a class="ref-pill" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+      } else if (r.author || r.year || r.title) {
+        const label = [r.author, r.year, r.title].filter(Boolean).join(', ');
+        const q = encodeURIComponent([r.author||'', r.year||''].join(' ').trim());
+        return `<a class="ref-pill" href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener">${label}</a>`;
+      } else {
+        const txt = Object.values(r).filter(Boolean).join(', ');
+        const q = encodeURIComponent(txt);
+        return `<a class="ref-pill" href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener">${txt}</a>`;
+      }
+    }
+    return '';
+  }).filter(Boolean).slice(0, 18);
+  if (!pills.length) return '';
+  return `<div style="margin-top:8px"><div style="font-weight:600;margin-bottom:8px">References</div><div class="refs">${pills.join('')}</div></div>`;
+}
+
+function populateSheet(site) {
+  currentSite = site;
+  sheetTitle.textContent = site.name;
+  sheetSub.textContent = `${site.lat.toFixed(5)}, ${site.lng.toFixed(5)}`;
+  const props = site.props || {};
+
+  const chronoHTML = renderChrono(props);
+  const gridHTML = buildInfoGrid(props);
+  const refsHTML = renderReferences(props);
+
+  const content = `
+    ${chronoHTML}
+    ${gridHTML}
+    ${refsHTML}
+  `;
+  sheetBody.innerHTML = content;
+  infoSheet.classList.add('open');
+  infoSheet.setAttribute('aria-hidden', 'false');
+}
+
+function selectSite(site) {
+  if (currentMarker) map.removeLayer(currentMarker);
+  currentMarker = mkMarker(site.lat, site.lng).addTo(map);
+  map.setView([site.lat, site.lng], 10);
+  populateSheet(site);
+}
+
+function suggest(q) {
+  autoList.innerHTML = '';
+  if (!q || !q.trim()) { autoList.style.display = 'none'; return; }
+  const s = q.toLowerCase();
+  const matches = sites.filter(p => p.name.toLowerCase().includes(s)).slice(0, 12);
+  if (!matches.length) { autoList.style.display = 'none'; return; }
+  for (const m of matches) {
+    const d = document.createElement('div');
+    d.className = 'autocomplete-item';
+    d.textContent = m.name;
+    d.onclick = () => { selectSite(m); autoList.style.display = 'none'; };
+    autoList.appendChild(d);
+  }
+  autoList.style.display = 'block';
+}
+
+searchInput.addEventListener('input', (e) => {
+  const v = e.target.value;
+  clearBtn.style.display = v.trim() ? 'block' : 'none';
+  suggest(v);
+});
+clearBtn.addEventListener('click', () => { searchInput.value = ''; clearBtn.style.display = 'none'; autoList.style.display = 'none'; searchInput.focus(); });
+document.addEventListener('click', (e) => { if (!e.target.closest('.search-card') && !e.target.closest('.autocomplete-list')) autoList.style.display = 'none'; });
+
+sheetHandle.addEventListener('click', () => { infoSheet.classList.toggle('open'); });
+closeSheet.addEventListener('click', () => { infoSheet.classList.remove('open'); });
+
+copyCoords.addEventListener('click', async () => {
+  if (!currentSite) return;
+  const txt = `${currentSite.lat.toFixed(6)}, ${currentSite.lng.toFixed(6)}`;
+  try { await navigator.clipboard.writeText(txt); copyCoords.textContent = 'Copied ✓'; setTimeout(()=>copyCoords.textContent='Copy coordinates', 1200); } catch(e){}
+});
+
+// swipe to close (mobile)
+(function addSwipe(){
+  let startY = 0, currentY = 0, dragging = false;
+  infoSheet.addEventListener('touchstart', e => { startY = e.touches[0].clientY; dragging = true; infoSheet.style.transition = 'none'; }, { passive: true });
+  infoSheet.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    currentY = e.touches[0].clientY;
+    const dy = currentY - startY;
+    if (dy > 0) infoSheet.style.transform = `translateY(${dy}px)`;
+  }, { passive: true });
+  infoSheet.addEventListener('touchend', () => {
+    dragging = false;
+    infoSheet.style.transition = '';
+    const dy = currentY - startY;
+    if (dy > 80) { infoSheet.classList.remove('open'); infoSheet.style.transform = ''; }
+    else infoSheet.style.transform = '';
+    startY = currentY = 0;
+  });
+})();
+
+loadGeo();
+</script>
+</body>
+</html>
