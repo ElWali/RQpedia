@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+html,body{height:100%;margin:0;font-family:'Roboto',sans-serif;background:#fff;overflow:hidden}
+#map{position:absolute;inset:0;height:100%;width:100%;z-index:1}
+.map-controls{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:1000;width:min(760px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center}
+.search-card{pointer-events:auto;width:100%;background:#fff;border-radius:28px;padding:8px 12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px;color:#333}
+.search-clear{border:none;background:none;color:#666;cursor:pointer;display:none}
+.autocomplete-list{position:absolute;top:68px;left:50%;transform:translateX(-50%);z-index:1100;width:min(720px,calc(100% - 64px));background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,0.15);overflow:hidden;max-height:300px;overflow-y:auto;display:none}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:14px;color:#333}
+.autocomplete-item:hover{background:#f1f3f4}
+.info-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-width:900px;margin:auto;border-radius:12px 12px 0 0;background:#fff;box-shadow:0 -6px 20px rgba(0,0,0,0.2);transform:translateY(88%);transition:transform .3s ease;display:flex;flex-direction:column}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #eee;background:#fff;border-radius:12px 12px 0 0}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#ddd}
+.sheet-title{font-weight:500;font-size:16px;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-sub{font-size:13px;color:#666}
+.sheet-body{padding:12px 16px;overflow:auto;background:#fff;max-height:60vh}
+.row{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;font-size:14px;color:#555}
+.label{font-weight:600;color:#333}
+.copy-btn{background:#4285F4;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:500;box-shadow:0 3px 12px rgba(66,133,244,0.3)}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="map-controls">
+  <div class="search-card">
+    <div style="width:34px;text-align:center">🔍</div>
+    <input id="search-input" class="search-input" placeholder="Search a Moroccan site (e.g., Taforalt)" autocomplete="off">
+    <button id="clear-btn" class="search-clear">✕</button>
+  </div>
+</div>
+<div id="autocomplete-list" class="autocomplete-list"></div>
+<div id="infoSheet" class="info-sheet">
+  <div class="sheet-handle" id="sheetHandle">
+    <div class="handle-bar"></div>
+    <div style="display:flex;flex-direction:column">
+      <div class="sheet-title" id="sheetTitle"></div>
+      <div class="sheet-sub" id="sheetSub"></div>
+    </div>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div style="padding:12px 16px;border-top:1px solid #eee;background:#fff">
+    <button id="copyCoords" class="copy-btn">Copy coordinates</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const GEO="output_full.geojson";
+let sites=[],marker=null,current=null;
+const map=L.map('map').setView([31.8,-6],6);
+L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{
+  attribution:'Tiles © Esri, Earthstar Geographics'
+}).addTo(map);
+
+const sInput=document.getElementById("search-input"),clearB=document.getElementById("clear-btn"),aList=document.getElementById("autocomplete-list"),
+infoSheet=document.getElementById("infoSheet"),sTitle=document.getElementById("sheetTitle"),sSub=document.getElementById("sheetSub"),sBody=document.getElementById("sheetBody"),copyB=document.getElementById("copyCoords"),sHandle=document.getElementById("sheetHandle");
+
+async function load(){
+ try{
+  const r=await fetch(GEO);
+  const g=await r.json();
+  sites=g.features.map(f=>({name:f.properties?.site||"Unknown",lat:+f.geometry.coordinates[1],lng:+f.geometry.coordinates[0],props:f.properties}));
+ }catch(e){alert("Cannot load GeoJSON: "+e);}
+}
+function suggest(q){
+ aList.innerHTML="";
+ if(!q.trim()){aList.style.display="none";return;}
+ const m=sites.filter(x=>x.name.toLowerCase().includes(q.toLowerCase())).slice(0,10);
+ if(!m.length){aList.style.display="none";return;}
+ m.forEach(s=>{
+  const d=document.createElement("div");
+  d.className="autocomplete-item";
+  d.textContent=s.name;
+  d.onclick=()=>{select(s);aList.style.display="none";}
+  aList.appendChild(d);
+ });
+ aList.style.display="block";
+}
+function select(s){
+ if(marker)map.removeLayer(marker);
+ marker=L.marker([s.lat,s.lng]).addTo(map);
+ map.setView([s.lat,s.lng],10);
+ show(s);
+}
+function show(s){
+ current=s;
+ sTitle.textContent=s.name;
+ sSub.textContent=`${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}`;
+ let html="";
+ for(const [k,v] of Object.entries(s.props)){
+   if(v&&k!=="site")html+=`<div class="row"><div class="label">${k.replace(/_/g," ")}</div><div>${v}</div></div>`;
+ }
+ sBody.innerHTML=html;
+ infoSheet.classList.add("open");
+}
+sInput.addEventListener("input",e=>{clearB.style.display=e.target.value?"block":"none";suggest(e.target.value)});
+clearB.addEventListener("click",()=>{sInput.value="";clearB.style.display="none";aList.style.display="none";});
+sHandle.addEventListener("click",()=>infoSheet.classList.toggle("open"));
+copyB.addEventListener("click",async()=>{if(!current)return;await navigator.clipboard.writeText(`${current.lat}, ${current.lng}`);copyB.textContent="Copied!";setTimeout(()=>copyB.textContent="Copy coordinates",1200);});
+load();
+</script>
+</body>
+</html>
