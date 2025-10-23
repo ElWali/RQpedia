@@ -381,6 +381,14 @@
     let allPlaces = [];
 
     // === DATA FETCHING & PROCESSING ===
+    function cleanJsonString(str) {
+      if (typeof str !== 'string') return str;
+      return str
+        .replace(/\\"/g, '"') // Unescape escaped quotes
+        .replace(/""/g, '"') // Fix double quotes
+        .replace(/"reference_":/g, '"reference":'); // Normalize keys
+    }
+
     async function loadData() {
       try {
         const response = await fetch('output.json');
@@ -436,7 +444,8 @@
               // Parse JSON strings if possible
               if (typeof value === 'string' && (value.startsWith('[') || value.startsWith('{'))) {
                 try {
-                  const parsed = JSON.parse(value);
+                  const cleanedValue = cleanJsonString(value);
+                  const parsed = JSON.parse(cleanedValue);
                   if (Array.isArray(parsed)) {
                     const cleaned = parsed
                       .map(obj => {

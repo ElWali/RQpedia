@@ -145,6 +145,14 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         // === UTILITIES ===
+        function cleanJsonString(str) {
+          if (typeof str !== 'string') return str;
+          return str
+            .replace(/\\"/g, '"') // Unescape escaped quotes
+            .replace(/""/g, '"') // Fix double quotes
+            .replace(/"reference_":/g, '"reference":'); // Normalize keys
+        }
+
         const escapeHtml = (str) => {
             if (typeof str !== 'string') return '';
             return str.replace(/&/g, '&amp;').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
@@ -153,33 +161,17 @@
         function safeParsePossibleJSONField(val) {
             if (!val && val !== 0) return null;
             if (Array.isArray(val) || typeof val === 'object') return val;
-            try {
-                return JSON.parse(val);
-            } catch (e) {
+
+            if (typeof val === 'string') {
                 try {
-                    let v = val.replace(/\"\"/g, '"');
-                    v = v.replace(/\s+\\n\s+/g, ' ');
-                    if (/^\{.*\}$/.test(v) && !v.startsWith('[')) v = `[${v}]`;
-                    return JSON.parse(v);
-                } catch (e2) {
-                    const stripped = val.replace(/^[\[\]"\s]+|[\[\]"\s]+$/g, '');
-                    if (!stripped) return null;
-                    const parts = stripped.split(/\}\s*,\s*\{/).map(s => s.replace(/^[\{\}]+|[\{\}]+$/g,''));
-                    const out = parts.map(p => {
-                        const obj = {};
-                        p.split(/\s*,\s*/).forEach(kv => {
-                            const m = kv.match(/([^:]+):\s*(.*)/) || kv.match(/"([^"]+)"\s*:\s*"([^"]+)"/);
-                            if (m) {
-                                const key = m[1].replace(/^"|"$/g,'').trim();
-                                const value = (m[2] || '').replace(/^"|"$/g,'').trim();
-                                obj[key] = value;
-                            }
-                        });
-                        return obj;
-                    });
-                    return out.length ? out : null;
+                    const cleanedVal = cleanJsonString(val);
+                    return JSON.parse(cleanedVal);
+                } catch (e) {
+                    // Fallback for non-JSON strings or strings that are still malformed
+                    return [{ "reference": val }];
                 }
             }
+            return null;
         }
 
         function formatDMS(deg, latOrLng = 'lat') {
@@ -285,11 +277,25 @@
             }
 
             // References
-            const refs = [...new Set(records.map(r => r.reference).filter(Boolean))];
             const refsContainer = document.getElementById('references-container');
             refsContainer.innerHTML = '';
-            if (refs.length > 0) {
-                refs.forEach(ref => {
+            const allReferences = new Set();
+
+            records.forEach(r => {
+                const refs = safeParsePossibleJSONField(r.reference);
+                if (refs && Array.isArray(refs)) {
+                    refs.forEach(refObj => {
+                        if (refObj && refObj.reference) {
+                            allReferences.add(refObj.reference.trim());
+                        }
+                    });
+                } else if (typeof refs === 'string') {
+                    allReferences.add(refs.trim());
+                }
+            });
+
+            if (allReferences.size > 0) {
+                allReferences.forEach(ref => {
                     refsContainer.innerHTML += `<p>${escapeHtml(ref)}</p>`;
                 });
             } else {
