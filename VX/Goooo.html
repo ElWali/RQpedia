@@ -1,1 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+--gm-blue:#4285F4;--text:#202124;--muted:#5f6368;--bg:#fff;
+--shadow:0 4px 16px rgba(0,0,0,0.12);--radius:12px;
+}
+html,body{height:100%;margin:0;font-family:Roboto,Arial,sans-serif;color:var(--text);background:#fff;overflow:hidden}
+#map{position:absolute;inset:0;height:100%;width:100%}
+.map-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1000;width:min(820px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center}
+.search-card{pointer-events:auto;width:100%;background:#fff;border-radius:28px;padding:10px 14px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px;color:var(--text)}
+.search-clear{border:none;background:none;color:var(--muted);cursor:pointer;display:none}
+.autocomplete-list{position:absolute;top:74px;left:50%;transform:translateX(-50%);z-index:1100;width:min(760px,calc(100% - 64px));background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;max-height:320px;overflow-y:auto;display:none}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:14px;color:var(--text)}
+.autocomplete-item:hover{background:#f1f3f4}
+.info-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-width:980px;margin:0 auto;border-radius:var(--radius) var(--radius) 0 0;background:#fff;box-shadow:0 -4px 20px rgba(0,0,0,0.2);transform:translateY(88%);transition:transform .34s ease;display:flex;flex-direction:column}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #eee;background:#fff;border-radius:var(--radius) var(--radius) 0 0}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#e0e0e0}
+.sheet-title{font-weight:600;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-sub{font-size:13px;color:var(--muted)}
+.sheet-body{padding:14px;overflow:auto;max-height:62vh}
+
+/* section titles */
+.section-title{font-weight:600;margin:12px 0 8px;font-size:15px;display:flex;align-items:center;gap:8px}
+.badge{font-size:12px;font-weight:600;background:#e8f0fe;color:var(--gm-blue);padding:2px 8px;border-radius:999px}
+
+/* sample cards */
+.sample-card{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 2px 4px rgba(0,0,0,0.04)}
+.sample-header{font-weight:600;font-size:14px;margin-bottom:6px;color:var(--gm-blue)}
+.sample-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.label{color:var(--muted)}
+
+/* academic context display */
+.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.context-item{background:#fff;border:1px solid #f1f3f4;border-radius:8px;padding:10px 12px}
+.context-label{font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:#f1f3f4;color:#222;font-size:12px;padding:3px 8px;border-radius:999px}
+.grid-value{font-size:14px;color:var(--text)}
+
+/* references */
+.refs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.ref-pill{padding:6px 10px;border-radius:999px;background:#f4f6fb;color:var(--gm-blue);font-weight:600;border:1px solid #e6eefc;font-size:13px;text-decoration:none}
+.copy-btn{background:var(--gm-blue);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:500;box-shadow:0 3px 10px rgba(66,133,244,0.3)}
+@media(min-width:900px){.info-sheet{left:50%;transform:translate(-50%,88%);width:min(880px,96%)}.info-sheet.open{transform:translate(-50%,0)}}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="map-controls">
+  <div class="search-card">
+    <div style="width:34px;text-align:center">🔍</div>
+    <input id="search-input" class="search-input" placeholder="Search a Moroccan site (e.g., Taforalt)" autocomplete="off">
+    <button id="clear-btn" class="search-clear">✕</button>
+  </div>
+</div>
+<div id="autocomplete-list" class="autocomplete-list"></div>
+
+<div id="infoSheet" class="info-sheet" aria-hidden="true">
+  <div class="sheet-handle" id="sheetHandle">
+    <div class="handle-bar"></div>
+    <div style="display:flex;flex-direction:column">
+      <div class="sheet-title" id="sheetTitle"></div>
+      <div class="sheet-sub" id="sheetSub"></div>
+    </div>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div style="padding:12px 16px;border-top:1px solid #eee;background:#fff;display:flex;gap:12px;align-items:center">
+    <button id="copyCoords" class="copy-btn">Copy coordinates</button>
+    <div style="flex:1"></div>
+    <button id="closeSheet" style="background:none;border:none;color:var(--muted);cursor:pointer">Close</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const GEO="output_full.geojson";
+let sites=[],marker=null,current=null;
+
+const map=L.map('map').setView([31.8,-6],6);
+L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{
+ attribution:'Tiles © Esri, Earthstar Geographics'
+}).addTo(map);
+
+const sInput=document.getElementById("search-input"),clearB=document.getElementById("clear-btn"),aList=document.getElementById("autocomplete-list"),
+infoSheet=document.getElementById("infoSheet"),sTitle=document.getElementById("sheetTitle"),sSub=document.getElementById("sheetSub"),sBody=document.getElementById("sheetBody"),copyB=document.getElementById("copyCoords"),sHandle=document.getElementById("sheetHandle"),closeB=document.getElementById("closeSheet");
+
+function cleanList(str){
+ if(!str)return[];
+ return [...new Set(String(str).split(/[;,]+/).map(s=>s.trim()).filter(v=>v && v!=="." && v!=="-"))];
+}
+function joinAcademic(list){return list.length?list.join(" · "):"—";}
+
+async function load(){
+ const r=await fetch(GEO);const g=await r.json();
+ const grouped={};
+ for(const f of g.features){
+   const p=f.properties||{};
+   const name=(p.site||"Unknown").trim();
+   if(!grouped[name])grouped[name]=[];
+   grouped[name].push(f);
+ }
+ sites=Object.entries(grouped).map(([name,arr])=>{
+   const lat=arr.reduce((a,f)=>a+parseFloat(f.geometry.coordinates[1]),0)/arr.length;
+   const lng=arr.reduce((a,f)=>a+parseFloat(f.geometry.coordinates[0]),0)/arr.length;
+   const props=arr.map(f=>f.properties||{});
+   const merge=(k)=>cleanList(props.map(p=>p[k]).join("; "));
+   const base={
+     site_type:joinAcademic(merge("site_type")),
+     feature_type:joinAcademic(merge("feature_type")),
+     periods:merge("periods"),
+     typo:merge("typochronological_units"),
+     eco:merge("ecochronological_units"),
+     country:joinAcademic(merge("country"))
+   };
+   let samples=props.map(p=>({
+     labnr:p.labnr||"",bp:p.bp||"",std:p.std||"",delta:p["delta c13"]||p.delta_c13||"",material:p.material||"",reference:p.reference||p.references||""
+   })).filter(s=>s.bp||s.labnr||s.reference);
+   // Sort samples by BP descending (numeric)
+   samples.sort((a,b)=>{
+     const bpA=parseFloat(a.bp)||0,bpB=parseFloat(b.bp)||0;
+     return bpB-bpA;
+   });
+   const refs=[...new Set(samples.map(s=>s.reference).flat().filter(Boolean))];
+   return{name,lat,lng,base,samples,refs};
+ });
+}
+
+function suggest(q){
+ aList.innerHTML="";
+ if(!q.trim()){aList.style.display="none";return;}
+ const list=sites.filter(x=>x.name.toLowerCase().includes(q.toLowerCase())).slice(0,10);
+ if(!list.length){aList.style.display="none";return;}
+ list.forEach(s=>{
+  const d=document.createElement("div");
+  d.className="autocomplete-item";d.textContent=s.name;
+  d.onclick=()=>{select(s);aList.style.display="none";}
+  aList.appendChild(d);
+ });
+ aList.style.display="block";
+}
+
+function select(s){
+ if(marker)map.removeLayer(marker);
+ marker=L.marker([s.lat,s.lng]).addTo(map);
+ map.setView([s.lat,s.lng],9);
+ show(s);
+}
+
+function show(s){
+ current=s;
+ sTitle.textContent=s.name;
+ sSub.textContent=`${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}`;
+ let html="";
+ if(s.samples.length){
+  html+=`<div class="section-title">Radiocarbon Samples <span class="badge">${s.samples.length} samples</span></div>`;
+  s.samples.forEach(sm=>{
+    html+=`<div class="sample-card">
+      ${sm.labnr?`<div class="sample-header">${sm.labnr}</div>`:""}
+      <div class="sample-row"><div class="label">Age</div><div>${sm.bp?`${sm.bp} BP`:"—"}</div></div>
+      ${sm.std?`<div class="sample-row"><div class="label">±</div><div>${sm.std}</div></div>`:""}
+      ${sm.delta?`<div class="sample-row"><div class="label">δ¹³C</div><div>${sm.delta} ‰</div></div>`:""}
+      ${sm.material?`<div class="sample-row"><div class="label">Material</div><div>${sm.material}</div></div>`:""}
+      ${sm.reference?`<div class="sample-row"><div class="label">Ref</div><div>${formatRef(sm.reference)}</div></div>`:""}
+    </div>`;
+  });
+ }
+ html+=`<div class="section-title">Context</div>`;
+ html+=`<div class="context-grid">
+   ${renderTags("Periods",s.base.periods)}
+   ${renderTags("Typochronological units",s.base.typo)}
+   ${renderTags("Ecochronological units",s.base.eco)}
+   ${s.base.site_type!=="—"?`<div class="context-item"><div class="context-label">Site type</div><div class="grid-value">${s.base.site_type}</div></div>`:""}
+   ${s.base.feature_type!=="—"?`<div class="context-item"><div class="context-label">Feature type</div><div class="grid-value">${s.base.feature_type}</div></div>`:""}
+   ${s.base.country!=="—"?`<div class="context-item"><div class="context-label">Country</div><div class="grid-value">${s.base.country}</div></div>`:""}
+ </div>`;
+ if(s.refs.length){
+   html+=`<div class="section-title">References</div><div class="refs">${s.refs.map(r=>formatRef(r)).join("")}</div>`;
+ }
+ sBody.innerHTML=html;
+ infoSheet.classList.add("open");
+}
+
+function renderTags(label,arr){
+ if(!arr||!arr.length)return"";
+ return `<div class="context-item"><div class="context-label">${label}</div><div class="tag-list">${arr.map(v=>`<span class="tag">${v}</span>`).join("")}</div></div>`;
+}
+
+function formatRef(r){
+ if(typeof r!=="string")return"";
+ const doi=r.match(/10\.\d{4,9}\/[-._;()\/:A-Z0-9]+/i);
+ const url=r.match(/https?:\/\/\S+/i);
+ if(url)return `<a class="ref-pill" href="${url[0]}" target="_blank">Ref</a>`;
+ if(doi)return `<a class="ref-pill" href="https://doi.org/${doi[0]}" target="_blank">DOI</a>`;
+ const q=encodeURIComponent(r);
+ return `<a class="ref-pill" href="https://scholar.google.com/scholar?q=${q}" target="_blank">Ref</a>`;
+}
+
+sInput.addEventListener("input",e=>{clearB.style.display=e.target.value?"block":"none";suggest(e.target.value)});
+clearB.addEventListener("click",()=>{sInput.value="";clearB.style.display="none";aList.style.display="none";});
+sHandle.addEventListener("click",()=>infoSheet.classList.toggle("open"));
+closeB.addEventListener("click",()=>infoSheet.classList.remove("open"));
+copyB.addEventListener("click",async()=>{if(!current)return;await navigator.clipboard.writeText(`${current.lat.toFixed(6)}, ${current.lng.toFixed(6)}`);copyB.textContent="Copied ✓";setTimeout(()=>copyB.textContent="Copy coordinates",1200);});
+load();
+</script>
+</body>
+</html>
 
