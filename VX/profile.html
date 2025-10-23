@@ -261,14 +261,29 @@
             // Typological Table
             const typoTbody = document.querySelector('#typo-table tbody');
             typoTbody.innerHTML = '';
-            const typoRecords = records.flatMap(r => safeParsePossibleJSONField(r.typochronological_units) || []);
-             if(typoRecords.length > 0) {
-                typoRecords.forEach(t => {
+            const typoRecords = records.flatMap(r => r.periods || []);
+            const uniqueTypoRecords = [...new Set(typoRecords)]; // Remove duplicates
+
+            if(uniqueTypoRecords.length > 0) {
+                uniqueTypoRecords.forEach(period => { // `period` is a string
                     const tr = document.createElement('tr');
+
+                    const allSiteReferences = new Set();
+                    records.forEach(r => {
+                        if (r.periods && r.periods.includes(period) && r.references) {
+                            r.references.forEach(ref => {
+                                if (ref.author && ref.year) {
+                                    allSiteReferences.add(`${ref.author} (${ref.year})`);
+                                }
+                            })
+                        }
+                    });
+                    const refsString = [...allSiteReferences].join('; ') || '—';
+
                     tr.innerHTML = `
-                        <td data-label="Classification">${escapeHtml(t.typochronological_unit || '—')}</td>
+                        <td data-label="Classification">${escapeHtml(period || '—')}</td>
                         <td data-label="Estimated age">—</td>
-                        <td data-label="References">${escapeHtml(siteData.reference || '—')}</td>
+                        <td data-label="References">${escapeHtml(refsString)}</td>
                     `;
                     typoTbody.appendChild(tr);
                 });
@@ -282,22 +297,18 @@
             const allReferences = new Set();
 
             records.forEach(r => {
-                const refs = safeParsePossibleJSONField(r.reference);
-                if (refs && Array.isArray(refs)) {
-                    refs.forEach(refObj => {
-                        if (refObj && refObj.reference) {
-                            allReferences.add(refObj.reference.trim());
+                if (r.references && Array.isArray(r.references)) {
+                    r.references.forEach(ref => {
+                        if (ref.author && ref.year) {
+                            allReferences.add(`${ref.author} (${ref.year})`);
                         }
                     });
-                } else if (typeof refs === 'string') {
-                    allReferences.add(refs.trim());
                 }
             });
 
             if (allReferences.size > 0) {
-                allReferences.forEach(ref => {
-                    refsContainer.innerHTML += `<p>${escapeHtml(ref)}</p>`;
-                });
+                const refsHTML = [...allReferences].map(ref => `<p>${escapeHtml(ref)}</p>`).join('');
+                refsContainer.innerHTML = refsHTML;
             } else {
                 refsContainer.innerHTML = '<p style="color: var(--muted);">No bibliographic references available.</p>';
             }
