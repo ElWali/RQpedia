@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taforalt — XRONOS</title>
+
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --gray: #6b7280;
+      --light-gray: #f3f4f6;
+      --border: #e5e7eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .subtitle::before {
+      content: "🏛️";
+      font-size: 1.2em;
+    }
+
+    .metadata {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "📍";
+      font-size: 1.2em;
+    }
+
+    #map {
+      height: 200px;
+      width: 100%;
+      border-radius: 8px;
+      background: var(--light-gray);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coordinates {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .coordinates p {
+      margin: 0.25rem 0;
+    }
+
+    .coordinates strong {
+      display: block;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .linked-data {
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .linked-data h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .linked-data .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    .linked-data .item span:first-child {
+      font-weight: 600;
+    }
+
+    .linked-data .item a {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+    }
+
+    /* Desktop: refined typography & column sizing */
+    @media (min-width: 768px) {
+      table {
+        font-size: 0.8125rem; /* 13px — matches XRONOS desktop */
+      }
+      th,
+      td {
+        padding: 0.6rem 0.5rem;
+      }
+    }
+
+    .download-btn {
+      float: right;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    .download-btn::after {
+      content: "⬇️";
+      margin-left: 0.25rem;
+    }
+
+    .bibliography {
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+
+    .bibliography h3 {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .bibliography .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+    }
+
+    .bibliography .tab {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      background: white;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      font-size: 0.875rem;
+    }
+
+    .bibliography .tab.active {
+      background: var(--bg);
+      border-bottom: 2px solid #2563eb;
+    }
+
+    .bibliography .content {
+      padding: 0.5rem 0;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 0.875rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: var(--gray);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Taforalt</h1>
+    <div class="subtitle">Archaeological site in Morocco</div>
+
+    <div class="metadata">
+      Record created in XRONOS on 2022-12-02 00:50:45 UTC. Last updated on 2022-12-02 00:50:45 UTC.
+      <a href="#">See changelog for details.</a><br>
+      Contributors: <a href="#">XRONOS development team</a>
+    </div>
+
+    <div class="section-title">Location</div>
+    <div id="map"></div>
+    <div class="coordinates">
+      <strong>Coordinates (degrees)</strong>
+      <p>34.8106° N, 2.4083° W</p>
+      <strong>Coordinates (DMS)</strong>
+      <p>34° 48' 38" N, 2° 24' 30" W</p>
+      <strong>Country (ISO 3166)</strong>
+      <p>Morocco (MA)</p>
+    </div>
+
+    <div class="linked-data">
+      <h3>Linked Data</h3>
+      <div class="item">
+        <span>Wikidata</span>
+        <a href="https://www.wikidata.org/wiki/Q28220549" target="_blank">Q28220549</a>
+      </div>
+      <div class="item">
+        <span>Wikipedia</span>
+        <a href="https://en.wikipedia.org/wiki/Taforalt" target="_blank">en Taforalt</a>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span>🔘 Radiocarbon dates (<span id="rc-count">0</span>)</span>
+      <button class="download-btn"></button>
+    </div>
+
+    <!-- Fixed: add colgroup for proportional column widths -->
+    <table id="radiocarbon-table" class="radiocarbon-table">
+      <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 8%;">
+        <col style="width: 12%;">
+        <col style="width: 12%;">
+        <col style="width: 28%;"> <!-- Reference gets more space -->
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Lab ID</th>
+          <th>Context</th>
+          <th>Material</th>
+          <th>Taxon</th>
+          <th>Method</th>
+          <th>Uncalibrated age</th>
+          <th>Calibrated age</th>
+          <th>Reference</th>
+        </tr>
+      </thead>
+      <tbody id="rc-body">
+        <tr><td colspan="8" style="text-align:center; padding:2rem;">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">
+      <span>🏺 Typological dates (0)</span>
+      <button class="download-btn"></button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Classification</th>
+          <th>Estimated age</th>
+          <th>References</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="3" style="text-align:center; padding:1rem;">No typological data available.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">
+      <span>📚 Bibliographic references</span>
+    </div>
+
+    <div class="bibliography">
+      <div class="tabs">
+        <div class="tab active" data-tab="text">Text</div>
+        <div class="tab" data-tab="bibtex">BibTeX</div>
+        <div class="tab" data-tab="json">JSON</div>
+        <div class="tab" data-tab="yaml">YAML</div>
+      </div>
+      <div class="content" id="bib-content">
+        Loading references...
+      </div>
+    </div>
+
+    <footer>
+      © 2025 XRONOS | Generated from Taforalt.geojson
+    </footer>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([34.8106, -2.4083], 13);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+    }).addTo(map);
+    L.marker([34.8106, -2.4083]).addTo(map).bindPopup('<b>Taforalt Cave</b><br>Eastern Morocco').openPopup();
+
+    // Extract unique references from GeoJSON
+    function extractUniqueReferences(features) {
+      const refs = new Set();
+      features.forEach(f => {
+        const rList = f.properties.references || [];
+        rList.forEach(r => {
+          if (r && r.trim()) refs.add(r.trim());
+        });
+      });
+      return Array.from(refs).sort();
+    }
+
+    // Generate citation formats
+    function formatAsText(refs) {
+      return refs.map(r => `${r}`).join('\n');
+    }
+
+    function formatAsBibTeX(refs) {
+      return refs.map((r, i) => {
+        const key = `ref${i + 1}`;
+        return `@misc{${key},\n  note = {${JSON.stringify(r)}}\n}`;
+      }).join('\n\n');
+    }
+
+    function formatAsJSON(refs) {
+      return JSON.stringify(refs, null, 2);
+    }
+
+    function formatAsYAML(refs) {
+      return refs.map(r => `- ${JSON.stringify(r)}`).join('\n');
+    }
+
+    // Render bibliography
+    function renderBibliography(features) {
+      const refs = extractUniqueReferences(features);
+      const contentEl = document.getElementById('bib-content');
+      const tabs = document.querySelectorAll('.bibliography .tab');
+
+      const formats = {
+        text: () => formatAsText(refs),
+        bibtex: () => formatAsBibTeX(refs),
+        json: () => formatAsJSON(refs),
+        yaml: () => formatAsYAML(refs)
+      };
+
+      let activeTab = 'text';
+      contentEl.textContent = formats[activeTab]();
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeTab = tab.dataset.tab;
+          contentEl.textContent = formats[activeTab]();
+        });
+      });
+    }
+
+    // Render radiocarbon table
+    function renderRadiocarbonTable(features) {
+      const tbody = document.getElementById('rc-body');
+      const count = features.length;
+      document.getElementById('rc-count').textContent = count;
+
+      if (count === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">No data.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      features.forEach(f => {
+        const p = f.properties;
+        const labId = p.labnr || '—';
+        const context = p.feature || '—';
+        const material = p.material || '—';
+        const taxon = p.species || 'NA';
+        const method = '14C';
+        const uncalAge = p.bp != null ? `${p.bp}±${p.std} BP` : '—';
+        const calAge = p.cal_bp != null ? `${p.cal_bp}–${p.cal_bp + p.cal_std} cal BP` : '—';
+        // Flatten all references into a clean, comma-separated string
+        const ref = (p.references || [])
+          .map(r => r.trim())
+          .filter(r => r)
+          .join(', ') || '—';
+
+        html += `
+          <tr>
+            <td>${labId}</td>
+            <td>${context}</td>
+            <td>${material}</td>
+            <td>${taxon}</td>
+            <td>${method}</td>
+            <td>${uncalAge}</td>
+            <td>${calAge}</td>
+            <td>${ref}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+
+    // Main fetch
+    fetch('Taforalt.geojson')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load Taforalt.geojson');
+        return res.json();
+      })
+      .then(geojson => {
+        const features = geojson.features;
+        renderRadiocarbonTable(features);
+        renderBibliography(features);
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('rc-body').innerHTML = `<tr><td colspan="8" style="color:red">${err.message}</td></tr>`;
+        document.getElementById('bib-content').textContent = 'Error loading references.';
+      });
+  </script>
+</body>
+</html>
+
