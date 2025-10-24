@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="RQpedia - Advanced Radiocarbon Database of Moroccan Archaeological Sites"/>
+<meta name="keywords" content="archaeology, radiocarbon, Morocco, dating, database"/>
+<meta name="theme-color" content="#4285F4"/>
+<meta property="og:title" content="RQpedia - Moroccan Archaeological Sites"/>
+<meta property="og:description" content="Lightweight database of radiocarbon dates from archaeological sites in Morocco"/>
+<meta property="og:image" content="/og-image.jpg"/>
+<title>RQpedia — Radiocarbon Database of Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+:root{
+--gm-blue:#4285F4;--text:#202124;--muted:#5f6368;--bg:#fff;
+--shadow:0 4px 16px rgba(0,0,0,0.12);--radius:12px;--error:#ff5252;--success:#34a853;
+--chart-blue:#4285F4;--chart-green:#34a853;--chart-orange:#ff9800;--chart-red:#ff5252;--chart-purple:#9c27b0;
+--chart-cyan:#00bcd4;--chart-pink:#e91e63;--chart-lime:#8bc34a;
+}
+html,body{height:100%;margin:0;font-family:Roboto,Arial,sans-serif;color:var(--text);background:#fff;overflow:hidden}
+*{box-sizing:border-box}
+#map{position:absolute;inset:0;height:100%;width:100%}
+.leaflet-control-zoom{display:none !important}
+.map-overlay{position:absolute;bottom:20px;right:20px;z-index:800;background:rgba(255,255,255,0.95);border-radius:12px;padding:16px;box-shadow:var(--shadow);max-width:280px;font-size:13px;line-height:1.6;color:var(--text)}
+.map-overlay-title{font-weight:600;margin-bottom:8px;font-size:14px}
+.map-overlay-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f3f4}
+.map-overlay-stat:last-child{border-bottom:none}
+.map-overlay-label{color:var(--muted)}
+.map-overlay-value{font-weight:600;color:var(--gm-blue)}
+.map-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1000;width:min(820px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center;flex-direction:column;gap:12px}
+.controls-row{display:flex;gap:12px;pointer-events:auto;align-items:center;justify-content:center;flex-wrap:wrap}
+.search-card{width:100%;max-width:400px;background:#fff;border-radius:28px;padding:10px 14px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;transition:box-shadow 0.2s ease}
+.search-card:focus-within{box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px;color:var(--text)}
+.search-input::placeholder{color:var(--muted)}
+.search-clear{border:none;background:none;color:var(--muted);cursor:pointer;display:none;padding:4px 8px;border-radius:4px;transition:background 0.2s ease}
+.search-clear:hover{background:#f1f3f4}
+.search-icon{width:34px;text-align:center;font-size:18px}
+.button-group{display:flex;gap:8px;align-items:center}
+.smart-button{pointer-events:auto;background:linear-gradient(135deg,var(--gm-blue),#1e6fd3);color:#fff;border:none;padding:10px 16px;border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s ease;box-shadow:0 3px 10px rgba(66,133,244,0.3);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.smart-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(66,133,244,0.4)}
+.smart-button:active{transform:translateY(0)}
+.smart-button-icon{font-size:16px}
+.autocomplete-list{position:absolute;top:74px;left:50%;transform:translateX(-50%);z-index:1100;width:min(760px,calc(100% - 64px));background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;max-height:320px;overflow-y:auto;display:none;max-width:100%}
+.autocomplete-list::-webkit-scrollbar{width:6px}
+.autocomplete-list::-webkit-scrollbar-track{background:#f1f3f4}
+.autocomplete-list::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.autocomplete-list::-webkit-scrollbar-thumb:hover{background:#999}
+.autocomplete-item{padding:12px 14px;cursor:pointer;font-size:14px;color:var(--text);transition:background 0.15s ease;border-bottom:1px solid #f1f3f4;display:flex;align-items:center;gap:8px}
+.autocomplete-item:last-child{border-bottom:none}
+.autocomplete-item:hover,.autocomplete-item.highlighted{background:#f1f3f4}
+.autocomplete-item-icon{font-size:16px;flex-shrink:0}
+.autocomplete-item-text{flex:1}
+.autocomplete-item-meta{font-size:12px;color:var(--muted)}
+.about-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:5000;display:none;align-items:center;justify-content:center;animation:fadeIn 0.3s ease;overflow-y:auto;backdrop-filter:blur(2px)}
+.about-modal.open{display:flex}
+.about-modal-content{background:#fff;border-radius:16px;max-width:650px;width:90%;margin:20px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp 0.3s ease}
+.about-modal-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:32px 24px;border-radius:16px 16px 0 0;position:relative;overflow:hidden}
+.about-modal-header::before{content:'';position:absolute;top:-50%;right:-50%;width:400px;height:400px;background:rgba(255,255,255,0.1);border-radius:50%}
+.about-modal-header-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;z-index:1}
+.about-modal-header-close:hover{background:rgba(255,255,255,0.3);transform:scale(1.1)}
+.about-modal-title{font-size:32px;font-weight:700;margin:0 0 8px 0;display:flex;align-items:center;gap:12px}
+.about-modal-subtitle{font-size:15px;opacity:0.95;margin:0}
+.about-modal-body{padding:28px;max-height:65vh;overflow-y:auto;background:#fff}
+.about-modal-body::-webkit-scrollbar{width:6px}
+.about-modal-body::-webkit-scrollbar-track{background:#f1f3f4}
+.about-modal-body::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.about-section{margin-bottom:24px}
+.about-section:last-child{margin-bottom:0}
+.about-section-title{font-size:18px;font-weight:600;color:var(--gm-blue);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.about-section-content{font-size:14px;line-height:1.7;color:var(--text);margin:0}
+.about-section-content ul{margin:8px 0;padding-left:20px}
+.about-section-content li{margin-bottom:6px}
+.about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.about-stat{background:linear-gradient(135deg,#f8f9fa,#fff);border-radius:12px;padding:20px 16px;text-align:center;border:1px solid #e8eaed}
+.about-stat-number{font-size:28px;font-weight:700;color:var(--gm-blue);margin-bottom:4px}
+.about-stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;font-weight:600;letter-spacing:0.5px}
+.contribution-highlight{background:linear-gradient(135deg,#667eea15 0%,#764ba215 100%);border-left:4px solid #667eea;padding:16px;border-radius:8px;margin:20px 0}
+.contribution-highlight-text{font-size:14px;color:var(--text);line-height:1.6;margin:0}
+.contribution-highlight-strong{color:#667eea;font-weight:600}
+.about-modal-footer{padding:24px;border-top:1px solid #eee;display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;background:#fafafa;border-radius:0 0 16px 16px}
+.about-btn{padding:11px 20px;border-radius:8px;border:none;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:14px}
+.about-btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 12px rgba(102,126,234,0.3)}
+.about-btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,0.4)}
+.about-btn-secondary{background:#f1f3f4;color:var(--text)}
+.about-btn-secondary:hover{background:#e8eaed}
+.info-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-width:1000px;margin:0 auto;border-radius:var(--radius) var(--radius) 0 0;background:#fff;box-shadow:0 -8px 32px rgba(0,0,0,0.15);transform:translateY(88%);transition:transform 0.34s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;will-change:transform}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #eee;background:#fff;border-radius:var(--radius) var(--radius) 0 0;cursor:grab;user-select:none;flex-shrink:0}
+.sheet-handle:active{cursor:grabbing}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#e0e0e0;transition:background 0.2s ease}
+.sheet-handle.dragging .handle-bar{background:#4285F4}
+.sheet-title{font-weight:700;font-size:18px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.sheet-sub{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-body{padding:16px;overflow-y:auto;max-height:62vh;scroll-behavior:smooth;flex:1}
+.sheet-body::-webkit-scrollbar{width:6px}
+.sheet-body::-webkit-scrollbar-track{background:#f1f3f4}
+.sheet-body::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.sheet-body::-webkit-scrollbar-thumb:hover{background:#999}
+.sheet-footer{padding:14px 16px;border-top:1px solid #eee;background:#fafafa;display:flex;gap:12px;align-items:center;flex-wrap:wrap;flex-shrink:0}
+.section-title{font-weight:700;margin:18px 0 12px;font-size:16px;display:flex;align-items:center;gap:8px;color:var(--text)}
+.section-title:first-child{margin-top:0}
+.badge{font-size:12px;font-weight:700;background:#e8f0fe;color:var(--gm-blue);padding:4px 10px;border-radius:999px;display:inline-block}
+.badge.success{background:#e8f5e9;color:var(--success)}
+.badge.warning{background:#fff3e0;color:#f57c00}
+.badge.danger{background:#ffebee;color:var(--error)}
+.contribution-cta{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:12px;padding:18px;margin:16px 0;color:#fff;position:relative;overflow:hidden}
+.contribution-cta::before{content:'';position:absolute;top:-50%;right:-50%;width:300px;height:300px;background:rgba(255,255,255,0.1);border-radius:50%;pointer-events:none}
+.contribution-cta-title{font-weight:700;font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px;position:relative;z-index:1}
+.contribution-cta-desc{font-size:13px;line-height:1.6;margin-bottom:12px;opacity:0.95;position:relative;z-index:1}
+.contribution-cta-btn{background:#fff;color:#667eea;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;transition:all 0.2s ease;font-size:13px;display:inline-flex;align-items:center;gap:6px;position:relative;z-index:1}
+.contribution-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.sample-card{background:#fafafa;border:1px solid #e8eaed;border-radius:10px;padding:12px;margin-bottom:10px;box-shadow:0 2px 4px rgba(0,0,0,0.04);transition:all 0.2s ease}
+.sample-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.sample-header{font-weight:700;font-size:14px;margin-bottom:8px;color:var(--gm-blue)}
+.sample-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;align-items:flex-start;gap:12px}
+.sample-row:last-child{margin-bottom:0}
+.label{color:var(--muted);font-weight:600;min-width:80px;flex-shrink:0}
+.sample-value{flex:1;text-align:right;word-break:break-word;line-height:1.4;font-weight:500}
+.chart-container{position:relative;width:100%;height:250px;margin:16px 0;background:#fafafa;border-radius:10px;padding:12px;border:1px solid #e8eaed}
+.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.context-item{background:#fff;border:1px solid #f1f3f4;border-radius:10px;padding:14px;transition:all 0.2s ease}
+.context-item:hover{border-color:#d0d0d0;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.context-label{font-size:12px;font-weight:700;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:#f1f3f4;color:#222;font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid #e8eaed;transition:all 0.2s ease;word-break:break-word}
+.tag:hover{background:#e8eaed;border-color:#d0d0d0;transform:translateY(-1px)}
+.grid-value{font-size:14px;color:var(--text);font-weight:600;word-break:break-word;line-height:1.4}
+.refs-container{display:flex;flex-direction:column;gap:10px;margin-top:8px;margin-bottom:0}
+.ref-item{padding:14px;border-radius:10px;background:#f8f9fa;border:1px solid #e8eaed;transition:all 0.2s ease;cursor:pointer}
+.ref-item:hover{background:#f1f3f4;border-color:#d0d0d0;transform:translateX(4px);box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.ref-item-title{font-weight:700;font-size:13px;color:var(--gm-blue);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ref-item-title::before{content:'📚';font-size:14px}
+.ref-item-text{font-size:13px;color:var(--text);line-height:1.5;word-break:break-word;margin-bottom:10px;max-height:3em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ref-link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:var(--gm-blue);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-weight:600}
+.ref-link-btn:hover{background:#3367d6;box-shadow:0 3px 10px rgba(66,133,244,0.3);transform:translateY(-1px)}
+.ref-link-btn:active{transform:translateY(0)}
+.tabs-container{display:flex;gap:8px;margin-bottom:14px;border-bottom:2px solid #eee;overflow-x:auto;padding:0 0 10px 0}
+.tab-btn{background:none;border:none;padding:10px 16px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s ease;white-space:nowrap;font-weight:600}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--gm-blue);border-bottom-color:var(--gm-blue)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.copy-btn{background:var(--gm-blue);color:#fff;border:none;padding:11px 18px;border-radius:8px;cursor:pointer;font-weight:600;box-shadow:0 3px 10px rgba(66,133,244,0.3);font-size:14px;transition:all 0.2s ease}
+.copy-btn:hover{background:#3367d6;box-shadow:0 5px 15px rgba(66,133,244,0.4);transform:translateY(-2px)}
+.copy-btn:active{transform:translateY(0)}
+.copy-btn:disabled{opacity:0.6;cursor:not-allowed}
+.close-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:10px 14px;border-radius:6px;font-size:14px;transition:all 0.2s ease;font-weight:600}
+.close-btn:hover{background:#f1f3f4;color:var(--text)}
+.error-banner{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--error);color:#fff;padding:16px 20px;border-radius:10px;z-index:2000;box-shadow:0 6px 16px rgba(0,0,0,0.2);animation:slideDown 0.3s ease;display:flex;align-items:center;gap:12px}
+.error-banner-icon{font-size:20px;flex-shrink:0}
+.success-banner{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--success);color:#fff;padding:16px 20px;border-radius:10px;z-index:2000;box-shadow:0 6px 16px rgba(0,0,0,0.2);animation:slideDown 0.3s ease;display:flex;align-items:center;gap:12px}
+.success-banner-icon{font-size:20px;flex-shrink:0}
+@keyframes slideDown{from{transform:translateX(-50%) translateY(-120%);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.analytics-item{background:linear-gradient(135deg,#f8f9fa,#fff);border:1px solid #e8eaed;border-radius:10px;padding:14px;text-align:center;transition:all 0.2s ease}
+.analytics-item:hover{border-color:#d0d0d0;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.analytics-number{font-size:28px;font-weight:700;color:var(--gm-blue);margin-bottom:4px}
+.analytics-label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.timeline-container{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.timeline-item{display:flex;align-items:center;gap:12px;padding:12px;background:#f8f9fa;border-radius:10px;border-left:4px solid var(--gm-blue);transition:all 0.2s ease}
+.timeline-item:hover{background:#f1f3f4;transform:translateX(4px)}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--gm-blue);flex-shrink:0;box-shadow:0 0 0 4px rgba(66,133,244,0.1)}
+.timeline-label{font-size:12px;color:var(--muted);flex:1}
+.timeline-value{font-size:15px;font-weight:700;color:var(--text)}
+.heatmap-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,1fr));gap:4px;margin:12px 0}
+.heatmap-cell{height:40px;background:#f0f0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;cursor:pointer;transition:all 0.2s ease;user-select:none}
+.heatmap-cell:hover{transform:scale(1.15);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.heatmap-cell.low{background:#e3f2fd}
+.heatmap-cell.medium{background:#90caf9}
+.heatmap-cell.high{background:#1976d2}
+.heatmap-cell.very-high{background:#0d47a1}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#f8f9fa;border-radius:10px;margin-bottom:8px;transition:all 0.2s ease}
+.stat-row:hover{background:#f1f3f4;transform:translateX(2px)}
+.stat-row-label{font-size:13px;color:var(--muted);font-weight:600}
+.stat-row-value{font-size:17px;font-weight:700;color:var(--gm-blue)}
+.stat-row-bar{flex:1;height:6px;background:#e8eaed;border-radius:3px;margin:0 12px;overflow:hidden}
+.stat-row-fill{height:100%;background:linear-gradient(90deg,var(--gm-blue),var(--chart-green));border-radius:3px;transition:width 0.6s ease}
+@media(max-width:599px){
+ .map-controls{width:calc(100% - 16px);top:12px;gap:8px}
+ .controls-row{flex-direction:column;width:100%}
+ .search-card{max-width:100%}
+ .button-group{width:100%;flex-direction:column}
+ .smart-button{width:100%;justify-content:center}
+ .autocomplete-list{width:calc(100% - 16px);top:280px}
+ .about-modal-content{width:95%;margin:40px 2.5%}
+ .info-sheet{border-radius:20px 20px 0 0}
+ .sheet-handle{padding:0 12px}
+ .sheet-body{max-height:60vh;padding:12px}
+ .context-grid{grid-template-columns:1fr}
+ .sheet-footer{flex-direction:column;padding:12px}
+ .copy-btn{width:100%;flex:1}
+ .sample-row{flex-direction:column;align-items:flex-start}
+ .sample-value{text-align:left;margin-top:4px}
+ .ref-item{padding:12px}
+ .tabs-container{gap:4px;margin-bottom:8px}
+ .tab-btn{padding:8px 12px;font-size:12px}
+ .chart-container{height:200px;padding:8px}
+ .analytics-grid{grid-template-columns:repeat(2,1fr)}
+ .comparison-container{grid-template-columns:1fr}
+ .heatmap-container{grid-template-columns:repeat(5,1fr)}
+ .map-overlay{bottom:60px;right:10px;max-width:calc(100% - 20px)}
+}
+@media(min-width:600px) and (max-width:899px){
+ .info-sheet{width:96%;left:2%;right:2%}
+ .controls-row{width:100%}
+}
+@media(min-width:900px){
+ .info-sheet{left:50%;transform:translate(-50%,88%);width:min(900px,96%)}
+ .info-sheet.open{transform:translate(-50%,0)}
+ .analytics-grid{grid-template-columns:repeat(4,1fr)}
+ .heatmap-container{grid-template-columns:repeat(auto-fit,minmax(50px,1fr))}
+ .controls-row{width:100%;justify-content:space-between}
+ .search-card{max-width:400px}
+ .button-group{width:auto;flex-direction:row}
+}
+@media(prefers-reduced-motion:reduce){
+ *{animation:none !important;transition:none !important}
+}
+@media print{
+ .map-controls,.info-sheet,.map-overlay{display:none}
+}
+</style>
+</head>
+<body>
+<div id="map" role="application" aria-label="Archaeological sites map"></div>
+<!-- MAP OVERLAY STATS -->
+<div class="map-overlay" id="mapOverlay">
+  <div class="map-overlay-title">📊 RQpedia Database</div>
+  <div class="map-overlay-stat">
+    <span class="map-overlay-label">Sites</span>
+    <span class="map-overlay-value" id="overlaySites">—</span>
+  </div>
+  <div class="map-overlay-stat">
+    <span class="map-overlay-label">Samples</span>
+    <span class="map-overlay-value" id="overlaySamples">—</span>
+  </div>
+  <div class="map-overlay-stat">
+    <span class="map-overlay-label">References</span>
+    <span class="map-overlay-value" id="overlayReferences">—</span>
+  </div>
+</div>
+<!-- SEARCH & CONTROLS -->
+<div class="map-controls">
+  <div class="controls-row">
+    <div class="search-card">
+      <div class="search-icon">🔍</div>
+      <input 
+        id="search-input" 
+        class="search-input" 
+        placeholder="Search a Moroccan site..." 
+        autocomplete="off"
+        aria-label="Search archaeological sites"
+        spellcheck="false"
+      >
+      <button 
+        id="clear-btn" 
+        class="search-clear" 
+        aria-label="Clear search" 
+        title="Clear search input"
+      >✕</button>
+    </div>
+    <div class="button-group">
+      <button id="about-btn" class="smart-button">
+        <span class="smart-button-icon">ℹ️</span>
+        <span>About</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="autocomplete-list" class="autocomplete-list" role="listbox" aria-label="Site suggestions"></div>
+<!-- ABOUT MODAL -->
+<div id="aboutModal" class="about-modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="about-modal-content">
+    <div class="about-modal-header">
+      <button class="about-modal-header-close" id="aboutClose" aria-label="Close about modal">✕</button>
+      <div class="about-modal-title">
+        <span>📊</span>
+        <span>RQpedia</span>
+      </div>
+      <div class="about-modal-subtitle">Radiocarbon Database of Moroccan Archaeological Sites</div>
+    </div>
+    <div class="about-modal-body">
+      <div class="about-section">
+        <div class="about-section-title">🎯 What is RQpedia?</div>
+        <p class="about-section-content">
+          RQpedia is a lightweight, open-access database of radiocarbon dates from archaeological samples excavated at sites across Morocco. Our mission is to provide researchers, students, and archaeologists with reliable, accessible chronological data to advance understanding of North African prehistory and early history.
+        </p>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">⚡ Key Features</div>
+        <ul style="margin:8px 0;padding-left:20px;font-size:14px;line-height:1.7">
+          <li><strong>Comprehensive Coverage:</strong> Radiocarbon dates from major Moroccan archaeological sites</li>
+          <li><strong>Advanced Analytics:</strong> Statistical analysis, quality assessment, and temporal visualization</li>
+          <li><strong>Interactive Maps:</strong> Geospatial exploration of archaeological sites</li>
+          <li><strong>Open Access:</strong> Free and publicly available data for all researchers</li>
+          <li><strong>Quality Control:</strong> Rigorous evaluation of measurement uncertainty</li>
+        </ul>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">📈 Database Statistics</div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsArchSites">—</div>
+            <div class="about-stat-label">Archaeological Sites</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsRadioSamples">—</div>
+            <div class="about-stat-label">Radiocarbon Samples</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsReferences">—</div>
+            <div class="about-stat-label">References</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">🤝 Call for Contributions</div>
+        <div class="contribution-highlight">
+          <p class="contribution-highlight-text">
+            <span class="contribution-highlight-strong">Help us grow RQpedia!</span> We invite archaeologists, radiocarbon laboratories, students, and researchers to contribute data, corrections, and improvements. Together, we can build the most comprehensive database of Moroccan radiocarbon chronology.
+          </p>
+        </div>
+        <p class="about-section-content">
+          Do you have unpublished radiocarbon dates? Knowledge of undocumented samples? Corrections to existing data? Your contributions are valuable and will be properly attributed. Contact us to become a <span class="contribution-highlight-strong">RQpedian</span> contributor!
+        </p>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">🗓️ Temporal Scope</div>
+        <p class="about-section-content">
+          RQpedia covers radiocarbon-dated archaeological samples from Morocco spanning the last ~50,000 years, encompassing periods from the Late Pleistocene through Islamic periods.
+        </p>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">📝 How to Cite</div>
+        <p class="about-section-content" style="background:#f8f9fa;padding:12px;border-radius:8px;font-family:monospace;font-size:12px;line-height:1.6;border-left:4px solid var(--gm-blue)">
+          RQpedia: Radiocarbon Database of Moroccan Archaeological Sites. v1.1 [2024]. Available: https://rqpedia.org
+        </p>
+      </div>
+      <div class="about-section">
+        <div class="about-section-title">🔗 Resources</div>
+        <p class="about-section-content">
+          <strong>Documentation:</strong> <a href="#" style="color:var(--gm-blue);text-decoration:none">User Guide</a> | 
+          <strong>API:</strong> <a href="#" style="color:var(--gm-blue);text-decoration:none">REST API</a> | 
+          <strong>Data:</strong> <a href="#" style="color:var(--gm-blue);text-decoration:none">Download</a>
+        </p>
+      </div>
+    </div>
+    <div class="about-modal-footer">
+      <button id="contribBtn" class="about-btn about-btn-primary">
+        <span>✉️</span>
+        <span>Contribute Data</span>
+      </button>
+      <button id="aboutCloseBtn" class="about-btn about-btn-secondary">Close</button>
+    </div>
+  </div>
+</div>
+<!-- SITE DETAILS SHEET -->
+<div id="infoSheet" class="info-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheetTitle">
+  <div class="sheet-handle" id="sheetHandle" role="button" tabindex="0" aria-label="Toggle site details">
+    <div class="handle-bar"></div>
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <div class="sheet-title" id="sheetTitle"></div>
+      <div class="sheet-sub" id="sheetSub"></div>
+    </div>
+  </div>
+  <div class="sheet-body" id="sheetBody" role="region" aria-live="polite"></div>
+  <div class="sheet-footer">
+    <button id="copyCoords" class="copy-btn" aria-label="Copy site coordinates to clipboard">📋 Copy Coordinates</button>
+    <button id="exportBtn" class="copy-btn" aria-label="Export site data">⬇️ Export Data</button>
+    <div style="flex:1"></div>
+    <button id="closeSheet" class="close-btn" aria-label="Close site details">✕ Close</button>
+  </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+'use strict';
+// ============================================================================
+// CONFIGURATION & CONSTANTS
+// ============================================================================
+const CONFIG = {
+  GEO_FILE: 'output_full.geojson',
+  REF_PAGE: 'ref.html',
+  CONTRIBUTE_EMAIL: 'contribute@rqpedia.org',
+  CONTRIBUTE_URL: 'https://rqpedia.org/contribute',
+  MAP: {
+    CENTER: [31.8, -6],
+    ZOOM: 6,
+    MIN_ZOOM: 3,
+    MAX_ZOOM: 18,
+  },
+  AUTOCOMPLETE_LIMIT: 10,
+  DEBOUNCE_DELAY: 150,
+  COPY_SUCCESS_DURATION: 1200,
+  ERROR_DISPLAY_DURATION: 5000,
+  TOUCH_SWIPE_THRESHOLD: 100,
+};
+const STORAGE_KEYS = {
+  RECENT_SITES: 'rqpedia_recent_sites',
+  USER_PREFERENCES: 'rqpedia_preferences',
+};
+// ============================================================================
+// DOM CACHE
+// ============================================================================
+const DOM = {
+  map: document.getElementById('map'),
+  mapOverlay: document.getElementById('mapOverlay'),
+  searchInput: document.getElementById('search-input'),
+  clearBtn: document.getElementById('clear-btn'),
+  autocompleteList: document.getElementById('autocomplete-list'),
+  aboutBtn: document.getElementById('about-btn'),
+  aboutModal: document.getElementById('aboutModal'),
+  aboutClose: document.getElementById('aboutClose'),
+  aboutCloseBtn: document.getElementById('aboutCloseBtn'),
+  contribBtn: document.getElementById('contribBtn'),
+  infoSheet: document.getElementById('infoSheet'),
+  sheetHandle: document.getElementById('sheetHandle'),
+  sheetTitle: document.getElementById('sheetTitle'),
+  sheetSub: document.getElementById('sheetSub'),
+  sheetBody: document.getElementById('sheetBody'),
+  copyBtn: document.getElementById('copyCoords'),
+  exportBtn: document.getElementById('exportBtn'),
+  closeBtn: document.getElementById('closeSheet'),
+  overlaySites: document.getElementById('overlaySites'),
+  overlaySamples: document.getElementById('overlaySamples'),
+  overlayReferences: document.getElementById('overlayReferences'),
+};
+// ============================================================================
+// APPLICATION STATE
+// ============================================================================
+const AppState = {
+  allSites: [],
+  filteredSites: [],
+  currentMarker: null,
+  currentSite: null,
+  autocompleteHighlightIndex: -1,
+  isLoading: false,
+  debounceTimer: null,
+  isScrolling: false,
+  chartInstances: {},
+  recentSites: [],
+  filters: {
+    searchQuery: '',
+  },
+  setSites(sites) {
+    this.allSites = sites;
+    this.filteredSites = sites; // No filtering — show all
+    this.loadRecentSites();
+  },
+  setCurrentSite(site) {
+    this.currentSite = site;
+    this.addRecentSite(site);
+  },
+  addRecentSite(site) {
+    this.recentSites = [site.name, ...this.recentSites.filter(s => s !== site.name)].slice(0, 5);
+    localStorage.setItem(STORAGE_KEYS.RECENT_SITES, JSON.stringify(this.recentSites));
+  },
+  loadRecentSites() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEYS.RECENT_SITES);
+      this.recentSites = stored ? JSON.parse(stored) : [];
+    } catch {
+      this.recentSites = [];
+    }
+  },
+  startDebounce(callback, delay) {
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(callback, delay);
+  }
+};
+// ============================================================================
+// MAP INITIALIZATION
+// ============================================================================
+const map = L.map('map', { zoomControl: false }).setView(CONFIG.MAP.CENTER, CONFIG.MAP.ZOOM);
+map.setMinZoom(CONFIG.MAP.MIN_ZOOM);
+map.setMaxZoom(CONFIG.MAP.MAX_ZOOM);
+L.tileLayer(
+  'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  { attribution: '&copy; Esri, Earthstar Geographics', maxZoom: 18, maxNativeZoom: 18 }
+).addTo(map);
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+function toString(value) {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) {
+    return value.map(v => toString(v)).filter(v => v).join('; ');
+  }
+  if (typeof value === 'object') {
+    return formatReference(value);
+  }
+  return String(value);
+}
+function escapeHtml(text) {
+  const str = toString(text);
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+function showNotification(message, type = 'error', duration = CONFIG.ERROR_DISPLAY_DURATION) {
+  const banner = document.createElement('div');
+  banner.className = `${type}-banner`;
+  banner.setAttribute('role', 'alert');
+  banner.innerHTML = `
+    <span class="${type}-banner-icon">${type === 'error' ? '⚠️' : '✓'}</span>
+    <span>${escapeHtml(message)}</span>
+  `;
+  document.body.appendChild(banner);
+  setTimeout(() => {
+    banner.style.opacity = '0';
+    banner.style.transition = 'opacity 0.3s';
+    setTimeout(() => banner.remove(), 300);
+  }, duration);
+}
+function formatReference(ref) {
+  if (!ref) return '';
+  if (typeof ref === 'string') {
+    return ref.trim() && ref !== '[object Object]' ? ref.trim() : '';
+  }
+  if (typeof ref === 'object') {
+    const parts = [];
+    if (ref.author) parts.push(String(ref.author).trim());
+    if (ref.year) parts.push(`(${ref.year})`);
+    if (ref.title) parts.push(`"${ref.title}"`);
+    if (ref.journal) parts.push(String(ref.journal).trim());
+    if (ref.volume) parts.push(`Vol. ${ref.volume}`);
+    if (ref.pages) parts.push(`pp. ${ref.pages}`);
+    if (ref.doi) parts.push(`DOI: ${ref.doi}`);
+    if (ref.url) parts.push(ref.url);
+    return parts.length ? parts.join(' ') : JSON.stringify(ref);
+  }
+  return '';
+}
+function updateMapOverlay() {
+  let totalSamples = 0;
+  let totalRefs = new Set();
+  AppState.filteredSites.forEach(site => {
+    totalSamples += site.samples.length;
+    site.refs.forEach(r => totalRefs.add(r));
+  });
+  DOM.overlaySites.textContent = AppState.filteredSites.length;
+  DOM.overlaySamples.textContent = totalSamples;
+  DOM.overlayReferences.textContent = totalRefs.size;
+}
+// ============================================================================
+// DATA LOADING
+// ============================================================================
+async function load() {
+  AppState.isLoading = true;
+  try {
+    const response = await fetch(CONFIG.GEO_FILE);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const geojson = await response.json();
+    if (!geojson.features?.length) throw new Error('No features found');
+    processGeoJSON(geojson);
+    updateDatabaseStats();
+    updateMapOverlay();
+  } catch (error) {
+    console.error('Load error:', error);
+    showNotification(`Failed to load: ${error.message}`);
+  } finally {
+    AppState.isLoading = false;
+  }
+}
+function processGeoJSON(geojson) {
+  const grouped = {};
+  for (const feature of geojson.features) {
+    if (feature.geometry?.type !== 'Point') continue;
+    const name = toString(feature.properties?.site || 'Unknown').trim();
+    if (!name) continue;
+    if (!grouped[name]) grouped[name] = [];
+    grouped[name].push(feature);
+  }
+  const sites = Object.entries(grouped)
+    .map(([name, features]) => processSiteGroup(name, features))
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  AppState.setSites(sites);
+  console.log(`✅ Loaded ${sites.length} sites`);
+}
+function processSiteGroup(name, features) {
+  try {
+    const coords = features.reduce(([sumLat, sumLng], f) => {
+      const [lng, lat] = f.geometry.coordinates;
+      return [sumLat + parseFloat(lat), sumLng + parseFloat(lng)];
+    }, [0, 0]);
+    const lat = coords[0] / features.length;
+    const lng = coords[1] / features.length;
+    if (isNaN(lat) || isNaN(lng)) return null;
+    const props = features.map(f => f.properties || {});
+    const merge = (key) => {
+      const values = props.map(p => p[key]).filter(Boolean);
+      return [...new Set(values.join(';').split(/[;,]+/).map(s => s.trim()).filter(Boolean))];
+    };
+    const samples = props
+      .flatMap(p => ({
+        labnr: toString(p.labnr || '').trim(),
+        bp: toString(p.bp || '').trim(),
+        std: toString(p.std || '').trim(),
+        delta: toString(p['delta c13'] || p.delta_c13 || '').trim(),
+        material: toString(p.material || '').trim(),
+        reference: toString(p.reference || p.references || '').trim(),
+      }))
+      .filter(s => s.bp || s.labnr)
+      .sort((a, b) => (parseFloat(b.bp) || 0) - (parseFloat(a.bp) || 0));
+    const refs = [...new Set(samples.map(s => s.reference).filter(Boolean))];
+    const bpValues = samples.map(s => parseFloat(s.bp)).filter(v => !isNaN(v));
+    return {
+      name,
+      lat,
+      lng,
+      base: {
+        site_type: merge('site_type').join(' · ') || '—',
+        feature_type: merge('feature_type').join(' · ') || '—',
+        periods: merge('periods'),
+        typo: merge('typochronological_units'),
+        eco: merge('ecochronological_units'),
+        country: merge('country').join(' · ') || '—',
+      },
+      samples,
+      refs,
+      bpStats: bpValues.length ? {
+        min: Math.min(...bpValues),
+        max: Math.max(...bpValues),
+        avg: bpValues.reduce((a, b) => a + b) / bpValues.length,
+        count: bpValues.length
+      } : null,
+    };
+  } catch (error) {
+    console.warn(`Error processing ${name}:`, error);
+    return null;
+  }
+}
+function updateDatabaseStats() {
+  const total = AppState.allSites.length;
+  let totalSamples = 0;
+  const totalRefs = new Set();
+  AppState.allSites.forEach(site => {
+    totalSamples += site.samples.length;
+    site.refs.forEach(r => totalRefs.add(r));
+  });
+  document.getElementById('statsArchSites').textContent = total;
+  document.getElementById('statsRadioSamples').textContent = totalSamples;
+  document.getElementById('statsReferences').textContent = totalRefs.size;
+}
+// ============================================================================
+// SEARCH
+// ============================================================================
+function suggest(query) {
+  DOM.autocompleteList.innerHTML = '';
+  AppState.autocompleteHighlightIndex = -1;
+  if (!query.trim()) {
+    DOM.autocompleteList.style.display = 'none';
+    return;
+  }
+  const matches = AppState.allSites
+    .filter(s => s.name.toLowerCase().includes(query.toLowerCase()))
+    .slice(0, CONFIG.AUTOCOMPLETE_LIMIT);
+  if (!matches.length) {
+    DOM.autocompleteList.style.display = 'none';
+    return;
+  }
+  matches.forEach((site, idx) => {
+    const item = document.createElement('div');
+    item.className = 'autocomplete-item';
+    item.setAttribute('role', 'option');
+    item.setAttribute('data-index', idx);
+    const qs = query.toLowerCase();
+    const start = site.name.toLowerCase().indexOf(qs);
+    const before = site.name.slice(0, start);
+    const highlight = site.name.slice(start, start + qs.length);
+    const after = site.name.slice(start + qs.length);
+    item.innerHTML = `<span class="autocomplete-item-icon">📍</span>
+      <span class="autocomplete-item-text">
+        ${before}<strong>${highlight}</strong>${after}
+        ${site.samples.length ? `<br><span class="autocomplete-item-meta">${site.samples.length} samples</span>` : ''}
+      </span>`;
+    item.addEventListener('click', () => selectSite(site));
+    DOM.autocompleteList.appendChild(item);
+  });
+  DOM.autocompleteList.style.display = 'block';
+}
+function selectSite(site) {
+  if (AppState.currentMarker) map.removeLayer(AppState.currentMarker);
+  AppState.currentMarker = L.marker([site.lat, site.lng]).addTo(map);
+  map.setView([site.lat, site.lng], 9);
+  showSiteDetails(site);
+  AppState.setCurrentSite(site);
+  DOM.autocompleteList.style.display = 'none';
+  DOM.searchInput.value = site.name;
+  DOM.clearBtn.style.display = 'block';
+}
+// ============================================================================
+// UI RENDERING - SITE DETAILS
+// ============================================================================
+function createContributionCTA() {
+  const cta = document.createElement('div');
+  cta.className = 'contribution-cta';
+  cta.innerHTML = `
+    <div class="contribution-cta-title">🚀 Become a RQpedian!</div>
+    <div class="contribution-cta-desc">Help us expand this database. Share radiocarbon data from Moroccan archaeological sites.</div>
+    <button class="contribution-cta-btn" onclick="handleContributeClick()">📧 Contribute Data</button>
+  `;
+  return cta;
+}
+function showSiteDetails(site) {
+  DOM.sheetTitle.textContent = site.name;
+  DOM.sheetSub.textContent = `${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}`;
+  DOM.sheetBody.innerHTML = '';
+  // Contribution CTA
+  DOM.sheetBody.appendChild(createContributionCTA());
+  // Analytics
+  const analytics = document.createElement('div');
+  analytics.className = 'analytics-grid';
+  analytics.innerHTML = `
+    <div class="analytics-item">
+      <div class="analytics-number">${site.samples.length}</div>
+      <div class="analytics-label">Samples</div>
+    </div>
+    <div class="analytics-item">
+      <div class="analytics-number">${site.refs.length}</div>
+      <div class="analytics-label">References</div>
+    </div>
+    ${site.bpStats ? `
+      <div class="analytics-item">
+        <div class="analytics-number">${Math.round(site.bpStats.max)}</div>
+        <div class="analytics-label">Earliest (BP)</div>
+      </div>
+      <div class="analytics-item">
+        <div class="analytics-number">${Math.round(site.bpStats.min)}</div>
+        <div class="analytics-label">Latest (BP)</div>
+      </div>
+    ` : ''}
+  `;
+  DOM.sheetBody.appendChild(analytics);
+  // Tabs
+  const tabsContainer = document.createElement('div');
+  tabsContainer.className = 'tabs-container';
+  const tabs = ['samples', 'context', 'references'];
+  const tabContents = {};
+  tabs.forEach(tab => {
+    const btn = document.createElement('button');
+    btn.className = `tab-btn ${tab === 'samples' ? 'active' : ''}`;
+    btn.textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
+    btn.addEventListener('click', () => {
+      tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      Object.values(tabContents).forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      tabContents[tab].classList.add('active');
+    });
+    tabsContainer.appendChild(btn);
+  });
+  DOM.sheetBody.appendChild(tabsContainer);
+  // Samples Tab
+  tabContents.samples = document.createElement('div');
+  tabContents.samples.className = 'tab-content active';
+  if (site.samples.length) {
+    const title = document.createElement('div');
+    title.className = 'section-title';
+    title.innerHTML = `Radiocarbon Samples <span class="badge">${site.samples.length}</span>`;
+    tabContents.samples.appendChild(title);
+    site.samples.forEach(sm => {
+      const card = document.createElement('div');
+      card.className = 'sample-card';
+      card.innerHTML = `
+        ${sm.labnr ? `<div class="sample-header">${sm.labnr}</div>` : ''}
+        <div class="sample-row"><div class="label">Age</div><div>${sm.bp ? `${sm.bp} BP` : '—'}</div></div>
+        ${sm.std ? `<div class="sample-row"><div class="label">±</div><div>${sm.std}</div></div>` : ''}
+        ${sm.delta ? `<div class="sample-row"><div class="label">δ¹³C</div><div>${sm.delta} ‰</div></div>` : ''}
+        ${sm.material ? `<div class="sample-row"><div class="label">Material</div><div>${sm.material}</div></div>` : ''}
+      `;
+      tabContents.samples.appendChild(card);
+    });
+  }
+  DOM.sheetBody.appendChild(tabContents.samples);
+  // Context Tab
+  tabContents.context = document.createElement('div');
+  tabContents.context.className = 'tab-content';
+  const title2 = document.createElement('div');
+  title2.className = 'section-title';
+  title2.textContent = 'Context';
+  tabContents.context.appendChild(title2);
+  const contextGrid = document.createElement('div');
+  contextGrid.className = 'context-grid';
+  const contextItems = [
+    { label: 'Site Type', value: site.base.site_type },
+    { label: 'Feature Type', value: site.base.feature_type },
+    { label: 'Country', value: site.base.country },
+  ];
+  contextItems.forEach(item => {
+    if (item.value !== '—') {
+      const ctx = document.createElement('div');
+      ctx.className = 'context-item';
+      ctx.innerHTML = `
+        <div class="context-label">${item.label}</div>
+        <div class="grid-value">${item.value}</div>
+      `;
+      contextGrid.appendChild(ctx);
+    }
+  });
+  if (site.base.periods.length) {
+    const ctx = document.createElement('div');
+    ctx.className = 'context-item';
+    ctx.innerHTML = `
+      <div class="context-label">Periods</div>
+      <div class="tag-list">${site.base.periods.map(p => `<span class="tag">${p}</span>`).join('')}</div>
+    `;
+    contextGrid.appendChild(ctx);
+  }
+  tabContents.context.appendChild(contextGrid);
+  DOM.sheetBody.appendChild(tabContents.context);
+  // References Tab
+  tabContents.references = document.createElement('div');
+  tabContents.references.className = 'tab-content';
+  if (site.refs.length) {
+    const title3 = document.createElement('div');
+    title3.className = 'section-title';
+    title3.textContent = 'References';
+    tabContents.references.appendChild(title3);
+    site.refs.forEach(ref => {
+      const refText = toString(ref);
+      const refItem = document.createElement('div');
+      refItem.className = 'ref-item';
+      refItem.innerHTML = `
+        <div class="ref-item-title">Reference</div>
+        <div class="ref-item-text">${escapeHtml(refText)}</div>
+        <a class="ref-link-btn" href="${CONFIG.REF_PAGE}?ref=${encodeURIComponent(refText)}&site=${encodeURIComponent(site.name)}" target="_blank" rel="noopener">📖 View</a>
+      `;
+      tabContents.references.appendChild(refItem);
+    });
+  }
+  DOM.sheetBody.appendChild(tabContents.references);
+  DOM.infoSheet.classList.add('open');
+  DOM.infoSheet.setAttribute('aria-hidden', 'false');
+}
+// ============================================================================
+// EXPORT FUNCTIONALITY
+// ============================================================================
+function exportSiteData(site) {
+  const data = {
+    name: site.name,
+    coordinates: { lat: site.lat, lng: site.lng },
+    samples: site.samples,
+    context: site.base,
+    references: site.refs,
+    timestamp: new Date().toISOString(),
+  };
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${site.name.replace(/\s+/g, '_')}_rqpedia.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showNotification('Data exported successfully!', 'success', 2000);
+}
+// ============================================================================
+// EVENT HANDLERS
+// ============================================================================
+function handleContributeClick() {
+  const email = CONFIG.CONTRIBUTE_EMAIL;
+  const subject = 'RQpedia Contribution - Radiocarbon Data';
+  const body = `Hello RQpedia Team,
+I would like to contribute radiocarbon data to RQpedia.
+Please let me know the submission process.
+Thank you!`;
+  window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+// ============================================================================
+// EVENT LISTENERS
+// ============================================================================
+// About Modal
+DOM.aboutBtn.addEventListener('click', () => {
+  DOM.aboutModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+DOM.aboutClose.addEventListener('click', () => {
+  DOM.aboutModal.classList.remove('open');
+  document.body.style.overflow = '';
+});
+DOM.aboutCloseBtn.addEventListener('click', () => {
+  DOM.aboutModal.classList.remove('open');
+  document.body.style.overflow = '';
+});
+DOM.contribBtn.addEventListener('click', handleContributeClick);
+DOM.aboutModal.addEventListener('click', (e) => {
+  if (e.target === DOM.aboutModal) {
+    DOM.aboutModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+// Search
+DOM.searchInput.addEventListener('input', (e) => {
+  DOM.clearBtn.style.display = e.target.value ? 'block' : 'none';
+  AppState.filters.searchQuery = e.target.value;
+  AppState.startDebounce(() => suggest(e.target.value), CONFIG.DEBOUNCE_DELAY);
+});
+DOM.searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    DOM.autocompleteList.style.display = 'none';
+  }
+});
+DOM.clearBtn.addEventListener('click', () => {
+  DOM.searchInput.value = '';
+  DOM.clearBtn.style.display = 'none';
+  DOM.autocompleteList.style.display = 'none';
+  AppState.filters.searchQuery = '';
+  DOM.searchInput.focus();
+});
+// Sheet
+DOM.sheetHandle.addEventListener('click', () => {
+  DOM.infoSheet.classList.toggle('open');
+});
+DOM.closeBtn.addEventListener('click', () => {
+  DOM.infoSheet.classList.remove('open');
+});
+DOM.copyBtn.addEventListener('click', async () => {
+  if (!AppState.currentSite) return;
+  try {
+    const coords = `${AppState.currentSite.lat.toFixed(6)}, ${AppState.currentSite.lng.toFixed(6)}`;
+    await navigator.clipboard.writeText(coords);
+    showNotification('Coordinates copied!', 'success', 1500);
+  } catch {
+    showNotification('Failed to copy', 'error');
+  }
+});
+DOM.exportBtn.addEventListener('click', () => {
+  if (AppState.currentSite) {
+    exportSiteData(AppState.currentSite);
+  }
+});
+// Close modal on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && DOM.aboutModal.classList.contains('open')) {
+    DOM.aboutModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+// Initialize
+document.addEventListener('DOMContentLoaded', load);
+</script>
+</body>
+</html>
+
