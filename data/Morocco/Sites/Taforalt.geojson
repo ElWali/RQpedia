@@ -1,0 +1,2296 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66729,
+        "labnr": "Gif-2267",
+        "bp": 13140,
+        "std": 150,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66730,
+        "labnr": "Gif-2268",
+        "bp": 13500,
+        "std": 150,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66731,
+        "labnr": "Gif-2269",
+        "bp": 14020,
+        "std": 160,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66732,
+        "labnr": "Gif-2270",
+        "bp": 15240,
+        "std": 180,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66733,
+        "labnr": "Gif-2271",
+        "bp": 15700,
+        "std": 180,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66734,
+        "labnr": "Gif-2272",
+        "bp": 15460,
+        "std": 180,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66735,
+        "labnr": "Gif-2273",
+        "bp": 15500,
+        "std": 180,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66736,
+        "labnr": "Gif-2278",
+        "bp": 19080,
+        "std": 100,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66737,
+        "labnr": "KN-1559",
+        "bp": 16420,
+        "std": 190,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaläol Iberomaurusien"],
+        "typochronological_units": ["Epipaläol Iberomaurusien"],
+        "ecochronological_units": ["Epipaläol Iberomaurusien"],
+        "references": ["KN-Lab", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66738,
+        "labnr": "L-399E",
+        "bp": 11900,
+        "std": 240,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66739,
+        "labnr": "nd-21",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66740,
+        "labnr": "nd-56",
+        "bp": 10500,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "references": ["Roche 1953, Roche 1970, Camps et al. 1973, Delibrias and Roche 1976, Nehren 1992", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66741,
+        "labnr": "nd-57",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "references": ["Roche 1953, Roche 1970, Camps et al. 1973, Delibrias and Roche 1976, Nehren 1992", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66742,
+        "labnr": "nd-58",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic?"],
+        "typochronological_units": ["Epipalaeolithic?"],
+        "ecochronological_units": ["Epipalaeolithic?"],
+        "references": ["Delibrias and Roche 1976, Nehren 1992, Wengler and Vernet 1992", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66743,
+        "labnr": "OxA-13477",
+        "bp": 12675,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.4,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66744,
+        "labnr": "OxA-13478",
+        "bp": 12495,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.2,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66745,
+        "labnr": "OxA-13479",
+        "bp": 10935,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66746,
+        "labnr": "OxA-13480",
+        "bp": 10950,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.3,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66747,
+        "labnr": "OxA-13516",
+        "bp": 11065,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66748,
+        "labnr": "OxA-13517",
+        "bp": 10990,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -26.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "plant",
+        "species": "Dicotyledonous",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66749,
+        "labnr": "OxA-13518",
+        "bp": 17085,
+        "std": 65,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Quercus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66750,
+        "labnr": "OxA-13519",
+        "bp": 13905,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Taylor 2011", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66751,
+        "labnr": "OxA-16240",
+        "bp": 18185,
+        "std": 75,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66752,
+        "labnr": "OxA-16242",
+        "bp": 16630,
+        "std": 75,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -24.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "plant",
+        "species": "dicotyl. unidentified",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66753,
+        "labnr": "OxA-16260",
+        "bp": 18005,
+        "std": 75,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66754,
+        "labnr": "OxA-16267",
+        "bp": 14005,
+        "std": 60,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.1,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Tetraclinus articulata",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66755,
+        "labnr": "OxA-16268",
+        "bp": 14515,
+        "std": 60,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.5,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Tetraclinus articulata",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66756,
+        "labnr": "OxA-16269",
+        "bp": 15790,
+        "std": 60,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.1,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66757,
+        "labnr": "OxA-16270",
+        "bp": 16285,
+        "std": 65,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66758,
+        "labnr": "OxA-16272",
+        "bp": 14630,
+        "std": 60,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.3,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Quercus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66759,
+        "labnr": "OxA-16273",
+        "bp": 17515,
+        "std": 75,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66760,
+        "labnr": "OxA-16274",
+        "bp": 20630,
+        "std": 90,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["EUROEVOL (CalPal)", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66761,
+        "labnr": "OxA-16275",
+        "bp": 20560,
+        "std": 90,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["EUROEVOL (CalPal)", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66762,
+        "labnr": "OxA-22784",
+        "bp": 12660,
+        "std": 70,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66763,
+        "labnr": "OxA-22785",
+        "bp": 12500,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66764,
+        "labnr": "OxA-22786",
+        "bp": 12200,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Cedrus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66765,
+        "labnr": "OxA-22787",
+        "bp": 12545,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66766,
+        "labnr": "OxA-22788",
+        "bp": 12850,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66767,
+        "labnr": "OxA-22902",
+        "bp": 12370,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66768,
+        "labnr": "OxA-22903",
+        "bp": 13045,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66769,
+        "labnr": "OxA-22904",
+        "bp": 12490,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66770,
+        "labnr": "OxA-22905",
+        "bp": 12665,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Arbutus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66771,
+        "labnr": "OxA-22906",
+        "bp": 14135,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66772,
+        "labnr": "OxA-22907",
+        "bp": 14230,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66773,
+        "labnr": "OxA-22908",
+        "bp": 14110,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Arbutus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66774,
+        "labnr": "OxA-22909",
+        "bp": 14140,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Conifer",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66775,
+        "labnr": "OxA-23404",
+        "bp": 10870,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66776,
+        "labnr": "OxA-23405",
+        "bp": 11615,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Gazella",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66777,
+        "labnr": "OxA-23406",
+        "bp": 11445,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66778,
+        "labnr": "OxA-23407",
+        "bp": 11465,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66779,
+        "labnr": "OxA-23408",
+        "bp": 11545,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66780,
+        "labnr": "OxA-23409",
+        "bp": 11890,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Pinus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66781,
+        "labnr": "OxA-23410",
+        "bp": 12405,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66782,
+        "labnr": "OxA-23411",
+        "bp": 13060,
+        "std": 65,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66783,
+        "labnr": "OxA-24109",
+        "bp": 12605,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Bos",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66784,
+        "labnr": "OxA-24111",
+        "bp": 10680,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Ammotragus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66785,
+        "labnr": "OxA-24112",
+        "bp": 11165,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Ammotragus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66786,
+        "labnr": "OxA-24113",
+        "bp": 11540,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66787,
+        "labnr": "Sa-13",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66788,
+        "labnr": "Sa-14",
+        "bp": 12070,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 66789,
+        "labnr": "Sa-15",
+        "bp": 10500,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Palaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Palaeolithic", "Iberomaurusian"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139930,
+        "labnr": "Sa-13",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Level 2",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["CalPal, HogueBarton.2016Microl, LinstadterEiwanger.2012Human, WenglerVernet.1994EvChr, LubellSheppard.1991Maghreb, DelibriasGuillier.1982GIFIX, Close.1980CurResRecI, DelibriasRoche.1976Epipal, Roche.1976CadreChroEpiMa, Camps.1974TablChron2, CampsDelibrias.1973ChroCiv, CampsDelibrias.1968ChroAbs, Camps.1968TablChronPRec, deBayledesHermes.1965Dat, DelibriasGuillier.1964SacI", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139931,
+        "labnr": "Sa-15",
+        "bp": 10500,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Level 8",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["CalPal, HogueBarton.2016Microl, LinstadterEiwanger.2012Human, WenglerVernet.1994EvChr, LubellSheppard.1991Maghreb, DelibriasGuillier.1982GIFIX, DelibriasRoche.1976Epipal, Roche.1976CadreChroEpiMa, Camps.1974TablChron2, CampsDelibrias.1973ChroCiv, CampsDelibrias.1968ChroAbs, Camps.1968TablChronPRec, deBayledesHermes.1965Dat, DelibriasGuillier.1964SacI", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139932,
+        "labnr": "OxA-24111",
+        "bp": 10680,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (undetermined)",
+        "species": null,
+        "feature": "0,22 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BartonBouzouggar.2013OrigIbero", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139933,
+        "labnr": "OxA-23404",
+        "bp": 10870,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "0,36-0,48 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BartonBouzouggar.2013OrigIbero", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139934,
+        "labnr": "OxA-13480",
+        "bp": 10950,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Grey unit: 0,36-0,48 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BronkRamseyHigham.2015AMS35, BartonBouzouggar.2013OrigIbero, LinstadterEiwanger.2012Human, BouzouggarBarton.2008Reeval, BartonBouzouggar.2007Abrupt", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139935,
+        "labnr": "OxA-13479",
+        "bp": 10935,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Grey unit: 0,36 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BronkRamseyHigham.2015AMS35, BartonBouzouggar.2013OrigIbero, LinstadterEiwanger.2012Human, BouzouggarBarton.2008Reeval, BartonBouzouggar.2007Abrupt", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139936,
+        "labnr": "OxA-13516",
+        "bp": 11065,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Grey unit: 0,48 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BronkRamseyHigham.2015AMS35, BartonBouzouggar.2013OrigIbero, LinstadterEiwanger.2012Human, BouzouggarBarton.2008Reeval, BartonBouzouggar.2007Abrupt", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139937,
+        "labnr": "OxA-24112",
+        "bp": 11165,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (undetermined)",
+        "species": null,
+        "feature": "0,53 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BartonBouzouggar.2013OrigIbero", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 139938,
+        "labnr": "OxA-13517",
+        "bp": 10990,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Grey unit: 0,54 m",
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Iberomaurusian"],
+        "typochronological_units": ["Iberomaurusian"],
+        "ecochronological_units": ["Iberomaurusian"],
+        "references": ["HogueBarton.2016Microl, BronkRamseyHigham.2015AMS35, BartonBouzouggar.2013OrigIbero, LinstadterEiwanger.2012Human, BouzouggarBarton.2008Reeval, BartonBouzouggar.2007Abrupt", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 291216,
+        "labnr": "OxA-13479",
+        "bp": 10935,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["MedAfriCarbon", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 291218,
+        "labnr": "OxA-13480",
+        "bp": 10950,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.3,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["MedAfriCarbon", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 291240,
+        "labnr": "OxA-13516",
+        "bp": 11065,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["HogueBarton.2016Microl", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 291241,
+        "labnr": "OxA-13517",
+        "bp": 10990,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -26.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Whittle et al. 2011b 531; Bell 2007", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 294668,
+        "labnr": "OxA-23404",
+        "bp": 10870,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -24.17,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Trinkaus E. 2005. Annu. Rev. Anthropol.34: 207-230.", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 294845,
+        "labnr": "OxA-24111",
+        "bp": 10680,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.33,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (undetermined)",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["HogueBarton.2016Microl", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 294846,
+        "labnr": "OxA-24112",
+        "bp": 11165,
+        "std": 45,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.73,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (undetermined)",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["MedAfriCarbon", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 321111,
+        "labnr": "Sa-13",
+        "bp": 10800,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["CalPal", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.4083, 34.8106]
+      },
+      "properties": {
+        "id": 321112,
+        "labnr": "Sa-15",
+        "bp": 10500,
+        "std": 400,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Taforalt",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Meiklejohn Portugal", "p3k14c"]
+      }
+    }
+  ]
+}
