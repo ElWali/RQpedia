@@ -1,0 +1,2927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="RQpedia - Moroccan Archaeological Sites Database with Advanced Analytics"/>
+<title>RQpedia — Moroccan Archaeological Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+:root{
+--gm-blue:#4285F4;--text:#202124;--muted:#5f6368;--bg:#fff;
+--shadow:0 4px 16px rgba(0,0,0,0.12);--radius:12px;--error:#ff5252;--success:#34a853;
+--chart-blue:#4285F4;--chart-green:#34a853;--chart-orange:#ff9800;--chart-red:#ff5252;--chart-purple:#9c27b0;
+--chart-cyan:#00bcd4;--chart-pink:#e91e63;--chart-lime:#8bc34a;
+}
+html,body{height:100%;margin:0;font-family:Roboto,Arial,sans-serif;color:var(--text);background:#fff;overflow:hidden}
+#map{position:absolute;inset:0;height:100%;width:100%}
+.leaflet-control-zoom{display:none !important}
+.map-controls{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1000;width:min(820px,calc(100% - 32px));pointer-events:none;display:flex;justify-content:center;flex-direction:column;gap:12px}
+.search-card{pointer-events:auto;width:100%;background:#fff;border-radius:28px;padding:10px 14px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;transition:box-shadow 0.2s ease}
+.search-card:focus-within{box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+.search-input{flex:1;border:none;outline:none;background:transparent;font-size:15px;padding:8px;color:var(--text)}
+.search-input::placeholder{color:var(--muted)}
+.search-clear{border:none;background:none;color:var(--muted);cursor:pointer;display:none;padding:4px 8px;border-radius:4px;transition:background 0.2s ease}
+.search-clear:hover{background:#f1f3f4}
+.search-icon{width:34px;text-align:center;font-size:18px}
+.about-button{pointer-events:auto;background:linear-gradient(135deg,var(--gm-blue),#1e6fd3);color:#fff;border:none;padding:10px 16px;border-radius:24px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s ease;box-shadow:0 3px 10px rgba(66,133,244,0.3);display:flex;align-items:center;gap:8px}
+.about-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(66,133,244,0.4)}
+.about-button:active{transform:translateY(0)}
+.about-button-icon{font-size:16px}
+.about-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:5000;display:none;align-items:center;justify-content:center;animation:fadeIn 0.3s ease;overflow-y:auto}
+.about-modal.open{display:flex}
+.about-modal-content{background:#fff;border-radius:16px;max-width:600px;width:90%;margin:20px;padding:0;box-shadow:0 10px 40px rgba(0,0,0,0.3);animation:slideUp 0.3s ease}
+.about-modal-header{background:linear-gradient(135deg,var(--gm-blue),#1e6fd3);color:#fff;padding:24px;border-radius:16px 16px 0 0;position:relative}
+.about-modal-header-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease}
+.about-modal-header-close:hover{background:rgba(255,255,255,0.3);transform:scale(1.1)}
+.about-modal-title{font-size:28px;font-weight:700;margin:0 0 8px 0;display:flex;align-items:center;gap:12px}
+.about-modal-subtitle{font-size:14px;opacity:0.9;margin:0}
+.about-modal-body{padding:24px;max-height:60vh;overflow-y:auto}
+.about-modal-body::-webkit-scrollbar{width:6px}
+.about-modal-body::-webkit-scrollbar-track{background:#f1f3f4}
+.about-modal-body::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.about-section{margin-bottom:20px}
+.about-section-title{font-size:16px;font-weight:600;color:var(--gm-blue);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.about-section-content{font-size:14px;line-height:1.6;color:var(--text);margin:0}
+.about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.about-stat{background:#f8f9fa;border-radius:8px;padding:16px;text-align:center;border:1px solid #e8eaed}
+.about-stat-number{font-size:24px;font-weight:700;color:var(--gm-blue)}
+.about-stat-label{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;font-weight:500}
+.contribution-highlight{background:#f0f7ff;border-left:4px solid var(--gm-blue);padding:12px;border-radius:4px;margin:16px 0}
+.contribution-highlight-text{font-size:14px;color:var(--text);line-height:1.6}
+.contribution-highlight-strong{color:var(--gm-blue);font-weight:600}
+.about-modal-footer{padding:24px;border-top:1px solid #eee;display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap}
+.about-btn{padding:10px 16px;border-radius:8px;border:none;font-weight:500;cursor:pointer;transition:all 0.2s ease;font-size:14px}
+.about-btn-primary{background:var(--gm-blue);color:#fff;box-shadow:0 3px 10px rgba(66,133,244,0.3)}
+.about-btn-primary:hover{background:#3367d6;box-shadow:0 4px 12px rgba(66,133,244,0.4)}
+.about-btn-secondary{background:#f1f3f4;color:var(--text)}
+.about-btn-secondary:hover{background:#e8eaed}
+.autocomplete-list{position:absolute;top:74px;left:50%;transform:translateX(-50%);z-index:1100;width:min(760px,calc(100% - 64px));background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;max-height:320px;overflow-y:auto;display:none;max-width:100%}
+.autocomplete-list::-webkit-scrollbar{width:6px}
+.autocomplete-list::-webkit-scrollbar-track{background:#f1f3f4}
+.autocomplete-list::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.autocomplete-list::-webkit-scrollbar-thumb:hover{background:#999}
+.autocomplete-item{padding:12px 14px;cursor:pointer;font-size:14px;color:var(--text);transition:background 0.15s ease;border-bottom:1px solid #f1f3f4}
+.autocomplete-item:last-child{border-bottom:none}
+.autocomplete-item:hover,.autocomplete-item.highlighted{background:#f1f3f4}
+.autocomplete-item-text{display:flex;align-items:center;gap:8px}
+.autocomplete-item-icon{font-size:16px;color:var(--muted)}
+.info-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-width:1000px;margin:0 auto;border-radius:var(--radius) var(--radius) 0 0;background:#fff;box-shadow:0 -4px 20px rgba(0,0,0,0.2);transform:translateY(88%);transition:transform 0.34s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;will-change:transform}
+.info-sheet.open{transform:translateY(0)}
+.sheet-handle{height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid #eee;background:#fff;border-radius:var(--radius) var(--radius) 0 0;cursor:grab;user-select:none;flex-shrink:0}
+.sheet-handle:active{cursor:grabbing}
+.handle-bar{width:36px;height:4px;border-radius:4px;background:#e0e0e0;transition:background 0.2s ease}
+.sheet-handle.dragging .handle-bar{background:#4285F4}
+.sheet-title{font-weight:600;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.sheet-sub{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet-body{padding:14px;overflow-y:auto;max-height:62vh;scroll-behavior:smooth;flex:1}
+.sheet-body::-webkit-scrollbar{width:6px}
+.sheet-body::-webkit-scrollbar-track{background:#f1f3f4}
+.sheet-body::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.sheet-body::-webkit-scrollbar-thumb:hover{background:#999}
+.sheet-footer{padding:12px 16px;border-top:1px solid #eee;background:#fff;display:flex;gap:12px;align-items:center;flex-wrap:wrap;flex-shrink:0}
+.section-title{font-weight:600;margin:16px 0 10px;font-size:15px;display:flex;align-items:center;gap:8px;color:var(--text)}
+.section-title:first-child{margin-top:0}
+.badge{font-size:12px;font-weight:600;background:#e8f0fe;color:var(--gm-blue);padding:3px 8px;border-radius:999px;display:inline-block}
+.badge.success{background:#e8f5e9;color:var(--success)}
+.badge.warning{background:#fff3e0;color:#f57c00}
+.badge.danger{background:#ffebee;color:var(--error)}
+.contribution-cta{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:12px;padding:16px;margin:16px 0;color:#fff}
+.contribution-cta-title{font-weight:600;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.contribution-cta-desc{font-size:13px;line-height:1.5;margin-bottom:12px;opacity:0.95}
+.contribution-cta-btn{background:#fff;color:#667eea;border:none;padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.contribution-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.sample-card{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:12px;margin-bottom:10px;box-shadow:0 2px 4px rgba(0,0,0,0.04);transition:all 0.2s ease}
+.sample-card:hover{box-shadow:0 4px 8px rgba(0,0,0,0.08);border-color:var(--gm-blue)}
+.sample-card.enhanced{background:linear-gradient(135deg,#f5f7fa 0%,#fff 100%);border-left:4px solid var(--gm-blue)}
+.sample-header{font-weight:600;font-size:14px;margin-bottom:8px;color:var(--gm-blue);display:flex;align-items:center;gap:8px}
+.sample-header-icon{font-size:16px}
+.sample-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;align-items:flex-start;gap:12px}
+.sample-row:last-child{margin-bottom:0}
+.label{color:var(--muted);font-weight:500;min-width:80px;flex-shrink:0;font-size:12px;text-transform:uppercase;letter-spacing:0.3px}
+.sample-value{flex:1;text-align:right;word-break:break-word;line-height:1.4;font-weight:500;color:var(--text)}
+.sample-value.numeric{color:var(--gm-blue);font-family:'Courier New',monospace}
+.sample-footer{margin-top:8px;padding-top:8px;border-top:1px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+.sample-meta{display:flex;gap:4px;align-items:center}
+.sample-indicator{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px}
+.sample-indicator.quality-high{background-color:var(--success)}
+.sample-indicator.quality-medium{background-color:#ff9800}
+.sample-indicator.quality-low{background-color:var(--error)}
+.sample-count{background:#f1f3f4;padding:6px 12px;border-radius:6px;font-weight:600;color:var(--gm-blue)}
+.chart-container{position:relative;width:100%;height:250px;margin:12px 0;background:#fafafa;border-radius:8px;padding:12px;border:1px solid #eee}
+.chart-wrapper{position:relative;width:100%;height:100%}
+.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.context-item{background:#fff;border:1px solid #f1f3f4;border-radius:8px;padding:12px;transition:all 0.2s ease;position:relative}
+.context-item:hover{border-color:#e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.context-item.enhanced{background:linear-gradient(135deg,#f5f7fa 0%,#fff 100%);border-left:4px solid var(--gm-blue)}
+.context-label{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text);text-transform:uppercase;letter-spacing:0.3px}
+.context-label-icon{font-size:14px;margin-right:4px}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:#f1f3f4;color:#222;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #e8eaed;transition:all 0.2s ease;word-break:break-word;display:inline-flex;align-items:center;gap:4px}
+.tag:hover{background:#e8eaed;border-color:#d0d0d0}
+.tag-icon{font-size:11px}
+.grid-value{font-size:14px;color:var(--text);font-weight:500;word-break:break-word;line-height:1.4;display:flex;align-items:center;gap:6px}
+.grid-value-icon{font-size:14px}
+.context-stat{background:#f8f9fa;border-radius:6px;padding:8px;margin-top:8px;text-align:center;border:1px solid #e8eaed}
+.context-stat-value{font-size:16px;font-weight:700;color:var(--gm-blue)}
+.context-stat-label{font-size:11px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:0.3px}
+.refs-container{display:flex;flex-direction:column;gap:8px;margin-top:8px;margin-bottom:0}
+.ref-item{padding:12px;border-radius:8px;background:#f8f9fa;border:1px solid #e8eaed;transition:all 0.2s ease;cursor:pointer}
+.ref-item:hover{background:#f1f3f4;border-color:#d0d0d0;transform:translateX(4px)}
+.ref-item-title{font-weight:600;font-size:13px;color:var(--gm-blue);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ref-item-title::before{content:'📚';font-size:14px}
+.ref-item-text{font-size:13px;color:var(--text);line-height:1.5;word-break:break-word;margin-bottom:8px;max-height:4.5em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.ref-link-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--gm-blue);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s ease;text-decoration:none;font-weight:500}
+.ref-link-btn:hover{background:#3367d6;box-shadow:0 2px 6px rgba(66,133,244,0.3)}
+.ref-link-btn:active{transform:scale(0.98)}
+.tabs-container{display:flex;gap:8px;margin-bottom:12px;border-bottom:2px solid #eee;overflow-x:auto;padding:0 0 8px 0}
+.tab-btn{background:none;border:none;padding:10px 16px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s ease;white-space:nowrap;font-weight:500}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--gm-blue);border-bottom-color:var(--gm-blue)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.copy-btn{background:var(--gm-blue);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:500;box-shadow:0 3px 10px rgba(66,133,244,0.3);font-size:14px;transition:all 0.2s ease}
+.copy-btn:hover{background:#3367d6;box-shadow:0 4px 12px rgba(66,133,244,0.4)}
+.copy-btn:active{transform:scale(0.98)}
+.copy-btn:disabled{opacity:0.6;cursor:not-allowed}
+.close-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:8px 12px;border-radius:6px;font-size:14px;transition:all 0.2s ease}
+.close-btn:hover{background:#f1f3f4;color:var(--text)}
+.error-banner{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--error);color:#fff;padding:14px 20px;border-radius:8px;z-index:2000;box-shadow:0 4px 12px rgba(0,0,0,0.15);animation:slideDown 0.3s ease}
+.error-banner-content{display:flex;align-items:center;gap:12px;font-size:14px}
+.error-banner-icon{font-size:20px}
+@keyframes slideDown{from{transform:translateX(-50%) translateY(-120%);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.analytics-item{background:#f8f9fa;border:1px solid #e8eaed;border-radius:8px;padding:12px;text-align:center}
+.analytics-number{font-size:24px;font-weight:700;color:var(--gm-blue);margin-bottom:4px}
+.analytics-label{font-size:12px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.timeline-container{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.timeline-item{display:flex;align-items:center;gap:12px;padding:8px;background:#f8f9fa;border-radius:8px;border-left:4px solid var(--gm-blue)}
+.timeline-dot{width:12px;height:12px;border-radius:50%;background:var(--gm-blue);flex-shrink:0}
+.timeline-label{font-size:12px;color:var(--muted);flex:1}
+.timeline-value{font-size:14px;font-weight:600;color:var(--text)}
+.heatmap-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,1fr));gap:4px;margin:12px 0}
+.heatmap-cell{height:40px;background:#f0f0f0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;cursor:pointer;transition:all 0.2s ease}
+.heatmap-cell:hover{transform:scale(1.1);box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.heatmap-cell.low{background:#e3f2fd}
+.heatmap-cell.medium{background:#90caf9}
+.heatmap-cell.high{background:#1976d2}
+.heatmap-cell.very-high{background:#0d47a1}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#f8f9fa;border-radius:8px;margin-bottom:8px}
+.stat-row-label{font-size:13px;color:var(--muted);font-weight:500}
+.stat-row-value{font-size:16px;font-weight:700;color:var(--gm-blue)}
+.stat-row-bar{flex:1;height:6px;background:#e8eaed;border-radius:3px;margin:0 12px;overflow:hidden}
+.stat-row-fill{height:100%;background:linear-gradient(90deg,var(--gm-blue),var(--chart-green));border-radius:3px}
+.comparison-container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.comparison-item{background:#f8f9fa;border-radius:8px;padding:12px;border:1px solid #e8eaed}
+.comparison-title{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:8px;text-transform:uppercase}
+.comparison-value{font-size:24px;font-weight:700;color:var(--gm-blue);margin-bottom:4px}
+.comparison-change{font-size:12px;color:var(--success)}
+.radial-progress{width:100%;max-width:150px;margin:12px auto;position:relative}
+.radial-bar{width:100%;height:120px;margin-bottom:8px;position:relative}
+.master-timeline-container{margin:16px 0;background:#f8f9fa;border-radius:12px;border:1px solid #e8eaed;overflow:hidden}
+.master-timeline-header{padding:16px;background:linear-gradient(135deg,var(--gm-blue),#1e6fd3);color:#fff;font-weight:600;display:flex;align-items:center;gap:8px}
+.master-timeline-header-icon{font-size:20px}
+.master-timeline-content{padding:16px}
+.period-section{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #e8eaed}
+.period-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.period-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-weight:600;color:var(--text)}
+.period-timeline-marker{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--gm-blue);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+.period-label-text{font-size:15px;color:var(--text);flex:1}
+.period-date-range{font-size:12px;color:var(--muted);font-weight:400}
+.period-sites-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:8px}
+.period-site-item{padding:12px;background:#fff;border:1px solid #e8eaed;border-radius:8px;cursor:pointer;transition:all 0.2s ease}
+.period-site-item:hover{background:#f0f7ff;border-color:var(--gm-blue);box-shadow:0 2px 8px rgba(66,133,244,0.15)}
+.period-site-item-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.period-site-item-info{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
+.period-site-item-coords{font-size:11px;color:var(--muted);font-family:monospace}
+.period-site-item-badge{display:inline-flex;align-items:center;gap:4px;background:var(--gm-blue);color:#fff;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:600;margin-top:8px}
+.no-sites-message{text-align:center;padding:16px;color:var(--muted);font-size:14px}
+.linked-data-container{margin:16px 0;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:12px;padding:16px;color:#fff}
+.linked-data-header{font-weight:600;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.linked-data-header-icon{font-size:20px}
+.linked-data-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.linked-data-card{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:12px;backdrop-filter:blur(10px);transition:all 0.2s ease;cursor:pointer}
+.linked-data-card:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.5);transform:translateY(-2px)}
+.linked-data-source{font-size:11px;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;margin-bottom:6px;font-weight:600}
+.linked-data-title{font-size:14px;font-weight:600;margin-bottom:8px;line-height:1.4;word-break:break-word}
+.linked-data-description{font-size:12px;opacity:0.95;line-height:1.5;margin-bottom:8px;max-height:3em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.linked-data-link{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.2);color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:11px;font-weight:600;transition:all 0.2s ease;border:none;cursor:pointer}
+.linked-data-link:hover{background:rgba(255,255,255,0.3);box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+.linked-data-loading{display:flex;align-items:center;gap:8px;font-size:13px;opacity:0.9}
+.linked-data-loading::after{content:'';display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.linked-data-error{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:12px;color:#fff;font-size:12px;text-align:center}
+.linked-data-empty{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:16px;text-align:center;color:#fff;font-size:12px}
+.samples-stats-bar{display:flex;justify-content:space-around;gap:8px;margin-bottom:12px;padding:10px;background:#f8f9fa;border-radius:8px}
+.samples-stat-item{text-align:center;flex:1}
+.samples-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:600}
+.samples-stat-value{font-size:16px;font-weight:700;color:var(--gm-blue);margin-top:4px}
+.context-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+.context-summary-item{background:#f8f9fa;border-radius:8px;padding:10px;text-align:center;border:1px solid #e8eaed}
+.context-summary-label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;margin-bottom:6px}
+.context-summary-value{font-size:14px;font-weight:700;color:var(--gm-blue)}
+.chronology-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px;padding:12px;background:#f8f9fa;border-radius:8px}
+.chronology-stat-item{text-align:center;padding:10px;background:#fff;border-radius:6px;border:1px solid #e8eaed;display:flex;flex-direction:column;align-items:center}
+.chronology-stat-icon{font-size:24px;margin-bottom:4px}
+.chronology-stat-value{font-size:18px;font-weight:700;color:var(--gm-blue)}
+.chronology-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-top:4px}
+.period-section.enhanced{background:linear-gradient(135deg,#f5f7fa 0%,#fff 100%);border-radius:8px;padding:16px;margin-bottom:16px;border-left:4px solid;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.period-header.enhanced{background:#fff;border-radius:6px;padding:12px;margin-bottom:12px}
+.period-timeline-marker.enhanced{box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.period-site-item.enhanced{background:linear-gradient(135deg,#f5f7fa 0%,#fff 100%);border-left:4px solid;box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+.period-site-item.enhanced:hover{box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.period-site-item-name.enhanced{display:flex;align-items:center;gap:6px}
+.period-site-item-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.period-site-item-stat{background:#f1f3f4;border-radius:4px;padding:6px;font-size:11px;text-align:center}
+.period-site-item-stat-icon{font-size:14px;margin-right:2px}
+.period-section-counter{font-size:12px;font-weight:600;color:#fff;background:var(--gm-blue);padding:4px 10px;border-radius:999px;margin-left:auto}
+.chronology-filter-info{background:#e8f0fe;border-left:4px solid var(--gm-blue);padding:12px;border-radius:4px;margin-bottom:12px;font-size:13px;color:var(--text)}
+.chronology-filter-info-icon{margin-right:6px}
+@media(max-width:599px){
+ .map-controls{width:calc(100% - 16px);top:12px;flex-direction:row;gap:8px}
+ .search-card{flex:1;border-radius:24px;padding:8px 12px}
+ .search-input{font-size:14px}
+ .about-button{padding:8px 12px;font-size:13px}
+ .autocomplete-list{width:calc(100% - 16px);top:60px}
+ .info-sheet{border-radius:20px 20px 0 0}
+ .sheet-handle{padding:0 12px}
+ .sheet-body{max-height:60vh;padding:12px}
+ .context-grid{grid-template-columns:1fr}
+ .sheet-footer{flex-direction:column;padding:10px 12px}
+ .copy-btn{width:100%;flex:1}
+ .sample-row{flex-direction:column;align-items:flex-start}
+ .sample-value{text-align:left;margin-top:4px}
+ .ref-item{padding:10px}
+ .tabs-container{gap:4px;margin-bottom:8px}
+ .tab-btn{padding:8px 12px;font-size:13px}
+ .chart-container{height:200px;padding:8px}
+ .analytics-grid{grid-template-columns:repeat(2,1fr)}
+ .comparison-container{grid-template-columns:1fr}
+ .heatmap-container{grid-template-columns:repeat(5,1fr)}
+ .about-modal-content{width:95%;margin:40px 2.5%}
+ .about-modal-body{max-height:70vh}
+ .period-sites-list{grid-template-columns:1fr}
+ .period-header{flex-wrap:wrap}
+ .period-site-item{padding:10px}
+ .period-site-item-name{font-size:13px}
+ .linked-data-content{grid-template-columns:1fr}
+ .linked-data-card{padding:10px}
+ .samples-stats-bar{flex-direction:row}
+ .context-summary{grid-template-columns:repeat(2,1fr)}
+ .chronology-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:600px) and (max-width:899px){
+ .info-sheet{width:96%;left:2%;right:2%}
+ .map-controls{flex-direction:row}
+ .period-sites-list{grid-template-columns:repeat(2,1fr)}
+ .linked-data-content{grid-template-columns:repeat(2,1fr)}
+ .context-summary{grid-template-columns:repeat(3,1fr)}
+ .chronology-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:900px){
+ .info-sheet{left:50%;transform:translate(-50%,88%);width:min(900px,96%)}
+ .info-sheet.open{transform:translate(-50%,0)}
+ .analytics-grid{grid-template-columns:repeat(4,1fr)}
+ .heatmap-container{grid-template-columns:repeat(auto-fit,minmax(50px,1fr))}
+ .map-controls{flex-direction:row}
+ .period-sites-list{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+ .linked-data-content{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+ .context-summary{grid-template-columns:repeat(4,1fr)}
+ .chronology-stats{grid-template-columns:repeat(4,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+ .info-sheet,.search-card,.ref-item,.copy-btn{transition:none}
+ @keyframes slideDown{from{opacity:0}to{opacity:1}}
+ @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+ @keyframes slideUp{from{opacity:0}to{opacity:1}}
+ @keyframes spin{to{transform:rotate(360deg)}}
+}
+</style>
+</head>
+<body>
+<div id="map" role="application" aria-label="Archaeological sites map"></div>
+<div class="map-controls">
+  <div class="search-card">
+    <div class="search-icon">🔍</div>
+    <input 
+      id="search-input" 
+      class="search-input" 
+      placeholder="Search a Moroccan site (e.g., Taforalt)" 
+      autocomplete="off"
+      aria-label="Search archaeological sites"
+      spellcheck="false"
+    >
+    <button 
+      id="clear-btn" 
+      class="search-clear" 
+      aria-label="Clear search" 
+      title="Clear search input"
+    >✕</button>
+  </div>
+  <button id="about-btn" class="about-button" aria-label="About RQpedia">
+    <span class="about-button-icon">ℹ️</span>
+    <span>About</span>
+  </button>
+</div>
+<div id="autocomplete-list" class="autocomplete-list" role="listbox" aria-label="Site suggestions"></div>
+
+<!-- ABOUT MODAL -->
+<div id="aboutModal" class="about-modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="about-modal-content">
+    <div class="about-modal-header">
+      <button class="about-modal-header-close" id="aboutClose" aria-label="Close about modal">✕</button>
+      <div class="about-modal-title">
+        <span>📊</span>
+        <span>RQpedia</span>
+      </div>
+      <div class="about-modal-subtitle">Radiocarbon Database of Moroccan Archaeological Sites</div>
+    </div>
+    <div class="about-modal-body">
+      <!-- Overview Section -->
+      <div class="about-section">
+        <div class="about-section-title">🎯 What is RQpedia?</div>
+        <p class="about-section-content">
+          RQpedia is a lightweight, open-access database of radiocarbon dates from archaeological samples excavated at sites across Morocco. Our mission is to provide researchers, students, and archaeologists with reliable, accessible chronological data to advance understanding of North African prehistory and early history.
+        </p>
+      </div>
+
+      <!-- Key Features -->
+      <div class="about-section">
+        <div class="about-section-title">⚡ Key Features</div>
+        <ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.6">
+          <li><strong>Comprehensive Coverage:</strong> Radiocarbon dates from major Moroccan archaeological sites</li>
+          <li><strong>Advanced Analytics:</strong> Statistical analysis, quality assessment, and temporal visualization</li>
+          <li><strong>Interactive Maps:</strong> Geospatial exploration of archaeological sites</li>
+          <li><strong>Open Access:</strong> Free and publicly available data for all researchers</li>
+          <li><strong>Quality Control:</strong> Rigorous evaluation of measurement uncertainty and reliability</li>
+        </ul>
+      </div>
+
+      <!-- Statistics -->
+      <div class="about-section">
+        <div class="about-section-title">📈 Database Statistics</div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsArchSites">—</div>
+            <div class="about-stat-label">Archaeological Sites</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsRadioSamples">—</div>
+            <div class="about-stat-label">Radiocarbon Samples</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number" id="statsReferences">—</div>
+            <div class="about-stat-label">References</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call for Contributions -->
+      <div class="about-section">
+        <div class="about-section-title">🤝 Call for Contributions</div>
+        <div class="contribution-highlight">
+          <p class="contribution-highlight-text">
+            <span class="contribution-highlight-strong">Help us grow RQpedia!</span> We invite archaeologists, radiocarbon laboratories, students, and researchers to contribute data, corrections, and improvements. Together, we can build the most comprehensive database of Moroccan radiocarbon chronology.
+          </p>
+        </div>
+        <p class="about-section-content">
+          Do you have unpublished radiocarbon dates? Knowledge of undocumented samples? Corrections to existing data? Your contributions are valuable and will be properly attributed. Contact us to become a <span class="contribution-highlight-strong">RQpedian</span> contributor!
+        </p>
+      </div>
+
+      <!-- Data Scope -->
+      <div class="about-section">
+        <div class="about-section-title">🗓️ Temporal Scope</div>
+        <p class="about-section-content">
+          RQpedia covers radiocarbon-dated archaeological samples from Morocco spanning the last ~50,000 years, encompassing periods from the Late Pleistocene through Islamic periods. Our database emphasizes Paleolithic, Neolithic, and Bronze Age contexts.
+        </p>
+      </div>
+
+      <!-- Citation -->
+      <div class="about-section">
+        <div class="about-section-title">📝 How to Cite</div>
+        <p class="about-section-content" style="background:#f8f9fa;padding:12px;border-radius:8px;font-family:monospace;font-size:12px;line-height:1.4">
+          RQpedia: Radiocarbon Database of Moroccan Archaeological Sites. Version 1.0. [Access date]. Available at: https://rqpedia.org
+        </p>
+      </div>
+    </div>
+    <div class="about-modal-footer">
+      <button id="contribBtn" class="about-btn about-btn-primary">
+        <span>✉️</span>
+        <span>Contribute Data</span>
+      </button>
+      <button id="aboutCloseBtn" class="about-btn about-btn-secondary">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="infoSheet" class="info-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheetTitle">
+  <div class="sheet-handle" id="sheetHandle" role="button" tabindex="0" aria-label="Toggle site details">
+    <div class="handle-bar"></div>
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <div class="sheet-title" id="sheetTitle"></div>
+      <div class="sheet-sub" id="sheetSub"></div>
+    </div>
+  </div>
+  <div class="sheet-body" id="sheetBody" role="region" aria-live="polite"></div>
+  <div class="sheet-footer">
+    <button id="copyCoords" class="copy-btn" aria-label="Copy site coordinates to clipboard">Copy coordinates</button>
+    <div style="flex:1"></div>
+    <button id="closeSheet" class="close-btn" aria-label="Close site details">Close</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+'use strict';
+
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
+const CONFIG = {
+  GEO_FILE: 'output_full.geojson',
+  REF_PAGE: 'ref.html',
+  CONTRIBUTE_EMAIL: 'contribute@rqpedia.org',
+  CONTRIBUTE_URL: 'https://rqpedia.org/contribute',
+  MAP: {
+    CENTER: [31.8, -6],
+    ZOOM: 6,
+    MIN_ZOOM: 3,
+    MAX_ZOOM: 18,
+  },
+  AUTOCOMPLETE_LIMIT: 10,
+  AUTOCOMPLETE_DEBOUNCE: 150,
+  SHEET_ANIMATION_DURATION: 340,
+  COPY_SUCCESS_DURATION: 1200,
+  ERROR_DISPLAY_DURATION: 5000,
+  TOUCH_SWIPE_THRESHOLD: 100,
+  MARKER_COLOR: '#4285F4',
+  PERIODS: {
+    'Upper Paleolithic': { min: 50000, max: 10000, icon: '🗿', color: '#8B4513' },
+    'Epipaleolithic': { min: 10000, max: 8000, icon: '🏹', color: '#D2691E' },
+    'Neolithic': { min: 8000, max: 4000, icon: '🌾', color: '#6B8E23' },
+    'Chalcolithic': { min: 4000, max: 2000, icon: '⚒️', color: '#A0522D' },
+    'Bronze Age': { min: 2000, max: 1000, icon: '🗡️', color: '#B8860B' },
+    'Iron Age': { min: 1000, max: 200, icon: '⚔️', color: '#2F4F4F' },
+  },
+  LINKED_DATA: {
+    WIKIDATA_API: 'https://www.wikidata.org/w/api.php',
+    WIKIPEDIA_API: 'https://en.wikipedia.org/w/api.php',
+    TIMEOUT: 5000,
+  },
+};
+
+// ============================================================================
+// DOM CACHE
+// ============================================================================
+const DOM = {
+  map: document.getElementById('map'),
+  searchInput: document.getElementById('search-input'),
+  clearBtn: document.getElementById('clear-btn'),
+  autocompleteList: document.getElementById('autocomplete-list'),
+  aboutBtn: document.getElementById('about-btn'),
+  aboutModal: document.getElementById('aboutModal'),
+  aboutClose: document.getElementById('aboutClose'),
+  aboutCloseBtn: document.getElementById('aboutCloseBtn'),
+  contribBtn: document.getElementById('contribBtn'),
+  infoSheet: document.getElementById('infoSheet'),
+  sheetHandle: document.getElementById('sheetHandle'),
+  sheetTitle: document.getElementById('sheetTitle'),
+  sheetSub: document.getElementById('sheetSub'),
+  sheetBody: document.getElementById('sheetBody'),
+  copyBtn: document.getElementById('copyCoords'),
+  closeBtn: document.getElementById('closeSheet'),
+};
+
+// ============================================================================
+// APPLICATION STATE
+// ============================================================================
+const AppState = {
+  sites: [],
+  currentMarker: null,
+  currentSite: null,
+  autocompleteHighlightIndex: -1,
+  isLoading: false,
+  debounceTimer: null,
+  touchStartY: 0,
+  sheetStartY: 0,
+  isDraggingSheet: false,
+  isScrolling: false,
+  chartInstances: {},
+  linkedDataCache: {},
+
+  setSites(sites) {
+    this.sites = sites;
+  },
+
+  setCurrentSite(site) {
+    this.currentSite = site;
+  },
+
+  setMarker(coordinates) {
+    this.clearMarker();
+    this.currentMarker = L.marker(coordinates, {
+      icon: L.icon({
+        iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234285F4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -16],
+        className: 'leaflet-marker-icon'
+      })
+    }).addTo(map);
+  },
+
+  clearMarker() {
+    if (this.currentMarker) {
+      map.removeLayer(this.currentMarker);
+      this.currentMarker = null;
+    }
+  },
+
+  resetAutoComplete() {
+    this.autocompleteHighlightIndex = -1;
+  },
+
+  destroyCharts() {
+    Object.values(this.chartInstances).forEach(chart => {
+      if (chart) chart.destroy();
+    });
+    this.chartInstances = {};
+  },
+
+  reset() {
+    this.clearMarker();
+    this.currentSite = null;
+    this.resetAutoComplete();
+    this.destroyCharts();
+  },
+
+  startDebounce(callback, delay) {
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(callback, delay);
+  }
+};
+
+// ============================================================================
+// MAP INITIALIZATION
+// ============================================================================
+const map = L.map('map', {
+  zoomControl: false
+}).setView(CONFIG.MAP.CENTER, CONFIG.MAP.ZOOM);
+map.setMinZoom(CONFIG.MAP.MIN_ZOOM);
+map.setMaxZoom(CONFIG.MAP.MAX_ZOOM);
+
+L.tileLayer(
+  'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: '&copy; Esri, Earthstar Geographics',
+    maxZoom: CONFIG.MAP.MAX_ZOOM,
+    maxNativeZoom: 18,
+  }
+).addTo(map);
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+function formatReference(ref) {
+  if (!ref) return '';
+
+  if (typeof ref === 'string') {
+    const trimmed = ref.trim();
+    return trimmed && trimmed !== '[object Object]' ? trimmed : '';
+  }
+
+  if (Array.isArray(ref)) {
+    return ref
+      .map(r => formatReference(r))
+      .filter(r => r)
+      .join('; ');
+  }
+
+  if (typeof ref === 'object') {
+    const parts = [];
+
+    if (ref.author || ref.authors) {
+      const author = String(ref.author || ref.authors).trim();
+      if (author && author !== '[object Object]') {
+        parts.push(author);
+      }
+    }
+
+    if (ref.year) {
+      const year = String(ref.year).trim();
+      if (year && year !== '[object Object]') {
+        parts.push(`(${year})`);
+      }
+    }
+
+    if (ref.title) {
+      const title = String(ref.title).trim();
+      if (title && title !== '[object Object]') {
+        parts.push(`"${title}"`);
+      }
+    }
+
+    if (ref.journal) {
+      const journal = String(ref.journal).trim();
+      if (journal && journal !== '[object Object]') {
+        parts.push(journal);
+      }
+    }
+
+    if (ref.volume) {
+      const volume = String(ref.volume).trim();
+      if (volume && volume !== '[object Object]') {
+        parts.push(`Vol. ${volume}`);
+      }
+    }
+
+    if (ref.issue) {
+      const issue = String(ref.issue).trim();
+      if (issue && issue !== '[object Object]') {
+        parts.push(`No. ${issue}`);
+      }
+    }
+
+    if (ref.pages) {
+      const pages = String(ref.pages).trim();
+      if (pages && pages !== '[object Object]') {
+        parts.push(`pp. ${pages}`);
+      }
+    }
+
+    if (ref.publisher) {
+      const publisher = String(ref.publisher).trim();
+      if (publisher && publisher !== '[object Object]') {
+        parts.push(publisher);
+      }
+    }
+
+    if (ref.doi) {
+      const doi = String(ref.doi).trim();
+      if (doi && doi !== '[object Object]') {
+        parts.push(`DOI: ${doi}`);
+      }
+    }
+
+    if (ref.url) {
+      const url = String(ref.url).trim();
+      if (url && url !== '[object Object]') {
+        parts.push(url);
+      }
+    }
+
+    if (parts.length === 0) {
+      const jsonStr = JSON.stringify(ref);
+      return jsonStr !== '{}' ? jsonStr : '';
+    }
+
+    return parts.join(' ');
+  }
+
+  return '';
+}
+
+function toString(value) {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'object') {
+    if (Array.isArray(value)) {
+      return value.map(v => toString(v)).filter(v => v).join('; ');
+    }
+    return formatReference(value);
+  }
+  return String(value);
+}
+
+function escapeHtml(text) {
+  const str = toString(text);
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function encodeRefParam(ref) {
+  return encodeURIComponent(toString(ref).trim());
+}
+
+function cleanList(str) {
+  if (!str) return [];
+  const strValue = toString(str);
+  if (!strValue) return [];
+  const cleaned = strValue
+    .split(/[;,]+/)
+    .map(s => s.trim())
+    .filter(v => v && v !== '.' && v !== '-' && v !== '[object Object]');
+  return [...new Set(cleaned)];
+}
+
+function joinAcademic(list) {
+  return (list && list.length > 0) ? list.join(' · ') : '—';
+}
+
+function calculateAverageCoordinates(features) {
+  if (!features || features.length === 0) {
+    return { lat: 0, lng: 0 };
+  }
+
+  const totals = features.reduce(
+    ([sumLat, sumLng], f) => {
+      try {
+        const [lng, lat] = f.geometry.coordinates;
+        const parsedLat = parseFloat(lat);
+        const parsedLng = parseFloat(lng);
+        
+        if (isNaN(parsedLat) || isNaN(parsedLng)) {
+          return [sumLat, sumLng];
+        }
+        
+        return [sumLat + parsedLat, sumLng + parsedLng];
+      } catch {
+        return [sumLat, sumLng];
+      }
+    },
+    [0, 0]
+  );
+
+  return {
+    lat: totals[0] / features.length,
+    lng: totals[1] / features.length,
+  };
+}
+
+function showError(message, duration = CONFIG.ERROR_DISPLAY_DURATION) {
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-banner';
+  errorDiv.setAttribute('role', 'alert');
+  errorDiv.innerHTML = `
+    <div class="error-banner-content">
+      <span class="error-banner-icon">⚠️</span>
+      <span>${escapeHtml(message)}</span>
+    </div>
+  `;
+  document.body.appendChild(errorDiv);
+  
+  setTimeout(() => {
+    errorDiv.style.opacity = '0';
+    errorDiv.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => errorDiv.remove(), 300);
+  }, duration);
+}
+
+function showCopySuccess() {
+  const originalText = DOM.copyBtn.textContent;
+  DOM.copyBtn.innerHTML = '✓ Copied!';
+  DOM.copyBtn.disabled = true;
+  
+  setTimeout(() => {
+    DOM.copyBtn.textContent = originalText;
+    DOM.copyBtn.disabled = false;
+  }, CONFIG.COPY_SUCCESS_DURATION);
+}
+
+// ============================================================================
+// QUALITY ASSESSMENT FUNCTIONS
+// ============================================================================
+
+function getQualityIndicator(sample) {
+  if (!sample.bp || !sample.std) return null;
+  
+  const bp = parseFloat(sample.bp);
+  const std = parseFloat(sample.std);
+  
+  if (isNaN(bp) || isNaN(std)) return null;
+  
+  const uncertainty = (std / bp) * 100;
+  
+  if (uncertainty < 1) return { level: 'high', label: 'Excellent', icon: '✓' };
+  if (uncertainty < 3) return { level: 'medium', label: 'Good', icon: '◐' };
+  if (uncertainty < 5) return { level: 'medium', label: 'Fair', icon: '◑' };
+  return { level: 'low', label: 'Poor', icon: '✕' };
+}
+
+function getMaterialIcon(material) {
+  const iconMap = {
+    'charcoal': '🪨',
+    'bone': '🦴',
+    'wood': '🪵',
+    'shell': '🐚',
+    'soil': '🌍',
+    'peat': '🌿',
+    'organic': '🍃',
+    'plant': '🌱',
+    'tooth': '🦷',
+    'collagen': '🧬'
+  };
+  
+  if (!material) return '🧫';
+  
+  const lowerMaterial = material.toLowerCase();
+  for (const [key, icon] of Object.entries(iconMap)) {
+    if (lowerMaterial.includes(key)) return icon;
+  }
+  
+  return '🧫';
+}
+
+function getPeriodIcon(bp) {
+  if (!bp) return '❓';
+  
+  const bpNum = parseFloat(bp);
+  if (isNaN(bpNum)) return '❓';
+  
+  for (const [periodName, periodData] of Object.entries(CONFIG.PERIODS)) {
+    if (bpNum >= periodData.min && bpNum <= periodData.max) {
+      return periodData.icon;
+    }
+  }
+  
+  return '❓';
+}
+
+// ============================================================================
+// LINKED DATA FUNCTIONS (WIKIDATA & WIKIPEDIA) - FIXED
+// ============================================================================
+
+async function fetchWithTimeout(url, timeout = CONFIG.LINKED_DATA.TIMEOUT) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
+async function searchWikidata(siteName) {
+  try {
+    const cacheKey = `wikidata_${siteName}`;
+    if (AppState.linkedDataCache[cacheKey]) {
+      return AppState.linkedDataCache[cacheKey];
+    }
+
+    const url = new URL(CONFIG.LINKED_DATA.WIKIDATA_API);
+    url.searchParams.append('action', 'wbsearchentities');
+    url.searchParams.append('search', siteName);
+    url.searchParams.append('language', 'en');
+    url.searchParams.append('format', 'json');
+    url.searchParams.append('origin', '*');
+
+    const response = await fetchWithTimeout(url.toString());
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.search && data.search.length > 0) {
+      const results = data.search
+        .filter(item => item.match && item.match.type === 'item')
+        .slice(0, 1)
+        .map(item => ({
+          id: item.id,
+          title: item.label,
+          description: item.description || '',
+          url: `https://www.wikidata.org/wiki/${item.id}`,
+          source: 'Wikidata'
+        }));
+      
+      AppState.linkedDataCache[cacheKey] = results;
+      return results;
+    }
+    
+    return [];
+  } catch (error) {
+    console.warn(`Wikidata search error for "${siteName}":`, error);
+    return [];
+  }
+}
+
+async function searchWikipedia(siteName) {
+  try {
+    const cacheKey = `wikipedia_${siteName}`;
+    if (AppState.linkedDataCache[cacheKey]) {
+      return AppState.linkedDataCache[cacheKey];
+    }
+
+    const url = new URL(CONFIG.LINKED_DATA.WIKIPEDIA_API);
+    url.searchParams.append('action', 'query');
+    url.searchParams.append('list', 'search');
+    url.searchParams.append('srsearch', siteName);
+    url.searchParams.append('srlimit', '1');
+    url.searchParams.append('format', 'json');
+    url.searchParams.append('origin', '*');
+
+    const response = await fetchWithTimeout(url.toString());
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.query && data.query.search && data.query.search.length > 0) {
+      const results = data.query.search
+        .slice(0, 1)
+        .map(item => {
+          const pageTitle = item.title.replace(/ /g, '_');
+          return {
+            id: pageTitle,
+            title: item.title,
+            description: item.snippet.replace(/<[^>]*>/g, ''),
+            url: `https://en.wikipedia.org/wiki/${pageTitle}`,
+            source: 'Wikipedia'
+          };
+        });
+      
+      AppState.linkedDataCache[cacheKey] = results;
+      return results;
+    }
+    
+    return [];
+  } catch (error) {
+    console.warn(`Wikipedia search error for "${siteName}":`, error);
+    return [];
+  }
+}
+
+async function fetchLinkedData(siteName) {
+  try {
+    const results = await Promise.all([
+      searchWikidata(siteName),
+      searchWikipedia(siteName)
+    ]);
+    
+    return {
+      wikidata: results[0],
+      wikipedia: results[1]
+    };
+  } catch (error) {
+    console.error('Error fetching linked data:', error);
+    return {
+      wikidata: [],
+      wikipedia: []
+    };
+  }
+}
+
+function createLinkedDataCard(item) {
+  const card = document.createElement('div');
+  card.className = 'linked-data-card';
+  
+  const source = document.createElement('div');
+  source.className = 'linked-data-source';
+  source.textContent = item.source;
+  card.appendChild(source);
+  
+  const title = document.createElement('div');
+  title.className = 'linked-data-title';
+  title.textContent = item.title;
+  title.title = item.title;
+  card.appendChild(title);
+  
+  if (item.description) {
+    const description = document.createElement('div');
+    description.className = 'linked-data-description';
+    description.textContent = item.description;
+    description.title = item.description;
+    card.appendChild(description);
+  }
+  
+  const link = document.createElement('a');
+  link.className = 'linked-data-link';
+  link.href = item.url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.innerHTML = '<span>🔗</span><span>View</span>';
+  card.appendChild(link);
+  
+  return card;
+}
+
+function createLinkedDataSection(siteName) {
+  const container = document.createElement('div');
+  container.className = 'linked-data-container';
+  
+  const header = document.createElement('div');
+  header.className = 'linked-data-header';
+  header.innerHTML = '<span class="linked-data-header-icon">🌐</span><span>Linked Data (Wikidata & Wikipedia)</span>';
+  container.appendChild(header);
+  
+  const content = document.createElement('div');
+  content.className = 'linked-data-content';
+  
+  const loading = document.createElement('div');
+  loading.className = 'linked-data-loading';
+  loading.textContent = 'Searching knowledge bases...';
+  content.appendChild(loading);
+  
+  container.appendChild(content);
+  
+  // Fetch linked data asynchronously
+  fetchLinkedData(siteName).then(results => {
+    content.innerHTML = '';
+    
+    // Combine results but only one from each source
+    const allResults = [
+      ...results.wikidata,
+      ...results.wikipedia
+    ];
+    
+    if (allResults.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'linked-data-empty';
+      empty.textContent = 'No linked data found for this site';
+      content.appendChild(empty);
+      return;
+    }
+    
+    allResults.forEach(item => {
+      const card = createLinkedDataCard(item);
+      content.appendChild(card);
+    });
+  }).catch(error => {
+    console.error('Error creating linked data section:', error);
+    content.innerHTML = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'linked-data-error';
+    errorDiv.textContent = 'Error fetching linked data';
+    content.appendChild(errorDiv);
+  });
+  
+  return container;
+}
+
+// ============================================================================
+// ABOUT MODAL FUNCTIONS
+// ============================================================================
+
+function openAboutModal() {
+  DOM.aboutModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAboutModal() {
+  DOM.aboutModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateDatabaseStats() {
+  const totalSites = AppState.sites.length;
+  let totalSamples = 0;
+  let totalReferences = 0;
+
+  AppState.sites.forEach(site => {
+    if (site.samples) {
+      totalSamples += site.samples.length;
+    }
+    if (site.refs) {
+      totalReferences += site.refs.length;
+    }
+  });
+
+  document.getElementById('statsArchSites').textContent = totalSites;
+  document.getElementById('statsRadioSamples').textContent = totalSamples;
+  document.getElementById('statsReferences').textContent = totalReferences;
+}
+
+function handleContributeClick() {
+  const useEmail = !CONFIG.CONTRIBUTE_URL || CONFIG.CONTRIBUTE_URL.includes('rqpedia.org/contribute');
+  
+  if (useEmail && CONFIG.CONTRIBUTE_EMAIL) {
+    window.location.href = `mailto:${CONFIG.CONTRIBUTE_EMAIL}?subject=RQpedia%20Contribution%20-%20Radiocarbon%20Data&body=Hello%20RQpedia%20Team,%0A%0AI%20would%20like%20to%20contribute%20radiocarbon%20data%20to%20RQpedia.%0A%0APlease%20provide%20details%20about%20your%20contribution:%0A-%20Site%20name(s)%0A-%20Number%20of%20samples%0A-%20Time%20period%0A-%20Your%20affiliation%0A%0AThank%20you!`;
+  } else if (CONFIG.CONTRIBUTE_URL) {
+    window.open(CONFIG.CONTRIBUTE_URL, '_blank', 'noopener,noreferrer');
+  } else {
+    showError('Contribution form is not yet configured. Please contact the RQpedia team.');
+  }
+}
+
+// ============================================================================
+// DATA LOADING AND PROCESSING
+// ============================================================================
+
+async function load() {
+  AppState.isLoading = true;
+  try {
+    const response = await fetch(CONFIG.GEO_FILE);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const geojson = await response.json();
+    
+    if (!geojson.features || !Array.isArray(geojson.features)) {
+      throw new Error('Invalid GeoJSON format: missing features array');
+    }
+    
+    if (geojson.features.length === 0) {
+      throw new Error('GeoJSON contains no features');
+    }
+    
+    processGeoJSON(geojson);
+    updateDatabaseStats();
+  } catch (error) {
+    console.error('Failed to load sites:', error);
+    showError(`Unable to load archaeological sites: ${error.message}`);
+  } finally {
+    AppState.isLoading = false;
+  }
+}
+
+function processGeoJSON(geojson) {
+  const grouped = {};
+  
+  for (const feature of geojson.features) {
+    try {
+      if (!feature.geometry || feature.geometry.type !== 'Point') {
+        console.warn('Skipping non-Point feature:', feature);
+        continue;
+      }
+      
+      const props = feature.properties || {};
+      const name = toString(props.site || 'Unknown').trim();
+      
+      if (!name || name.length === 0) {
+        console.warn('Skipping feature with empty site name');
+        continue;
+      }
+      
+      if (!grouped[name]) grouped[name] = [];
+      grouped[name].push(feature);
+    } catch (error) {
+      console.error('Error processing feature:', error);
+      continue;
+    }
+  }
+
+  const sites = Object.entries(grouped)
+    .map(([name, features]) => processSiteGroup(name, features))
+    .filter(site => site !== null)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  AppState.setSites(sites);
+  console.log(`Loaded ${sites.length} archaeological sites`);
+}
+
+function extractAllProperties(features) {
+  const allProps = {};
+  
+  for (const feature of features) {
+    const props = feature.properties || {};
+    for (const [key, value] of Object.entries(props)) {
+      if (!allProps[key]) {
+        allProps[key] = [];
+      }
+      if (value) {
+        allProps[key].push(value);
+      }
+    }
+  }
+  
+  return allProps;
+}
+
+function calculateStats(values) {
+  const numericValues = values
+    .map(v => parseFloat(v))
+    .filter(v => !isNaN(v));
+  
+  if (numericValues.length === 0) {
+    return null;
+  }
+  
+  numericValues.sort((a, b) => a - b);
+  const min = numericValues[0];
+  const max = numericValues[numericValues.length - 1];
+  const avg = numericValues.reduce((a, b) => a + b, 0) / numericValues.length;
+  const median = numericValues[Math.floor(numericValues.length / 2)];
+  
+  return { min, max, avg, median, count: numericValues.length };
+}
+
+function processSiteGroup(name, features) {
+  try {
+    const { lat, lng } = calculateAverageCoordinates(features);
+    
+    if (isNaN(lat) || isNaN(lng)) {
+      console.warn(`Invalid coordinates for site ${name}`);
+      return null;
+    }
+
+    const props = features.map(f => f.properties || {});
+    const allProps = extractAllProperties(features);
+    
+    const merge = (key) => cleanList(
+      props
+        .map(p => {
+          const val = p[key];
+          return val ? toString(val) : '';
+        })
+        .join('; ')
+    );
+    
+    const samples = props
+      .map(p => ({
+        labnr: toString(p.labnr || '').trim(),
+        bp: toString(p.bp || '').trim(),
+        std: toString(p.std || '').trim(),
+        delta: toString((p['delta c13'] || p.delta_c13) || '').trim(),
+        material: toString(p.material || '').trim(),
+        reference: toString((p.reference || p.references) || '').trim()
+      }))
+      .filter(s => s.bp || s.labnr || s.reference)
+      .sort((a, b) => {
+        const bpA = parseFloat(a.bp) || 0;
+        const bpB = parseFloat(b.bp) || 0;
+        return bpB - bpA;
+      });
+
+    const refsSet = new Set();
+    samples.forEach(s => {
+      if (s.reference) {
+        const refValue = toString(s.reference).trim();
+        if (refValue && refValue !== '[object Object]') {
+          refsSet.add(refValue);
+        }
+      }
+    });
+    
+    const refs = Array.from(refsSet);
+
+    const bpValues = samples.map(s => s.bp).filter(v => v);
+    const bpStats = calculateStats(bpValues);
+
+    return {
+      name,
+      lat,
+      lng,
+      base: {
+        site_type: joinAcademic(merge('site_type')),
+        feature_type: joinAcademic(merge('feature_type')),
+        periods: merge('periods'),
+        typo: merge('typochronological_units'),
+        eco: merge('ecochronological_units'),
+        country: joinAcademic(merge('country')),
+      },
+      samples,
+      refs,
+      allProps,
+      bpStats,
+      features,
+    };
+  } catch (error) {
+    console.error(`Error processing site ${name}:`, error);
+    return null;
+  }
+}
+
+// ============================================================================
+// REFERENCE HANDLING
+// ============================================================================
+
+function createRefItemElement(ref) {
+  const refText = toString(ref).trim();
+  
+  if (!refText || refText === '[object Object]') {
+    console.warn('Skipping invalid reference:', ref);
+    return null;
+  }
+
+  const item = document.createElement('div');
+  item.className = 'ref-item';
+  
+  const title = document.createElement('div');
+  title.className = 'ref-item-title';
+  title.textContent = 'Reference';
+  
+  const textDiv = document.createElement('div');
+  textDiv.className = 'ref-item-text';
+  textDiv.textContent = refText;
+  textDiv.title = refText;
+  
+  const button = document.createElement('a');
+  button.className = 'ref-link-btn';
+  button.href = `${CONFIG.REF_PAGE}?ref=${encodeRefParam(refText)}&site=${encodeRefParam(AppState.currentSite?.name || '')}`;
+  button.target = '_blank';
+  button.rel = 'noopener noreferrer';
+  button.innerHTML = '<span>📖</span><span>View Reference</span>';
+  
+  item.appendChild(title);
+  item.appendChild(textDiv);
+  item.appendChild(button);
+  
+  return item;
+}
+
+// ============================================================================
+// ADVANCED CHART FUNCTIONS
+// ============================================================================
+
+function createAgeDistributionChart(samples, containerId) {
+  const canvas = document.getElementById(containerId);
+  if (!canvas) return;
+
+  const bpValues = samples
+    .map(s => ({ bp: parseFloat(s.bp), labnr: s.labnr }))
+    .filter(s => !isNaN(s.bp))
+    .sort((a, b) => a.bp - b.bp);
+
+  if (bpValues.length === 0) return;
+
+  const ctx = canvas.getContext('2d');
+  
+  if (AppState.chartInstances[containerId]) {
+    AppState.chartInstances[containerId].destroy();
+  }
+
+  AppState.chartInstances[containerId] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: bpValues.map((v, i) => `Sample ${i + 1}`),
+      datasets: [{
+        label: 'Age (BP)',
+        data: bpValues.map(v => v.bp),
+        backgroundColor: '#4285F4',
+        borderColor: '#3367d6',
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            font: { size: 12 },
+            color: '#202124'
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            font: { size: 11 },
+            color: '#5f6368'
+          },
+          grid: {
+            color: '#f1f3f4'
+          }
+        },
+        x: {
+          ticks: {
+            font: { size: 10 },
+            color: '#5f6368'
+          },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+}
+
+function createMaterialChart(samples, containerId) {
+  const canvas = document.getElementById(containerId);
+  if (!canvas) return;
+
+  const materialCounts = {};
+  samples.forEach(s => {
+    if (s.material) {
+      materialCounts[s.material] = (materialCounts[s.material] || 0) + 1;
+    }
+  });
+
+  if (Object.keys(materialCounts).length === 0) return;
+
+  const ctx = canvas.getContext('2d');
+  
+  if (AppState.chartInstances[containerId]) {
+    AppState.chartInstances[containerId].destroy();
+  }
+
+  const colors = ['#4285F4', '#34a853', '#ff9800', '#ff5252', '#9c27b0', '#00bcd4'];
+
+  AppState.chartInstances[containerId] = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(materialCounts),
+      datasets: [{
+        data: Object.values(materialCounts),
+        backgroundColor: colors.slice(0, Object.keys(materialCounts).length),
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 11 },
+            color: '#202124',
+            padding: 12
+          }
+        }
+      }
+    }
+  });
+}
+
+function createChronologicalChart(samples, containerId) {
+  const canvas = document.getElementById(containerId);
+  if (!canvas) return;
+
+  const bpValues = samples
+    .map(s => parseFloat(s.bp))
+    .filter(v => !isNaN(v))
+    .sort((a, b) => b - a);
+
+  if (bpValues.length === 0) return;
+
+  const minBP = Math.min(...bpValues);
+  const maxBP = Math.max(...bpValues);
+  const binSize = (maxBP - minBP) / 10 || 100;
+  const bins = {};
+  
+  for (let i = 0; i <= 10; i++) {
+    const binStart = maxBP - (i * binSize);
+    bins[Math.round(binStart)] = 0;
+  }
+
+  bpValues.forEach(bp => {
+    const binKey = Math.round(Math.floor((bp - minBP) / binSize) * binSize + minBP);
+    bins[binKey] = (bins[binKey] || 0) + 1;
+  });
+
+  const ctx = canvas.getContext('2d');
+  
+  if (AppState.chartInstances[containerId]) {
+    AppState.chartInstances[containerId].destroy();
+  }
+
+  AppState.chartInstances[containerId] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(bins).map(k => `${Math.round(k)} BP`),
+      datasets: [{
+        label: 'Sample Count',
+        data: Object.values(bins),
+        borderColor: '#4285F4',
+        backgroundColor: 'rgba(66, 133, 244, 0.1)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: '#4285F4',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            font: { size: 12 },
+            color: '#202124'
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            font: { size: 11 },
+            color: '#5f6368'
+          },
+          grid: {
+            color: '#f1f3f4'
+          }
+        },
+        x: {
+          ticks: {
+            font: { size: 10 },
+            color: '#5f6368',
+            maxRotation: 45
+          },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+}
+
+function createUncertaintyHeatmap(samples) {
+  const container = document.createElement('div');
+  container.className = 'heatmap-container';
+  
+  const sortedSamples = samples
+    .filter(s => s.bp && s.std)
+    .sort((a, b) => parseFloat(b.bp) - parseFloat(a.bp))
+    .slice(0, 20);
+
+  if (sortedSamples.length === 0) {
+    const msg = document.createElement('div');
+    msg.textContent = 'No uncertainty data available';
+    msg.style.padding = '12px';
+    msg.style.color = 'var(--muted)';
+    container.appendChild(msg);
+    return container;
+  }
+
+  sortedSamples.forEach((sample, index) => {
+    const std = parseFloat(sample.std) || 0;
+    const bp = parseFloat(sample.bp) || 0;
+    const uncertainty = (std / bp) * 100;
+
+    let heatClass = 'low';
+    if (uncertainty > 10) heatClass = 'very-high';
+    else if (uncertainty > 5) heatClass = 'high';
+    else if (uncertainty > 2) heatClass = 'medium';
+
+    const cell = document.createElement('div');
+    cell.className = `heatmap-cell ${heatClass}`;
+    cell.title = `Sample ${index + 1}: ${Math.round(bp)} ± ${Math.round(std)} BP (${uncertainty.toFixed(1)}% uncertainty)`;
+    cell.textContent = Math.round(bp);
+    
+    container.appendChild(cell);
+  });
+
+  return container;
+}
+
+function createStatisticalSummary(site) {
+  const container = document.createElement('div');
+  
+  if (!site.bpStats) {
+    return container;
+  }
+
+  const stats = site.bpStats;
+  const rows = [
+    { label: 'Oldest Age', value: `${Math.round(stats.max)} BP` },
+    { label: 'Newest Age', value: `${Math.round(stats.min)} BP` },
+    { label: 'Average Age', value: `${Math.round(stats.avg)} BP` },
+    { label: 'Median Age', value: `${Math.round(stats.median)} BP` },
+    { label: 'Temporal Span', value: `${Math.round(stats.max - stats.min)} years` }
+  ];
+
+  rows.forEach((row, index) => {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'stat-row';
+    
+    const label = document.createElement('div');
+    label.className = 'stat-row-label';
+    label.textContent = row.label;
+    
+    const barContainer = document.createElement('div');
+    barContainer.className = 'stat-row-bar';
+    
+    let percentage = 0;
+    if (row.label.includes('Average')) {
+      percentage = ((stats.avg - stats.min) / (stats.max - stats.min)) * 100;
+    } else if (row.label.includes('Median')) {
+      percentage = ((stats.median - stats.min) / (stats.max - stats.min)) * 100;
+    } else if (row.label.includes('Newest')) {
+      percentage = 10;
+    } else if (row.label.includes('Oldest')) {
+      percentage = 90;
+    } else {
+      percentage = 50;
+    }
+    
+    const fill = document.createElement('div');
+    fill.className = 'stat-row-fill';
+    fill.style.width = `${percentage}%`;
+    barContainer.appendChild(fill);
+    
+    const value = document.createElement('div');
+    value.className = 'stat-row-value';
+    value.textContent = row.value;
+    
+    rowEl.appendChild(label);
+    rowEl.appendChild(barContainer);
+    rowEl.appendChild(value);
+    
+    container.appendChild(rowEl);
+  });
+
+  return container;
+}
+
+function createMaterialTimeline(samples) {
+  const container = document.createElement('div');
+  container.className = 'timeline-container';
+
+  const materialAges = {};
+  samples.forEach(s => {
+    if (s.material && s.bp) {
+      const material = s.material;
+      if (!materialAges[material]) {
+        materialAges[material] = { total: 0, count: 0 };
+      }
+      materialAges[material].total += parseFloat(s.bp);
+      materialAges[material].count += 1;
+    }
+  });
+
+  const materialTimeline = Object.entries(materialAges)
+    .map(([material, data]) => ({
+      material,
+      avgAge: Math.round(data.total / data.count),
+      samples: data.count
+    }))
+    .sort((a, b) => b.avgAge - a.avgAge);
+
+  if (materialTimeline.length === 0) {
+    const msg = document.createElement('div');
+    msg.textContent = 'No material timeline data available';
+    msg.style.padding = '12px';
+    msg.style.color = 'var(--muted)';
+    container.appendChild(msg);
+    return container;
+  }
+
+  materialTimeline.forEach((item, index) => {
+    const timelineItem = document.createElement('div');
+    timelineItem.className = 'timeline-item';
+    
+    const dot = document.createElement('div');
+    dot.className = 'timeline-dot';
+    dot.style.backgroundColor = ['#4285F4', '#34a853', '#ff9800', '#ff5252', '#9c27b0'][index % 5];
+    
+    const label = document.createElement('div');
+    label.className = 'timeline-label';
+    label.innerHTML = `${item.material} <span style="font-size:11px;color:var(--muted)">(${item.samples} sample${item.samples > 1 ? 's' : ''})</span>`;
+    
+    const value = document.createElement('div');
+    value.className = 'timeline-value';
+    value.textContent = `${item.avgAge} BP`;
+    
+    timelineItem.appendChild(dot);
+    timelineItem.appendChild(label);
+    timelineItem.appendChild(value);
+    
+    container.appendChild(timelineItem);
+  });
+
+  return container;
+}
+
+function createSampleQualityComparison(samples, containerId) {
+  const canvas = document.getElementById(containerId);
+  if (!canvas) return;
+
+  const qualityData = samples
+    .filter(s => s.bp && s.std)
+    .map(s => ({
+      uncertainty: (parseFloat(s.std) / parseFloat(s.bp)) * 100,
+      bp: parseFloat(s.bp),
+      material: s.material || 'Unknown'
+    }));
+
+  if (qualityData.length === 0) return;
+
+  const qualityGroups = {
+    'Excellent': qualityData.filter(d => d.uncertainty < 1).length,
+    'Good': qualityData.filter(d => d.uncertainty >= 1 && d.uncertainty < 3).length,
+    'Fair': qualityData.filter(d => d.uncertainty >= 3 && d.uncertainty < 5).length,
+    'Poor': qualityData.filter(d => d.uncertainty >= 5).length
+  };
+
+  const ctx = canvas.getContext('2d');
+  
+  if (AppState.chartInstances[containerId]) {
+    AppState.chartInstances[containerId].destroy();
+  }
+
+  AppState.chartInstances[containerId] = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Excellent', 'Good', 'Fair', 'Poor'],
+      datasets: [{
+        label: 'Sample Quality Distribution',
+        data: [
+          qualityGroups['Excellent'],
+          qualityGroups['Good'],
+          qualityGroups['Fair'],
+          qualityGroups['Poor']
+        ],
+        borderColor: '#4285F4',
+        backgroundColor: 'rgba(66, 133, 244, 0.2)',
+        borderWidth: 2,
+        pointRadius: 5,
+        pointBackgroundColor: '#4285F4',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            font: { size: 12 },
+            color: '#202124'
+          }
+        }
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          ticks: {
+            font: { size: 10 },
+            color: '#5f6368'
+          },
+          grid: {
+            color: '#f1f3f4'
+          }
+        }
+      }
+    }
+  });
+}
+
+// ============================================================================
+// MASTER CHRONOLOGY (TEMPORAL TIMELINE VIEW) - ENHANCED
+// ============================================================================
+
+function createChronologyStats() {
+  const container = document.createElement('div');
+  container.className = 'chronology-stats';
+  
+  let totalSites = 0;
+  let totalSamples = 0;
+  let oldestBP = 0;
+  let newestBP = Infinity;
+  
+  AppState.sites.forEach(site => {
+    if (site.bpStats) {
+      totalSites++;
+      if (site.bpStats.max > oldestBP) oldestBP = site.bpStats.max;
+      if (site.bpStats.min < newestBP) newestBP = site.bpStats.min;
+    }
+    totalSamples += site.samples.length;
+  });
+  
+  const stats = [
+    { icon: '📍', label: 'Sites', value: totalSites },
+    { icon: '🧪', label: 'Samples', value: totalSamples },
+    { icon: '📅', label: 'Oldest', value: `${Math.round(oldestBP)} BP` },
+    { icon: '⏱️', label: 'Newest', value: `${Math.round(newestBP)} BP` }
+  ];
+  
+  stats.forEach(stat => {
+    const item = document.createElement('div');
+    item.className = 'chronology-stat-item';
+    
+    const icon = document.createElement('div');
+    icon.className = 'chronology-stat-icon';
+    icon.textContent = stat.icon;
+    
+    const value = document.createElement('div');
+    value.className = 'chronology-stat-value';
+    value.textContent = stat.value;
+    
+    const label = document.createElement('div');
+    label.className = 'chronology-stat-label';
+    label.textContent = stat.label;
+    
+    item.appendChild(icon);
+    item.appendChild(value);
+    item.appendChild(label);
+    container.appendChild(item);
+  });
+  
+  return container;
+}
+
+function createMasterTimeline() {
+  const container = document.createElement('div');
+  container.className = 'master-timeline-container';
+
+  // Create header
+  const header = document.createElement('div');
+  header.className = 'master-timeline-header';
+  header.innerHTML = '<span class="master-timeline-header-icon">⏳</span><span>Master Chronology</span>';
+  container.appendChild(header);
+
+  // Create content area
+  const content = document.createElement('div');
+  content.className = 'master-timeline-content';
+
+  // Add chronology stats
+  const stats = createChronologyStats();
+  content.appendChild(stats);
+
+  // Add filter info
+  const filterInfo = document.createElement('div');
+  filterInfo.className = 'chronology-filter-info';
+  filterInfo.innerHTML = '<span class="chronology-filter-info-icon">ℹ️</span>All sites grouped by archaeological period, sorted chronologically.';
+  content.appendChild(filterInfo);
+
+  // Group sites by period
+  const periodGroups = {};
+  
+  Object.entries(CONFIG.PERIODS).forEach(([periodName, periodData]) => {
+    periodGroups[periodName] = {
+      ...periodData,
+      sites: []
+    };
+  });
+
+  // Sort sites into periods based on average BP
+  AppState.sites.forEach(site => {
+    if (site.bpStats) {
+      const avgBP = site.bpStats.avg;
+      let assigned = false;
+
+      for (const [periodName, periodData] of Object.entries(CONFIG.PERIODS)) {
+        if (avgBP >= periodData.min && avgBP <= periodData.max) {
+          periodGroups[periodName].sites.push(site);
+          assigned = true;
+          break;
+        }
+      }
+
+      // If not assigned to any period, add to closest period
+      if (!assigned) {
+        let closestPeriod = null;
+        let closestDistance = Infinity;
+
+        Object.entries(CONFIG.PERIODS).forEach(([periodName, periodData]) => {
+          const periodMidpoint = (periodData.min + periodData.max) / 2;
+          const distance = Math.abs(avgBP - periodMidpoint);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestPeriod = periodName;
+          }
+        });
+
+        if (closestPeriod) {
+          periodGroups[closestPeriod].sites.push(site);
+        }
+      }
+    }
+  });
+
+  // Render periods in chronological order (oldest to newest)
+  const periodOrder = ['Upper Paleolithic', 'Epipaleolithic', 'Neolithic', 'Chalcolithic', 'Bronze Age', 'Iron Age'];
+
+  periodOrder.forEach((periodName) => {
+    const periodData = periodGroups[periodName];
+    
+    if (!periodData || periodData.sites.length === 0) {
+      return;
+    }
+
+    const section = document.createElement('div');
+    section.className = 'period-section enhanced';
+    section.style.borderLeftColor = periodData.color;
+
+    // Period header
+    const header = document.createElement('div');
+    header.className = 'period-header enhanced';
+    
+    const marker = document.createElement('div');
+    marker.className = 'period-timeline-marker enhanced';
+    marker.style.backgroundColor = periodData.color;
+    marker.textContent = periodData.icon;
+    
+    const labelContainer = document.createElement('div');
+    labelContainer.style.flex = '1';
+    
+    const labelText = document.createElement('span');
+    labelText.className = 'period-label-text';
+    labelText.textContent = periodName;
+    
+    const dateRange = document.createElement('span');
+    dateRange.className = 'period-date-range';
+    dateRange.textContent = `${periodData.min.toLocaleString()} – ${periodData.max.toLocaleString()} BP`;
+    
+    labelContainer.appendChild(labelText);
+    labelContainer.appendChild(document.createElement('br'));
+    labelContainer.appendChild(dateRange);
+    
+    const counter = document.createElement('div');
+    counter.className = 'period-section-counter';
+    counter.textContent = `${periodData.sites.length} site${periodData.sites.length !== 1 ? 's' : ''}`;
+    
+    header.appendChild(marker);
+    header.appendChild(labelContainer);
+    header.appendChild(counter);
+    section.appendChild(header);
+
+    // Sites list
+    const sitesList = document.createElement('div');
+    sitesList.className = 'period-sites-list';
+
+    const sortedSites = periodData.sites
+      .sort((a, b) => (b.bpStats?.avg || 0) - (a.bpStats?.avg || 0));
+
+    sortedSites.forEach(site => {
+      const siteItem = document.createElement('div');
+      siteItem.className = 'period-site-item enhanced';
+      siteItem.style.borderLeftColor = periodData.color;
+      
+      const siteName = document.createElement('div');
+      siteName.className = 'period-site-item-name enhanced';
+      const periodIcon = getPeriodIcon(site.bpStats?.avg);
+      siteName.innerHTML = `<span>${periodIcon}</span><span>${site.name}</span>`;
+      siteName.title = site.name;
+      
+      const siteInfo = document.createElement('div');
+      siteInfo.className = 'period-site-item-info';
+      
+      const avgAge = document.createElement('span');
+      avgAge.textContent = site.bpStats ? `${Math.round(site.bpStats.avg)} BP` : 'N/A';
+      
+      const sampleCount = document.createElement('span');
+      sampleCount.textContent = `${site.samples.length} sample${site.samples.length !== 1 ? 's' : ''}`;
+      
+      siteInfo.appendChild(avgAge);
+      siteInfo.appendChild(sampleCount);
+      
+      const coords = document.createElement('div');
+      coords.className = 'period-site-item-coords';
+      coords.textContent = `${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}`;
+      
+      const stats = document.createElement('div');
+      stats.className = 'period-site-item-stats';
+      
+      const refStat = document.createElement('div');
+      refStat.className = 'period-site-item-stat';
+      refStat.innerHTML = `<span class="period-site-item-stat-icon">📚</span>${site.refs.length}`;
+      
+      const spanStat = document.createElement('div');
+      spanStat.className = 'period-site-item-stat';
+      if (site.bpStats) {
+        spanStat.innerHTML = `<span class="period-site-item-stat-icon">📊</span>${Math.round(site.bpStats.max - site.bpStats.min)}y`;
+      } else {
+        spanStat.innerHTML = `<span class="period-site-item-stat-icon">📊</span>—`;
+      }
+      
+      stats.appendChild(refStat);
+      stats.appendChild(spanStat);
+      
+      siteItem.appendChild(siteName);
+      siteItem.appendChild(siteInfo);
+      siteItem.appendChild(coords);
+      siteItem.appendChild(stats);
+      
+      // Click handler to select site
+      siteItem.addEventListener('click', () => {
+        selectSite(site);
+        closeInfoSheet();
+      });
+
+      sitesList.appendChild(siteItem);
+    });
+
+    if (sitesList.children.length === 0) {
+      const noSites = document.createElement('div');
+      noSites.className = 'no-sites-message';
+      noSites.textContent = 'No sites in this period';
+      sitesList.appendChild(noSites);
+    }
+
+    section.appendChild(sitesList);
+    content.appendChild(section);
+  });
+
+  // Check if there are any empty periods
+  const hasAnySites = Object.values(periodGroups).some(p => p.sites.length > 0);
+  if (!hasAnySites) {
+    const noDataMsg = document.createElement('div');
+    noDataMsg.className = 'no-sites-message';
+    noDataMsg.textContent = 'No chronological data available';
+    content.appendChild(noDataMsg);
+  }
+
+  container.appendChild(content);
+  return container;
+}
+
+// ============================================================================
+// AUTOCOMPLETE FUNCTIONALITY
+// ============================================================================
+
+function suggest(query) {
+  DOM.autocompleteList.innerHTML = '';
+  AppState.resetAutoComplete();
+  
+  const trimmedQuery = query.trim();
+  
+  if (!trimmedQuery) {
+    DOM.autocompleteList.style.display = 'none';
+    return;
+  }
+
+  const lowerQuery = trimmedQuery.toLowerCase();
+  const matches = AppState.sites
+    .filter(s => s.name.toLowerCase().includes(lowerQuery))
+    .slice(0, CONFIG.AUTOCOMPLETE_LIMIT);
+
+  if (!matches.length) {
+    DOM.autocompleteList.style.display = 'none';
+    return;
+  }
+
+  matches.forEach((site, index) => {
+    const item = document.createElement('div');
+    item.className = 'autocomplete-item';
+    item.setAttribute('role', 'option');
+    item.setAttribute('data-index', index);
+    
+    const highlightStart = site.name.toLowerCase().indexOf(lowerQuery);
+    const before = site.name.slice(0, highlightStart);
+    const highlight = site.name.slice(highlightStart, highlightStart + lowerQuery.length);
+    const after = site.name.slice(highlightStart + lowerQuery.length);
+    
+    const textSpan = document.createElement('span');
+    const beforeSpan = document.createElement('span');
+    beforeSpan.textContent = before;
+    
+    const highlightSpan = document.createElement('strong');
+    highlightSpan.textContent = highlight;
+    
+    const afterSpan = document.createElement('span');
+    afterSpan.textContent = after;
+    
+    textSpan.appendChild(beforeSpan);
+    textSpan.appendChild(highlightSpan);
+    textSpan.appendChild(afterSpan);
+    
+    item.innerHTML = '<span class="autocomplete-item-icon">📍</span>';
+    item.appendChild(textSpan);
+    
+    item.addEventListener('click', () => {
+      selectSite(site);
+    });
+    
+    DOM.autocompleteList.appendChild(item);
+  });
+
+  DOM.autocompleteList.style.display = 'block';
+}
+
+function navigateAutocomplete(direction) {
+  const items = Array.from(DOM.autocompleteList.querySelectorAll('.autocomplete-item'));
+  
+  if (items.length === 0) return;
+  
+  const newIndex = Math.max(
+    -1,
+    Math.min(
+      AppState.autocompleteHighlightIndex + direction,
+      items.length - 1
+    )
+  );
+  
+  if (AppState.autocompleteHighlightIndex >= 0 && items[AppState.autocompleteHighlightIndex]) {
+    items[AppState.autocompleteHighlightIndex].classList.remove('highlighted');
+  }
+  
+  AppState.autocompleteHighlightIndex = newIndex;
+  
+  if (newIndex >= 0 && items[newIndex]) {
+    items[newIndex].classList.add('highlighted');
+    items[newIndex].scrollIntoView({ block: 'nearest' });
+  }
+}
+
+function selectSite(site) {
+  try {
+    AppState.reset();
+    AppState.setCurrentSite(site);
+    AppState.setMarker([site.lat, site.lng]);
+    map.setView([site.lat, site.lng], 9);
+    showSiteDetails(site);
+    DOM.autocompleteList.style.display = 'none';
+    DOM.searchInput.value = site.name;
+    DOM.clearBtn.style.display = 'block';
+  } catch (error) {
+    console.error('Error selecting site:', error);
+    showError('Error selecting site. Please try again.');
+  }
+}
+
+// ============================================================================
+// UI RENDERING - ENHANCED SAMPLES TAB
+// ============================================================================
+
+function renderTagsElement(label, array) {
+  if (!array || !array.length) return null;
+  
+  const container = document.createElement('div');
+  container.className = 'context-item enhanced';
+  
+  const labelEl = document.createElement('div');
+  labelEl.className = 'context-label';
+  const iconMap = {
+    'Periods': '📅',
+    'Typochronological units': '🏺',
+    'Ecochronological units': '🌍'
+  };
+  labelEl.innerHTML = `<span class="context-label-icon">${iconMap[label] || '📌'}</span><span>${label}</span>`;
+  container.appendChild(labelEl);
+  
+  const tagList = document.createElement('div');
+  tagList.className = 'tag-list';
+  
+  array.forEach(tag => {
+    const tagEl = document.createElement('span');
+    tagEl.className = 'tag';
+    const tagText = toString(tag).trim();
+    if (tagText && tagText !== '[object Object]') {
+      tagEl.innerHTML = `<span class="tag-icon">✓</span><span>${tagText}</span>`;
+      tagList.appendChild(tagEl);
+    }
+  });
+  
+  if (tagList.children.length === 0) return null;
+  
+  container.appendChild(tagList);
+  return container;
+}
+
+function renderSampleElement(sample) {
+  const card = document.createElement('div');
+  card.className = 'sample-card enhanced';
+  
+  if (sample.labnr) {
+    const header = document.createElement('div');
+    header.className = 'sample-header';
+    header.innerHTML = `<span class="sample-header-icon">🧪</span><span>${sample.labnr}</span>`;
+    card.appendChild(header);
+  }
+  
+  const rows = [
+    { label: 'Age', value: sample.bp ? `${sample.bp} BP` : '—', numeric: true },
+    ...(sample.std ? [{ label: '±', value: sample.std, numeric: true }] : []),
+    ...(sample.delta ? [{ label: 'δ¹³C', value: `${sample.delta} ‰`, numeric: true }] : []),
+    ...(sample.material ? [{ label: 'Material', value: sample.material, numeric: false }] : []),
+  ];
+
+  rows.forEach(({ label, value, numeric }) => {
+    const row = document.createElement('div');
+    row.className = 'sample-row';
+    
+    const labelEl = document.createElement('div');
+    labelEl.className = 'label';
+    labelEl.textContent = label;
+    
+    const valueEl = document.createElement('div');
+    valueEl.className = `sample-value ${numeric ? 'numeric' : ''}`;
+    valueEl.textContent = value;
+    
+    row.appendChild(labelEl);
+    row.appendChild(valueEl);
+    card.appendChild(row);
+  });
+
+  if (sample.reference) {
+    const refText = toString(sample.reference).trim();
+    if (refText && refText !== '[object Object]') {
+      const row = document.createElement('div');
+      row.className = 'sample-row';
+      
+      const labelEl = document.createElement('div');
+      labelEl.className = 'label';
+      labelEl.textContent = 'Ref';
+      
+      const valueEl = document.createElement('div');
+      valueEl.className = 'sample-value';
+      valueEl.textContent = refText;
+      
+      row.appendChild(labelEl);
+      row.appendChild(valueEl);
+      card.appendChild(row);
+    }
+  }
+
+  // Add footer with quality indicator and material icon
+  if (sample.bp || sample.material) {
+    const footer = document.createElement('div');
+    footer.className = 'sample-footer';
+    
+    const meta = document.createElement('div');
+    meta.className = 'sample-meta';
+    
+    if (sample.bp) {
+      const quality = getQualityIndicator(sample);
+      if (quality) {
+        const indicator = document.createElement('span');
+        indicator.className = `sample-indicator quality-${quality.level}`;
+        indicator.title = quality.label;
+        meta.appendChild(indicator);
+        
+        const qualityLabel = document.createElement('span');
+        qualityLabel.style.fontSize = '11px';
+        qualityLabel.style.color = 'var(--muted)';
+        qualityLabel.textContent = quality.label;
+        meta.appendChild(qualityLabel);
+      }
+    }
+    
+    if (sample.material) {
+      const materialIcon = getMaterialIcon(sample.material);
+      const materialLabel = document.createElement('span');
+      materialLabel.style.marginLeft = '8px';
+      materialLabel.innerHTML = `${materialIcon} ${sample.material}`;
+      materialLabel.style.fontSize = '11px';
+      materialLabel.style.color = 'var(--muted)';
+      meta.appendChild(materialLabel);
+    }
+    
+    footer.appendChild(meta);
+    card.appendChild(footer);
+  }
+  
+  return card;
+}
+
+function createSamplesStatsBar(samples) {
+  const container = document.createElement('div');
+  container.className = 'samples-stats-bar';
+  
+  const totalSamples = samples.length;
+  const withDates = samples.filter(s => s.bp).length;
+  const withMaterials = samples.filter(s => s.material).length;
+  
+  const qualityData = samples
+    .filter(s => s.bp && s.std)
+    .map(s => {
+      const uncertainty = (parseFloat(s.std) / parseFloat(s.bp)) * 100;
+      return uncertainty;
+    });
+  
+  const avgUncertainty = qualityData.length > 0 
+    ? (qualityData.reduce((a, b) => a + b, 0) / qualityData.length).toFixed(1)
+    : 'N/A';
+  
+  const stats = [
+    { label: 'Total', value: totalSamples },
+    { label: 'With Dates', value: withDates },
+    { label: 'With Materials', value: withMaterials },
+    { label: 'Avg Uncertainty', value: `${avgUncertainty}%` }
+  ];
+  
+  stats.forEach(stat => {
+    const item = document.createElement('div');
+    item.className = 'samples-stat-item';
+    
+    const label = document.createElement('div');
+    label.className = 'samples-stat-label';
+    label.textContent = stat.label;
+    
+    const value = document.createElement('div');
+    value.className = 'samples-stat-value';
+    value.textContent = stat.value;
+    
+    item.appendChild(label);
+    item.appendChild(value);
+    container.appendChild(item);
+  });
+  
+  return container;
+}
+
+function createAnalyticsSummary(site) {
+  const container = document.createElement('div');
+  container.className = 'analytics-grid';
+
+  const stats = [
+    { label: 'Samples', value: site.samples.length, icon: '🧪' },
+    { label: 'References', value: site.refs.length, icon: '📚' },
+  ];
+
+  if (site.bpStats) {
+    stats.push(
+      { label: 'Earliest', value: `${Math.round(site.bpStats.max)} BP`, icon: '📅' },
+      { label: 'Latest', value: `${Math.round(site.bpStats.min)} BP`, icon: '⏱️' }
+    );
+  }
+
+  stats.forEach(stat => {
+    const item = document.createElement('div');
+    item.className = 'analytics-item';
+    
+    const number = document.createElement('div');
+    number.className = 'analytics-number';
+    number.textContent = stat.value;
+    
+    const label = document.createElement('div');
+    label.className = 'analytics-label';
+    label.textContent = stat.label;
+    
+    item.appendChild(number);
+    item.appendChild(label);
+    container.appendChild(item);
+  });
+
+  return container;
+}
+
+/**
+ * Creates the contribution CTA card
+ */
+function createContributionCTA() {
+  const cta = document.createElement('div');
+  cta.className = 'contribution-cta';
+  
+  const title = document.createElement('div');
+  title.className = 'contribution-cta-title';
+  title.innerHTML = '<span>🚀</span><span>Become a RQpedian!</span>';
+  
+  const desc = document.createElement('div');
+  desc.className = 'contribution-cta-desc';
+  desc.textContent = 'Help us expand this database. Do you have radiocarbon data from Moroccan archaeological sites? Share it with the community and contribute to the future of RQpedia!';
+  
+  const btn = document.createElement('button');
+  btn.className = 'contribution-cta-btn';
+  btn.innerHTML = '<span>📧</span><span>Contribute Data</span>';
+  btn.onclick = handleContributeClick;
+  
+  cta.appendChild(title);
+  cta.appendChild(desc);
+  cta.appendChild(btn);
+  
+  return cta;
+}
+
+// ============================================================================
+// CONTEXT TAB ENHANCEMENTS
+// ============================================================================
+
+function createContextSummary(site) {
+  const container = document.createElement('div');
+  container.className = 'context-summary';
+  
+  const items = [];
+  
+  if (site.base.periods && site.base.periods.length > 0) {
+    items.push({
+      label: 'Periods',
+      value: site.base.periods.join(', '),
+      icon: '📅'
+    });
+  }
+  
+  if (site.base.site_type !== '—') {
+    items.push({
+      label: 'Site Type',
+      value: site.base.site_type,
+      icon: '🏛️'
+    });
+  }
+  
+  if (site.base.country !== '—') {
+    items.push({
+      label: 'Country',
+      value: site.base.country,
+      icon: '🌍'
+    });
+  }
+  
+  if (site.samples.length > 0) {
+    items.push({
+      label: 'Samples',
+      value: site.samples.length.toString(),
+      icon: '🧪'
+    });
+  }
+  
+  items.forEach(item => {
+    const summaryItem = document.createElement('div');
+    summaryItem.className = 'context-summary-item';
+    
+    const label = document.createElement('div');
+    label.className = 'context-summary-label';
+    label.innerHTML = `${item.icon} ${item.label}`;
+    
+    const value = document.createElement('div');
+    value.className = 'context-summary-value';
+    value.textContent = item.value;
+    
+    summaryItem.appendChild(label);
+    summaryItem.appendChild(value);
+    container.appendChild(summaryItem);
+  });
+  
+  return container;
+}
+
+// ============================================================================
+// SITE DETAILS RENDERING
+// ============================================================================
+
+function showSiteDetails(site) {
+  try {
+    AppState.setCurrentSite(site);
+    
+    DOM.sheetTitle.textContent = site.name;
+    DOM.sheetSub.textContent = `${site.lat.toFixed(4)}, ${site.lng.toFixed(4)}`;
+
+    DOM.sheetBody.innerHTML = '';
+
+    // Add contribution CTA at the top
+    const contributionCTA = createContributionCTA();
+    DOM.sheetBody.appendChild(contributionCTA);
+
+    // Add linked data section
+    const linkedDataSection = createLinkedDataSection(site.name);
+    DOM.sheetBody.appendChild(linkedDataSection);
+
+    const analyticsSummary = createAnalyticsSummary(site);
+    DOM.sheetBody.appendChild(analyticsSummary);
+
+    const tabsContainer = document.createElement('div');
+    tabsContainer.className = 'tabs-container';
+
+    const tabs = ['samples', 'analytics', 'advanced', 'context', 'references', 'chronology'];
+    const tabButtons = {};
+    const tabContents = {};
+
+    tabs.forEach(tab => {
+      const btn = document.createElement('button');
+      btn.className = `tab-btn ${tab === 'samples' ? 'active' : ''}`;
+      btn.textContent = tab.charAt(0).toUpperCase() + tab.slice(1);
+      btn.setAttribute('aria-label', `View ${tab}`);
+      
+      btn.addEventListener('click', () => {
+        Object.values(tabButtons).forEach(b => b.classList.remove('active'));
+        Object.values(tabContents).forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        tabContents[tab].classList.add('active');
+      });
+      
+      tabButtons[tab] = btn;
+      tabsContainer.appendChild(btn);
+    });
+
+    DOM.sheetBody.appendChild(tabsContainer);
+
+    // ===== SAMPLES TAB - ENHANCED =====
+    tabContents.samples = document.createElement('div');
+    tabContents.samples.className = 'tab-content active';
+
+    if (site.samples && site.samples.length) {
+      // Add stats bar
+      const statsBar = createSamplesStatsBar(site.samples);
+      tabContents.samples.appendChild(statsBar);
+      
+      const titleEl = document.createElement('div');
+      titleEl.className = 'section-title';
+      
+      const titleText = document.createElement('span');
+      titleText.textContent = 'Radiocarbon Samples';
+      titleEl.appendChild(titleText);
+      
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = site.samples.length;
+      titleEl.appendChild(badge);
+      
+      tabContents.samples.appendChild(titleEl);
+      
+      site.samples.forEach(sample => {
+        tabContents.samples.appendChild(renderSampleElement(sample));
+      });
+    }
+
+    DOM.sheetBody.appendChild(tabContents.samples);
+
+    // ===== ANALYTICS TAB =====
+    tabContents.analytics = document.createElement('div');
+    tabContents.analytics.className = 'tab-content';
+
+    if (site.samples.length > 0) {
+      const titleEl = document.createElement('div');
+      titleEl.className = 'section-title';
+      titleEl.textContent = 'Standard Visualizations';
+      tabContents.analytics.appendChild(titleEl);
+
+      const ageChartContainer = document.createElement('div');
+      ageChartContainer.className = 'chart-container';
+      const ageChart = document.createElement('canvas');
+      ageChart.id = `ageChart-${Date.now()}`;
+      ageChartContainer.appendChild(ageChart);
+      tabContents.analytics.appendChild(ageChartContainer);
+
+      const materialChartContainer = document.createElement('div');
+      materialChartContainer.className = 'chart-container';
+      const materialChart = document.createElement('canvas');
+      materialChart.id = `materialChart-${Date.now()}`;
+      materialChartContainer.appendChild(materialChart);
+      tabContents.analytics.appendChild(materialChartContainer);
+
+      const chronoChartContainer = document.createElement('div');
+      chronoChartContainer.className = 'chart-container';
+      const chronoChart = document.createElement('canvas');
+      chronoChart.id = `chronoChart-${Date.now()}`;
+      chronoChartContainer.appendChild(chronoChart);
+      tabContents.analytics.appendChild(chronoChartContainer);
+
+      setTimeout(() => {
+        createAgeDistributionChart(site.samples, ageChart.id);
+        createMaterialChart(site.samples, materialChart.id);
+        createChronologicalChart(site.samples, chronoChart.id);
+      }, 0);
+    }
+
+    DOM.sheetBody.appendChild(tabContents.analytics);
+
+    // ===== ADVANCED TAB =====
+    tabContents.advanced = document.createElement('div');
+    tabContents.advanced.className = 'tab-content';
+
+    if (site.samples.length > 0) {
+      const title1 = document.createElement('div');
+      title1.className = 'section-title';
+      title1.textContent = '🔬 Age Uncertainty Heatmap';
+      tabContents.advanced.appendChild(title1);
+      
+      const heatmap = createUncertaintyHeatmap(site.samples);
+      tabContents.advanced.appendChild(heatmap);
+
+      const title2 = document.createElement('div');
+      title2.className = 'section-title';
+      title2.textContent = '📊 Statistical Summary';
+      tabContents.advanced.appendChild(title2);
+      
+      const stats = createStatisticalSummary(site);
+      tabContents.advanced.appendChild(stats);
+
+      const title3 = document.createElement('div');
+      title3.className = 'section-title';
+      title3.textContent = '🎯 Material Timeline';
+      tabContents.advanced.appendChild(title3);
+      
+      const timeline = createMaterialTimeline(site.samples);
+      tabContents.advanced.appendChild(timeline);
+
+      const title4 = document.createElement('div');
+      title4.className = 'section-title';
+      title4.textContent = '⭐ Sample Quality Radar';
+      tabContents.advanced.appendChild(title4);
+
+      const qualityContainer = document.createElement('div');
+      qualityContainer.className = 'chart-container';
+      qualityContainer.style.height = '300px';
+      const qualityCanvas = document.createElement('canvas');
+      qualityCanvas.id = `qualityChart-${Date.now()}`;
+      qualityContainer.appendChild(qualityCanvas);
+      tabContents.advanced.appendChild(qualityContainer);
+
+      setTimeout(() => {
+        createSampleQualityComparison(site.samples, qualityCanvas.id);
+      }, 0);
+    }
+
+    DOM.sheetBody.appendChild(tabContents.advanced);
+
+    // ===== CONTEXT TAB - ENHANCED =====
+    tabContents.context = document.createElement('div');
+    tabContents.context.className = 'tab-content';
+
+    // Add context summary
+    const contextSummary = createContextSummary(site);
+    tabContents.context.appendChild(contextSummary);
+    
+    const contextTitleEl = document.createElement('div');
+    contextTitleEl.className = 'section-title';
+    contextTitleEl.textContent = 'Detailed Context Information';
+    tabContents.context.appendChild(contextTitleEl);
+    
+    const contextGrid = document.createElement('div');
+    contextGrid.className = 'context-grid';
+    
+    [
+      { label: 'Periods', data: site.base.periods },
+      { label: 'Typochronological units', data: site.base.typo },
+      { label: 'Ecochronological units', data: site.base.eco },
+    ].forEach(({ label, data }) => {
+      const el = renderTagsElement(label, data);
+      if (el) contextGrid.appendChild(el);
+    });
+    
+    if (site.base.site_type !== '—') {
+      const el = document.createElement('div');
+      el.className = 'context-item enhanced';
+      const label = document.createElement('div');
+      label.className = 'context-label';
+      label.innerHTML = '<span class="context-label-icon">🏛️</span><span>Site Type</span>';
+      const value = document.createElement('div');
+      value.className = 'grid-value';
+      value.innerHTML = `<span class="grid-value-icon">✓</span><span>${site.base.site_type}</span>`;
+      el.appendChild(label);
+      el.appendChild(value);
+      contextGrid.appendChild(el);
+    }
+    
+    if (site.base.feature_type !== '—') {
+      const el = document.createElement('div');
+      el.className = 'context-item enhanced';
+      const label = document.createElement('div');
+      label.className = 'context-label';
+      label.innerHTML = '<span class="context-label-icon">🔍</span><span>Feature Type</span>';
+      const value = document.createElement('div');
+      value.className = 'grid-value';
+      value.innerHTML = `<span class="grid-value-icon">✓</span><span>${site.base.feature_type}</span>`;
+      el.appendChild(label);
+      el.appendChild(value);
+      contextGrid.appendChild(el);
+    }
+    
+    if (site.base.country !== '—') {
+      const el = document.createElement('div');
+      el.className = 'context-item enhanced';
+      const label = document.createElement('div');
+      label.className = 'context-label';
+      label.innerHTML = '<span class="context-label-icon">🌍</span><span>Country</span>';
+      const value = document.createElement('div');
+      value.className = 'grid-value';
+      value.innerHTML = `<span class="grid-value-icon">✓</span><span>${site.base.country}</span>`;
+      el.appendChild(label);
+      el.appendChild(value);
+      contextGrid.appendChild(el);
+    }
+    
+    tabContents.context.appendChild(contextGrid);
+    DOM.sheetBody.appendChild(tabContents.context);
+
+    // ===== REFERENCES TAB =====
+    tabContents.references = document.createElement('div');
+    tabContents.references.className = 'tab-content';
+
+    if (site.refs && site.refs.length) {
+      const refsTitleEl = document.createElement('div');
+      refsTitleEl.className = 'section-title';
+      refsTitleEl.textContent = 'References';
+      tabContents.references.appendChild(refsTitleEl);
+      
+      const refsContainer = document.createElement('div');
+      refsContainer.className = 'refs-container';
+      
+      site.refs.forEach(ref => {
+        const refEl = createRefItemElement(ref);
+        if (refEl) {
+          refsContainer.appendChild(refEl);
+        }
+      });
+      
+      if (refsContainer.children.length > 0) {
+        tabContents.references.appendChild(refsContainer);
+      }
+    }
+
+    DOM.sheetBody.appendChild(tabContents.references);
+
+    // ===== CHRONOLOGY TAB (Master Timeline) - ENHANCED =====
+    tabContents.chronology = document.createElement('div');
+    tabContents.chronology.className = 'tab-content';
+
+    const masterTimeline = createMasterTimeline();
+    tabContents.chronology.appendChild(masterTimeline);
+
+    DOM.sheetBody.appendChild(tabContents.chronology);
+
+    DOM.infoSheet.classList.add('open');
+    DOM.infoSheet.setAttribute('aria-hidden', 'false');
+  } catch (error) {
+    console.error('Error displaying site details:', error);
+    showError('Error displaying site details. Please try again.');
+  }
+}
+
+function closeInfoSheet() {
+  DOM.infoSheet.classList.remove('open');
+  DOM.infoSheet.setAttribute('aria-hidden', 'true');
+  AppState.destroyCharts();
+}
+
+function toggleInfoSheet() {
+  if (DOM.infoSheet.classList.contains('open')) {
+    closeInfoSheet();
+  } else if (AppState.currentSite) {
+    showSiteDetails(AppState.currentSite);
+  }
+}
+
+// ============================================================================
+// EVENT LISTENERS
+// ============================================================================
+
+// About modal
+DOM.aboutBtn.addEventListener('click', openAboutModal);
+DOM.aboutClose.addEventListener('click', closeAboutModal);
+DOM.aboutCloseBtn.addEventListener('click', closeAboutModal);
+DOM.contribBtn.addEventListener('click', handleContributeClick);
+
+// Close modal on outside click
+DOM.aboutModal.addEventListener('click', (e) => {
+  if (e.target === DOM.aboutModal) {
+    closeAboutModal();
+  }
+});
+
+// Escape key to close modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && DOM.aboutModal.classList.contains('open')) {
+    closeAboutModal();
+  }
+});
+
+DOM.searchInput.addEventListener('input', (e) => {
+  DOM.clearBtn.style.display = e.target.value ? 'block' : 'none';
+  AppState.startDebounce(
+    () => suggest(e.target.value),
+    CONFIG.AUTOCOMPLETE_DEBOUNCE
+  );
+});
+
+DOM.searchInput.addEventListener('keydown', (e) => {
+  const list = DOM.autocompleteList;
+  const isListOpen = list.style.display !== 'none';
+
+  switch (e.key) {
+    case 'ArrowDown':
+      if (isListOpen) {
+        e.preventDefault();
+        navigateAutocomplete(1);
+      }
+      break;
+    case 'ArrowUp':
+      if (isListOpen) {
+        e.preventDefault();
+        navigateAutocomplete(-1);
+      }
+      break;
+    case 'Enter':
+      e.preventDefault();
+      if (AppState.autocompleteHighlightIndex >= 0) {
+        const items = list.querySelectorAll('.autocomplete-item');
+        if (items[AppState.autocompleteHighlightIndex]) {
+          items[AppState.autocompleteHighlightIndex].click();
+        }
+      } else {
+        const firstItem = list.querySelector('.autocomplete-item');
+        if (firstItem) {
+          firstItem.click();
+        }
+      }
+      break;
+    case 'Escape':
+      list.style.display = 'none';
+      DOM.searchInput.blur();
+      break;
+  }
+});
+
+DOM.searchInput.addEventListener('focus', () => {
+  if (DOM.searchInput.value.trim()) {
+    suggest(DOM.searchInput.value);
+  }
+});
+
+DOM.clearBtn.addEventListener('click', () => {
+  DOM.searchInput.value = '';
+  DOM.clearBtn.style.display = 'none';
+  DOM.autocompleteList.style.display = 'none';
+  DOM.searchInput.focus();
+});
+
+DOM.sheetHandle.addEventListener('click', (e) => {
+  if (!AppState.isScrolling) {
+    toggleInfoSheet();
+  }
+  AppState.isScrolling = false;
+});
+
+DOM.sheetHandle.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleInfoSheet();
+  }
+});
+
+DOM.sheetBody.addEventListener('scroll', () => {
+  AppState.isScrolling = true;
+});
+
+let touchStartY = 0;
+let touchStartScrollTop = 0;
+
+DOM.infoSheet.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+  touchStartScrollTop = DOM.sheetBody.scrollTop;
+  DOM.sheetHandle.classList.add('dragging');
+}, false);
+
+DOM.infoSheet.addEventListener('touchmove', (e) => {
+  const currentY = e.touches[0].clientY;
+  const diff = currentY - touchStartY;
+  
+  if (diff > 20 && touchStartScrollTop === 0) {
+    DOM.sheetHandle.classList.add('dragging');
+  }
+}, false);
+
+DOM.infoSheet.addEventListener('touchend', (e) => {
+  DOM.sheetHandle.classList.remove('dragging');
+  
+  if (touchStartScrollTop === 0) {
+    const endY = e.changedTouches[0].clientY;
+    const diff = endY - touchStartY;
+    
+    if (diff > CONFIG.TOUCH_SWIPE_THRESHOLD) {
+      closeInfoSheet();
+    }
+  }
+}, false);
+
+DOM.closeBtn.addEventListener('click', closeInfoSheet);
+
+DOM.copyBtn.addEventListener('click', async () => {
+  if (!AppState.currentSite) return;
+  
+  try {
+    const coords = `${AppState.currentSite.lat.toFixed(6)}, ${AppState.currentSite.lng.toFixed(6)}`;
+    await navigator.clipboard.writeText(coords);
+    showCopySuccess();
+  } catch (err) {
+    console.error('Failed to copy coordinates:', err);
+    showError('Failed to copy coordinates. Please try again.');
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-card') && !e.target.closest('.autocomplete-list')) {
+    DOM.autocompleteList.style.display = 'none';
+  }
+});
+
+map.addEventListener('click', () => {
+  if (window.innerWidth < 900) {
+    closeInfoSheet();
+  }
+});
+
+window.addEventListener('resize', () => {
+  map.invalidateSize();
+});
+
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
+
+DOM.searchInput.setAttribute('autocomplete', 'off');
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', load);
+} else {
+  load();
+}
+
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    DOM.searchInput.focus();
+  }
+  
+  if (e.key === 'Escape' && DOM.infoSheet.classList.contains('open')) {
+    closeInfoSheet();
+  }
+});
+
+console.log('RQpedia v3.5.0 - Enhanced Chronology Tab with Improved Visualizations');
+console.log('Improvements: Chronology stats, Period counter, Enhanced site items, Filter info, Better styling');
+</script>
+</body>
+</html>
