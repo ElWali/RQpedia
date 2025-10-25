@@ -1,0 +1,2818 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66523,
+        "labnr": "Beta-295772",
+        "bp": 5590,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Triticum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66524,
+        "labnr": "Beta-295773",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -25,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Hordeum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66525,
+        "labnr": "Beta-295774",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -20.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Hordeum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66526,
+        "labnr": "Beta-295775",
+        "bp": 5910,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Poaceae",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66527,
+        "labnr": "Beta-295776",
+        "bp": 5900,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Poaceae",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66528,
+        "labnr": "Beta-295777",
+        "bp": 5670,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Hordeum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66529,
+        "labnr": "Beta-295778",
+        "bp": 5930,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Poaceae",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66530,
+        "labnr": "Beta-295779",
+        "bp": 6740,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Lentil",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66531,
+        "labnr": "Beta-313467",
+        "bp": 7150,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -20.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Chamaeorops",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66532,
+        "labnr": "Beta-313468",
+        "bp": 8080,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -18.4,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Chamaeorops",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66533,
+        "labnr": "Beta-313469",
+        "bp": 7990,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.2,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66534,
+        "labnr": "Beta-316137",
+        "bp": 6780,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -20.1,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Chamaeorops",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66535,
+        "labnr": "Beta-318608",
+        "bp": 6140,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Poaceae",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66536,
+        "labnr": "Beta-341129",
+        "bp": 6160,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.3,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Lathyrus oleraceus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Morales 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66537,
+        "labnr": "Bln-4755",
+        "bp": 9677,
+        "std": 60,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.4,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Triticum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2012b", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66538,
+        "labnr": "Bln-4872",
+        "bp": 8556,
+        "std": 52,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.3,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic", "Iberomaurusian"],
+        "typochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "ecochronological_units": ["Epipalaeolithic", "Iberomaurusian"],
+        "references": ["Linstädter 2008", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66539,
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Ammothragus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66540,
+        "labnr": "Erl-12419",
+        "bp": 7451,
+        "std": 56,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -17,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": "Sus scrofa",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66541,
+        "labnr": "Erl-9987",
+        "bp": 5756,
+        "std": 48,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66542,
+        "labnr": "Erl-9988",
+        "bp": 6175,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66543,
+        "labnr": "Erl-9989",
+        "bp": 6053,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Olea",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66544,
+        "labnr": "KIA-39296",
+        "bp": 5000,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -25.1,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic", "Late Neolithic"],
+        "typochronological_units": ["Neolithic", "Late Neolithic"],
+        "ecochronological_units": ["Neolithic", "Late Neolithic"],
+        "references": ["Christoph Database", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66545,
+        "labnr": "KIA-39297",
+        "bp": 6155,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66546,
+        "labnr": "KIA-39298",
+        "bp": 6085,
+        "std": 25,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66547,
+        "labnr": "KIA-39299",
+        "bp": 6400,
+        "std": 90,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -24.7,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Juniperus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66548,
+        "labnr": "KIA-39299/2",
+        "bp": 6615,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": "Humid acid",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66549,
+        "labnr": "KIA-510",
+        "bp": 8290,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.99,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2010b", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 66550,
+        "labnr": "Oxa-23528",
+        "bp": 6136,
+        "std": 34,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.5,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seed/fruit",
+        "species": "Capra hircus",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Neolithic"],
+        "typochronological_units": ["Neolithic"],
+        "ecochronological_units": ["Neolithic"],
+        "references": ["Linstädter 2016", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139748,
+        "labnr": "Beta-295772",
+        "bp": 5590,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit E",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic C"],
+        "typochronological_units": ["Early Neolithic C"],
+        "ecochronological_units": ["Early Neolithic C"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139749,
+        "labnr": "Beta-295773",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B2"],
+        "typochronological_units": ["Early Neolithic B2"],
+        "ecochronological_units": ["Early Neolithic B2"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139750,
+        "labnr": "Beta-295774",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B2"],
+        "typochronological_units": ["Early Neolithic B2"],
+        "ecochronological_units": ["Early Neolithic B2"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139751,
+        "labnr": "Beta-295775",
+        "bp": 5910,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B2"],
+        "typochronological_units": ["Early Neolithic B2"],
+        "ecochronological_units": ["Early Neolithic B2"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139752,
+        "labnr": "Beta-295776",
+        "bp": 5900,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B2"],
+        "typochronological_units": ["Early Neolithic B2"],
+        "ecochronological_units": ["Early Neolithic B2"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139753,
+        "labnr": "Beta-295777",
+        "bp": 5670,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit E (or D)",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B, Early Neolithic C"],
+        "typochronological_units": ["Early Neolithic B, Early Neolithic C"],
+        "ecochronological_units": ["Early Neolithic B, Early Neolithic C"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139754,
+        "labnr": "Beta-295778",
+        "bp": 5930,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "pulse",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B2"],
+        "typochronological_units": ["Early Neolithic B2"],
+        "ecochronological_units": ["Early Neolithic B2"],
+        "references": ["CalPal, Martinez-SanchezVera-Rodriguez.2018TheMid, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139755,
+        "labnr": "Beta-295779",
+        "bp": 6740,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "pulse",
+        "species": null,
+        "feature": "Unit C",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic A"],
+        "typochronological_units": ["Early Neolithic A"],
+        "ecochronological_units": ["Early Neolithic A"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139756,
+        "labnr": "Beta-313467",
+        "bp": 7150,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": "Unit B",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139757,
+        "labnr": "Beta-313468",
+        "bp": 8080,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": "Unit B",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139758,
+        "labnr": "Beta-313469",
+        "bp": 7990,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["LinstadterBroich.2016Defin", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139759,
+        "labnr": "Beta-316137",
+        "bp": 6780,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": "Unit B",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipalaeolithic"],
+        "typochronological_units": ["Epipalaeolithic"],
+        "ecochronological_units": ["Epipalaeolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139760,
+        "labnr": "Beta-318608",
+        "bp": 6140,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "grain",
+        "species": null,
+        "feature": "Unit C",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic A"],
+        "typochronological_units": ["Early Neolithic A"],
+        "ecochronological_units": ["Early Neolithic A"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, MoralePerez.2013OrAgriNWA", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139761,
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (animal)",
+        "species": null,
+        "feature": "position 351, Q19/12",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Mediterranean Epipalaeolithic"],
+        "typochronological_units": ["Mediterranean Epipalaeolithic"],
+        "ecochronological_units": ["Mediterranean Epipalaeolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, LinstadterKehl.2012Sedim, LinstadterEiwanger.2012Human, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139762,
+        "labnr": "Erl-9988",
+        "bp": 6175,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B1"],
+        "typochronological_units": ["Early Neolithic B1"],
+        "ecochronological_units": ["Early Neolithic B1"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec, Linstadter.2008Transit", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139763,
+        "labnr": "KIA-39297",
+        "bp": 6155,
+        "std": 33,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B1"],
+        "typochronological_units": ["Early Neolithic B1"],
+        "ecochronological_units": ["Early Neolithic B1"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139764,
+        "labnr": "KIA-39299",
+        "bp": 6400,
+        "std": 90,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit C",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic A"],
+        "typochronological_units": ["Early Neolithic A"],
+        "ecochronological_units": ["Early Neolithic A"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139765,
+        "labnr": "KIA-39299-2",
+        "bp": 6615,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -21.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "humic acids",
+        "species": null,
+        "feature": "Unit C",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic A"],
+        "typochronological_units": ["Early Neolithic A"],
+        "ecochronological_units": ["Early Neolithic A"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterMedved.2012Alboran", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139766,
+        "labnr": "Erl-9989",
+        "bp": 6053,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.8,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B1"],
+        "typochronological_units": ["Early Neolithic B1"],
+        "ecochronological_units": ["Early Neolithic B1"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec, Linstadter.2008Transit", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139767,
+        "labnr": "Erl-9987",
+        "bp": 5756,
+        "std": 49,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit E",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic C"],
+        "typochronological_units": ["Early Neolithic C"],
+        "ecochronological_units": ["Early Neolithic C"],
+        "references": ["LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec, Linstadter.2008Transit", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139768,
+        "labnr": "KIA-39298",
+        "bp": 6085,
+        "std": 25,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B1"],
+        "typochronological_units": ["Early Neolithic B1"],
+        "ecochronological_units": ["Early Neolithic B1"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, BalloucheOuchaou.2012Neol, LinstadterKehl.2012Sedim, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139769,
+        "labnr": "Erl-12419",
+        "bp": 7451,
+        "std": 56,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -17,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (animal)",
+        "species": null,
+        "feature": "position 381, Q20/10",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Mediterranean Epipalaeolithic"],
+        "typochronological_units": ["Mediterranean Epipalaeolithic"],
+        "ecochronological_units": ["Mediterranean Epipalaeolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, LinstadterKehl.2012Sedim, LinstadterEiwanger.2012Human, LinstadterMedved.2012Alboran, Linstadter.2011EpiNeotran, Linstadter.2010RecRec", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139770,
+        "labnr": "Oxa-23528",
+        "bp": 6136,
+        "std": 34,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone (animal)",
+        "species": null,
+        "feature": "Unit D",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Early Neolithic B1"],
+        "typochronological_units": ["Early Neolithic B1"],
+        "ecochronological_units": ["Early Neolithic B1"],
+        "references": ["LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, LinstadterKehl.2012Sedim", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 139771,
+        "labnr": "KIA-39296",
+        "bp": 5000,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": "Unit E",
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Late Neolithic"],
+        "typochronological_units": ["Late Neolithic"],
+        "ecochronological_units": ["Late Neolithic"],
+        "references": ["CalPal, LinstadterBroich.2016Defin, LinstadterWagner.2013IfriP, LinstadterKehl.2012Sedim, Linstadter.2011EpiNeotran", "MedAfriCarbon"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162918,
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Os-animal",
+        "species": "Ammothragus lervia",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162919,
+        "labnr": "Erl-12419",
+        "bp": 7451,
+        "std": 56,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Os-animal",
+        "species": "Sus scrofa",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162920,
+        "labnr": "Beta-295779",
+        "bp": 6740,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Vicia lens",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162921,
+        "labnr": "KIA-39299",
+        "bp": null,
+        "std": null,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -24.68,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charbon",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162922,
+        "labnr": "Oxa-23528",
+        "bp": null,
+        "std": null,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "os (collagène)",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162923,
+        "labnr": "Beta-295778",
+        "bp": null,
+        "std": null,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "macroreste végétal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162924,
+        "labnr": "Beta-295776",
+        "bp": 5900,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Triticum aestivum turgidum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162925,
+        "labnr": "Beta-295775",
+        "bp": 5910,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Triticum aestivum turgidum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162926,
+        "labnr": "KIA-39297",
+        "bp": 6155,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Charbon",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162927,
+        "labnr": "KIA-39298",
+        "bp": 6085,
+        "std": 25,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Charbon",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162928,
+        "labnr": "Beta-295774",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Hordeum vulgare",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162929,
+        "labnr": "Beta-295773",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Hordeum vulgare",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162930,
+        "labnr": "Erl-9989",
+        "bp": 6053,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Charbon",
+        "species": "Olea",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162931,
+        "labnr": "Erl-9988",
+        "bp": null,
+        "std": null,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charbon",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162932,
+        "labnr": "Erl-9987",
+        "bp": 5756,
+        "std": 49,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Charbon",
+        "species": "Juniperus communis",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162933,
+        "labnr": "Beta-295777",
+        "bp": 5670,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Hordeum vulgare",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162934,
+        "labnr": "Beta-295772",
+        "bp": 5590,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Triticum aestivum turgidum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 162935,
+        "labnr": "KIA-39296",
+        "bp": null,
+        "std": null,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charbon",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique récent"],
+        "typochronological_units": ["Néolithique récent"],
+        "ecochronological_units": ["Néolithique récent"],
+        "references": ["BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 163010,
+        "labnr": "Beta-318608",
+        "bp": 6140,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Graine",
+        "species": "Triticum",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Néolithique ancien", "Cardial"],
+        "typochronological_units": ["Néolithique ancien", "Cardial"],
+        "ecochronological_units": ["Néolithique ancien", "Cardial"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 163011,
+        "labnr": "Beta-313468",
+        "bp": 8080,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Végétal",
+        "species": "Chamaeorops humilis\rDwarf palm",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 163012,
+        "labnr": "Beta-131467",
+        "bp": 7150,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Végétal",
+        "species": "Chamaeorops humilis\rDwarf palm",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 163013,
+        "labnr": "Beta-136137",
+        "bp": 6780,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Végétal",
+        "species": "Chamaeorops humilis\rDwarf palm",
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Morales et al. 2013 ; Linstadter et Wagner 2013", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 163014,
+        "labnr": "Beta-313469",
+        "bp": 7990,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "Charbon",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "typochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "ecochronological_units": ["Epipaléolithique", "Epipaléolithique méditerranéen"],
+        "references": ["Linstadter et al. 2016", "BDA"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214492,
+        "labnr": "Beta-295772",
+        "bp": 5590,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214493,
+        "labnr": "Beta-295773",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214494,
+        "labnr": "Beta-295774",
+        "bp": 5980,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214495,
+        "labnr": "Beta-295775",
+        "bp": 5910,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214496,
+        "labnr": "Beta-295776",
+        "bp": 5900,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214497,
+        "labnr": "Beta-295777",
+        "bp": 5670,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214498,
+        "labnr": "Beta-295778",
+        "bp": 5930,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 214499,
+        "labnr": "Beta-295779",
+        "bp": 6740,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 215731,
+        "labnr": "Beta-313467",
+        "bp": 7150,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 215732,
+        "labnr": "Beta-313468",
+        "bp": 8080,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 215954,
+        "labnr": "Beta-316137",
+        "bp": 6780,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 216175,
+        "labnr": "Beta-318608",
+        "bp": 6140,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "seeds",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Morales 2013", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 239708,
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "cereal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2012b", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 240244,
+        "labnr": "Erl-9988",
+        "bp": 6175,
+        "std": 50,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -23.9,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2008", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 240247,
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2012b", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 240248,
+        "labnr": "Erl-12419",
+        "bp": 7451,
+        "std": 56,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2012", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 271484,
+        "labnr": "KIA-31007",
+        "bp": 8880,
+        "std": 35,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "c",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2010a", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 271485,
+        "labnr": "KIA-31007-2",
+        "bp": 8745,
+        "std": 55,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "humic acid",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2010a", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 272117,
+        "labnr": "KIA-39297",
+        "bp": 6155,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -19.6,
+        "source_database": "",
+        "lab_name": "",
+        "material": "cereal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2012b", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 272118,
+        "labnr": "KIA-39299",
+        "bp": 6400,
+        "std": 90,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -24.7,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2010a", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 272119,
+        "labnr": "KIA-39299/2",
+        "bp": 6615,
+        "std": 30,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": "charcoal",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2012b", "p3k14c"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.2542, 35.2151]
+      },
+      "properties": {
+        "id": 272545,
+        "labnr": "KIA-510",
+        "bp": 8290,
+        "std": 40,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": -22.99,
+        "source_database": "",
+        "lab_name": "",
+        "material": "bone",
+        "species": null,
+        "feature": null,
+        "feature_type": "cave",
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["Linstädter 2010b", "p3k14c"]
+      }
+    }
+  ]
+}
