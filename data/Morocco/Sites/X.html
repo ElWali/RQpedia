@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RQpedia — Data Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --gray: #6b7280;
+      --light-gray: #f3f4f6;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 0.875rem;
+      transition: direction 0.3s;
+    }
+    @media (min-width: 768px) { body { font-size: 1rem; } }
+    .container { display: flex; height: 100vh; }
+    .sidebar {
+      width: 300px;
+      background: var(--light-gray);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: white;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 { font-size: 1rem; font-weight: 600; }
+    .lang-toggle {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .lang-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .lang-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .search-box { padding: 0 1rem 1rem; }
+    #site-search {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+    #autocomplete {
+      position: relative;
+      background: white;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      margin-top: -1px;
+    }
+    .autocomplete-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .autocomplete-item:hover { background-color: var(--light-gray); }
+    .stats {
+      padding: 0.75rem 1rem;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+      text-align: right;
+    }
+    .download-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+    .download-btn::after { content: "⬇️"; margin-left: 0.25rem; }
+    .profile-preview {
+      padding: 1rem;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .profile-preview h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .profile-preview p { font-size: 0.875rem; margin-bottom: 0.5rem; }
+    .profile-preview .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      text-decoration: none;
+    }
+    .map-container { flex: 1; position: relative; }
+    #map { height: 100%; width: 100%; position: absolute; top: 0; left: 0; }
+    .map-controls {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: white;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      z-index: 1000;
+    }
+    .map-controls label { display: block; margin-bottom: 0.25rem; font-size: 0.875rem; }
+    .map-controls input[type="radio"] { margin-right: 0.25rem; }
+    .map-controls .zoom-controls { display: flex; gap: 0.25rem; margin-top: 0.5rem; }
+    .zoom-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      background: white;
+    }
+    .map-attribution {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.8);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      text-align: center;
+      z-index: 1000;
+    }
+    .map-attribution a { color: var(--primary); text-decoration: underline; }
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      .sidebar { width: 100%; max-height: 400px; }
+      .map-container { height: calc(100vh - 400px); }
+    }
+    body[dir="rtl"] .sidebar { border-right: none; border-left: 1px solid var(--border); }
+    body[dir="rtl"] .map-controls { right: auto; left: 0.75rem; }
+    body[dir="rtl"] .stats { text-align: left; }
+    body[dir="rtl"] .lang-toggle { flex-direction: row-reverse; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="header">
+        <h1 id="title-data-browser">📊 Data browser</h1>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="fr">FR</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+      </div>
+      <div class="search-box">
+        <input type="text" id="site-search" placeholder="Search for a site..." autocomplete="off">
+        <div id="autocomplete"></div>
+      </div>
+      <div class="stats">
+        <span id="label-showing">Showing</span> <span id="record-count">0</span> <span id="label-records">records</span>
+        <button class="download-btn" id="download-btn"></button>
+      </div>
+      <div class="profile-preview" id="profile-preview">
+        <h2 id="preview-title">Site Preview</h2>
+        <p id="preview-location"></p>
+        <p id="preview-dates"></p>
+        <p id="preview-materials"></p>
+        <a id="view-full-profile" class="btn" href="#"></a>
+      </div>
+    </div>
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="map-controls">
+        <label><input type="radio" name="map-layer" value="Map"> <span id="label-map">Map</span></label>
+        <label><input type="radio" name="map-layer" value="Map with labels"> <span id="label-map-labels">Map with labels</span></label>
+        <label><input type="radio" name="map-layer" value="Imagery" checked> <span id="label-imagery">Imagery</span></label>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-in">+</button>
+          <button class="zoom-btn" id="zoom-out">-</button>
+        </div>
+      </div>
+      <div class="map-attribution">
+        © <a href="https://leafletjs.com">Leaflet</a> | Tiles © <a href="https://services.arcgisonline.com">Esri</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // --- TRANSLATIONS ---
+    const translations = {
+      en: {
+        titleDataBrowser: "📊 Data browser",
+        searchPlaceholder: "Search for a site...",
+        showing: "Showing",
+        records: "records",
+        download: "Download",
+        map: "Map",
+        mapLabels: "Map with labels",
+        imagery: "Imagery",
+        previewTitle: "Site Preview",
+        viewFullProfile: "View Full Profile",
+        location: "📍",
+        dates: "🔘 %rc% radiocarbon-equivalent dates | 🏺 %typo% typological dates",
+        materials: "🔬 Materials: %materials%"
+      },
+      fr: {
+        titleDataBrowser: "📊 Explorateur de données",
+        searchPlaceholder: "Rechercher un site...",
+        showing: "Affichage de",
+        records: "enregistrements",
+        download: "Télécharger",
+        map: "Carte",
+        mapLabels: "Carte avec étiquettes",
+        imagery: "Imagerie",
+        previewTitle: "Aperçu du site",
+        viewFullProfile: "Voir le profil complet",
+        location: "📍",
+        dates: "🔘 %rc% dates radiocarbone équivalentes | 🏺 %typo% dates typologiques",
+        materials: "🔬 Matériaux : %materials%"
+      },
+      ar: {
+        titleDataBrowser: "📊 مستعرض البيانات",
+        searchPlaceholder: "ابحث عن موقع...",
+        showing: "عرض",
+        records: "سجلات",
+        download: "تنزيل",
+        map: "خريطة",
+        mapLabels: "خريطة مع تسميات",
+        imagery: "صور جوية",
+        previewTitle: "معاينة الموقع",
+        viewFullProfile: "عرض الملف الكامل",
+        location: "📍",
+        dates: "🔘 %rc% تواريخ كربون مشع مكافئة | 🏺 %typo% تواريخ طبقية",
+        materials: "🔬 المواد: %materials%"
+      }
+    };
+
+    // --- STATE ---
+    let currentLang = 'en';
+    let allFeatures = [];
+    let map = null;
+    let markers = [];
+    let uniqueSites = [];
+
+    // --- INIT ---
+    async function init() {
+      detectLanguage();
+      applyLanguage(currentLang);
+      try {
+        // Load the single unified GeoJSON
+        const res = await fetch('https://raw.githubusercontent.com/ElWali/RQpedia/9ce28673eca717567209bee01495fa8a0ab3f5d9/VX/output_full.geojson');
+        if (!res.ok) throw new Error('Failed to load output_full.geojson');
+        const geojson = await res.json();
+        allFeatures = geojson.features;
+
+        // Build unique site list for autocomplete
+        const siteSet = new Set();
+        allFeatures.forEach(f => {
+          const site = f.properties.site;
+          if (site) siteSet.add(site);
+        });
+        uniqueSites = Array.from(siteSet).sort();
+
+        initMap();
+        renderAllSitesOnMap();
+        initAutocomplete();
+        attachEventListeners();
+        applyUrlParams();
+      } catch (err) {
+        console.error('Initialization failed:', err);
+        alert('Could not load site data. Please check your internet connection.');
+      }
+    }
+
+    function detectLanguage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      const savedLang = localStorage.getItem('rqpedia_lang');
+      currentLang = langParam || savedLang || 'en';
+      if (!['en', 'fr', 'ar'].includes(currentLang)) currentLang = 'en';
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      localStorage.setItem('rqpedia_lang', lang);
+      const t = translations[lang];
+      document.getElementById('title-data-browser').textContent = t.titleDataBrowser;
+      document.getElementById('site-search').placeholder = t.searchPlaceholder;
+      document.getElementById('label-showing').textContent = t.showing;
+      document.getElementById('label-records').textContent = t.records;
+      document.querySelector('.download-btn').textContent = t.download;
+      document.querySelectorAll('label')[0].lastChild.textContent = t.map;
+      document.querySelectorAll('label')[1].lastChild.textContent = t.mapLabels;
+      document.querySelectorAll('label')[2].lastChild.textContent = t.imagery;
+      document.getElementById('preview-title').textContent = t.previewTitle;
+      document.getElementById('view-full-profile').textContent = t.viewFullProfile;
+      updateRecordCount(allFeatures.length);
+    }
+
+    // --- MAP ---
+    function initMap() {
+      map = L.map('map').setView([33.5, -6], 6);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+        maxZoom: 18,
+        minZoom: 2
+      }).addTo(map);
+      document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
+      document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
+      document.querySelectorAll('input[name="map-layer"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          map.eachLayer(layer => { if (layer instanceof L.TileLayer) map.removeLayer(layer); });
+          let url = '';
+          switch (radio.value) {
+            case 'Map': url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'; break;
+            case 'Map with labels': url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'; break;
+            case 'Imagery': default: url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'; break;
+          }
+          L.tileLayer(url, { attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>', maxZoom: 18, minZoom: 2 }).addTo(map);
+        });
+      });
+    }
+
+    function renderAllSitesOnMap() {
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+
+      const siteGroups = {};
+      allFeatures.forEach(f => {
+        const key = f.properties.site;
+        if (!siteGroups[key]) siteGroups[key] = [];
+        siteGroups[key].push(f);
+      });
+
+      Object.entries(siteGroups).forEach(([siteName, features]) => {
+        const first = features[0];
+        const coords = first.geometry.coordinates;
+        const count = features.length;
+
+        const icon = L.divIcon({
+          className: 'cluster-marker',
+          html: `<div style="background: ${count > 100 ? '#dc2626' : count > 50 ? '#f59e0b' : '#10b981'}; color: white; border-radius: 50%; width: ${Math.min(50, Math.max(20, count / 10))}px; height: ${Math.min(50, Math.max(20, count / 10))}px; display: flex; align-items: center; justify-content: center; font-size: ${Math.min(12, Math.max(8, count / 10))}px; font-weight: bold;">${count > 1000 ? (count / 1000).toFixed(1) + 'k' : count}</div>`,
+          iconSize: [Math.min(50, Math.max(20, count / 10)), Math.min(50, Math.max(20, count / 10))],
+          iconAnchor: [Math.min(25, Math.max(10, count / 20)), Math.min(25, Math.max(10, count / 20))]
+        });
+
+        const marker = L.marker([coords[1], coords[0]], { icon })
+          .addTo(map)
+          .bindPopup(`<b>${siteName}</b><br>${first.properties.country || 'MA'}<br>${count} records`)
+          .on('click', () => selectSiteByName(siteName));
+        markers.push(marker);
+      });
+
+      updateRecordCount(allFeatures.length);
+    }
+
+    // --- AUTOCOMPLETE ---
+    function initAutocomplete() {
+      const input = document.getElementById('site-search');
+      const container = document.getElementById('autocomplete');
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+          container.style.display = 'none';
+          return;
+        }
+
+        const matches = uniqueSites.filter(s => s.toLowerCase().includes(query));
+        container.innerHTML = '';
+        matches.forEach(site => {
+          const div = document.createElement('div');
+          div.className = 'autocomplete-item';
+          div.textContent = site;
+          div.addEventListener('click', () => {
+            input.value = site;
+            container.style.display = 'none';
+            selectSiteByName(site);
+            updateUrlParams({ site });
+          });
+          container.appendChild(div);
+        });
+        container.style.display = matches.length ? 'block' : 'none';
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !container.contains(e.target)) {
+          container.style.display = 'none';
+        }
+      });
+    }
+
+    // --- SITE SELECTION ---
+    function selectSiteByName(siteName) {
+      const siteFeatures = allFeatures.filter(f => f.properties.site === siteName);
+      if (siteFeatures.length === 0) return;
+
+      showProfilePreview(siteName, siteFeatures);
+      map.setView([siteFeatures[0].geometry.coordinates[1], siteFeatures[0].geometry.coordinates[0]], 10);
+    }
+
+    function showProfilePreview(siteName, features) {
+      const rcCount = features.length;
+      const typoCount = features.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0);
+      const materials = [...new Set(features.map(f => f.properties.material).filter(m => m))];
+      const location = features[0].properties.country || 'Morocco';
+
+      const t = translations[currentLang];
+      document.getElementById('preview-title').textContent = siteName;
+      document.getElementById('preview-location').textContent = `${t.location} ${location}`;
+      document.getElementById('preview-dates').textContent = t.dates.replace('%rc%', rcCount).replace('%typo%', typoCount);
+      document.getElementById('preview-materials').textContent = materials.length ? t.materials.replace('%materials%', materials.join(', ')) : '';
+
+      const fileName = siteName.replace(/\s+/g, '_') + '.html';
+      document.getElementById('view-full-profile').href = fileName;
+      document.getElementById('view-full-profile').textContent = t.viewFullProfile;
+      document.getElementById('profile-preview').style.display = 'block';
+    }
+
+    function updateRecordCount(count) {
+      document.getElementById('record-count').textContent = count.toLocaleString();
+    }
+
+    // --- URL PARAMS ---
+    function applyUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const siteParam = urlParams.get('site');
+      if (siteParam) {
+        document.getElementById('site-search').value = siteParam;
+        selectSiteByName(siteParam);
+      }
+    }
+
+    function updateUrlParams(params) {
+      const url = new URL(window.location);
+      Object.keys(params).forEach(key => url.searchParams.set(key, params[key]));
+      url.searchParams.set('lang', currentLang);
+      window.history.replaceState({}, '', url);
+    }
+
+    // --- EXPORT ---
+    function attachEventListeners() {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          applyLanguage(btn.dataset.lang);
+          updateUrlParams({ lang: btn.dataset.lang });
+        });
+      });
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const dataStr = JSON.stringify(allFeatures, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `RQpedia_export_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    // --- START ---
+    init();
+  </script>
+</body>
+</html>
+
