@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RQpedia — Archaeological Sites Dashboard</title>
+
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --gray: #6b7280;
+      --light-gray: #f3f4f6;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1rem;
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 1rem;
+        padding: 1.5rem;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 2.25rem;
+      }
+    }
+
+    .subtitle {
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    #site-search {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #autocomplete {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .autocomplete-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .autocomplete-item:hover,
+    .autocomplete-item.selected {
+      background-color: var(--light-gray);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 992px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #map {
+      height: 300px;
+      width: 100%;
+      border-radius: 8px;
+      background: var(--light-gray);
+    }
+
+    .chart {
+      height: 250px;
+      width: 100%;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    .site-summary {
+      display: none;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>RQpedia</h1>
+      <div class="subtitle">Lightweight database of archaeological sites in Morocco</div>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="site-search" placeholder="Search for a site (e.g., Taforalt, Jebel Irhoud)..." autocomplete="off">
+      <div id="autocomplete"></div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="card">
+        <h2>📍 Site Map</h2>
+        <div id="map"></div>
+      </div>
+      <div class="card">
+        <h2>📊 Temporal Distribution</h2>
+        <canvas id="temporal-chart" class="chart"></canvas>
+      </div>
+      <div class="card">
+        <h2>🔬 Material Composition</h2>
+        <canvas id="material-chart" class="chart"></canvas>
+      </div>
+      <div class="card">
+        <h2>🧬 Species Composition</h2>
+        <canvas id="species-chart" class="chart"></canvas>
+      </div>
+    </div>
+
+    <div class="site-summary" id="site-summary">
+      <div class="summary-header">
+        <h2 id="summary-title">Site Summary</h2>
+        <button class="btn" id="view-profile">View Full Profile</button>
+      </div>
+      <p id="summary-text"></p>
+    </div>
+
+    <footer>
+      © 2025 RQpedia | Next-generation archaeological data access
+    </footer>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // --- STATE ---
+    let sites = [];
+    let selectedSite = null;
+    let map = null;
+    let markers = [];
+    let temporalChart = null;
+    let materialChart = null;
+    let speciesChart = null;
+
+    // --- INIT ---
+    async function init() {
+      try {
+        const res = await fetch('sites.json');
+        sites = await res.json();
+        initMap();
+        initAutocomplete();
+        renderAllSitesOnMap();
+      } catch (err) {
+        console.error('Failed to load sites.json', err);
+      }
+    }
+
+    // --- MAP ---
+    function initMap() {
+      map = L.map('map').setView([33.5, -6], 6);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+      }).addTo(map);
+    }
+
+    function renderAllSitesOnMap() {
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+
+      sites.forEach(site => {
+        const marker = L.marker([site.lat, site.lng])
+          .addTo(map)
+          .bindPopup(`<b>${site.name}</b><br>${site.country}`)
+          .on('click', () => selectSite(site));
+        markers.push(marker);
+      });
+    }
+
+    // --- AUTOCOMPLETE ---
+    function initAutocomplete() {
+      const input = document.getElementById('site-search');
+      const container = document.getElementById('autocomplete');
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+          container.style.display = 'none';
+          return;
+        }
+
+        const matches = sites.filter(s => s.name.toLowerCase().includes(query));
+        container.innerHTML = '';
+        matches.forEach(site => {
+          const div = document.createElement('div');
+          div.className = 'autocomplete-item';
+          div.textContent = `${site.name} (${site.country})`;
+          div.addEventListener('click', () => {
+            input.value = site.name;
+            container.style.display = 'none';
+            selectSite(site);
+          });
+          container.appendChild(div);
+        });
+        container.style.display = matches.length ? 'block' : 'none';
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !container.contains(e.target)) {
+          container.style.display = 'none';
+        }
+      });
+    }
+
+    // --- SITE SELECTION ---
+    async function selectSite(site) {
+      selectedSite = site;
+      document.getElementById('site-search').value = site.name;
+      document.getElementById('autocomplete').style.display = 'none';
+
+      try {
+        const res = await fetch(site.file);
+        const geojson = await res.json();
+        updateVisualizations(geojson.features);
+        showSiteSummary(site, geojson.features);
+      } catch (err) {
+        console.error(`Failed to load ${site.file}`, err);
+        alert(`Could not load data for ${site.name}`);
+      }
+    }
+
+    // --- VISUALIZATIONS ---
+    function updateVisualizations(features) {
+      // Temporal: histogram of bp ages
+      const bpAges = features
+        .map(f => f.properties.bp)
+        .filter(bp => bp !== null && bp > 0)
+        .sort((a, b) => a - b);
+
+      // Material
+      const materialCounts = {};
+      features.forEach(f => {
+        const m = f.properties.material || 'Unknown';
+        materialCounts[m] = (materialCounts[m] || 0) + 1;
+      });
+
+      // Species
+      const speciesCounts = {};
+      features.forEach(f => {
+        const s = f.properties.species || 'Unknown';
+        speciesCounts[s] = (speciesCounts[s] || 0) + 1;
+      });
+
+      // Update charts
+      renderTemporalChart(bpAges);
+      renderMaterialChart(materialCounts);
+      renderSpeciesChart(speciesCounts);
+    }
+
+    function renderTemporalChart(bpAges) {
+      if (temporalChart) temporalChart.destroy();
+      const ctx = document.getElementById('temporal-chart').getContext('2d');
+      temporalChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: bpAges.map((_, i) => `Sample ${i+1}`),
+          datasets: [{
+            label: 'Uncalibrated Age (BP)',
+            data: bpAges,
+            backgroundColor: '#2563eb'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: false,
+              title: { display: true, text: 'Years BP' }
+            }
+          }
+        }
+      });
+    }
+
+    function renderMaterialChart(counts) {
+      if (materialChart) materialChart.destroy();
+      const ctx = document.getElementById('material-chart').getContext('2d');
+      const labels = Object.keys(counts);
+      const data = Object.values(counts);
+      materialChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            backgroundColor: [
+              '#2563eb', '#60a5fa', '#93c5fd', '#bfdbfe', '#dbeafe'
+            ]
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+    }
+
+    function renderSpeciesChart(counts) {
+      if (speciesChart) speciesChart.destroy();
+      const ctx = document.getElementById('species-chart').getContext('2d');
+      const labels = Object.keys(counts).slice(0, 5); // Top 5
+      const data = Object.values(counts).slice(0, 5);
+      speciesChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            backgroundColor: [
+              '#16a34a', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5'
+            ]
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+    }
+
+    // --- SUMMARY ---
+    function showSiteSummary(site, features) {
+      const rcCount = features.length;
+      const typoCount = features.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0);
+      const materials = [...new Set(features.map(f => f.properties.material).filter(m => m))) || ['—'];
+      const summary = `${site.name} (${site.country}) has ${rcCount} radiocarbon-equivalent dates and ${typoCount} typological classifications. Materials include: ${materials.join(', ')}.`;
+
+      document.getElementById('summary-title').textContent = site.name;
+      document.getElementById('summary-text').textContent = summary;
+      document.getElementById('site-summary').style.display = 'block';
+
+      document.getElementById('view-profile').onclick = () => {
+        // Redirect to profile (you can later make this dynamic)
+        window.location.href = `${site.name.replace(/\s+/g, '_')}.html`;
+      };
+    }
+
+    // --- START ---
+    init();
+  </script>
+</body>
+</html>
