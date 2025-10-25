@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Taforalt",
+    "country": "MA",
+    "lat": 34.8106,
+    "lng": -2.4083,
+    "file": "Taforalt.geojson"
+  },
+  {
+    "name": "Ifri Oudadane",
+    "country": "MA",
+    "lat": 35.2151,
+    "lng": -3.2542,
+    "file": "Ifri_Oudadane.geojson"
+  },
+  {
+    "name": "Izriten",
+    "country": "MA",
+    "lat": 31.45,
+    "lng": -9.79,
+    "file": "Izriten.geojson"
+  },
+  {
+    "name": "Jebel Irhoud",
+    "country": "MA",
+    "lat": 31.855,
+    "lng": -8.8725,
+    "file": "Jebel_Irhoud.geojson"
+  }
+]
