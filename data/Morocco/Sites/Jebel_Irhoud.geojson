@@ -1,0 +1,179 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100001,
+        "labnr": "JI-TL-01",
+        "bp": 315000,
+        "std": 34000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Max Planck Institute for Evolutionary Anthropology",
+        "material": "burnt flint",
+        "species": null,
+        "feature": "Layer 7",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["Richter et al. 2017", "Hublin et al. 2017", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100002,
+        "labnr": "Irhoud-3-ESR",
+        "bp": 286000,
+        "std": 32000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Max Planck Institute for Evolutionary Anthropology",
+        "material": "tooth enamel",
+        "species": "Homo sapiens",
+        "feature": "Irhoud 3 mandible",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["Richter et al. 2017", "Hublin et al. 2017", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100003,
+        "labnr": "JI-TL-02",
+        "bp": 300000,
+        "std": 30000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Max Planck Institute",
+        "material": "burnt flint",
+        "species": null,
+        "feature": "Layer 7",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["Richter et al. 2017", "en.wikipedia.org/Jebel_Irhoud"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100004,
+        "labnr": "JI-TL-03",
+        "bp": 330000,
+        "std": 35000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Max Planck Institute",
+        "material": "burnt flint",
+        "species": null,
+        "feature": "Layer 7",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["Richter et al. 2017", "en.wikipedia.org/Jebel_Irhoud"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100005,
+        "labnr": "Irhoud-10-Cranium",
+        "bp": 315000,
+        "std": 34000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Hublin team (2007)",
+        "material": "cranial bone",
+        "species": "Homo sapiens",
+        "feature": "Irhoud 10 cranium",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["Hublin et al. 2017", "en.wikipedia.org/Jebel_Irhoud"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.8725, 31.855]
+      },
+      "properties": {
+        "id": 100006,
+        "labnr": "Faunal-Butchery",
+        "bp": 315000,
+        "std": 34000,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "Hublin team",
+        "material": "gazelle bone",
+        "species": "Gazella",
+        "feature": "Layer 7",
+        "feature_type": "cave",
+        "site": "Jebel Irhoud",
+        "country": "MA",
+        "site_type": "cave",
+        "periods": ["Middle Stone Age", "Lower Paleolithic"],
+        "typochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "ecochronological_units": ["Middle Stone Age", "Lower Paleolithic"],
+        "references": ["en.wikipedia.org/Jebel_Irhoud", "Richter et al. 2017"]
+      }
+    }
+  ]
+}
