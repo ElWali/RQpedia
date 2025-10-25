@@ -1,0 +1,63 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-9.79, 31.45]
+      },
+      "properties": {
+        "id": 66565,
+        "labnr": "Mc-711",
+        "bp": 7860,
+        "std": 170,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": 0,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": null,
+        "site": "Izriten",
+        "country": "MA",
+        "site_type": null,
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["EUROEVOL (CalPal)", "CalPal2022"]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-9.79, 31.45]
+      },
+      "properties": {
+        "id": 286396,
+        "labnr": "Mc-711",
+        "bp": 7860,
+        "std": 170,
+        "cal_bp": null,
+        "cal_std": null,
+        "delta_c13": null,
+        "source_database": "",
+        "lab_name": "",
+        "material": null,
+        "species": null,
+        "feature": null,
+        "feature_type": null,
+        "site": "Izriten",
+        "country": "MA",
+        "site_type": null,
+        "periods": [],
+        "typochronological_units": [],
+        "ecochronological_units": [],
+        "references": ["PetitMaire.1993URL", "p3k14c"]
+      }
+    }
+  ]
+}
