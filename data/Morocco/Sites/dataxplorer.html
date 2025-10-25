@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RQpedia — Data Explorer</title>
+
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --gray: #6b7280;
+      --light-gray: #f3f4f6;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      font-size: 0.875rem;
+      overflow-x: hidden;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 1rem;
+      }
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 300px;
+      background: var(--light-gray);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .header {
+      background: white;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header .filters-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: 1rem;
+    }
+
+    .view-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .stats {
+      padding: 0.75rem 1rem;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+      text-align: right;
+    }
+
+    .download-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .download-btn::after {
+      content: "⬇️";
+      margin-left: 0.25rem;
+    }
+
+    .filter-section {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-section h2 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-section h2::before {
+      content: "🔍";
+      font-size: 1.2em;
+    }
+
+    .filter-section.collapsed h2::after {
+      content: ">";
+      font-size: 1.2em;
+    }
+
+    .filter-section:not(.collapsed) h2::after {
+      content: "∨";
+      font-size: 1.2em;
+    }
+
+    .filter-section.collapsed .filter-content {
+      display: none;
+    }
+
+    .filter-content {
+      display: block;
+    }
+
+    .filter-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .filter-dropdown {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    .filter-btn.clear {
+      background: #f87171;
+      color: white;
+      border-color: #f87171;
+    }
+
+    /* Map */
+    .map-container {
+      flex: 1;
+      position: relative;
+      background: var(--bg);
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .map-controls {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: white;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    .map-controls label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .map-controls input[type="radio"] {
+      margin-right: 0.25rem;
+    }
+
+    .map-controls .zoom-controls {
+      display: flex;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .zoom-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    .map-attribution {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .map-attribution a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--gray);
+      z-index: 1000;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        overflow-y: scroll;
+      }
+
+      .map-container {
+        height: calc(100vh - 300px);
+      }
+
+      .header {
+        padding: 0.5rem;
+      }
+
+      .header h1 {
+        font-size: 0.875rem;
+      }
+
+      .view-toggle {
+        margin-left: 0;
+      }
+
+      .stats {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .filter-section {
+        padding: 0.5rem;
+      }
+
+      .filter-input,
+      .filter-dropdown {
+        font-size: 0.75rem;
+      }
+
+      .filter-btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .map-controls {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.25rem;
+      }
+
+      .map-controls label {
+        font-size: 0.75rem;
+      }
+
+      .zoom-btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .map-attribution {
+        font-size: 0.65rem;
+      }
+
+      footer {
+        font-size: 0.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="header">
+        <h1>📊 Data browser</h1>
+        <button class="filters-btn">≡ Filters</button>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="sites">Sites</button>
+        <button class="view-btn" data-view="radiocarbon">Radiocarbon dates</button>
+      </div>
+      <div class="stats">
+        Showing <span id="record-count">0</span> records
+        <button class="download-btn">Download</button>
+      </div>
+
+      <div class="filter-section" id="sites-filter">
+        <h2>Sites</h2>
+        <div class="filter-content">
+          <input type="text" class="filter-input" placeholder="Site names" id="site-name-filter">
+          <input type="text" class="filter-input" placeholder="Site types" id="site-type-filter">
+          <div class="filter-actions">
+            <button class="filter-btn" id="filter-sites">Filter</button>
+            <button class="filter-btn clear" id="clear-sites">Clear filters</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section" id="location-filter">
+        <h2>Location</h2>
+        <div class="filter-content">
+          <select class="filter-dropdown" id="country-filter">
+            <option value="">All countries</option>
+            <option value="MA">Morocco (MA)</option>
+          </select>
+          <div class="filter-actions">
+            <button class="filter-btn" id="filter-location">Filter</button>
+            <button class="filter-btn clear" id="clear-location">Clear filters</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section" id="sample-filter">
+        <h2>Sample</h2>
+        <div class="filter-content">
+          <input type="text" class="filter-input" placeholder="Materials" id="material-filter">
+          <input type="text" class="filter-input" placeholder="Taxons" id="taxon-filter">
+          <div class="filter-actions">
+            <button class="filter-btn" id="filter-sample">Filter</button>
+            <button class="filter-btn clear" id="clear-sample">Clear filters</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section" id="radiocarbon-filter">
+        <h2>Radiocarbon</h2>
+        <div class="filter-content">
+          <div class="filter-actions">
+            <button class="filter-btn" id="filter-radiocarbon">Filter</button>
+            <button class="filter-btn clear" id="clear-radiocarbon">Clear filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="map-controls">
+        <label><input type="radio" name="map-layer" value="Map" checked> Map</label>
+        <label><input type="radio" name="map-layer" value="Map with labels"> Map with labels</label>
+        <label><input type="radio" name="map-layer" value="Imagery"> Imagery</label>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-in">+</button>
+          <button class="zoom-btn" id="zoom-out">-</button>
+        </div>
+      </div>
+      <div class="map-attribution">
+        © <a href="https://leafletjs.com">Leaflet</a> | Tiles © <a href="https://services.arcgisonline.com">Esri</a> — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 RQpedia — Next-generation archaeological data access
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // --- STATE ---
+    let allFeatures = [];
+    let filteredFeatures = [];
+    let currentView = 'sites'; // 'sites' or 'radiocarbon'
+    let map = null;
+    let markers = [];
+
+    // --- INIT ---
+    async function init() {
+      try {
+        const files = [
+          'Taforalt.geojson',
+          'Ifri_Oudadane.geojson',
+          'Izriten.geojson',
+          'Jebel_Irhoud.geojson'
+        ];
+
+        const promises = files.map(async file => {
+          const res = await fetch(file);
+          if (!res.ok) throw new Error(`Failed to load ${file}`);
+          return res.json();
+        });
+
+        const geojsons = await Promise.all(promises);
+
+        // Flatten all features into one array
+        allFeatures = geojsons.flatMap(geojson => geojson.features);
+
+        // Initialize map
+        initMap();
+
+        // Render initial state
+        updateFilters();
+        renderMarkers();
+        updateRecordCount();
+
+        // Attach event listeners
+        attachEventListeners();
+
+      } catch (err) {
+        console.error('Initialization failed:', err);
+        alert('Could not load site data. Please check your files.');
+      }
+    }
+
+    // --- MAP ---
+    function initMap() {
+      map = L.map('map').setView([33.5, -6], 6);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+        maxZoom: 18,
+        minZoom: 2
+      }).addTo(map);
+
+      // Add zoom controls
+      map.zoomControl.setPosition('bottomright');
+
+      // Handle layer change
+      document.querySelectorAll('input[name="map-layer"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const layer = radio.value;
+          map.eachLayer(layer => {
+            if (layer instanceof L.TileLayer) {
+              map.removeLayer(layer);
+            }
+          });
+          let url = '';
+          switch (layer) {
+            case 'Map':
+              url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+              break;
+            case 'Map with labels':
+              url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+              break;
+            case 'Imagery':
+            default:
+              url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+              break;
+          }
+          L.tileLayer(url, {
+            attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+            maxZoom: 18,
+            minZoom: 2
+          }).addTo(map);
+        });
+      });
+
+      // Zoom buttons
+      document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
+      document.getElementById('zoom-out').addEventListener('click', () => map.zoomOut());
+
+      // Initial layer
+      document.querySelector('input[value="Imagery"]').checked = true;
+
+    }
+
+    // --- FILTERS ---
+    function updateFilters() {
+      // Apply all filters
+      filteredFeatures = allFeatures.filter(feature => {
+        const props = feature.properties;
+
+        // Site name filter
+        const siteName = document.getElementById('site-name-filter').value.trim().toLowerCase();
+        if (siteName && !props.site.toLowerCase().includes(siteName)) return false;
+
+        // Site type filter
+        const siteType = document.getElementById('site-type-filter').value.trim().toLowerCase();
+        if (siteType && !props.site_type?.toLowerCase().includes(siteType)) return false;
+
+        // Country filter
+        const country = document.getElementById('country-filter').value;
+        if (country && props.country !== country) return false;
+
+        // Material filter
+        const material = document.getElementById('material-filter').value.trim().toLowerCase();
+        if (material && !props.material?.toLowerCase().includes(material)) return false;
+
+        // Taxon filter
+        const taxon = document.getElementById('taxon-filter').value.trim().toLowerCase();
+        if (taxon && !props.species?.toLowerCase().includes(taxon)) return false;
+
+        return true;
+      });
+
+      // Update record count
+      updateRecordCount();
+
+      // Re-render markers
+      renderMarkers();
+    }
+
+    function updateRecordCount() {
+      const count = filteredFeatures.length;
+      document.getElementById('record-count').textContent = count.toLocaleString();
+    }
+
+    function renderMarkers() {
+      // Clear existing markers
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+
+      // Group features by site (for clustering)
+      const siteGroups = {};
+      filteredFeatures.forEach(feature => {
+        const key = `${feature.properties.site}_${feature.properties.country}`;
+        if (!siteGroups[key]) siteGroups[key] = [];
+        siteGroups[key].push(feature);
+      });
+
+      // Create a marker for each site
+      Object.keys(siteGroups).forEach(key => {
+        const group = siteGroups[key];
+        const firstFeature = group[0];
+        const coords = firstFeature.geometry.coordinates;
+        const count = group.length;
+
+        // Create a custom marker icon
+        const icon = L.divIcon({
+          className: 'cluster-marker',
+          html: `<div style="background: ${count > 100 ? '#dc2626' : count > 50 ? '#f59e0b' : '#10b981'}; color: white; border-radius: 50%; width: ${Math.min(50, Math.max(20, count / 10))}px; height: ${Math.min(50, Math.max(20, count / 10))}px; display: flex; align-items: center; justify-content: center; font-size: ${Math.min(12, Math.max(8, count / 10))}px; font-weight: bold;">${count > 1000 ? (count / 1000).toFixed(1) + 'k' : count}</div>`,
+          iconSize: [Math.min(50, Math.max(20, count / 10)), Math.min(50, Math.max(20, count / 10))],
+          iconAnchor: [Math.min(25, Math.max(10, count / 20)), Math.min(25, Math.max(10, count / 20))]
+        });
+
+        const marker = L.marker([coords[1], coords[0]], { icon })
+          .addTo(map)
+          .bindPopup(`<b>${firstFeature.properties.site}</b><br>${firstFeature.properties.country}<br>${count} records`);
+        markers.push(marker);
+      });
+
+      // Fit bounds to all markers
+      if (markers.length > 0) {
+        const bounds = L.latLngBounds(markers.map(m => m.getLatLng()));
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
+    }
+
+    // --- EVENT LISTENERS ---
+    function attachEventListeners() {
+      // View toggle
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentView = btn.dataset.view;
+          updateFilters(); // Re-render based on view
+        });
+      });
+
+      // Filter buttons
+      document.getElementById('filter-sites').addEventListener('click', updateFilters);
+      document.getElementById('clear-sites').addEventListener('click', () => {
+        document.getElementById('site-name-filter').value = '';
+        document.getElementById('site-type-filter').value = '';
+        updateFilters();
+      });
+
+      document.getElementById('filter-location').addEventListener('click', updateFilters);
+      document.getElementById('clear-location').addEventListener('click', () => {
+        document.getElementById('country-filter').value = '';
+        updateFilters();
+      });
+
+      document.getElementById('filter-sample').addEventListener('click', updateFilters);
+      document.getElementById('clear-sample').addEventListener('click', () => {
+        document.getElementById('material-filter').value = '';
+        document.getElementById('taxon-filter').value = '';
+        updateFilters();
+      });
+
+      document.getElementById('filter-radiocarbon').addEventListener('click', updateFilters);
+      document.getElementById('clear-radiocarbon').addEventListener('click', () => {
+        // No specific radiocarbon filters yet
+        updateFilters();
+      });
+
+      // Filters toggle button
+      document.querySelector('.filters-btn').addEventListener('click', () => {
+        document.querySelector('.sidebar').classList.toggle('collapsed');
+      });
+
+      // Download button
+      document.querySelector('.download-btn').addEventListener('click', () => {
+        const dataStr = JSON.stringify(filteredFeatures, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const exportFileDefaultName = `RQpedia_${currentView}_export_${new Date().toISOString().split('T')[0]}.json`;
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      });
+
+      // Collapsible sections
+      document.querySelectorAll('.filter-section h2').forEach(h2 => {
+        h2.addEventListener('click', () => {
+          h2.parentElement.classList.toggle('collapsed');
+        });
+      });
+    }
+
+    // --- START ---
+    init();
+  </script>
+</body>
+</html>
+
