@@ -217,7 +217,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // --- CONFIG ---
-    const DATA_URL = 'https://raw.githubusercontent.com/ElWali/RQpedia/9ce28673eca717567209bee01495fa8a0ab3f5d9/VX/output_full.geojson';
+    const DATA_URL = 'output_full.geojson';
 
     // --- UTILS ---
     function decimalToDMS(decimal, isLat) {
@@ -383,7 +383,12 @@
         const lng = first.geometry.coordinates[0];
         const country = first.properties.country || 'MA';
 
-        const wd = await fetchWikidataInfo(siteName);
+        let wd = { wikidataHtml: '—', wikipediaHtml: '—', summaryHtml: 'Could not load external data.' };
+        try {
+          wd = await fetchWikidataInfo(siteName);
+        } catch (err) {
+          console.warn('Error fetching Wikidata, proceeding without it:', err);
+        }
 
         const content = `
           <h1>${siteName}</h1>
