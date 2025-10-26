@@ -9,7 +9,7 @@ SCREENSHOT_PATH = "tests/profile_page_verification.png"
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory="VX", **kwargs)
+        super().__init__(*args, directory="FinalVersion", **kwargs)
 
 async def main():
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
@@ -21,16 +21,16 @@ async def main():
             browser = await p.chromium.launch()
             page = await browser.new_page()
 
-            # ID for a site with both typological and reference data
-            site_id_to_test = "66294"
-            url = f"http://localhost:{PORT}/profile.html?id={site_id_to_test}"
+            # A site with radiocarbon and typological data
+            site_name_to_test = "Abri Rihane"
+            url = f"http://localhost:{PORT}/profile.html?site={site_name_to_test}"
 
             await page.goto(url, wait_until="networkidle")
 
             # Wait for the content to be populated
-            await page.wait_for_selector("#c14-table tbody tr")
-            await page.wait_for_selector("#typo-table tbody tr")
-            await page.wait_for_selector("#references-container p")
+            await page.wait_for_selector("#rc-body tr")
+            await page.wait_for_selector("#typo-body tr")
+            await page.wait_for_selector("#bib-content pre")
 
             await page.screenshot(path=SCREENSHOT_PATH)
             await browser.close()
