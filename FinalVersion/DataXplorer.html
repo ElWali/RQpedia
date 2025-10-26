@@ -269,7 +269,7 @@
       detectLanguage();
       applyLanguage(currentLang);
       try {
-        const res = await fetch('https://raw.githubusercontent.com/ElWali/RQpedia/9ce28673eca717567209bee01495fa8a0ab3f5d9/VX/output_full.geojson');
+        const res = await fetch('output_full.geojson');
         if (!res.ok) throw new Error('Failed to load output_full.geojson');
         const geojson = await res.json();
         allFeatures = geojson.features;
