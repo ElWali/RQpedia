@@ -236,9 +236,14 @@
       features.forEach(f => {
         const rList = f.properties.references || [];
         if (Array.isArray(rList)) {
-          rList.forEach(r => {
-            if (r && typeof r === 'string' && r.trim()) refs.add(r.trim());
-          });
+            rList.forEach(r => {
+                if (r && typeof r === 'object' && r !== null) {
+                    const refString = [r.author, r.year].filter(Boolean).join(', ');
+                    if (refString) refs.add(refString);
+                } else if (r && typeof r === 'string' && r.trim()) {
+                    refs.add(r.trim());
+                }
+            });
         }
       });
       return Array.from(refs).sort();
@@ -257,6 +262,22 @@
       let html = '';
       features.forEach(f => {
         const p = f.properties;
+        let refDisplay = '—';
+        if (p.references && Array.isArray(p.references) && p.references.length > 0) {
+          refDisplay = p.references
+            .map(ref => {
+              if (typeof ref === 'object' && ref !== null) {
+                return [ref.author, ref.year].filter(Boolean).join(', ');
+              }
+              if (typeof ref === 'string') {
+                return ref;
+              }
+              return null;
+            })
+            .filter(Boolean)
+            .join('; ');
+        }
+
         html += `
           <tr>
             <td>${p.labnr || '—'}</td>
@@ -266,7 +287,7 @@
             <td>14C</td>
             <td>${p.bp != null ? `${p.bp}±${p.std} BP` : '—'}</td>
             <td>—</td>
-            <td>${(p.references?.[0] || '—')}</td>
+            <td>${refDisplay || '—'}</td>
           </tr>
         `;
       });
