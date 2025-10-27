@@ -216,8 +216,10 @@
     let map = null;
     let markers = [];
     let uniqueSites = [];
+    let i18n = null;
 
-    document.addEventListener('i18n:ready', ({ detail: i18n }) => {
+    document.addEventListener('i18n:ready', (e) => {
+      i18n = e.detail;
       init();
       i18n.onLanguageChange(updateDynamicLabels);
     });
@@ -393,8 +395,6 @@
         URL.revokeObjectURL(url);
       });
     }
-
-    init();
   </script>
 </body>
 </html>
