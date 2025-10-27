@@ -202,22 +202,53 @@
     .error {
       color: #ef4444;
     }
+    .lang-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+    .lang-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .lang-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
   </style>
 </head>
 <body>
+  <div class="lang-toggle">
+    <button class="lang-btn" data-lang-switcher="en">EN</button>
+    <button class="lang-btn" data-lang-switcher="fr">FR</button>
+    <button class="lang-btn" data-lang-switcher="ar">AR</button>
+  </div>
   <div class="container">
     <div id="content">
-      <div class="loading">Loading site data...</div>
+      <div class="loading" data-i18n="loading">Loading site data...</div>
     </div>
     <footer>
-      © 2025 RQpedia | Generated from <span id="source-file">output_full.geojson</span>
+      © 2025 RQpedia | <span data-i18n="sourceFile">Generated from</span> <span id="source-file">output_full.geojson</span>
     </footer>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <script>
     // --- CONFIG ---
     const DATA_URL = 'output_full.geojson';
+
+    document.addEventListener('i18n:ready', ({ detail: i18n }) => {
+      init();
+      i18n.onLanguageChange(init);
+    });
 
     // --- UTILS ---
     function decimalToDMS(decimal, isLat) {
@@ -251,13 +282,13 @@
 
     function renderBibliography(features) {
       const refs = extractUniqueReferences(features);
-      if (refs.length === 0) return '<p>No references available.</p>';
+      if (refs.length === 0) return `<p>${i18n.t('noReferences')}</p>`;
       return `<pre>${refs.join('\n')}</pre>`;
     }
 
     function renderRadiocarbonTable(features) {
       if (features.length === 0) {
-        return '<tr><td colspan="8" style="text-align:center; padding:1rem;">No data.</td></tr>';
+        return `<tr><td colspan="8" style="text-align:center; padding:1rem;">${i18n.t('noData')}</td></tr>`;
       }
       let html = '';
       features.forEach(f => {
@@ -309,7 +340,7 @@
         }
       });
       if (typologicalRows.length === 0) {
-        return '<tr><td colspan="3" style="text-align:center; padding:1rem;">No typological data.</td></tr>';
+        return `<tr><td colspan="3" style="text-align:center; padding:1rem;">${i18n.t('noTypologicalData')}</td></tr>`;
       }
       let html = '';
       typologicalRows.forEach(row => {
@@ -383,11 +414,13 @@
     async function init() {
       const urlParams = new URLSearchParams(window.location.search);
       const siteName = urlParams.get('site');
+      document.title = i18n.t('siteProfileTitle');
+
       if (!siteName) {
         document.getElementById('content').innerHTML = `
           <div class="error">
-            <h2>Site not specified</h2>
-            <p>Please provide a site name in the URL: <code>?site=Jebel%20Irhoud</code></p>
+            <h2 data-i18n="siteNotSpecified">Site not specified</h2>
+            <p data-i18n="siteNotSpecifiedMessage">Please provide a site name in the URL: <code>?site=Jebel%20Irhoud</code></p>
           </div>
         `;
         return;
@@ -406,8 +439,8 @@
         if (siteFeatures.length === 0) {
           document.getElementById('content').innerHTML = `
             <div class="error">
-              <h2>Site not found</h2>
-              <p>No data found for: <strong>${siteName}</strong></p>
+              <h2 data-i18n="siteNotFound">Site not found</h2>
+              <p>${i18n.t('siteNotFoundMessage', {siteName: siteName})}</p>
             </div>
           `;
           return;
@@ -427,48 +460,48 @@
 
         const content = `
           <h1>${siteName}</h1>
-          <div class="subtitle">Archaeological site in ${country === 'MA' ? 'Morocco' : country}</div>
-          <div class="metadata">This is a beta version of RQpedia!</div>
+          <div class="subtitle">${i18n.t('archaeologicalSiteIn')} ${country === 'MA' ? i18n.t('morocco') : country}</div>
+          <div class="metadata" data-i18n="betaVersion">This is a beta version of RQpedia!</div>
 
-          <div class="section-title">Location</div>
+          <div class="section-title" data-i18n="locationSection">Location</div>
           <div id="map"></div>
           <div class="coordinates">
-            <strong>Coordinates (degrees)</strong>
+            <strong data-i18n="coordinatesDegrees">Coordinates (degrees)</strong>
             <p>${lat.toFixed(4)}° N, ${lng.toFixed(4)}° W</p>
-            <strong>Coordinates (DMS)</strong>
+            <strong data-i18n="coordinatesDMS">Coordinates (DMS)</strong>
             <p>${decimalToDMS(lat, true)}, ${decimalToDMS(lng, false)}</p>
-            <strong>Country (ISO 3166)</strong>
+            <strong data-i18n="countryISO">Country (ISO 3166)</strong>
             <p>${country} (${country})</p>
           </div>
 
           <div class="linked-data">
-            <h3>Linked Data</h3>
+            <h3 data-i18n="linkedData">Linked Data</h3>
             <div class="item">
-              <span>Wikidata</span>
+              <span data-i18n="wikidata">Wikidata</span>
               <span id="wikidata-link">${wd.wikidataHtml}</span>
             </div>
             <div class="item">
-              <span>Wikipedia</span>
+              <span data-i18n="wikipedia">Wikipedia</span>
               <span id="wikipedia-link">${wd.wikipediaHtml}</span>
             </div>
             <div class="summary" id="wikipedia-summary">${wd.summaryHtml}</div>
           </div>
 
           <div class="section-title">
-            <span>🔘 Radiocarbon dates (<span id="rc-count">${siteFeatures.length}</span>)</span>
+            <span data-i18n="radiocarbonDates">🔘 Radiocarbon dates</span> (<span id="rc-count">${siteFeatures.length}</span>)
           </div>
           <div class="table-container">
             <table>
               <thead>
                 <tr>
-                  <th>Lab ID</th>
-                  <th>Context</th>
-                  <th>Material</th>
-                  <th>Taxon</th>
-                  <th>Method</th>
-                  <th>Uncalibrated age</th>
-                  <th>Calibrated age</th>
-                  <th>Reference</th>
+                  <th data-i18n="labId">Lab ID</th>
+                  <th data-i18n="context">Context</th>
+                  <th data-i18n="material">Material</th>
+                  <th data-i18n="taxon">Taxon</th>
+                  <th data-i18n="method">Method</th>
+                  <th data-i18n="uncalibratedAge">Uncalibrated age</th>
+                  <th data-i18n="calibratedAge">Calibrated age</th>
+                  <th data-i18n="reference">Reference</th>
                 </tr>
               </thead>
               <tbody id="rc-body">
@@ -478,15 +511,15 @@
           </div>
 
           <div class="section-title">
-            <span>🏺 Typological dates (<span id="typo-count">${siteFeatures.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0)}</span>)</span>
+            <span data-i18n="typologicalDates">🏺 Typological dates</span> (<span id="typo-count">${siteFeatures.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0)}</span>)
           </div>
           <div class="table-container">
             <table>
               <thead>
                 <tr>
-                  <th>Classification</th>
-                  <th>Estimated age</th>
-                  <th>References</th>
+                  <th data-i18n="classification">Classification</th>
+                  <th data-i18n="estimatedAge">Estimated age</th>
+                  <th data-i18n="references">References</th>
                 </tr>
               </thead>
               <tbody id="typo-body">
@@ -496,7 +529,7 @@
           </div>
 
           <div class="section-title">
-            <span>📚 Bibliographic references</span>
+            <span data-i18n="bibliographicReferences">📚 Bibliographic references</span>
           </div>
           <div class="bibliography" id="bib-content">
             ${renderBibliography(siteFeatures)}
@@ -504,6 +537,7 @@
         `;
 
         document.getElementById('content').innerHTML = content;
+        i18n.translatePage();
 
         const map = L.map('map').setView([lat, lng], 13);
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -521,8 +555,6 @@
         `;
       }
     }
-
-    init();
   </script>
 </body>
 </html>
