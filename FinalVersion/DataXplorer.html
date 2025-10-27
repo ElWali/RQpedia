@@ -169,35 +169,35 @@
   <div class="container">
     <div class="sidebar">
       <div class="header">
-        <h1 id="title-data-browser">📊 Data browser</h1>
+        <h1 id="title-data-browser" data-i18n="titleDataBrowser">📊 Data browser</h1>
         <div class="lang-toggle">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="fr">FR</button>
-          <button class="lang-btn" data-lang="ar">AR</button>
+          <button class="lang-btn" data-lang-switcher="en">EN</button>
+          <button class="lang-btn" data-lang-switcher="fr">FR</button>
+          <button class="lang-btn" data-lang-switcher="ar">AR</button>
         </div>
       </div>
       <div class="search-box">
-        <input type="text" id="site-search" placeholder="Search for a site..." autocomplete="off">
+        <input type="text" id="site-search" data-i18n="searchPlaceholder" placeholder="Search for a site..." autocomplete="off">
         <div id="autocomplete"></div>
       </div>
       <div class="stats">
-        <span id="label-showing">Showing</span> <span id="record-count">0</span> <span id="label-records">records</span>
-        <button class="download-btn" id="download-btn"></button>
+        <span id="label-showing" data-i18n="showing">Showing</span> <span id="record-count">0</span> <span id="label-records" data-i18n="records">records</span>
+        <button class="download-btn" id="download-btn" data-i18n="download">Download</button>
       </div>
       <div class="profile-preview" id="profile-preview">
-        <h2 id="preview-title">Site Preview</h2>
+        <h2 id="preview-title" data-i18n="previewTitle">Site Preview</h2>
         <p id="preview-location"></p>
         <p id="preview-dates"></p>
         <p id="preview-materials"></p>
-        <a id="view-full-profile" class="btn" href="#">View Full Profile</a>
+        <a id="view-full-profile" class="btn" href="#" data-i18n="viewFullProfile">View Full Profile</a>
       </div>
     </div>
     <div class="map-container">
       <div id="map"></div>
       <div class="map-controls">
-        <label><input type="radio" name="map-layer" value="Map"> <span id="label-map">Map</span></label>
-        <label><input type="radio" name="map-layer" value="Map with labels"> <span id="label-map-labels">Map with labels</span></label>
-        <label><input type="radio" name="map-layer" value="Imagery" checked> <span id="label-imagery">Imagery</span></label>
+        <label><input type="radio" name="map-layer" value="Map"> <span id="label-map" data-i18n="map">Map</span></label>
+        <label><input type="radio" name="map-layer" value="Map with labels"> <span id="label-map-labels" data-i18n="mapLabels">Map with labels</span></label>
+        <label><input type="radio" name="map-layer" value="Imagery" checked> <span id="label-imagery" data-i18n="imagery">Imagery</span></label>
         <div class="zoom-controls">
           <button class="zoom-btn" id="zoom-in">+</button>
           <button class="zoom-btn" id="zoom-out">-</button>
@@ -210,64 +210,19 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <script>
-    const translations = {
-      en: {
-        titleDataBrowser: "📊 Data browser",
-        searchPlaceholder: "Search for a site...",
-        showing: "Showing",
-        records: "records",
-        download: "Download",
-        map: "Map",
-        mapLabels: "Map with labels",
-        imagery: "Imagery",
-        previewTitle: "Site Preview",
-        viewFullProfile: "View Full Profile",
-        location: "📍",
-        dates: "🔘 %rc% radiocarbon-equivalent dates | 🏺 %typo% typological dates",
-        materials: "🔬 Materials: %materials%"
-      },
-      fr: {
-        titleDataBrowser: "📊 Explorateur de données",
-        searchPlaceholder: "Rechercher un site...",
-        showing: "Affichage de",
-        records: "enregistrements",
-        download: "Télécharger",
-        map: "Carte",
-        mapLabels: "Carte avec étiquettes",
-        imagery: "Imagerie",
-        previewTitle: "Aperçu du site",
-        viewFullProfile: "Voir le profil complet",
-        location: "📍",
-        dates: "🔘 %rc% dates radiocarbone équivalentes | 🏺 %typo% dates typologiques",
-        materials: "🔬 Matériaux : %materials%"
-      },
-      ar: {
-        titleDataBrowser: "📊 مستعرض البيانات",
-        searchPlaceholder: "ابحث عن موقع...",
-        showing: "عرض",
-        records: "سجلات",
-        download: "تنزيل",
-        map: "خريطة",
-        mapLabels: "خريطة مع تسميات",
-        imagery: "صور جوية",
-        previewTitle: "معاينة الموقع",
-        viewFullProfile: "عرض الملف الكامل",
-        location: "📍",
-        dates: "🔘 %rc% تواريخ كربون مشع مكافئة | 🏺 %typo% تواريخ طبقية",
-        materials: "🔬 المواد: %materials%"
-      }
-    };
-
-    let currentLang = 'en';
     let allFeatures = [];
     let map = null;
     let markers = [];
     let uniqueSites = [];
 
+    document.addEventListener('i18n:ready', ({ detail: i18n }) => {
+      init();
+      i18n.onLanguageChange(updateDynamicLabels);
+    });
+
     async function init() {
-      detectLanguage();
-      applyLanguage(currentLang);
       try {
         const res = await fetch('output_full.geojson');
         if (!res.ok) throw new Error('Failed to load output_full.geojson');
@@ -286,37 +241,16 @@
         initAutocomplete();
         attachEventListeners();
         applyUrlParams();
+        updateDynamicLabels();
       } catch (err) {
         console.error('Initialization failed:', err);
         alert('Could not load site data. Please check your internet connection.');
       }
     }
 
-    function detectLanguage() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const langParam = urlParams.get('lang');
-      const savedLang = localStorage.getItem('rqpedia_lang');
-      currentLang = langParam || savedLang || 'en';
-      if (!['en', 'fr', 'ar'].includes(currentLang)) currentLang = 'en';
-    }
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      localStorage.setItem('rqpedia_lang', lang);
-      const t = translations[lang];
-      document.getElementById('title-data-browser').textContent = t.titleDataBrowser;
-      document.getElementById('site-search').placeholder = t.searchPlaceholder;
-      document.getElementById('label-showing').textContent = t.showing;
-      document.getElementById('label-records').textContent = t.records;
-      document.querySelector('.download-btn').textContent = t.download;
-      document.querySelectorAll('label')[0].lastChild.textContent = t.map;
-      document.querySelectorAll('label')[1].lastChild.textContent = t.mapLabels;
-      document.querySelectorAll('label')[2].lastChild.textContent = t.imagery;
-      document.getElementById('preview-title').textContent = t.previewTitle;
-      document.getElementById('view-full-profile').textContent = t.viewFullProfile;
-      updateRecordCount(allFeatures.length);
+    function updateDynamicLabels() {
+        // This function can be used to update any text that is not handled by data-i18n
+        updateRecordCount(markers.length);
     }
 
     function initMap() {
@@ -414,13 +348,15 @@
       const typoCount = features.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0);
       const materials = [...new Set(features.map(f => f.properties.material).filter(m => m))];
       const location = features[0].properties.country || 'Morocco';
-      const t = translations[currentLang];
+
       document.getElementById('preview-title').textContent = siteName;
-      document.getElementById('preview-location').textContent = `${t.location} ${location}`;
-      document.getElementById('preview-dates').textContent = t.dates.replace('%rc%', rcCount).replace('%typo%', typoCount);
-      document.getElementById('preview-materials').textContent = materials.length ? t.materials.replace('%materials%', materials.join(', ')) : '';
+      document.getElementById('preview-location').textContent = `${i18n.t('location')} ${location}`;
+      document.getElementById('preview-dates').textContent = i18n.t('dates', { rc: rcCount, typo: typoCount });
+      document.getElementById('preview-materials').textContent = materials.length ? i18n.t('materials', { materials: materials.join(', ') }) : '';
+
       const encodedSite = encodeURIComponent(siteName);
-      document.getElementById('view-full-profile').href = `profile.html?site=${encodedSite}`;
+      const currentLang = i18n.locale || 'en';
+      document.getElementById('view-full-profile').href = `profile.html?site=${encodedSite}&lang=${currentLang}`;
       document.getElementById('profile-preview').style.display = 'block';
     }
 
@@ -440,19 +376,10 @@
     function updateUrlParams(params) {
       const url = new URL(window.location);
       Object.keys(params).forEach(key => url.searchParams.set(key, params[key]));
-      url.searchParams.set('lang', currentLang);
       window.history.replaceState({}, '', url);
     }
 
     function attachEventListeners() {
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          applyLanguage(btn.dataset.lang);
-          updateUrlParams({ lang: btn.dataset.lang });
-        });
-      });
       document.getElementById('download-btn').addEventListener('click', () => {
         const dataStr = JSON.stringify(allFeatures, null, 2);
         const blob = new Blob([dataStr], { type: 'application/json' });
