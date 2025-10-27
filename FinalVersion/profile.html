@@ -223,6 +223,27 @@
       border-color: #2563eb;
     }
   </style>
+  <style id="rtl-styles">
+    [dir="rtl"] {
+      text-align: right;
+    }
+    [dir="rtl"] .subtitle,
+    [dir="rtl"] .section-title,
+    [dir="rtl"] .linked-data h3,
+    [dir="rtl"] .bibliography h3 {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .linked-data .item {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .lang-toggle {
+      right: auto;
+      left: 1rem;
+    }
+    [dir="rtl"] th, [dir="rtl"] td {
+      text-align: right;
+    }
+  </style>
 </head>
 <body>
   <div class="lang-toggle">

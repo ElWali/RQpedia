@@ -159,10 +159,30 @@
       .sidebar { width: 100%; max-height: 400px; }
       .map-container { height: calc(100vh - 400px); }
     }
-    body[dir="rtl"] .sidebar { border-right: none; border-left: 1px solid var(--border); }
-    body[dir="rtl"] .map-controls { right: auto; left: 0.75rem; }
-    body[dir="rtl"] .stats { text-align: left; }
-    body[dir="rtl"] .lang-toggle { flex-direction: row-reverse; }
+    [dir="rtl"] .sidebar {
+      border-right: none;
+      border-left: 1px solid var(--border);
+    }
+    [dir="rtl"] .map-controls {
+      right: auto;
+      left: 0.75rem;
+    }
+    [dir="rtl"] .stats {
+      text-align: left;
+    }
+    [dir="rtl"] .lang-toggle {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] {
+      text-align: right;
+    }
+    [dir="rtl"] .header {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .download-btn::after {
+      margin-left: 0;
+      margin-right: 0.25rem;
+    }
   </style>
 </head>
 <body>
