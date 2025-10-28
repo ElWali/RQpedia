@@ -26,13 +26,13 @@ class RQPediai18n {
      * @param {string} lang - The language code (e.g., 'en', 'fr').
      */
     async setLanguage(lang) {
-        if (!['en', 'fr', 'ar'].includes(lang)) {
+        if (!['en', 'fr', 'ar', 'he'].includes(lang)) {
             lang = this.fallbackLocale;
         }
 
         this.locale = lang;
         document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.dir = ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr';
 
         try {
             localStorage.setItem('rqpedia_lang', lang);
@@ -111,7 +111,7 @@ class RQPediai18n {
 
         let detectedLang = langParam || savedLang || browserLang || this.fallbackLocale;
 
-        if (!['en', 'fr', 'ar'].includes(detectedLang)) {
+        if (!['en', 'fr', 'ar', 'he'].includes(detectedLang)) {
             detectedLang = this.fallbackLocale;
         }
 
