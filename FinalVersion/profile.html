@@ -64,14 +64,18 @@
       margin: 1.5rem 0 1rem 0;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
     }
     @media (min-width: 768px) {
       .section-title { font-size: 1.25rem; }
     }
+    .section-title[data-i18n="locationSection"] { --icon: "📍"; }
+    .section-title.icon-radiocarbon { --icon: "🔘"; }
+    .section-title.icon-typological { --icon: "🏺"; }
+    .section-title.icon-bibliography { --icon: "📚"; }
     .section-title::before {
-      content: "📍";
+      content: var(--icon);
       font-size: 1.2em;
+      margin-right: 0.5rem;
     }
     #map {
       height: 200px;
@@ -98,6 +102,10 @@
       display: block;
       font-weight: 600;
       margin-top: 0.5rem;
+    }
+    .count {
+      unicode-bidi: isolate;
+      margin-left: 0.25rem;
     }
     .linked-data {
       background: var(--light-gray);
@@ -240,8 +248,24 @@
       right: auto;
       left: 1rem;
     }
-    [dir="rtl"] th, [dir="rtl"] td {
+    [dir="rtl"] .coordinates p {
+      direction: ltr;
       text-align: right;
+    }
+    [dir="rtl"] .section-title::before {
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
+    [dir="rtl"] th {
+      text-align: right;
+    }
+    [dir="rtl"] td,
+    [dir="rtl"] .bibliography {
+      direction: ltr;
+      text-align: left;
+    }
+    [dir="rtl"] .container {
+      margin: 0 0 0 auto !important;
     }
   </style>
 </head>
@@ -508,8 +532,9 @@
             <div class="summary" id="wikipedia-summary">${wd.summaryHtml}</div>
           </div>
 
-          <div class="section-title">
-            <span data-i18n="radiocarbonDates">🔘 Radiocarbon dates</span> (<span id="rc-count">${siteFeatures.length}</span>)
+          <div class="section-title icon-radiocarbon">
+            <span data-i18n="radiocarbonDates">Radiocarbon dates</span>
+            <span class="count">(<span id="rc-count">${siteFeatures.length}</span>)</span>
           </div>
           <div class="table-container">
             <table>
@@ -531,8 +556,9 @@
             </table>
           </div>
 
-          <div class="section-title">
-            <span data-i18n="typologicalDates">🏺 Typological dates</span> (<span id="typo-count">${siteFeatures.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0)}</span>)
+          <div class="section-title icon-typological">
+            <span data-i18n="typologicalDates">Typological dates</span>
+            <span class="count">(<span id="typo-count">${siteFeatures.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0)}</span>)</span>
           </div>
           <div class="table-container">
             <table>
@@ -549,8 +575,8 @@
             </table>
           </div>
 
-          <div class="section-title">
-            <span data-i18n="bibliographicReferences">📚 Bibliographic references</span>
+          <div class="section-title icon-bibliography">
+            <span data-i18n="bibliographicReferences">Bibliographic references</span>
           </div>
           <div class="bibliography" id="bib-content">
             ${renderBibliography(siteFeatures)}
