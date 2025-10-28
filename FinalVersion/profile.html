@@ -496,11 +496,26 @@
         const lng = first.geometry.coordinates[0];
         const country = first.properties.country || 'MA';
 
-        let wd = { wikidataHtml: '—', wikipediaHtml: '—', summaryHtml: 'Could not load external data.' };
-        try {
-          wd = await fetchWikidataInfo(siteName);
-        } catch (err) {
-          console.warn('Error fetching Wikidata, proceeding without it:', err);
+        const cacheKey = `wikidata-${siteName}`;
+        let wd;
+
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+          wd = JSON.parse(cached);
+        } else {
+          try {
+            wd = await fetchWikidataInfo(siteName);
+            if (wd.wikidataHtml !== '—') {
+              sessionStorage.setItem(cacheKey, JSON.stringify(wd));
+            }
+          } catch (err) {
+            console.warn('Error fetching Wikidata, proceeding without it:', err);
+            wd = {
+              wikidataHtml: '—',
+              wikipediaHtml: '—',
+              summaryHtml: '<p data-i18n="wikidataError">Could not load description from Wikidata.</p>'
+            };
+          }
         }
 
         const content = `
