@@ -48,7 +48,8 @@
     "estimatedAge": "Estimated age",
     "references": "References",
     "sourceFile": "Generated from",
-    "wikidataError": "Could not load description from Wikidata."
+    "wikidataError": "Could not load description from Wikidata.",
+    "back_to_map": "Back to map"
   },
   "fr": {
     "titleDataBrowser": "📊 Explorateur de données",
@@ -99,7 +100,8 @@
     "estimatedAge": "Âge estimé",
     "references": "Références",
     "sourceFile": "Généré à partir de",
-    "wikidataError": "Impossible de charger la description depuis Wikidata."
+    "wikidataError": "Impossible de charger la description depuis Wikidata.",
+    "back_to_map": "Retour à la carte"
   },
   "ar": {
     "titleDataBrowser": "📊 مستعرض البيانات",
@@ -150,7 +152,8 @@
     "estimatedAge": "العمر المقدر",
     "references": "المراجع",
     "sourceFile": "تم إنشاؤه من",
-    "wikidataError": "تعذر تحميل الوصف من ويكي بيانات."
+    "wikidataError": "تعذر تحميل الوصف من ويكي بيانات.",
+    "back_to_map": "العودة إلى الخريطة"
   },
   "he": {
     "titleDataBrowser": "📊 דפדפן נתונים",
@@ -201,6 +204,7 @@
     "estimatedAge": "גיל מוערך",
     "references": "הפניות",
     "sourceFile": "נוצר מ",
-    "wikidataError": "לא ניתן לטעון תיאור מויקינתונים."
+    "wikidataError": "לא ניתן לטעון תיאור מויקינתונים.",
+    "back_to_map": "חזרה למפה"
   }
 }

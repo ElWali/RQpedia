@@ -234,6 +234,21 @@
       color: white;
       border-color: #2563eb;
     }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--gray);
+      text-decoration: none;
+    }
+    .back-link::before {
+      content: '←';
+      margin-inline-end: 0.5rem;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    [dir="rtl"] .back-link::before {
+      transform: scaleX(-1);
+    }
     [dir="rtl"] {
       text-align: start;
     }
@@ -267,6 +282,7 @@
     <button class="lang-btn" data-lang-switcher="he">HE</button>
   </div>
   <div class="container">
+    <a href="DataXplorer.html" data-i18n="back_to_map" class="back-link">Back to map</a>
     <div id="content">
       <div class="loading" data-i18n="loading">Loading site data...</div>
     </div>
