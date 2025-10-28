@@ -22,10 +22,7 @@ This report summarizes the audit and corrections applied to the `FinalVersion_RT
 
 ### `DataXplorer.html` & `profile.html`
 - Added a language switcher button for Hebrew.
-
-## Remaining Issues ⚠️
-
-- **Directional Icons:** The back arrow icon (`←`) on `profile.html` is currently hardcoded in the `locales/ui.json` translation file. For better RTL handling, this should be replaced with a CSS-driven icon that can be flipped automatically using `transform: scaleX(-1)` in RTL contexts. This is a content-level issue and does not affect the layout.
+- **Back-to-Map Link:** Implemented a "Back to map" link on `profile.html` with a CSS-driven icon (`←`) that automatically flips for RTL languages.
 
 ## Notes for Hebrew Activation 🕎
 
