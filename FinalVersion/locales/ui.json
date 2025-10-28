@@ -47,7 +47,8 @@
     "classification": "Classification",
     "estimatedAge": "Estimated age",
     "references": "References",
-    "sourceFile": "Generated from"
+    "sourceFile": "Generated from",
+    "wikidataError": "Could not load description from Wikidata."
   },
   "fr": {
     "titleDataBrowser": "📊 Explorateur de données",
@@ -97,7 +98,8 @@
     "classification": "Classification",
     "estimatedAge": "Âge estimé",
     "references": "Références",
-    "sourceFile": "Généré à partir de"
+    "sourceFile": "Généré à partir de",
+    "wikidataError": "Impossible de charger la description depuis Wikidata."
   },
   "ar": {
     "titleDataBrowser": "📊 مستعرض البيانات",
@@ -147,6 +149,7 @@
     "classification": "التصنيف",
     "estimatedAge": "العمر المقدر",
     "references": "المراجع",
-    "sourceFile": "تم إنشاؤه من"
+    "sourceFile": "تم إنشاؤه من",
+    "wikidataError": "تعذر تحميل الوصف من ويكي بيانات."
   }
 }
