@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site Profile — RQpedia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans+Hebrew:wght@400;700&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --gray: #6b7280;
+      --light-gray: #f3f4f6;
+      --border: #e5e7eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1rem;
+      font-size: 0.875rem;
+      text-align: start;
+    }
+    @media (min-width: 768px) {
+      body { font-size: 1rem; padding: 1.5rem; }
+    }
+    .container {
+      max-width: 800px;
+      margin-inline: auto;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      h1 { font-size: 2rem; }
+    }
+    .subtitle {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .subtitle::before {
+      content: "🏛️";
+      font-size: 1.2em;
+    }
+    .metadata {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .metadata { font-size: 0.875rem; }
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .section-title { font-size: 1.25rem; }
+    }
+    .section-title[data-i18n="locationSection"] { --icon: "📍"; }
+    .section-title.icon-radiocarbon { --icon: "🔘"; }
+    .section-title.icon-typological { --icon: "🏺"; }
+    .section-title.icon-bibliography { --icon: "📚"; }
+    .section-title::before {
+      content: var(--icon);
+      font-size: 1.2em;
+      margin-inline-end: 0.5rem;
+    }
+    #map {
+      height: 200px;
+      width: 100%;
+      border-radius: 8px;
+      background: var(--light-gray);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      #map { height: 150px; }
+    }
+    .coordinates {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      .coordinates { font-size: 1rem; }
+    }
+    .coordinates p {
+      margin: 0.25rem 0;
+    }
+    .coordinates strong {
+      display: block;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .count {
+      unicode-bidi: isolate;
+      margin-inline-start: 0.25rem;
+    }
+    .linked-data {
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .linked-data h3 {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      .linked-data h3 { font-size: 1rem; }
+    }
+    .linked-data .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      .linked-data .item { font-size: 1rem; }
+    }
+    .linked-data .item span:first-child {
+      font-weight: 600;
+    }
+    .linked-data .item a {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+    .linked-data .summary {
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      table { font-size: 1rem; }
+    }
+    th, td {
+      padding: 0.5rem;
+      text-align: start;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      th, td { padding: 0.25rem; font-size: 0.75rem; }
+    }
+    th {
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+    }
+    @media (min-width: 768px) {
+      th { font-size: 0.875rem; }
+    }
+    .bibliography {
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      .bibliography { font-size: 1rem; }
+    }
+    .bibliography h3 {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: var(--gray);
+      font-size: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      footer { font-size: 0.875rem; }
+    }
+    .loading, .error {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+    .error {
+      color: #ef4444;
+    }
+    .lang-toggle {
+      position: absolute;
+      top: 1rem;
+      inset-inline-end: 1rem;
+      display: flex;
+      gap: 0.25rem;
+    }
+    .lang-btn {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .lang-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    [dir="rtl"] {
+      text-align: start;
+    }
+    [dir="rtl"] .subtitle,
+    [dir="rtl"] .section-title,
+    [dir="rtl"] .linked-data h3,
+    [dir="rtl"] .bibliography h3,
+    [dir="rtl"] .linked-data .item {
+      flex-direction: row-reverse;
+    }
+    [dir="rtl"] .coordinates p {
+      direction: ltr;
+      text-align: end;
+    }
+    [dir="rtl"] .container {
+      margin-inline-start: auto;
+    }
+    [lang="ar"] body {
+      font-family: 'Noto Naskh Arabic', 'Amiri', 'Segoe UI', sans-serif;
+    }
+    [lang="he"] body {
+      font-family: 'Noto Sans Hebrew', 'Rubik', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-toggle">
+    <button class="lang-btn" data-lang-switcher="en">EN</button>
+    <button class="lang-btn" data-lang-switcher="fr">FR</button>
+    <button class="lang-btn" data-lang-switcher="ar">AR</button>
+  </div>
+  <div class="container">
+    <div id="content">
+      <div class="loading" data-i18n="loading">Loading site data...</div>
+    </div>
+    <footer>
+      © 2025 RQpedia | <span data-i18n="sourceFile">Generated from</span> <span id="source-file">output_full.geojson</span>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script>
+    // --- CONFIG ---
+    const DATA_URL = 'output_full.geojson';
+
+    document.addEventListener('i18n:ready', ({ detail: i18n }) => {
+      init();
+      i18n.onLanguageChange(init);
+    });
+
+    // --- UTILS ---
+    function decimalToDMS(decimal, isLat) {
+      const absolute = Math.abs(decimal);
+      const degrees = Math.floor(absolute);
+      const minutes = Math.floor((absolute - degrees) * 60);
+      const seconds = ((absolute - degrees - minutes/60) * 3600).toFixed(0);
+      let dir = '';
+      if (isLat) dir = decimal >= 0 ? 'N' : 'S';
+      else dir = decimal >= 0 ? 'E' : 'W';
+      return `${degrees}° ${minutes}' ${seconds}" ${dir}`;
+    }
+
+    function extractUniqueReferences(features) {
+      const refs = new Set();
+      features.forEach(f => {
+        const rList = f.properties.references || [];
+        if (Array.isArray(rList)) {
+            rList.forEach(r => {
+                if (r && typeof r === 'object' && r !== null) {
+                    const refString = [r.author, r.year].filter(Boolean).join(', ');
+                    if (refString) refs.add(refString);
+                } else if (r && typeof r === 'string' && r.trim()) {
+                    refs.add(r.trim());
+                }
+            });
+        }
+      });
+      return Array.from(refs).sort();
+    }
+
+    function renderBibliography(features) {
+      const refs = extractUniqueReferences(features);
+      if (refs.length === 0) return `<p>${i18n.t('noReferences')}</p>`;
+      return `<pre>${refs.join('\n')}</pre>`;
+    }
+
+    function renderRadiocarbonTable(features) {
+      if (features.length === 0) {
+        return `<tr><td colspan="8" style="text-align:center; padding:1rem;">${i18n.t('noData')}</td></tr>`;
+      }
+      let html = '';
+      features.forEach(f => {
+        const p = f.properties;
+        let refDisplay = '—';
+        if (p.references && Array.isArray(p.references) && p.references.length > 0) {
+          refDisplay = p.references
+            .map(ref => {
+              if (typeof ref === 'object' && ref !== null) {
+                return [ref.author, ref.year].filter(Boolean).join(', ');
+              }
+              if (typeof ref === 'string') {
+                return ref;
+              }
+              return null;
+            })
+            .filter(Boolean)
+            .join('; ');
+        }
+
+        html += `
+          <tr>
+            <td>${p.labnr || '—'}</td>
+            <td>${p.feature || '—'}</td>
+            <td>${p.material || '—'}</td>
+            <td>${p.species || 'NA'}</td>
+            <td>14C</td>
+            <td>${p.bp != null ? `${p.bp}±${p.std} BP` : '—'}</td>
+            <td>—</td>
+            <td>${refDisplay || '—'}</td>
+          </tr>
+        `;
+      });
+      return html;
+    }
+
+    function renderTypologicalTable(features) {
+      const typologicalRows = [];
+      features.forEach(f => {
+        const periods = f.properties.periods || [];
+        if (Array.isArray(periods)) {
+          periods.forEach(period => {
+            typologicalRows.push({
+              classification: period,
+              estimated_age: 'NA',
+              references: f.properties.references || []
+            });
+          });
+        }
+      });
+      if (typologicalRows.length === 0) {
+        return `<tr><td colspan="3" style="text-align:center; padding:1rem;">${i18n.t('noTypologicalData')}</td></tr>`;
+      }
+      let html = '';
+      typologicalRows.forEach(row => {
+        let refStr = '—';
+        if (row.references && Array.isArray(row.references) && row.references.length > 0) {
+            refStr = row.references
+            .map(ref => {
+              if (typeof ref === 'object' && ref !== null) {
+                return [ref.author, ref.year].filter(Boolean).join(', ');
+              }
+              if (typeof ref === 'string') {
+                return ref;
+              }
+              return null;
+            })
+            .filter(Boolean)
+            .join('; ');
+        }
+        html += `
+          <tr>
+            <td>${row.classification || '—'}</td>
+            <td>${row.estimated_age || '—'}</td>
+            <td>${refStr || '—'}</td>
+          </tr>
+        `;
+      });
+      return html;
+    }
+
+    async function fetchWikidataInfo(siteName) {
+      try {
+        const searchUrl = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(siteName)}&language=en&format=json&origin=*`;
+        const searchRes = await fetch(searchUrl);
+        const searchData = await searchRes.json();
+        if (!searchData.search || searchData.search.length === 0) {
+          throw new Error('No Wikidata entry found');
+        }
+        const entity = searchData.search[0];
+        const qid = entity.id;
+        const label = entity.label || siteName;
+        const entityUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${qid}&props=sitelinks&languages=en&format=json&origin=*`;
+        const entityRes = await fetch(entityUrl);
+        const entityData = await entityRes.json();
+        const enwiki = entityData.entities[qid]?.sitelinks?.enwiki?.title || null;
+        let wikidataHtml = `<a href="https://www.wikidata.org/wiki/${qid}" target="_blank">${qid} (${label})</a>`;
+        let wikipediaHtml = '—';
+        let summaryHtml = 'No English Wikipedia page available.';
+        if (enwiki) {
+          wikipediaHtml = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(enwiki)}" target="_blank">en ${enwiki}</a>`;
+          try {
+            const wikiSummaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(enwiki)}`;
+            const summaryRes = await fetch(wikiSummaryUrl);
+            const summaryData = await summaryRes.json();
+            summaryHtml = summaryData.extract || 'No summary available.';
+          } catch (e) {
+            summaryHtml = 'Could not load summary.';
+          }
+        }
+        return { wikidataHtml, wikipediaHtml, summaryHtml };
+      } catch (err) {
+        console.warn('Wikidata/Wikipedia lookup failed:', err);
+        return {
+          wikidataHtml: '—',
+          wikipediaHtml: '—',
+          summaryHtml: '<p data-i18n="wikidataError">Could not load description from Wikidata.</p>'
+        };
+      }
+    }
+
+    // --- MAIN ---
+    async function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const siteName = urlParams.get('site');
+      document.title = i18n.t('siteProfileTitle');
+
+      if (!siteName) {
+        document.getElementById('content').innerHTML = `
+          <div class="error">
+            <h2 data-i18n="siteNotSpecified">Site not specified</h2>
+            <p data-i18n="siteNotSpecifiedMessage">Please provide a site name in the URL: <code>?site=Jebel%20Irhoud</code></p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const res = await fetch(DATA_URL);
+        if (!res.ok) throw new Error('Failed to load output_full.geojson');
+        const geojson = await res.json();
+        const allFeatures = geojson.features;
+
+        const siteFeatures = allFeatures.filter(f =>
+          f.properties.site && f.properties.site.trim().toLowerCase() === siteName.trim().toLowerCase()
+        );
+
+        if (siteFeatures.length === 0) {
+          document.getElementById('content').innerHTML = `
+            <div class="error">
+              <h2 data-i18n="siteNotFound">Site not found</h2>
+              <p>${i18n.t('siteNotFoundMessage', {siteName: siteName})}</p>
+            </div>
+          `;
+          return;
+        }
+
+        const first = siteFeatures[0];
+        const lat = first.geometry.coordinates[1];
+        const lng = first.geometry.coordinates[0];
+        const country = first.properties.country || 'MA';
+
+        let wd = { wikidataHtml: '—', wikipediaHtml: '—', summaryHtml: 'Could not load external data.' };
+        try {
+          wd = await fetchWikidataInfo(siteName);
+        } catch (err) {
+          console.warn('Error fetching Wikidata, proceeding without it:', err);
+        }
+
+        const content = `
+          <h1>${siteName}</h1>
+          <div class="subtitle">${i18n.t('archaeologicalSiteIn')} ${country === 'MA' ? i18n.t('morocco') : country}</div>
+          <div class="metadata" data-i18n="betaVersion">This is a beta version of RQpedia!</div>
+
+          <div class="section-title" data-i18n="locationSection">Location</div>
+          <div id="map"></div>
+          <div class="coordinates">
+            <strong data-i18n="coordinatesDegrees">Coordinates (degrees)</strong>
+            <p>${lat.toFixed(4)}° N, ${lng.toFixed(4)}° W</p>
+            <strong data-i18n="coordinatesDMS">Coordinates (DMS)</strong>
+            <p>${decimalToDMS(lat, true)}, ${decimalToDMS(lng, false)}</p>
+            <strong data-i18n="countryISO">Country (ISO 3166)</strong>
+            <p>${country} (${country})</p>
+          </div>
+
+          <div class="linked-data">
+            <h3 data-i18n="linkedData">Linked Data</h3>
+            <div class="item">
+              <span data-i18n="wikidata">Wikidata</span>
+              <span id="wikidata-link">${wd.wikidataHtml}</span>
+            </div>
+            <div class="item">
+              <span data-i18n="wikipedia">Wikipedia</span>
+              <span id="wikipedia-link">${wd.wikipediaHtml}</span>
+            </div>
+            <div class="summary" id="wikipedia-summary">${wd.summaryHtml}</div>
+          </div>
+
+          <div class="section-title icon-radiocarbon">
+            <span data-i18n="radiocarbonDates">Radiocarbon dates</span>
+            <span class="count">(<span id="rc-count">${siteFeatures.length}</span>)</span>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="labId">Lab ID</th>
+                  <th data-i18n="context">Context</th>
+                  <th data-i18n="material">Material</th>
+                  <th data-i18n="taxon">Taxon</th>
+                  <th data-i18n="method">Method</th>
+                  <th data-i18n="uncalibratedAge">Uncalibrated age</th>
+                  <th data-i18n="calibratedAge">Calibrated age</th>
+                  <th data-i18n="reference">Reference</th>
+                </tr>
+              </thead>
+              <tbody id="rc-body">
+                ${renderRadiocarbonTable(siteFeatures)}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-title icon-typological">
+            <span data-i18n="typologicalDates">Typological dates</span>
+            <span class="count">(<span id="typo-count">${siteFeatures.reduce((sum, f) => sum + (f.properties.periods?.length || 0), 0)}</span>)</span>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="classification">Classification</th>
+                  <th data-i18n="estimatedAge">Estimated age</th>
+                  <th data-i18n="references">References</th>
+                </tr>
+              </thead>
+              <tbody id="typo-body">
+                ${renderTypologicalTable(siteFeatures)}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-title icon-bibliography">
+            <span data-i18n="bibliographicReferences">Bibliographic references</span>
+          </div>
+          <div class="bibliography" id="bib-content">
+            ${renderBibliography(siteFeatures)}
+          </div>
+        `;
+
+        document.getElementById('content').innerHTML = content;
+        i18n.translatePage();
+
+        const map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
+        }).addTo(map);
+        L.marker([lat, lng]).addTo(map).bindPopup(`<b>${siteName}</b><br>${country}`).openPopup();
+
+      } catch (err) {
+        console.error('Error loading site:', err);
+        document.getElementById('content').innerHTML = `
+          <div class="error">
+            <h2>Failed to load site data</h2>
+            <p>${err.message}</p>
+          </div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
