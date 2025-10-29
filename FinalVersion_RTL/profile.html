@@ -296,18 +296,36 @@
   <script>
     // --- CONFIG ---
     const DATA_URL = 'output_full.geojson';
+    let map = null;
 
     document.addEventListener('i18n:ready', ({ detail: i18n }) => {
       init();
-      i18n.onLanguageChange(init);
+      let timeout;
+      i18n.onLanguageChange(() => {
+        if (map) {
+          map.remove();
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(init, 300);
+      });
     });
 
     // --- UTILS ---
+    function validateGeoJSON(feature) {
+      if (!feature.properties?.site) {
+        throw new Error('Missing site name in GeoJSON feature.');
+      }
+      if (feature.geometry?.coordinates?.length !== 2) {
+        throw new Error(`Invalid coordinates for site: ${feature.properties.site}`);
+      }
+      return true;
+    }
+
     function decimalToDMS(decimal, isLat) {
       const absolute = Math.abs(decimal);
       const degrees = Math.floor(absolute);
       const minutes = Math.floor((absolute - degrees) * 60);
-      const seconds = ((absolute - degrees - minutes/60) * 3600).toFixed(0);
+      const seconds = ((absolute - degrees - minutes/60) * 3600).toFixed(2);
       let dir = '';
       if (isLat) dir = decimal >= 0 ? 'N' : 'S';
       else dir = decimal >= 0 ? 'E' : 'W';
@@ -315,26 +333,30 @@
     }
 
     function extractUniqueReferences(features) {
-      const refs = new Set();
+      const referenceMap = new Map();
       features.forEach(f => {
-        const rList = f.properties.references || [];
-        if (Array.isArray(rList)) {
-            rList.forEach(r => {
-                if (r && typeof r === 'object' && r !== null) {
-                    const refString = [r.author, r.year].filter(Boolean).join(', ');
-                    if (refString) refs.add(refString);
-                } else if (r && typeof r === 'string' && r.trim()) {
-                    refs.add(r.trim());
-                }
-            });
-        }
+        (f.properties.references || []).forEach(ref => {
+          if (ref && typeof ref === 'object' && ref !== null) {
+            const key = [ref.author, ref.year].filter(Boolean).join('|');
+            if (key) referenceMap.set(key, ref);
+          } else if (ref && typeof ref === 'string' && ref.trim()) {
+            const key = ref.trim();
+            referenceMap.set(key, key);
+          }
+        });
       });
-      return Array.from(refs).sort();
+      return referenceMap;
     }
 
     function renderBibliography(features) {
-      const refs = extractUniqueReferences(features);
-      if (refs.length === 0) return `<p>${i18n.t('noReferences')}</p>`;
+      const referenceMap = extractUniqueReferences(features);
+      if (referenceMap.size === 0) return `<p>${i18n.t('noReferences')}</p>`;
+      const refs = Array.from(referenceMap.values()).map(r => {
+        if (typeof r === 'object') {
+          return [r.author, r.year].filter(Boolean).join(', ');
+        }
+        return r;
+      }).sort();
       return `<pre>${refs.join('\n')}</pre>`;
     }
 
@@ -446,7 +468,9 @@
             const wikiSummaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(enwiki)}`;
             const summaryRes = await fetch(wikiSummaryUrl);
             const summaryData = await summaryRes.json();
-            summaryHtml = summaryData.extract || 'No summary available.';
+            const div = document.createElement('div');
+            div.textContent = summaryData.extract || 'No summary available.';
+            summaryHtml = div.innerHTML;
           } catch (e) {
             summaryHtml = 'Could not load summary.';
           }
@@ -488,6 +512,8 @@
           f.properties.site && f.properties.site.trim().toLowerCase() === siteName.trim().toLowerCase()
         );
 
+        siteFeatures.forEach(validateGeoJSON);
+
         if (siteFeatures.length === 0) {
           document.getElementById('content').innerHTML = `
             <div class="error">
@@ -499,17 +525,27 @@
         }
 
         const first = siteFeatures[0];
-        const lat = first.geometry.coordinates[1];
-        const lng = first.geometry.coordinates[0];
+        const lat = first?.geometry?.coordinates?.[1] ?? 0;
+        const lng = first?.geometry?.coordinates?.[0] ?? 0;
         const country = first.properties.country || 'MA';
 
-        const cacheKey = `wikidata-${siteName}`;
+        const formatter = new Intl.NumberFormat(i18n.currentLanguage, {
+          minimumFractionDigits: 4,
+          maximumFractionDigits: 4
+        });
+
+        const cacheKey = `wikidata-${siteName}-${i18n.currentLanguage}`;
         let wd;
 
         const cached = sessionStorage.getItem(cacheKey);
         if (cached) {
           wd = JSON.parse(cached);
         } else {
+          const linkedDataEl = document.querySelector('.linked-data');
+          if(linkedDataEl) {
+            linkedDataEl.style.opacity = '0.6';
+            linkedDataEl.style.pointerEvents = 'none';
+          }
           try {
             wd = await fetchWikidataInfo(siteName);
             if (wd.wikidataHtml !== '—') {
@@ -531,10 +567,10 @@
           <div class="metadata" data-i18n="betaVersion">This is a beta version of RQpedia!</div>
 
           <div class="section-title" data-i18n="locationSection">Location</div>
-          <div id="map"></div>
+          <div id="map" role="img" aria-label="Map showing location of archaeological site"></div>
           <div class="coordinates">
             <strong data-i18n="coordinatesDegrees">Coordinates (degrees)</strong>
-            <p>${lat.toFixed(4)}° N, ${lng.toFixed(4)}° W</p>
+            <p>${formatter.format(lat)}° ${lat >= 0 ? 'N' : 'S'}, ${formatter.format(lng)}° ${lng >= 0 ? 'E' : 'W'}</p>
             <strong data-i18n="coordinatesDMS">Coordinates (DMS)</strong>
             <p>${decimalToDMS(lat, true)}, ${decimalToDMS(lng, false)}</p>
             <strong data-i18n="countryISO">Country (ISO 3166)</strong>
@@ -608,11 +644,21 @@
         document.getElementById('content').innerHTML = content;
         i18n.translatePage();
 
-        const map = L.map('map').setView([lat, lng], 13);
+        const linkedDataEl = document.querySelector('.linked-data');
+        if(linkedDataEl) {
+          linkedDataEl.style.opacity = '1';
+          linkedDataEl.style.pointerEvents = 'auto';
+        }
+
+        map = L.map('map').setView([lat, lng], 13);
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
           attribution: 'Tiles © <a href="https://services.arcgisonline.com">Esri</a>',
         }).addTo(map);
         L.marker([lat, lng]).addTo(map).bindPopup(`<b>${siteName}</b><br>${country}`).openPopup();
+
+        map.on('error', (e) => {
+          console.warn('Map error:', e);
+        });
 
       } catch (err) {
         console.error('Error loading site:', err);
