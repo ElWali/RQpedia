@@ -75,7 +75,7 @@
     .section-title::before {
       content: var(--icon);
       font-size: 1.2em;
-      margin-right: 0.5rem;
+      margin-inline-end: 0.5rem;
     }
     #map {
       height: 200px;
@@ -156,7 +156,7 @@
     }
     th, td {
       padding: 0.5rem;
-      text-align: left;
+      text-align: start;
       border-bottom: 1px solid var(--border);
     }
     @media (max-width: 768px) {
@@ -241,9 +241,6 @@
     [dir="rtl"] .bibliography h3 {
       flex-direction: row-reverse;
     }
-    [dir="rtl"] .linked-data .item {
-      flex-direction: row-reverse;
-    }
     [dir="rtl"] .lang-toggle {
       right: auto;
       left: 1rem;
@@ -256,16 +253,30 @@
       margin-right: 0;
       margin-left: 0.5rem;
     }
-    [dir="rtl"] th {
-      text-align: right;
+    [dir="rtl"] th,
+    [dir="rtl"] td {
+      text-align: start;
     }
-    [dir="rtl"] td,
     [dir="rtl"] .bibliography {
-      direction: ltr;
-      text-align: left;
+      text-align: right;
     }
     [dir="rtl"] .container {
       margin: 0 0 0 auto !important;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--gray);
+      text-decoration: none;
+    }
+    .back-link::before {
+      content: '←';
+      margin-right: 0.5rem;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    [dir="rtl"] .back-link::before {
+      content: '→';
     }
   </style>
 </head>
@@ -276,6 +287,7 @@
     <button class="lang-btn" data-lang-switcher="ar">AR</button>
   </div>
   <div class="container">
+    <a href="DataXplorer.html" data-i18n="back_to_map" class="back-link">Back to map</a>
     <div id="content">
       <div class="loading" data-i18n="loading">Loading site data...</div>
     </div>
