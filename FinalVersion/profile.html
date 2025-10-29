@@ -105,7 +105,7 @@
     }
     .count {
       unicode-bidi: isolate;
-      margin-left: 0.25rem;
+      margin-inline-start: 0.25rem;
     }
     .linked-data {
       background: var(--light-gray);
@@ -213,7 +213,7 @@
     .lang-toggle {
       position: absolute;
       top: 1rem;
-      right: 1rem;
+      inset-inline-end: 1rem;
       display: flex;
       gap: 0.25rem;
     }
@@ -232,8 +232,8 @@
     }
   </style>
   <style id="rtl-styles">
-    [dir="rtl"] {
-      text-align: right;
+    body {
+      text-align: start;
     }
     [dir="rtl"] .subtitle,
     [dir="rtl"] .section-title,
@@ -242,26 +242,26 @@
       flex-direction: row-reverse;
     }
     [dir="rtl"] .lang-toggle {
-      right: auto;
-      left: 1rem;
+      inset-inline-end: auto;
+      inset-inline-start: 1rem;
     }
     [dir="rtl"] .coordinates p {
       direction: ltr;
-      text-align: right;
+      text-align: end;
     }
     [dir="rtl"] .section-title::before {
-      margin-right: 0;
-      margin-left: 0.5rem;
+      margin-inline-end: 0;
+      margin-inline-start: 0.5rem;
     }
     [dir="rtl"] th,
     [dir="rtl"] td {
       text-align: start;
     }
     [dir="rtl"] .bibliography {
-      text-align: right;
+      text-align: start;
     }
     [dir="rtl"] .container {
-      margin: 0 0 0 auto !important;
+      margin-inline-start: auto;
     }
     .back-link {
       display: inline-block;
@@ -271,7 +271,7 @@
     }
     .back-link::before {
       content: '←';
-      margin-right: 0.5rem;
+      margin-inline-end: 0.5rem;
       display: inline-block;
       transition: transform 0.2s;
     }
