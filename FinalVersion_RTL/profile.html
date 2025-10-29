@@ -539,7 +539,8 @@
             wd = {
               wikidataHtml: '—',
               wikipediaHtml: '—',
-              summaryHtml: '<p data-i18n="wikidataError">Could not load description from Wikidata.</p>'
+              summaryHtml: i18n.t('wikidataError'),
+              summaryIsText: true
             };
           }
         }
@@ -570,7 +571,7 @@
               <span data-i18n="wikipedia">Wikipedia</span>
               <span id="wikipedia-link">${wd.wikipediaHtml}</span>
             </div>
-            <div class="summary" id="wikipedia-summary">${wd.summaryHtml}</div>
+            <div class="summary" id="wikipedia-summary"></div>
           </div>
 
           <div class="section-title icon-radiocarbon">
@@ -625,6 +626,14 @@
         `;
 
         document.getElementById('content').innerHTML = content;
+
+        const summaryEl = document.getElementById('wikipedia-summary');
+        if (wd.summaryIsText) {
+          summaryEl.textContent = wd.summaryHtml;
+        } else {
+          summaryEl.innerHTML = wd.summaryHtml;
+        }
+
         i18n.translatePage();
 
         const linkedDataEl = document.querySelector('.linked-data');
