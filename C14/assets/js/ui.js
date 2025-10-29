@@ -44,6 +44,11 @@ const UI = (function() {
             html += `<p><strong>References:</strong> ${referenceStrings.join(', ')}</p>`;
         }
 
+        // Add link to the full profile page
+        if (properties.labnr) {
+            html += `<a href="profile.html?labnr=${properties.labnr}" class="profile-link">View Full Profile</a>`;
+        }
+
         siteDetailsElement.innerHTML = html;
     }
 
