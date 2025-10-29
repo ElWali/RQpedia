@@ -160,7 +160,7 @@
     }
     th, td {
       padding: 0.5rem;
-      text-align: start;
+      text-align: right;
       border-bottom: 1px solid var(--border);
     }
     @media (max-width: 768px) {
@@ -247,7 +247,7 @@
       transition: transform 0.2s;
     }
     [dir="rtl"] .back-link::before {
-      transform: scaleX(-1);
+      content: '→';
     }
     [dir="rtl"] {
       text-align: start;
