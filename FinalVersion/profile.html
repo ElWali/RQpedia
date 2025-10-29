@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Site Profile — RQpedia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
@@ -263,6 +263,11 @@
     [dir="rtl"] .container {
       margin-inline-start: auto;
     }
+    [dir="rtl"] .back-link::before {
+      content: '→';
+    }
+  </style>
+  <style>
     .back-link {
       display: inline-block;
       margin-bottom: 1rem;
@@ -274,9 +279,6 @@
       margin-inline-end: 0.5rem;
       display: inline-block;
       transition: transform 0.2s;
-    }
-    [dir="rtl"] .back-link::before {
-      content: '→';
     }
   </style>
 </head>
@@ -486,7 +488,7 @@
         return {
           wikidataHtml: '—',
           wikipediaHtml: '—',
-          summaryHtml: '<p data-i18n="wikidataError">Could not load description from Wikidata.</p>'
+          summaryHtml: i18n.t('wikidataError')
         };
       }
     }
@@ -572,7 +574,7 @@
           <div class="metadata" data-i18n="betaVersion">This is a beta version of RQpedia!</div>
 
           <div class="section-title" data-i18n="locationSection">Location</div>
-          <div id="map" role="img" aria-label="Map showing location of archaeological site"></div>
+          <div id="map" aria-label="Map showing location of archaeological site"></div>
           <div class="coordinates">
             <strong data-i18n="coordinatesDegrees">Coordinates (degrees)</strong>
             <p>${formatter.format(lat)}° ${lat >= 0 ? 'N' : 'S'}, ${formatter.format(lng)}° ${lng >= 0 ? 'E' : 'W'}</p>
