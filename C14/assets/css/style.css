@@ -1,0 +1,51 @@
+/* C14/assets/css/style.css */
+
+/* Basic Styles */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#map-container {
+    height: 50vh; /* Mobile: Map takes top half */
+    width: 100%;
+}
+
+#data-sidebar {
+    height: 50vh; /* Mobile: Data takes bottom half */
+    width: 100%;
+    overflow-y: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+#site-title {
+    margin-top: 0;
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+    .main-container {
+        flex-direction: row;
+    }
+
+    #map-container {
+        height: 100vh; /* Desktop: Map takes full height */
+        width: 70%;
+    }
+
+    #data-sidebar {
+        height: 100vh; /* Desktop: Data takes full height */
+        width: 30%;
+    }
+}
