@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Profile - RQpedia C14 Edition</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="profile-header">
+        <div class="logo">
+            <h1><a href="index.html">RQpedia C14</a></h1>
+        </div>
+        <nav>
+            <a href="index.html#map-container">Map Explorer</a>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        <h1 id="profile-site-title">Loading site data...</h1>
+        <div class="profile-content">
+            <section id="data-table-section">
+                <h2>Details</h2>
+                <table id="site-data-table">
+                    <!-- Data will be dynamically inserted here -->
+                </table>
+            </section>
+            <section id="metadata-section">
+                <div id="references-container">
+                    <h2>Direct References to Radiocarbon Date</h2>
+                    <div id="references-list"></div>
+                </div>
+                <div id="phasing-container">
+                    <h2>Relevant Cultural Phasing</h2>
+                    <div id="phasing-list"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+</html>
