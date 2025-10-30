@@ -44,7 +44,7 @@ async def main():
             await page.goto(url, wait_until="networkidle")
 
             # Wait for the content to be populated
-            await page.wait_for_selector("#site-data-table tr")
+            await page.wait_for_selector(".collapsible-section")
             await page.wait_for_selector("#references-list")
             await page.wait_for_selector("#phasing-list")
 
