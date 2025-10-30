@@ -21,21 +21,18 @@ async def run_verification(playwright, server_port, labnr):
     # Check for the main title
     await page.wait_for_selector('#profile-site-title')
 
-    # Check for the main sections
-    await page.wait_for_selector('.profile-grid')
-    await page.wait_for_selector('.profile-left')
-    await page.wait_for_selector('.profile-right')
-    await page.wait_for_selector('.additional-tables-section')
+    # Check for the calibration graph canvas
+    await page.wait_for_selector('#calibrationChart')
 
     # Take a screenshot
-    screenshot_path = "jules-scratch/profile_redesign_verify.png"
+    screenshot_path = "jules-scratch/profile_graph_verify.png"
     await page.screenshot(path=screenshot_path)
     print(f"Screenshot saved to {screenshot_path}")
 
     await browser.close()
 
 @pytest.mark.asyncio
-async def test_profile_page_redesign():
+async def test_profile_page_graph():
     port = 8000
     labnr = "Gif-6184"
 
