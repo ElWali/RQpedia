@@ -36,12 +36,18 @@ const UI = (function() {
 
         if (properties.references && properties.references.length) {
             const referenceStrings = properties.references.map(ref => {
-                if (typeof ref === 'object' && ref.author && ref.year) {
-                    return `${ref.author} ${ref.year}`;
+                if (typeof ref === 'object' && ref !== null && ref.author) {
+                    return `${ref.author}${ref.year ? ` (${ref.year})` : ''}`;
                 }
-                return ref;
-            });
-            html += `<p><strong>References:</strong> ${referenceStrings.join(', ')}</p>`;
+                if (typeof ref === 'string') {
+                    return ref;
+                }
+                return null;
+            }).filter(Boolean);
+
+            if (referenceStrings.length) {
+                html += `<p><strong>References:</strong> ${referenceStrings.join(', ')}</p>`;
+            }
         }
 
         // Add link to the full profile page

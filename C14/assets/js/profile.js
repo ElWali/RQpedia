@@ -14,14 +14,15 @@ const Profile = (function(Data) {
     // A mapping of property keys to their display-friendly labels.
     const PROPERTY_LABELS = {
         'site': 'Site Name',
+        'country': 'Country',
         'medafricadateid': 'MedAfrica Date ID',
         'labid': 'Lab ID',
         'otherlabid': 'Other Lab ID',
         'problems': 'Problems',
         'uncalibrateddate': 'Uncalibrated Date',
         'error': 'Error',
-        'dc13': 'DC13',
-        'dcerror': 'DC Error',
+        'dc13': 'δ13C',
+        'dc13error': 'δ13C Error',
         'datemethod': 'Date Method',
         'calibrationcurve': 'Calibration Curve',
         'localreservoir14cyrformarinedates': 'Local Reservoir 14C yr (for Marine Dates)',
@@ -34,30 +35,31 @@ const Profile = (function(Data) {
         'domesticcattle': 'Domestic Cattle',
         'wildcattle': 'Wild Cattle',
         'undeterminedbovids': 'Undetermined Bovids',
-        'domesticsheep/goats': 'Domestic Sheep / Goats',
+        'domesticsheep/goats': 'Domestic Sheep/Goats',
         'wildbarbarysheep': 'Wild Barbary Sheep',
         'domesticdonkeys': 'Domestic Donkeys',
-        'wilddonkeys/zebras': 'Wild Donkeys / Zebras',
+        'wilddonkeys/zebras': 'Wild Donkeys/Zebras',
         'domestichorses': 'Domestic Horses',
         'undeterminedequids': 'Undetermined Equids',
         'domesticpigs': 'Domestic Pigs',
         'ostricheggshells': 'Ostrich Eggshells',
         'ostrichbones': 'Ostrich Bones',
         'otherwildterrestrialmacrofauna': 'Other Wild Terrestrial Macrofauna',
-        'otherwildterrestrialmicrofauna/avifauna': 'Other Wild Terrestrial Microfauna / Avifauna',
-        'terrestrial/freshwatermolluscs': 'Terrestrial / Freshwater Molluscs',
+        'otherwildterrestrialmicrofauna/avifauna': 'Other Wild Terrestrial Microfauna/Avifauna',
+        'terrestrial/freshwatermolluscs': 'Terrestrial/Freshwater Molluscs',
         'marinemolluscs': 'Marine Molluscs',
-        'ichthyofauna/turtles': 'Ichthyofauna / Turtles',
+        'ichthyofauna/turtles': 'Ichthyofauna/Turtles',
         'domesticcereals': 'Domestic Cereals',
         'domesticpulses': 'Domestic Pulses',
         'fruitcrops': 'Fruit Crops',
         'wildplants': 'Wild Plants',
         'pottery': 'Pottery',
-        'lithicbackedtools/geometrics': 'Lithic Backed Tools / Geometrics',
-        'lithicnotches/denticulates': 'Lithic Notches / Denticulates',
+        'lithicbackedtools/geometrics': 'Lithic Backed Tools/Geometrics',
+        'lithicnotches/denticulates': 'Lithic Notches/Denticulates',
         'lithicarrowheads': 'Lithic Arrowheads',
         'lithicbifacialtools': 'Lithic Bifacial Tools',
-        'lithicpolishedaxes/adzes': 'Lithic Polished Axes / Adzes'
+        'lithicpolishedaxes/adzes': 'Lithic Polished Axes/Adzes',
+        'labnr': 'Lab Number'
     };
 
 
@@ -98,7 +100,7 @@ const Profile = (function(Data) {
         // Render data table
         let tableHtml = '';
         for (const key in properties) {
-            const label = PROPERTY_LABELS[key.toLowerCase().replace(/\s/g, '')] || key;
+            const label = PROPERTY_LABELS[key.toLowerCase()] || key;
             const value = properties[key] || 'n/a';
             // We will not display periods and references in the main table
             if (key.toLowerCase() !== 'periods' && key.toLowerCase() !== 'references') {
@@ -110,14 +112,18 @@ const Profile = (function(Data) {
         // Render references
         let referencesHtml = '';
         if (properties.references && properties.references.length) {
-            properties.references.forEach(ref => {
-                 if (typeof ref === 'object' && ref.author && ref.year) {
-                    referencesHtml += `<p>${ref.author} ${ref.year}</p>`;
-                } else {
-                    referencesHtml += `<p>${ref}</p>`;
+            referencesHtml = properties.references.map(ref => {
+                if (typeof ref === 'object' && ref !== null && ref.author) {
+                    return `<p>${ref.author}${ref.year ? ` (${ref.year})` : ''}</p>`;
                 }
-            });
-        } else {
+                if (typeof ref === 'string') {
+                    return `<p>${ref}</p>`;
+                }
+                return ''; // Ignore malformed entries
+            }).join('');
+        }
+
+        if (!referencesHtml) {
             referencesHtml = '<p>No references available.</p>';
         }
         referencesListElement.innerHTML = referencesHtml;
