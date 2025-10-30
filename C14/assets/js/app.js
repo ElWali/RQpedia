@@ -11,6 +11,9 @@ const App = (function(Data, Map, UI) {
      */
     async function init() {
         try {
+            // Show loading indicator
+            UI.showLoading();
+
             // Initialize the map
             Map.init('map-container');
 
@@ -19,6 +22,9 @@ const App = (function(Data, Map, UI) {
 
             // Add markers to the map
             Map.addMarkers(features, handleMarkerClick);
+
+            // Hide loading indicator
+            UI.hideLoading();
 
         } catch (error) {
             // Display an error message to the user
