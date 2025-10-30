@@ -14,6 +14,9 @@ const Map = (function() {
      * @param {string} mapId - The ID of the map container element.
      */
     function init(mapId) {
+        if (map) {
+            map.remove();
+        }
         map = L.map(mapId).setView([28.0, -9.0], 5); // Centered on Morocco
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -27,6 +30,11 @@ const Map = (function() {
      * @param {Function} onMarkerClick - A callback function to execute when a marker is clicked.
      */
     function addMarkers(features, onMarkerClick) {
+        if (!map) {
+            console.error('Map is not initialized. Call Map.init() before adding markers.');
+            return;
+        }
+
         markers.clearLayers(); // Clear existing markers
 
         features.forEach(feature => {

@@ -10,52 +10,80 @@ const UI = (function() {
     const siteDetailsElement = document.getElementById('site-details');
 
     /**
-     * Renders the details of a selected site into the sidebar.
+     * Shows a loading indicator in the sidebar.
+     */
+    function showLoading() {
+        siteTitleElement.textContent = 'Loading...';
+        siteDetailsElement.innerHTML = '<p>Fetching data, please wait.</p>';
+    }
+
+    /**
+     * Hides the loading indicator and resets the sidebar to its default state.
+     */
+    function hideLoading() {
+        siteTitleElement.textContent = 'Select a site';
+        siteDetailsElement.innerHTML = '';
+    }
+
+    /**
+     * Renders the details of a selected site into the sidebar using a definition list.
      * @param {Object} properties - The properties object from a GeoJSON feature.
      */
     function renderSiteDetails(properties) {
         if (!properties) {
-            siteTitleElement.textContent = 'Error';
-            siteDetailsElement.innerHTML = '<p>No properties to display.</p>';
+            renderError('No properties to display.');
             return;
         }
 
         siteTitleElement.textContent = properties.site || 'Unnamed Site';
 
-        let html = `
-            <p><strong>Lab Number:</strong> ${properties.labnr || 'N/A'}</p>
-            <p><strong>BP:</strong> ${properties.bp || 'N/A'}</p>
-            <p><strong>Std:</strong> ${properties.std || 'N/A'}</p>
-            <p><strong>Material:</strong> ${properties.material || 'N/A'}</p>
-            <p><strong>Country:</strong> ${properties.country || 'N/A'}</p>
-        `;
+        const dl = document.createElement('dl');
 
-        if (properties.periods && properties.periods.length) {
-            html += `<p><strong>Periods:</strong> ${properties.periods.join(', ')}</p>`;
+        const fields = {
+            'Lab Number': properties.labnr,
+            'BP': properties.bp,
+            'Std': properties.std,
+            'Material': properties.material,
+            'Country': properties.country,
+            'Periods': properties.periods ? properties.periods.join(', ') : null
+        };
+
+        for (const [key, value] of Object.entries(fields)) {
+            if (value) {
+                const dt = document.createElement('dt');
+                dt.textContent = key;
+                const dd = document.createElement('dd');
+                dd.textContent = value;
+                dl.appendChild(dt);
+                dl.appendChild(dd);
+            }
         }
 
         if (properties.references && properties.references.length) {
+            const dt = document.createElement('dt');
+            dt.textContent = 'References';
+            const dd = document.createElement('dd');
             const referenceStrings = properties.references.map(ref => {
                 if (typeof ref === 'object' && ref !== null && ref.author) {
                     return `${ref.author}${ref.year ? ` (${ref.year})` : ''}`;
                 }
-                if (typeof ref === 'string') {
-                    return ref;
-                }
-                return null;
+                return typeof ref === 'string' ? ref : null;
             }).filter(Boolean);
-
-            if (referenceStrings.length) {
-                html += `<p><strong>References:</strong> ${referenceStrings.join(', ')}</p>`;
-            }
+            dd.textContent = referenceStrings.join('; ');
+            dl.appendChild(dt);
+            dl.appendChild(dd);
         }
 
-        // Add link to the full profile page
+        siteDetailsElement.innerHTML = '';
+        siteDetailsElement.appendChild(dl);
+
         if (properties.labnr) {
-            html += `<a href="profile.html?labnr=${properties.labnr}" class="profile-link">View Full Profile</a>`;
+            const link = document.createElement('a');
+            link.href = `profile.html?labnr=${properties.labnr}`;
+            link.className = 'profile-link';
+            link.textContent = 'View Full Profile';
+            siteDetailsElement.appendChild(link);
         }
-
-        siteDetailsElement.innerHTML = html;
     }
 
     /**
@@ -63,12 +91,14 @@ const UI = (function() {
      * @param {string} message - The error message to display.
      */
     function renderError(message) {
+        hideLoading();
         siteTitleElement.textContent = 'Error';
         siteDetailsElement.innerHTML = `<p>${message}</p>`;
     }
 
-
     return {
+        showLoading,
+        hideLoading,
         renderSiteDetails,
         renderError
     };
