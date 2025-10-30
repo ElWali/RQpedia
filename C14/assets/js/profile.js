@@ -112,12 +112,14 @@ const Profile = (function(Data) {
      * @param {Array<Object>} features - The array of features for the site.
      */
     function renderRadiocarbonDatesTable(features) {
-        if (!features || features.length === 0) {
+        const radiocarbonFeatures = features.filter(f => f.properties.bp !== null && f.properties.bp !== undefined);
+
+        if (radiocarbonFeatures.length === 0) {
             radiocarbonDatesTableContainer.innerHTML = '<p>No radiocarbon dates found for this site.</p>';
             return;
         }
 
-        const tableRows = features.map(feature => {
+        const tableRows = radiocarbonFeatures.map(feature => {
             const props = feature.properties;
             const uncalibratedAge = props.bp && props.std ? `${props.bp} ± ${props.std}` : '—';
             const references = (props.references && props.references.length > 0) ?
