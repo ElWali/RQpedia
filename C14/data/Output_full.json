@@ -52386,7 +52386,7 @@
         "site": "Ifri Ou Berid",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52405,7 +52405,7 @@
         "site": "Ifri Ou Berid",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52424,7 +52424,7 @@
         "site": "Ifri Ou Berid",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52462,7 +52462,7 @@
         "site": "Sidi Ahmed",
         "country": "MA",
         "material": "organic matter",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52481,7 +52481,7 @@
         "site": "Ifri Zerrouk",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52500,7 +52500,7 @@
         "site": "Ifri Zerrouk",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
@@ -52513,13 +52513,13 @@
     {
       "type": "Feature",
       "properties": {
-        "labnr": NaN,
+        "labnr": null,
         "bp": 2680,
         "std": 35.0,
         "site": "Elephant's Frieze C-800",
         "country": "MA",
         "material": "charcoal",
-        "species": NaN
+        "species": null
       },
       "geometry": {
         "type": "Point",
