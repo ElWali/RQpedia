@@ -73,6 +73,9 @@ const Profile = (function(Data) {
         renderRadiocarbonDatesTable(relatedFeatures);
         renderTypologicalDatesTable(relatedFeatures);
 
+        Charts.renderMaterialDistributionChart(relatedFeatures);
+        Charts.renderDateDistributionChart(relatedFeatures);
+
         if (properties.bp && properties.std) {
             renderCalibrationGraph(properties.bp, properties.std);
         }
