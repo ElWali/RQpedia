@@ -1,8 +1,38 @@
 /* C14/assets/css/style.css */
 
+/* C14/assets/css/style.css */
+
+:root {
+    --primary-color: #1976D2; /* Blue 700 */
+    --primary-color-light: #64B5F6; /* Blue 300 */
+    --primary-color-dark: #0D47A1; /* Blue 900 */
+    --secondary-color: #FF4081; /* Pink A200 */
+    --text-color-primary: #212121;
+    --text-color-secondary: #757575;
+    --background-color: #f5f5f5;
+    --surface-color: #ffffff;
+    --divider-color: #e0e0e0;
+
+    /* Typography */
+    --font-family: 'Roboto', sans-serif;
+    --font-size-headline1: 6rem;
+    --font-size-headline2: 3.75rem;
+    --font-size-headline3: 3rem;
+    --font-size-headline4: 2.125rem;
+    --font-size-headline5: 1.5rem;
+    --font-size-headline6: 1.25rem;
+    --font-size-subtitle1: 1rem;
+    --font-size-subtitle2: 0.875rem;
+    --font-size-body1: 1rem;
+    --font-size-body2: 0.875rem;
+    --font-size-button: 0.875rem;
+    --font-size-caption: 0.75rem;
+    --font-size-overline: 0.625rem;
+}
+
 /* Basic Styles */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family);
     margin: 0;
     padding: 0;
     display: flex;
@@ -80,7 +110,7 @@ body {
 .button-flat {
     background-color: transparent;
     border: none;
-    color: #007bff;
+    color: var(--primary-color);
     padding: 8px 12px;
     text-transform: uppercase;
     font-weight: 500;
@@ -92,6 +122,44 @@ body {
 
 .button-flat:hover {
     background-color: rgba(0, 123, 255, 0.1);
+}
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+.ripple:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
 }
 
 /* Desktop Styles */
@@ -135,7 +203,7 @@ body {
 
 .profile-header nav a {
     text-decoration: none;
-    color: #007bff;
+    color: var(--primary-color);
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -176,30 +244,22 @@ body {
     margin-bottom: 2rem;
 }
 
-.profile-left h2, .additional-tables-section h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #343a40;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.profile-right h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #212529;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0;
-    border-bottom: none;
+.card-title {
+    font-size: var(--font-size-headline6);
+    font-weight: 500;
+    color: var(--text-color-primary);
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--divider-color);
+    padding-bottom: 8px;
 }
 
 #graph-placeholder {
-    border: 1px dashed #ccc;
+    border: 1px solid var(--divider-color);
     padding: 2rem;
     text-align: center;
-    color: #777;
-    background-color: #f8f9fa;
+    color: var(--text-color-secondary);
+    background-color: var(--background-color);
     border-radius: 4px;
     min-height: 250px;
     display: flex;
@@ -276,13 +336,20 @@ body {
     border: none;
     background: none;
     margin-left: 8px;
-    opacity: 0.5;
-    transition: opacity 0.2s;
+    color: var(--text-color-secondary);
+    transition: color 0.3s;
     vertical-align: middle;
+    padding: 4px;
+    border-radius: 50%;
 }
 
 .copy-btn:hover {
-    opacity: 1;
+    color: var(--text-color-primary);
+    background-color: rgba(0,0,0,0.08);
+}
+
+.copy-btn .material-icons {
+    font-size: 16px;
 }
 
 .na-value {

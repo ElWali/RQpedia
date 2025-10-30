@@ -30,38 +30,47 @@
                 </section>
             </div>
             <div class="profile-right">
-                <section id="graph-section">
-                    <h2>Calibration Graph</h2>
-                    <div id="graph-placeholder">
-                        <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['January','February','March','April','May'],datasets:[{label:'Dogs',data:[50,60,70,180,190]}]}}" alt="Calibration graph placeholder" style="max-width: 100%; height: auto;">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="card-title">Calibration Graph</h2>
+                        <div id="graph-placeholder">
+                            <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['January','February','March','April','May'],datasets:[{label:'Dogs',data:[50,60,70,180,190]}]}}" alt="Calibration graph placeholder" style="max-width: 100%; height: auto;">
+                        </div>
                     </div>
-                </section>
-                <section id="metadata-section">
-                    <div id="references-container">
-                        <h2>Direct References to Radiocarbon Date</h2>
-                        <div id="references-list"></div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="card-title">Metadata</h2>
+                        <div id="references-container">
+                            <h3>Direct References to Radiocarbon Date</h3>
+                            <div id="references-list"></div>
+                        </div>
+                        <div id="phasing-container">
+                            <h3>Relevant Cultural Phasing</h3>
+                            <div id="phasing-list"></div>
+                        </div>
                     </div>
-                    <div id="phasing-container">
-                        <h2>Relevant Cultural Phasing</h2>
-                        <div id="phasing-list"></div>
-                    </div>
-                </section>
+                </div>
             </div>
         </div>
 
         <div class="additional-tables-section">
-            <section id="radiocarbon-dates-section">
-                <h2>Radiocarbon Dates</h2>
-                <div id="radiocarbon-dates-table-container">
-                    <!-- Radiocarbon Dates table will be inserted here -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">All Radiocarbon Dates from Site</h2>
+                    <div id="radiocarbon-dates-table-container">
+                        <!-- Radiocarbon Dates table will be inserted here -->
+                    </div>
                 </div>
-            </section>
-            <section id="typological-dates-section">
-                <h2>Typological Dates</h2>
-                <div id="typological-dates-table-container">
-                    <!-- Typological Dates table will be inserted here -->
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">All Typological Dates from Site</h2>
+                    <div id="typological-dates-table-container">
+                        <!-- Typological Dates table will be inserted here -->
+                    </div>
                 </div>
-            </section>
+            </div>
         </div>
     </main>
 

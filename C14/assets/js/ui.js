@@ -74,7 +74,7 @@ const UI = (function() {
         if (labnr) {
             cardContent += `
                 <div class="card-actions">
-                    <a href="profile.html?labnr=${labnr}" class="button-flat">
+                    <a href="profile.html?labnr=${labnr}" class="button-flat ripple">
                         View Full Profile
                     </a>
                 </div>
