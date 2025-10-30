@@ -116,7 +116,8 @@ const Profile = (function(Data) {
     function formatReference(ref) {
         if (typeof ref === 'object' && ref !== null) {
             const author = ref.author || '';
-            const year = ref.year ? `(${ref.year})` : '';
+            // Check for null, undefined, or the literal string "undefined"
+            const year = (ref.year && ref.year !== "undefined") ? `(${ref.year})` : '';
             return `${author} ${year}`.trim();
         }
         return ref || '';
@@ -129,10 +130,12 @@ const Profile = (function(Data) {
     function renderRadiocarbonDatesTable(features) {
         const radiocarbonFeatures = features.filter(f => f.properties.bp !== null && f.properties.bp !== undefined);
 
-        // Deduplicate features by labnr, keeping the last one found. This prevents duplicate rows for the same date.
+        // Deduplicate features using a composite key to ensure each unique date is shown only once.
         const uniqueFeaturesMap = new Map();
         radiocarbonFeatures.forEach(feature => {
-            uniqueFeaturesMap.set(feature.properties.labnr, feature);
+            const props = feature.properties;
+            const key = `${props.labnr}|${props.bp}|${props.std}`; // Composite key
+            uniqueFeaturesMap.set(key, feature);
         });
         const uniqueFeatures = Array.from(uniqueFeaturesMap.values());
 
