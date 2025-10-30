@@ -77,33 +77,55 @@ body {
 }
 
 .profile-container {
-    padding: 1rem;
+    padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+#profile-site-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: #212529;
+    text-align: left;
+}
+
 .profile-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
 }
 
-@media (min-width: 768px) {
-    .profile-grid {
-        grid-template-columns: 2fr 1fr;
-    }
+.profile-left {
+    flex: 2;
+    min-width: 300px;
+}
+
+.profile-right {
+    flex: 1;
+    min-width: 300px;
 }
 
 .profile-left section, .profile-right section {
     margin-bottom: 2rem;
 }
 
-.profile-left h2, .profile-right h2 {
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 2px solid #dee2e6;
+.profile-left h2, .additional-tables-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.profile-right h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 #graph-placeholder {
@@ -120,14 +142,15 @@ body {
 }
 
 .collapsible-section summary {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
     cursor: pointer;
-    padding: 0.75rem;
-    background-color: #f1f1f1;
+    padding: 0.75rem 1rem;
+    background-color: #e9ecef;
     border-radius: 4px;
-    margin-bottom: 0.5rem;
-    list-style: none; /* Hide default marker */
+    list-style: none;
+    color: #212529;
+    margin-bottom: 1rem;
 }
 
 .collapsible-section summary::-webkit-details-marker {
@@ -137,16 +160,20 @@ body {
 .collapsible-section table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
 .collapsible-section td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
 }
 
-.collapsible-section tr:nth-child(even) {
-    background-color: #f8f9fa;
+.collapsible-section tr:last-child td {
+    border-bottom: none;
 }
 
 .collapsible-section td:first-child {
@@ -194,43 +221,47 @@ body {
 
 /* Styles for Additional Tables Section */
 .additional-tables-section {
-    grid-column: 1 / -1; /* Make this section span the full width of the grid container */
+    width: 100%;
     margin-top: 2rem;
 }
 
 .additional-tables-section h2 {
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 2px solid #dee2e6;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
 }
 
 #radiocarbon-dates-table-container table,
 #typological-dates-table-container table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
-    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
 #radiocarbon-dates-table-container th,
 #typological-dates-table-container th,
 #radiocarbon-dates-table-container td,
 #typological-dates-table-container td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
     text-align: left;
 }
 
 #radiocarbon-dates-table-container th,
 #typological-dates-table-container th {
     background-color: #f8f9fa;
-    font-weight: 600;
+    font-weight: 700;
     color: #495057;
 }
 
-#radiocarbon-dates-table-container tr:nth-child(even),
-#typological-dates-table-container tr:nth-child(even) {
-    background-color: #f8f9fa;
+#radiocarbon-dates-table-container tr:last-child td,
+#typological-dates-table-container tr:last-child td {
+    border-bottom: none;
 }
