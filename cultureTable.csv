@@ -1,0 +1,138 @@
+"Culture_ID","Level1","Level2","Level3","Level4"
+"1st Intermediate Period","Bronze Age","First Intermediate Period",NULL,NULL
+"2nd Intermediate Period","Bronze Age","Second Intermediate Period",NULL,NULL
+"3rd Intermediate Period","Iron Age","Third Intermediate Period",NULL,NULL
+"Berber","Berber",NULL,NULL,NULL
+"Bronze Age","Bronze Age",NULL,NULL,NULL
+"Bell Beaker","Bronze Age","Bell Beaker",NULL,NULL
+"Capsian","Epipalaeolithic","Capsian",NULL,NULL
+"Cardial Neolithic","Neolithic","Cardial Neolithic",NULL,NULL
+"Columnatian","Epipalaeolithic","Columnatian",NULL,NULL
+"Dynastic","Bronze Age","Dynastic",NULL,NULL
+"Dynasty 1","Bronze Age","Early Dynastic","Dynasty 1",NULL
+"Aha","Bronze Age","Early Dynastic","Dynasty 1","Aha"
+"Den","Bronze Age","Early Dynastic","Dynasty 1","Den"
+"Djer","Bronze Age","Early Dynastic","Dynasty 1","Djer"
+"Djet","Bronze Age","Early Dynastic","Dynasty 1","Djet"
+"Hor-Aha","Bronze Age","Early Dynastic","Dynasty 1","Hor-Aha"
+"Merneith","Bronze Age","Early Dynastic","Dynasty 1","Merneith"
+"Qaa","Bronze Age","Early Dynastic","Dynasty 1","Qaa"
+"Dynasty 12","Bronze Age","Middle Kingdom","Dynasty 12",NULL
+"Amenemhet I","Bronze Age","Middle Kingdom","Dynasty 12","Amenemhet I"
+"Amenemhet III","Bronze Age","Middle Kingdom","Dynasty 12","Amenemhet III"
+"Senusret I","Bronze Age","Middle Kingdom","Dynasty 12","Senusret I"
+"Senusret II","Bronze Age","Middle Kingdom","Dynasty 12","Senusret II"
+"Senusret III","Bronze Age","Middle Kingdom","Dynasty 12","Senusret III"
+"Dynasty 15","Bronze Age","Second Intermediate Period","Dynasty 15",NULL
+"Dynasty 18","Bronze Age","New Kingdom","Dynasty 18",NULL
+"Horemheb","Bronze Age","New Kingdom","Dynasty 18","Horemheb"
+"Dynasty 19","Bronze Age","New Kingdom","Dynasty 19",NULL
+"Dynasty 2","Bronze Age","Early Dynastic","Dynasty 2",NULL
+"Ahmose II","Iron Age","Late Period","Dynasty 26","Ahmose II"
+"Dynasty 3","Bronze Age","Old Kingdom","Dynasty 3",NULL
+"Kha-bau-Sokar","Bronze Age","Old Kingdom","Dynasty 3-4","Kha-bau-Sokar"
+"Djoser","Bronze Age","Old Kingdom","Dynasty 3","Djoser"
+"Sekhemkhet","Bronze Age","Old Kingdom","Dynasty 3","Sekhemkhet"
+"Nectanebo II","Iron Age","Late Period","Dynasty 30","Nectanebo II"
+"Dynasty 4","Bronze Age","Old Kingdom","Dynasty 4",NULL
+"Dynasty 4?","Bronze Age","Old Kingdom","Dynasty 4?",NULL
+"Djedefre","Bronze Age","Old Kingdom","Dynasty 4","Djedefre"
+"Khafre","Bronze Age","Old Kingdom","Dynasty 4","Khafre"
+"Khufu","Bronze Age","Old Kingdom","Dynasty 4","Khufu"
+"Menkaure","Bronze Age","Old Kingdom","Dynasty 4","Menkaure"
+"Shepseskaf","Bronze Age","Old Kingdom","Dynasty 4","Shepseskaf"
+"Sneferu","Bronze Age","Old Kingdom","Dynasty 4","Sneferu"
+"Dynasty 5","Bronze Age","Old Kingdom","Dynasty 5",NULL
+"Dynasty 5?","Bronze Age","Old Kingdom","Dynasty 5?",NULL
+"Djedkare","Bronze Age","Old Kingdom","Dynasty 5","Djedkare"
+"Neferirkare","Bronze Age","Old Kingdom","Dynasty 5","Neferirkare"
+"Niuserre","Bronze Age","Old Kingdom","Dynasty 5","Niuserre"
+"Sahure","Bronze Age","Old Kingdom","Dynasty 5","Sahure"
+"Unas","Bronze Age","Old Kingdom","Dynasty 5","Unas"
+"Userkaf","Bronze Age","Old Kingdom","Dynasty 5","Userkaf"
+"Dynasty 6","Bronze Age","Old Kingdom","Dynasty 6",NULL
+"Pepy I","Bronze Age","Old Kingdom","Dynasty 6","Pepy I"
+"Pepy II","Bronze Age","Old Kingdom","Dynasty 6","Pepy II"
+"Teti","Bronze Age","Old Kingdom","Dynasty 6","Teti"
+"Quakare-Iby","Bronze Age","First Intermediate Period","Dynasty 8","Quakare-Iby"
+"Early Dynastic","Bronze Age","Early Dynastic",NULL,NULL
+"Early Dynastic / Old Kingdom","Bronze Age","Early Dynastic / Old Kingdom",NULL,NULL
+"Early Epipalaeolithic","Epipalaeolithic","Early Epipalaeolithic",NULL,NULL
+"Early Neolithic","Neolithic","Early Neolithic",NULL,NULL
+"Early Neolithic Cardial","Neolithic","Early Neolithic","Early Neolithic Cardial",NULL
+"Early Neolithic Cardial C","Neolithic","Early Neolithic","Early Neolithic Cardial C",NULL
+"Early Neolithic A","Neolithic","Early Neolithic","Early Neolithic A",NULL
+"Early Neolithic B","Neolithic","Early Neolithic","Early Neolithic B",NULL
+"Early Neolithic B1","Neolithic","Early Neolithic","Early Neolithic B1",NULL
+"Early Neolithic B2","Neolithic","Early Neolithic","Early Neolithic B2",NULL
+"Early Neolithic C","Neolithic","Early Neolithic","Early Neolithic C",NULL
+"Early Neolithic?","Neolithic","Early Neolithic?",NULL,NULL
+"Early Numidian phase","Numidian","Early Numidian phase",NULL,NULL
+"Early Rharbian","Epipalaeolithic","Early Rharbian",NULL,NULL
+"Early Roman","Classical","Early Roman",NULL,NULL
+"Eastern Oranian","Final LSA","Eastern Oranian",NULL,NULL
+"EBA IV","Bronze Age","Early Bronze Age","EBA IV",NULL
+"Elassolithic","Epipalaeolithic","Elassolithic",NULL,NULL
+"End Neolithic","Neolithic","End Neolithic",NULL,NULL
+"Epipalaeolithic","Epipalaeolithic",NULL,NULL,NULL
+"Epipalaeolithic with pottery","Epipalaeolithic","Epipalaeolithic with pottery",NULL,NULL
+"Fayoumian","Neolithic","Fayoumian",NULL,NULL
+"Final Neolithic","Neolithic","Final Neolithic",NULL,NULL
+"Final Upper Capsian","Epipalaeolithic","Capsian","Final Upper Capsian",NULL
+"Hellenistic","Classical","Hellenistic",NULL,NULL
+"Iberomaurusian","Final LSA","Iberomaurusian",NULL,NULL
+"Jüngeren Merimde","Neolithic","Jüngeren Merimde",NULL,NULL
+"Keremian","Epipalaeolithic","Keremian",NULL,NULL
+"Late Bronze Age","Bronze Age","Late Bronze Age",NULL,NULL
+"Late Epipalaeolithic","Epipalaeolithic","Late Epipalaeolithic",NULL,NULL
+"Late Neolithic","Neolithic","Late Neolithic",NULL,NULL
+"Late Neolithic/Predynastic","Neolithic","Late Neolithic/Predynastic",NULL,NULL
+"Late Rharbian","Bronze Age","Late Rharbian",NULL,NULL
+"LBA I","Bronze Age","Late Bronze Age","LBA I",NULL
+"Libyco-Capsian","Epipalaeolithic","Capsian","Libyco-Capsian",NULL
+"Maadi-Buto","Chalcolithic","Maadi-Buto",NULL,NULL
+"MBA I/II","Bronze Age","Middle Bronze Age","MBA I/II",NULL
+"MBA I","Bronze Age","Middle Bronze Age","MBA I",NULL
+"MBA I?","Bronze Age","Middle Bronze Age","MBA I?",NULL
+"MBA II","Bronze Age","Middle Bronze Age","MBA II",NULL
+"MBA III","Bronze Age","Middle Bronze Age","MBA III",NULL
+"Mediterranean Epipalaeolithic","Epipalaeolithic","Mediterranean Epipalaeolithic",NULL,NULL
+"Mediterranean Neolithic","Neolithic","Mediterranean Neolithic",NULL,NULL
+"Middle Kingdom","Bronze Age","Middle Kingdom",NULL,NULL
+"Middle Neolithic","Neolithic","Middle Kingdom",NULL,NULL
+"Middle Neolithic?","Neolithic","Middle Neolithic?",NULL,NULL
+"Middle Rharbian","Neolithic","Middle Rharbian",NULL,NULL
+"Moerian","Neolithic","Moerian",NULL,NULL
+"Naqada IIIC1","Chalcolithic","Early Dynastic","Naqada IIIC1",NULL
+"Naqada IIIC2","Chalcolithic","Early Dynastic","Naqada IIIC2",NULL
+"Naqada IIID","Chalcolithic","Early Dynastic","Naqada IIID",NULL
+"Neolithic","Neolithic",NULL,NULL,NULL
+"Neolithic PN","Neolithic","Neolithic PN",NULL,NULL
+"Neolithic Fayum A","Neolithic","Neolithic Fayum A",NULL,NULL
+"Neolithic initial phase","Neolithic","Neolithic initial phase",NULL,NULL
+"Neolithic of Capsian Tradition","Neolithic","Neolithic of Capsian Tradition",NULL,NULL
+"Neolithic of Capsian Tradition Atlas variety","Neolithic","Neolithic of Capsian Tradition","Neolithic of Capsian Tradition Atlas variety",NULL
+"Neolithic of Capsian Tradition Western Sahara","Neolithic","Neolithic of Capsian Tradition","Neolithic of Capsian Tradition Western Sahara",NULL
+"Neolithic without pottery","Neolithic","Neolithic without pottery",NULL,NULL
+"New Kingdom","Bronze Age","New Kingdom",NULL,NULL
+"Old Kingdom","Bronze Age","Old Kingdom",NULL,NULL
+"Old Kingdom / 1st Intermediate Period","Bronze Age","Old Kingdom / First Intermediate Period",NULL,NULL
+"Phoenician","Iron Age","Phoenician",NULL,NULL
+"Phoenician/Carthaginian","Iron Age","Phoenician/Carthaginian",NULL,NULL
+"Pre Neolithic","Neolithic","Pre Neolithic",NULL,NULL
+"Pre-Capsian Epipalaeolithic","Epipalaeolithic","Pre-Capsian Epipalaeolithic",NULL,NULL
+"Predynastic","Chalcolithic","Predynastic",NULL,NULL
+"Proto Neolithic","Neolithic","Proto Neolithic",NULL,NULL
+"Protodynastic","Bronze Age","Protodynastic",NULL,NULL
+"Protohistoric","Bronze Age","Protohistoric",NULL,NULL
+"Ptolemaic","Classical","Graeco-Roman Period","Ptolemaic",NULL
+"Qarunian","Epipalaeolithic","Qarunian",NULL,NULL
+"Siwan","Neolithic","Siwan",NULL,NULL
+"Southern Tunisian bladelet industry","Epipalaeolithic","Southern Tunisian bladelet industry",NULL,NULL
+"Terminal Palaeolithic J","Epipalaeolithic","Terminal Palaeolithic J",NULL,NULL
+"Typical Capsian","Epipalaeolithic","Capsian","Typical Capsian",NULL
+"Typical Capsian?","Epipalaeolithic","Capsian","Typical Capsian?",NULL
+"Typical/Upper Capsian transition","Epipalaeolithic","Capsian","Typical/Upper Capsian transition",NULL
+"Undetermined Typical/Upper Capsian","Epipalaeolithic","Capsian","Undetermined Typical/Upper Capsian",NULL
+"Upper Capsian","Epipalaeolithic","Capsian","Upper Capsian",NULL
+"Upper Capsian?","Epipalaeolithic","Capsian","Upper Capsian?",NULL

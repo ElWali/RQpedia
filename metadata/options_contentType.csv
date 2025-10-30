@@ -1,0 +1,5 @@
+"Option","OptionDescription"
+"C","Cultural information referenced in content"
+"Z","Zoological information referenced in content"
+"B","Botanical information referenced in content"
+"D","Radiocarbon date information referenced in content (plus cultural, zoological and botanical information may also be referenced)"

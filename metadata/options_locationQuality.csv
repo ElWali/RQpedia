@@ -1,0 +1,5 @@
+Option,OptionDescription
+A,published coordinates whose high quality was confirmed after direct contact with colleague(s) who excavated the sites; or were easily identifiable on Google Earth (e.g. Giza Khufu Pyramid)
+B,published coordinates whose quality was not confirmed by colleague(s) who excavated the site
+C,"sites whose coordinates were estimated to be within a range of +/- 1000 m; this was also the case of sites with unknown coordinates, but whose location was shown on published map that we manually georeferenced"
+D,sites whose exact position is unknown and reported coordinates often correspond to the location of the closest inhabited centre.

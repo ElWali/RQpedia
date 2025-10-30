@@ -1,0 +1,6 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"Culture_ID","PK","String","Culture unique ID: a textual identifier of the culture, cultural phase or cultural affiliation, usually identical to the highest level value",,
+"Level1",,"String","Hierarchical classification of cultural affiliations (e.g. Bronze Age)",,
+"Level2",,"String","Hierarchical classification of cultural affiliations (e.g. Old Kingdom)",,
+"Level3",,"String","Hierarchical classification of cultural affiliations (e.g. Dynasty 3)",,
+"Level4",,"String","Hierarchical classification of cultural affiliations (e.g. Djoser)",,

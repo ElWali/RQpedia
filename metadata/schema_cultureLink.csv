@@ -1,0 +1,6 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"ID","PK","Integer","Arbitrary link table unique primary key",,
+"Culture_ID","FK","String","Culture unique ID (see schema_culturePhaseTable.Culture_ID)",,"culturePhaseTable.Culture_ID"
+"Date_ID","FK","String","Date unique ID (see schema_dateTable.Date_ID)",,"dateTable.Date_ID"
+"Phase_ID","FK","String","Phase unique ID (see schema_phaseTable.Phase_ID)",,"phaseTable.Phase_ID"
+"BasisOfLink",,"String","Note describing any specific exceptions to the basis of the link between date and culture",,

@@ -1,0 +1,5192 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31006",
+        "bp": 3755,
+        "std": 35.0,
+        "site": "Bouchih 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5376,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295772",
+        "bp": 5590,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295773",
+        "bp": 5980,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Hordeum vulgare"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295774",
+        "bp": 5980,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Hordeum vulgare"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295775",
+        "bp": 5910,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295776",
+        "bp": 5900,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295777",
+        "bp": 5670,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Hordeum vulgare"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295778",
+        "bp": 5930,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "pulse",
+        "species": "Pisum sativum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295779",
+        "bp": 6740,
+        "std": 50.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "pulse",
+        "species": "Lens culinaris"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-313467",
+        "bp": 7150,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Chamaeorops humilis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-313468",
+        "bp": 8080,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Chamaeorops humilis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-313469",
+        "bp": 7990,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-316137",
+        "bp": 6780,
+        "std": 40.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Chamaeorops humilis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-318608",
+        "bp": 6140,
+        "std": 30.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-12418",
+        "bp": 9496,
+        "std": 183.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Ammotragus lervia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9988",
+        "bp": 6175,
+        "std": 50.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39297",
+        "bp": 6155,
+        "std": 33.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39299",
+        "bp": 6400,
+        "std": 90.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39299-2",
+        "bp": 6615,
+        "std": 30.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "humic acids",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9989",
+        "bp": 6053,
+        "std": 50.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Olea sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9987",
+        "bp": 5756,
+        "std": 49.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39298",
+        "bp": 6085,
+        "std": 25.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-12419",
+        "bp": 7451,
+        "std": 56.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Sus scrofa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Oxa-23528",
+        "bp": 6136,
+        "std": 34.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Capra hircus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39296",
+        "bp": 5000,
+        "std": 30.0,
+        "site": "Ifri Oudadane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2553,
+          35.2144
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5037",
+        "bp": 4309,
+        "std": 37.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5038",
+        "bp": 5479,
+        "std": 48.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5039",
+        "bp": 6588,
+        "std": 62.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5040",
+        "bp": 7977,
+        "std": 56.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5041",
+        "bp": 8019,
+        "std": 46.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5042",
+        "bp": 8302,
+        "std": 37.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5043",
+        "bp": 8302,
+        "std": 54.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-5044",
+        "bp": 8726,
+        "std": 53.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Hd-19543",
+        "bp": 7248,
+        "std": 39.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Hd-19868",
+        "bp": 6139,
+        "std": 30.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Hd-19880",
+        "bp": 7166,
+        "std": 38.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-30145b",
+        "bp": 5650,
+        "std": 200.0,
+        "site": "Taghit Haddouch",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3396,
+          34.7856
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4755",
+        "bp": 9677,
+        "std": 60.0,
+        "site": "Ifri el-Baroud",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3167,
+          34.7667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4872",
+        "bp": 8556,
+        "std": 52.0,
+        "site": "Ifri el-Baroud",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3167,
+          34.7667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA 510-I",
+        "bp": 8290,
+        "std": 40.0,
+        "site": "Ifri el-Baroud",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3167,
+          34.7667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4926",
+        "bp": 11027,
+        "std": 49.0,
+        "site": "Ifri el-Baroud",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.3167,
+          34.7667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2888",
+        "bp": 4750,
+        "std": 110.0,
+        "site": "Kaf el-Baroud",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0,
+          33.6667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2889",
+        "bp": 5160,
+        "std": 110.0,
+        "site": "Kaf el-Baroud",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0,
+          33.6667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-7424",
+        "bp": 2370,
+        "std": 50.0,
+        "site": "Ifri Ou Berid",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.2986,
+          33.2419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KN 5919",
+        "bp": 6846,
+        "std": 56.0,
+        "site": "Ifri Ou Berid",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.2986,
+          33.2419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KN 5920",
+        "bp": 6838,
+        "std": 127.0,
+        "site": "Ifri Ou Berid",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.2986,
+          33.2419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KN 5921",
+        "bp": 7524,
+        "std": 105.0,
+        "site": "Ifri Ou Berid",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.2986,
+          33.2419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-316505",
+        "bp": 5490,
+        "std": 40.0,
+        "site": "El Khil (Cave B)",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Vicia faba"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-316506",
+        "bp": 5420,
+        "std": 40.0,
+        "site": "El Khil (Cave B)",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Vicia faba"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-331847",
+        "bp": 5790,
+        "std": 30.0,
+        "site": "El Khil (Cave B)",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-295780",
+        "bp": 6180,
+        "std": 50.0,
+        "site": "El Khil (Cave C)",
+        "country": "MA",
+        "material": "seeds",
+        "species": "Vicia faba"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-316508",
+        "bp": 5470,
+        "std": 40.0,
+        "site": "El Khil (Cave C)",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-316507",
+        "bp": 5450,
+        "std": 30.0,
+        "site": "El Khil (Cave C)",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-119",
+        "bp": 5720,
+        "std": 114.0,
+        "site": "El Khil (Cave C)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-424638",
+        "bp": 3890,
+        "std": 30.0,
+        "site": "El Khil (Cave C)",
+        "country": "MA",
+        "material": "tooth (human)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9061,
+          35.7871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4913",
+        "bp": 6683,
+        "std": 48.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4956",
+        "bp": 6035,
+        "std": 47.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4957",
+        "bp": 6611,
+        "std": 40.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-433",
+        "bp": 7930,
+        "std": 50.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-434",
+        "bp": 6710,
+        "std": 50.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-436",
+        "bp": 6270,
+        "std": 40.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-437",
+        "bp": 6240,
+        "std": 40.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UtC-6185",
+        "bp": 6230,
+        "std": 70.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UtC-6186",
+        "bp": 6378,
+        "std": 44.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UtC-6187",
+        "bp": 6540,
+        "std": 50.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UtC-6184",
+        "bp": 5029,
+        "std": 47.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2120",
+        "bp": 6022,
+        "std": 52.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2121",
+        "bp": 6509,
+        "std": 42.0,
+        "site": "Hassi Ouenzga Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Bln-4756",
+        "bp": 10570,
+        "std": 177.0,
+        "site": "Hassi Ouenzga Open air",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9991",
+        "bp": 10130,
+        "std": 68.0,
+        "site": "Hassi Ouenzga Open air",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pisum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9993",
+        "bp": 9350,
+        "std": 65.0,
+        "site": "Hassi Ouenzga Open air",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9992",
+        "bp": 10643,
+        "std": 73.0,
+        "site": "Hassi Ouenzga Open air",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-4394",
+        "bp": 10022,
+        "std": 80.0,
+        "site": "Ifri n'Ammar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-4399",
+        "bp": 11009,
+        "std": 144.0,
+        "site": "Ifri n'Ammar",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2822,
+          34.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9984",
+        "bp": 6481,
+        "std": 53.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9986",
+        "bp": 7633,
+        "std": 81.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9985",
+        "bp": 7666,
+        "std": 76.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9983",
+        "bp": 4571,
+        "std": 45.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-341129",
+        "bp": 6120,
+        "std": 30.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-277",
+        "bp": 4126,
+        "std": 128.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-278",
+        "bp": 4920,
+        "std": 140.0,
+        "site": "Ifri Ouzabour",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.214,
+          35.22
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UBA-8082",
+        "bp": 5989,
+        "std": 33.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Bos taurus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9994",
+        "bp": 4916,
+        "std": 47.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9995",
+        "bp": 7106,
+        "std": 53.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-9996",
+        "bp": 6739,
+        "std": 52.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Olea sp.; Pistacia sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-12422",
+        "bp": 4798,
+        "std": 108.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Capra hircus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KN-5969",
+        "bp": 10670,
+        "std": 80.0,
+        "site": "Ifri Armas",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Ostrea cf. edulis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2772,
+          35.2064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2821",
+        "bp": 3300,
+        "std": 100.0,
+        "site": "Tarfaya Village",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.8333,
+          27.9167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-669",
+        "bp": 4400,
+        "std": 90.0,
+        "site": "L\u00e9tan",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.8167,
+          27.9667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-670",
+        "bp": 3290,
+        "std": 70.0,
+        "site": "L\u00e9tan",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.8167,
+          27.9667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-3013",
+        "bp": 3550,
+        "std": 120.0,
+        "site": "Oued el Quar Site G",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Mytilus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -11.3333,
+          28.3333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-710",
+        "bp": 4950,
+        "std": 100.0,
+        "site": "Oued el Quar Site G",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -11.3333,
+          28.3333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2911",
+        "bp": 4450,
+        "std": 110.0,
+        "site": "Megrious Site H",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.0833,
+          27.6667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-5519",
+        "bp": 5400,
+        "std": 290.0,
+        "site": "El Harhoura 1",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.9258,
+          33.9525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UBA-8084",
+        "bp": 5552,
+        "std": 36.0,
+        "site": "El Harhoura 1",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.9258,
+          33.9525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-2149",
+        "bp": 5980,
+        "std": 210.0,
+        "site": "El Harhoura 2",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.9258,
+          33.9525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UQ-1601",
+        "bp": 5800,
+        "std": 150.0,
+        "site": "El Harhoura 2",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Patella, Mytylus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.9258,
+          33.9525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6184",
+        "bp": 3490,
+        "std": 90.0,
+        "site": "Rhirane",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.87,
+          34.48
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6490",
+        "bp": 3900,
+        "std": 90.0,
+        "site": "Rhirane",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.87,
+          34.48
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6185",
+        "bp": 5190,
+        "std": 100.0,
+        "site": "Rhafas Cave",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8,
+          34.5667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6186",
+        "bp": 4600,
+        "std": 60.0,
+        "site": "El Heriga",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8833,
+          34.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6188",
+        "bp": 9930,
+        "std": 90.0,
+        "site": "Marja (Oued el-Hay)",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0833,
+          34.1167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6491",
+        "bp": 3820,
+        "std": 90.0,
+        "site": "Bou Guennouna",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8553,
+          34.4569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6880",
+        "bp": 3400,
+        "std": 80.0,
+        "site": "Bou Guennouna",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8553,
+          34.4569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6492",
+        "bp": 4110,
+        "std": 90.0,
+        "site": "Jorf el Anngra",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8831,
+          34.4615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3620",
+        "bp": 3290,
+        "std": 130.0,
+        "site": "Grandes Cascades (Oued el Ha\u00ff)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.1512,
+          34.1348
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6495",
+        "bp": 8960,
+        "std": 130.0,
+        "site": "Site de la piste",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0726,
+          34.1025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6826",
+        "bp": 9340,
+        "std": 100.0,
+        "site": "Site de la piste",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0726,
+          34.1025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6827",
+        "bp": 9350,
+        "std": 100.0,
+        "site": "Site de la piste",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0726,
+          34.1025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7554",
+        "bp": 8680,
+        "std": 80.0,
+        "site": "Sidi Ahmed",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.389,
+          34.7997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7699",
+        "bp": 8260,
+        "std": 90.0,
+        "site": "Sidi Ahmed",
+        "country": "MA",
+        "material": "organic matter",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.389,
+          34.7997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-A-92332",
+        "bp": 5630,
+        "std": 80.0,
+        "site": "Grotte des Idoles (Achakar)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9297,
+          35.775
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KN-5384",
+        "bp": 6388,
+        "std": 46.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31001/1",
+        "bp": 6020,
+        "std": 40.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31001/2",
+        "bp": 6000,
+        "std": 35.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "humic acid",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31002",
+        "bp": 6110,
+        "std": 35.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pistacia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31008/1",
+        "bp": 5880,
+        "std": 30.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31008/2",
+        "bp": 5040,
+        "std": 35.0,
+        "site": "Mtlili 5 (Moulouya)",
+        "country": "MA",
+        "material": "humic acid",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31003",
+        "bp": 5840,
+        "std": 35.0,
+        "site": "Mtlili 6 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5525,
+          34.9439
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31007/2",
+        "bp": 8745,
+        "std": 55.0,
+        "site": "Mtlili 1 (Moulouya)",
+        "country": "MA",
+        "material": "humic acid",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5528,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31007/1",
+        "bp": 8880,
+        "std": 35.0,
+        "site": "Mtlili 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5528,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39292",
+        "bp": 7955,
+        "std": 40.0,
+        "site": "Mtlili 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5528,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39293",
+        "bp": 8800,
+        "std": 45.0,
+        "site": "Mtlili 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5528,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-31004",
+        "bp": 3385,
+        "std": 25.0,
+        "site": "Mtlili 2 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.553,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Erl-5888",
+        "bp": 6402,
+        "std": 40.0,
+        "site": "Mtlili (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.553,
+          34.9474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-38792",
+        "bp": 3525,
+        "std": 25.0,
+        "site": "Taoungat (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-38793",
+        "bp": 3411,
+        "std": 25.0,
+        "site": "Taoungat (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39287",
+        "bp": 4745,
+        "std": 65.0,
+        "site": "Taoungat 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39288",
+        "bp": 6970,
+        "std": 40.0,
+        "site": "Taoungat 1 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Juniperus communis"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39290",
+        "bp": 3455,
+        "std": 30.0,
+        "site": "Taoungat 5 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pistacia sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39291",
+        "bp": 5390,
+        "std": 35.0,
+        "site": "Taoungat 7 (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pistacia sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4873,
+          34.9553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-39295",
+        "bp": 7840,
+        "std": 40.0,
+        "site": "Hajra 3",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5577,
+          34.9339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3000",
+        "bp": 3485,
+        "std": 50.0,
+        "site": "Mi Merdaz 2 Est",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8762,
+          32.6159
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3001",
+        "bp": 3885,
+        "std": 50.0,
+        "site": "Abri de la Dune",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.899,
+          32.6377
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3087",
+        "bp": 4481,
+        "std": 190.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Rhinoceros"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-4096",
+        "bp": 4560,
+        "std": 150.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-4097",
+        "bp": 7710,
+        "std": 180.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "organic matter",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UQ-1557",
+        "bp": 4950,
+        "std": 150.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UQ-1868",
+        "bp": 5350,
+        "std": 150.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-1621",
+        "bp": 4610,
+        "std": NaN,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-58937",
+        "bp": 5720,
+        "std": 35.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-58936",
+        "bp": 5740,
+        "std": 35.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-58938",
+        "bp": 5800,
+        "std": 35.0,
+        "site": "Skhirat (Rouazi)",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.0833,
+          33.8333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3179",
+        "bp": 5270,
+        "std": 70.0,
+        "site": "Nif Sebbab",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8897,
+          32.8238
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3550",
+        "bp": 3395,
+        "std": 30.0,
+        "site": "Oued Ben Ghart",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7197,
+          32.6362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3821",
+        "bp": 6050,
+        "std": 120.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-7287",
+        "bp": 9910,
+        "std": 50.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-7288",
+        "bp": 6520,
+        "std": 120.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-7695",
+        "bp": 9865,
+        "std": 75.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-971OxA",
+        "bp": 6350,
+        "std": 85.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "grain (charred)",
+        "species": "Hordeum vulgare"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-331985",
+        "bp": 6190,
+        "std": 40.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum dicoccum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-331986",
+        "bp": 5400,
+        "std": 30.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum aestivum/durum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-331987",
+        "bp": 6390,
+        "std": 30.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "grain",
+        "species": "Triticum dicoccum"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-65",
+        "bp": 7136,
+        "std": 156.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-66",
+        "bp": 8765,
+        "std": 176.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-409693",
+        "bp": 6410,
+        "std": 30.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "bone (animal)",
+        "species": "Ovis aries"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-424637",
+        "bp": 6410,
+        "std": 30.0,
+        "site": "Kaf Taht el Ghar",
+        "country": "MA",
+        "material": "tooth (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.431,
+          35.4965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3003",
+        "bp": 6410,
+        "std": 70.0,
+        "site": "Grand Ghilen",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4953,
+          32.5172
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3004",
+        "bp": 6440,
+        "std": 60.0,
+        "site": "Grand Ghilen",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.4953,
+          32.5172
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-11321",
+        "bp": 9470,
+        "std": 55.0,
+        "site": "Ghar Kahal",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Phillyrea/Rhamnus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.4253,
+          35.8768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-11323",
+        "bp": 11125,
+        "std": 65.0,
+        "site": "Ghar Kahal",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Phillyrea/Rhamnus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.4253,
+          35.8768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-11322",
+        "bp": 11180,
+        "std": 65.0,
+        "site": "Ghar Kahal",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Phillyrea/Rhamnus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.4253,
+          35.8768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-3551",
+        "bp": 11020,
+        "std": NaN,
+        "site": "Ghar Kahal",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.4253,
+          35.8768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "UQ-1556",
+        "bp": 5600,
+        "std": 200.0,
+        "site": "Oued Tahadart",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Mollusca"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.83,
+          35.53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-172811",
+        "bp": 5490,
+        "std": 40.0,
+        "site": "Oued Tahadart",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.83,
+          35.53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-182784",
+        "bp": 5930,
+        "std": 40.0,
+        "site": "Oued Tahadart",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.83,
+          35.53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Auck. W-1518",
+        "bp": 4300,
+        "std": 80.0,
+        "site": "El Kiffen",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.5833,
+          33.3333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Auck. W-1510",
+        "bp": 3100,
+        "std": 200.0,
+        "site": "El Kiffen",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.5833,
+          33.3333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2373.1.1",
+        "bp": 5326,
+        "std": 38.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2376.1.1",
+        "bp": 5644,
+        "std": 40.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2372.1.1",
+        "bp": 5832,
+        "std": 37.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2374.1.1",
+        "bp": 5779,
+        "std": 38.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2371.1.1",
+        "bp": 5975,
+        "std": 38.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2377.1.1",
+        "bp": 6288,
+        "std": 40.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396666",
+        "bp": 7760,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396672",
+        "bp": 7820,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2381.1.1",
+        "bp": 7835,
+        "std": 45.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396670",
+        "bp": 7980,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396665",
+        "bp": 8380,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pinus sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396667",
+        "bp": 8660,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Olea sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2380.1.1",
+        "bp": 8719,
+        "std": 42.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-2378.1.1",
+        "bp": 8729,
+        "std": 46.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-396671",
+        "bp": 8800,
+        "std": 30.0,
+        "site": "Ifri n'Etsedda",
+        "country": "MA",
+        "material": "charred seed",
+        "species": "Pistacia lentiscus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5342,
+          35.0075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Sa-13",
+        "bp": 10800,
+        "std": 400.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Sa-15",
+        "bp": 10500,
+        "std": 400.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-24111",
+        "bp": 10680,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-23404",
+        "bp": 10870,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-13480",
+        "bp": 10950,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pinus sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-13479",
+        "bp": 10935,
+        "std": 40.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pinus sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-13516",
+        "bp": 11065,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Pinus sp."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-24112",
+        "bp": 11165,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "bone (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-13517",
+        "bp": 10990,
+        "std": 45.0,
+        "site": "Taforalt",
+        "country": "MA",
+        "material": "charcoal",
+        "species": "Dicotyledonous"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4083,
+          34.8106
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-57",
+        "bp": 7589,
+        "std": 166.0,
+        "site": "Kaf Boussaria",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.8,
+          35.7667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-1645",
+        "bp": 5974,
+        "std": 36.0,
+        "site": "Ifri Zerrouk",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2978,
+          34.7542
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Col-1647",
+        "bp": 5480,
+        "std": 36.0,
+        "site": "Ifri Zerrouk",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.2978,
+          34.7542
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6187",
+        "bp": 11200,
+        "std": 160.0,
+        "site": "Cha\u00e2ba Bayda Site 2",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9167,
+          34.0833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6497",
+        "bp": 11290,
+        "std": 160.0,
+        "site": "Cha\u00e2ba Bayda Site 1",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9167,
+          34.0833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6828",
+        "bp": 9560,
+        "std": 100.0,
+        "site": "Cha\u00e2ba Bayda Site 3",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9167,
+          34.0833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6829",
+        "bp": 9130,
+        "std": 100.0,
+        "site": "Cha\u00e2ba Bayda Site 3",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9167,
+          34.0833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6498",
+        "bp": 8560,
+        "std": 120.0,
+        "site": "Cha\u00e2ba Bayda Site 3",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9167,
+          34.0833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6493",
+        "bp": 5080,
+        "std": 70.0,
+        "site": "Jorf Akhdar (Oued Isly)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9667,
+          34.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6494",
+        "bp": 5930,
+        "std": 80.0,
+        "site": "Jorf Akhdar (Oued Isly)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9667,
+          34.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6923",
+        "bp": 5870,
+        "std": 100.0,
+        "site": "Jorf Akhdar (Oued Isly)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9667,
+          34.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7684",
+        "bp": 5760,
+        "std": 80.0,
+        "site": "Jorf Akhdar (Oued Isly)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9667,
+          34.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6879",
+        "bp": 5700,
+        "std": 70.0,
+        "site": "Jorf Akhdar (Oued Isly)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9667,
+          34.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7399",
+        "bp": 5700,
+        "std": 110.0,
+        "site": "Oued Ouziyyane",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0587,
+          34.1194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "GrN-2805",
+        "bp": 5860,
+        "std": 70.0,
+        "site": "Dar es Soltan",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.8978,
+          33.9808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6431",
+        "bp": 2420,
+        "std": 90.0,
+        "site": "Ma Izza",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.9667,
+          32.7833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-709",
+        "bp": 4320,
+        "std": 120.0,
+        "site": "Izriten (Tarfaya) Site 17",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.4167,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-712",
+        "bp": 7000,
+        "std": 500.0,
+        "site": "Izriten (Tarfaya) Site 11",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2910",
+        "bp": 10430,
+        "std": 180.0,
+        "site": "Izriten (Tarfaya) Site 11/1a",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2909",
+        "bp": 6100,
+        "std": 120.0,
+        "site": "Izriten (Tarfaya) Site 11/1b",
+        "country": "MA",
+        "material": "bone collagen (undetermined)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-411102",
+        "bp": 6110,
+        "std": 30.0,
+        "site": "Ifri n Amr ou Moussa",
+        "country": "MA",
+        "material": "charred fruit",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9319,
+          33.8806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "OxA-34042",
+        "bp": 6128,
+        "std": 37.0,
+        "site": "Ifri n Amr ou Moussa",
+        "country": "MA",
+        "material": "grain (charred)",
+        "species": "Hordeum vulgare"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9319,
+          33.8806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-555",
+        "bp": 6350,
+        "std": 120.0,
+        "site": "Izriten (Tarfaya) Site 19",
+        "country": "MA",
+        "material": "eggshells",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.6167,
+          27.9667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-556",
+        "bp": 6150,
+        "std": 120.0,
+        "site": "Izriten (Tarfaya) Site 19",
+        "country": "MA",
+        "material": "eggshells",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.6167,
+          27.9667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-557",
+        "bp": 8100,
+        "std": 110.0,
+        "site": "Izriten (Tarfaya) Site 11",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Tapes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-707",
+        "bp": 3540,
+        "std": 100.0,
+        "site": "Izriten (Tarfaya) Site 16",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.4167,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-708",
+        "bp": 3830,
+        "std": 100.0,
+        "site": "Izriten (Tarfaya) Site 16",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": "Thais"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.4167,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MC-711",
+        "bp": 7860,
+        "std": 170.0,
+        "site": "Izriten (Tarfaya)",
+        "country": "MA",
+        "material": "shell (marine)",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2908",
+        "bp": 9450,
+        "std": 160.0,
+        "site": "Izriten (Tarfaya) Site 11/2",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.2667,
+          28.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2652",
+        "bp": 2790,
+        "std": 105.0,
+        "site": "Tarfaya km 34",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -12.6333,
+          27.9667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-38790",
+        "bp": 3700,
+        "std": 40.0,
+        "site": "Hajra (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5575,
+          34.9335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-38791",
+        "bp": 3665,
+        "std": 30.0,
+        "site": "Hajra (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5575,
+          34.9335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "KIA-30744",
+        "bp": 2580,
+        "std": 30.0,
+        "site": "El Rhama A (Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5392,
+          34.9498
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Beta-318454",
+        "bp": 3260,
+        "std": 30.0,
+        "site": "Hafa II Cave",
+        "country": "MA",
+        "material": "unknown",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.4519,
+          35.8569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-2912",
+        "bp": 2360,
+        "std": 250.0,
+        "site": "Foum el Arjam",
+        "country": "MA",
+        "material": "bone (human)",
+        "species": "Homo sapiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.8333,
+          30.3667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7002",
+        "bp": 4190,
+        "std": 270.0,
+        "site": "Oued B\u00e9ni M\u00e9liar\u00e8ne",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9062,
+          34.4554
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7685",
+        "bp": 4410,
+        "std": 70.0,
+        "site": "Oued Ben S\u00e9guir",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.014,
+          34.6125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7686",
+        "bp": 4810,
+        "std": 70.0,
+        "site": "Oued Ben S\u00e9guir",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.014,
+          34.6125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7552",
+        "bp": 4610,
+        "std": 70.0,
+        "site": "Oued Ben S\u00e9guir",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.014,
+          34.6125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-4211",
+        "bp": 8130,
+        "std": 150.0,
+        "site": "Oued Al Gazmir",
+        "country": "MA",
+        "material": "organic material",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0664,
+          34.1826
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-7803",
+        "bp": 4790,
+        "std": 100.0,
+        "site": "Oued Nachef",
+        "country": "MA",
+        "material": "organic material",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9506,
+          34.6456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-6825",
+        "bp": 2460,
+        "std": NaN,
+        "site": "Fontaine Rahhal",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.0308,
+          34.0114
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-137",
+        "bp": 5516,
+        "std": 146.0,
+        "site": "Ras Kebdana/Triffa/El Camra",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4467,
+          35.1283
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-138",
+        "bp": 5146,
+        "std": 143.0,
+        "site": "Ras Kebdana/Triffa/Ibouarfats\u00e8ne",
+        "country": "MA",
+        "material": "eggshell",
+        "species": "Struthio camelus"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4853,
+          35.1003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Rabat-139",
+        "bp": 2279,
+        "std": 95.0,
+        "site": "Ijertsal",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4997,
+          35.0986
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12086",
+        "bp": 3410,
+        "std": 55.0,
+        "site": "Kert River, Section A",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1964,
+          35.0633
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12083",
+        "bp": 2875,
+        "std": 65.0,
+        "site": "Kert River, Section B",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1622,
+          35.0808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11958",
+        "bp": 3550,
+        "std": 40.0,
+        "site": "Kert River, Section B",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1622,
+          35.0808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12085",
+        "bp": 3930,
+        "std": 60.0,
+        "site": "Kert River, Section B",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1622,
+          35.0808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11755",
+        "bp": 3320,
+        "std": 55.0,
+        "site": "Kert River, Section D",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1586,
+          35.0886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11960",
+        "bp": 3670,
+        "std": 65.0,
+        "site": "Kert River, Section F",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1719,
+          35.1236
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11952",
+        "bp": 3300,
+        "std": 50.0,
+        "site": "Kert River, Section G",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1892,
+          35.1369
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11954",
+        "bp": 5285,
+        "std": 45.0,
+        "site": "Kert River, Section J",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1703,
+          35.1839
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12087",
+        "bp": 3045,
+        "std": 80.0,
+        "site": "Kert River, Section K",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1769,
+          35.1978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Ly-1197",
+        "bp": 3370,
+        "std": 55.0,
+        "site": "Kert River, Section L",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1831,
+          35.2122
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12088",
+        "bp": 6220,
+        "std": 70.0,
+        "site": "Kert River, Section B",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1622,
+          35.0808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-11753",
+        "bp": 7935,
+        "std": 45.0,
+        "site": "Kert River, Section D",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1586,
+          35.0886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Gif-12084",
+        "bp": 7900,
+        "std": 75.0,
+        "site": "Kert River, Section E",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1617,
+          35.0975
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "MAMS-29773",
+        "bp": 5203,
+        "std": 28.0,
+        "site": "Sidi Ali",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.9875,
+          33.0847
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-40743",
+        "bp": 2780,
+        "std": 35.0,
+        "site": "Blirh (Upper Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.3706,
+          32.8042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-40744",
+        "bp": 2725,
+        "std": 35.0,
+        "site": "Blirh (Upper Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.3706,
+          32.8042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-40749",
+        "bp": 4450,
+        "std": 35.0,
+        "site": "Blirh (Upper Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.3706,
+          32.8042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "Poz-40750",
+        "bp": 4435,
+        "std": 35.0,
+        "site": "Blirh (Upper Moulouya)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.3706,
+          32.8042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1163",
+        "bp": 4278,
+        "std": 50.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1164",
+        "bp": 4296,
+        "std": 39.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CSIC-2182",
+        "bp": 4303,
+        "std": 46.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CSIC-2232",
+        "bp": 4476,
+        "std": 33.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CSIC-2181",
+        "bp": 4582,
+        "std": 45.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1165",
+        "bp": 5147,
+        "std": 55.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1649",
+        "bp": 6145,
+        "std": 35.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1650",
+        "bp": 5980,
+        "std": 30.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1652",
+        "bp": 6220,
+        "std": 30.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1653",
+        "bp": 6320,
+        "std": 30.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1654",
+        "bp": 6115,
+        "std": 30.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-1655",
+        "bp": 8560,
+        "std": 30.0,
+        "site": "Aougni N'ait Ourigh Neolithic Site. C-1300 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-938",
+        "bp": 3200,
+        "std": 39.0,
+        "site": "Aougni N\u2019ait Ourigh C-700 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "sediment with charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-940",
+        "bp": 3143,
+        "std": 31.0,
+        "site": "Aougni N\u2019ait Ourigh C-700 (Ouka\u00efmeden)",
+        "country": "MA",
+        "material": "sediment with charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-801",
+        "bp": 4009,
+        "std": 51.0,
+        "site": "Elephant's Shelter C-200",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-804",
+        "bp": 2790,
+        "std": 30.0,
+        "site": "Elephant's Frieze C-800",
+        "country": "MA",
+        "material": "sediment with charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": "CNA-939",
+        "bp": 2470,
+        "std": 37.0,
+        "site": "Elephant's Frieze C-800",
+        "country": "MA",
+        "material": "sediment with charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "labnr": NaN,
+        "bp": 2680,
+        "std": 35.0,
+        "site": "Elephant's Frieze C-800",
+        "country": "MA",
+        "material": "charcoal",
+        "species": NaN
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8622,
+          31.2056
+        ]
+      }
+    }
+  ]
+}
