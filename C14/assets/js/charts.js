@@ -153,5 +153,57 @@ const Charts = (function() {
         });
     }
 
-    return { renderMaterialDistributionChart, renderDateDistributionChart };
+    /**
+     * Renders a box plot showing the distribution of standard deviation (std) values.
+     * @param {Array<Object>} relatedFeatures - All features for the same site.
+     */
+    function renderStdDistributionChart(relatedFeatures) {
+        const stdValues = relatedFeatures
+            .map(feature => feature.properties.std)
+            .filter(std => std !== null && std !== undefined)
+            .sort((a, b) => a - b);
+
+        if (stdValues.length === 0) {
+            document.getElementById('std-chart-placeholder').innerHTML = '<p>No standard deviation data available for this site.</p>';
+            return;
+        }
+
+        const ctx = document.getElementById('stdChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'boxplot',
+            data: {
+                labels: ['Standard Deviation'],
+                datasets: [{
+                    label: 'Standard Deviation (std)',
+                    data: [stdValues],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribution of Date Precision (STD)'
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Standard Deviation (Years)'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    return { renderMaterialDistributionChart, renderDateDistributionChart, renderStdDistributionChart };
 })();

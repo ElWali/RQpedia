@@ -75,6 +75,7 @@ const Profile = (function(Data) {
 
         Charts.renderMaterialDistributionChart(relatedFeatures);
         Charts.renderDateDistributionChart(relatedFeatures);
+        Charts.renderStdDistributionChart(relatedFeatures);
 
         if (properties.bp && properties.std) {
             renderCalibrationGraph(properties.bp, properties.std);
