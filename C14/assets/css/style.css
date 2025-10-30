@@ -191,3 +191,46 @@ body {
 #phasing-list li {
     margin-bottom: 0.5rem;
 }
+
+/* Styles for Additional Tables Section */
+.additional-tables-section {
+    grid-column: 1 / -1; /* Make this section span the full width of the grid container */
+    margin-top: 2rem;
+}
+
+.additional-tables-section h2 {
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#radiocarbon-dates-table-container table,
+#typological-dates-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+#radiocarbon-dates-table-container th,
+#typological-dates-table-container th,
+#radiocarbon-dates-table-container td,
+#typological-dates-table-container td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+}
+
+#radiocarbon-dates-table-container th,
+#typological-dates-table-container th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+#radiocarbon-dates-table-container tr:nth-child(even),
+#typological-dates-table-container tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
