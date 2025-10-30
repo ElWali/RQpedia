@@ -20,8 +20,8 @@ const App = (function(Data, Map, UI) {
             // Fetch the dataset
             const features = await Data.getFeatures();
 
-            // Add markers to the map
-            Map.addMarkers(features, handleMarkerClick);
+            // Add data layers to the map
+            Map.addDataLayers(features, handleMarkerClick);
 
             // Hide loading indicator
             UI.hideLoading();

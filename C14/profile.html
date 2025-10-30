@@ -56,6 +56,14 @@
                 </div>
                 <div class="card">
                     <div class="card-content">
+                        <h2 class="card-title">Date Precision (STD)</h2>
+                        <div id="std-chart-placeholder" style="height: 300px;">
+                            <canvas id="stdChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
                         <h2 class="card-title">Metadata</h2>
                         <div id="references-container">
                             <h3>Direct References to Radiocarbon Date</h3>
@@ -91,6 +99,7 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sgratzl/chartjs-chart-boxplot/build/index.umd.min.js" defer></script>
     <script src="assets/js/data.js" defer></script>
     <script src="assets/js/graph.js" defer></script>
     <script src="assets/js/charts.js" defer></script>
