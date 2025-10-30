@@ -95,7 +95,7 @@ const Profile = (function(Data) {
                     const rawValue = properties[key];
                     const value = (rawValue === null || rawValue === '' || rawValue === undefined) ? '<span class="na-value">n/a</span>' : rawValue;
                     const copyBtn = ['labnr', 'bp', 'material'].includes(key.toLowerCase()) ?
-                                  `<button class="copy-btn" data-copy-text="${rawValue}" title="Copy to clipboard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zM9 2H7v.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V2z"/></svg></button>` : '';
+                                  `<button class="copy-btn ripple" data-copy-text="${rawValue}" title="Copy to clipboard"><i class="material-icons">content_copy</i></button>` : '';
                     tableRows += `<tr><td>${label}</td><td>${value}${copyBtn}</td></tr>`;
                 }
             });
