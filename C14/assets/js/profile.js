@@ -67,7 +67,7 @@ const Profile = (function(Data) {
         siteTitleElement.textContent = properties.site || 'Unnamed Site';
 
         renderMainDataTable(properties);
-        renderList(referencesListElement, properties.references, 'No references available.');
+        renderDirectReferences(referencesListElement, properties.references, 'No direct references available.');
         renderList(phasingListElement, properties.periods, 'No cultural phasing data available.');
 
         renderRadiocarbonDatesTable(relatedFeatures);
@@ -108,22 +108,44 @@ const Profile = (function(Data) {
     }
 
     /**
+     * Formats a single reference item into a string.
+     * Handles both object {author, year} and simple string formats.
+     * @param {string|Object} ref - The reference item.
+     * @returns {string} The formatted reference string.
+     */
+    function formatReference(ref) {
+        if (typeof ref === 'object' && ref !== null) {
+            const author = ref.author || '';
+            const year = ref.year ? `(${ref.year})` : '';
+            return `${author} ${year}`.trim();
+        }
+        return ref || '';
+    }
+
+    /**
      * Renders the Radiocarbon Dates table for the site.
      * @param {Array<Object>} features - The array of features for the site.
      */
     function renderRadiocarbonDatesTable(features) {
         const radiocarbonFeatures = features.filter(f => f.properties.bp !== null && f.properties.bp !== undefined);
 
-        if (radiocarbonFeatures.length === 0) {
+        // Deduplicate features by labnr, keeping the last one found. This prevents duplicate rows for the same date.
+        const uniqueFeaturesMap = new Map();
+        radiocarbonFeatures.forEach(feature => {
+            uniqueFeaturesMap.set(feature.properties.labnr, feature);
+        });
+        const uniqueFeatures = Array.from(uniqueFeaturesMap.values());
+
+        if (uniqueFeatures.length === 0) {
             radiocarbonDatesTableContainer.innerHTML = '<p>No radiocarbon dates found for this site.</p>';
             return;
         }
 
-        const tableRows = radiocarbonFeatures.map(feature => {
+        const tableRows = uniqueFeatures.map(feature => {
             const props = feature.properties;
             const uncalibratedAge = props.bp && props.std ? `${props.bp} ± ${props.std}` : '—';
             const references = (props.references && props.references.length > 0) ?
-                props.references.map(ref => typeof ref === 'object' ? `${ref.author} (${ref.year})` : ref).join(', ') : '—';
+                props.references.map(formatReference).join(', ') : '—';
 
             return `
                 <tr>
@@ -174,7 +196,7 @@ const Profile = (function(Data) {
 
         const tableRows = uniquePeriods.map(period => {
             const references = (period.references && period.references.length > 0) ?
-                period.references.map(ref => typeof ref === 'object' ? `${ref.author} (${ref.year})` : ref).join(', ') : '—';
+                period.references.map(formatReference).join(', ') : '—';
             return `<tr><td>${period.classification}</td><td>—</td><td>${references}</td></tr>`;
         }).join('');
 
@@ -186,7 +208,33 @@ const Profile = (function(Data) {
     }
 
     /**
-     * Renders a list of items (e.g., references).
+     * Renders a list of items (e.g., references or phasing).
+     * @param {HTMLElement} element - The container element.
+     * @param {Array<string|Object>} items - The items to render.
+     * @param {string} emptyMessage - Message to display if items is empty.
+     */
+    /**
+     * Renders a list of items, specifically for direct references.
+     * @param {HTMLElement} element - The container element.
+     * @param {Array<string|Object>} items - The reference items to render.
+     * @param {string} emptyMessage - Message to display if items is empty.
+     */
+    function renderDirectReferences(element, items, emptyMessage) {
+        if (!items || items.length === 0) {
+            element.innerHTML = `<p>${emptyMessage}</p>`;
+            return;
+        }
+
+        const listHtml = items.map(item => {
+            // All references are formatted into paragraphs, not list items
+            return `<p>${formatReference(item)}</p>`;
+        }).join('');
+
+        element.innerHTML = listHtml;
+    }
+
+    /**
+     * Renders a list of items (e.g., references or phasing).
      * @param {HTMLElement} element - The container element.
      * @param {Array<string|Object>} items - The items to render.
      * @param {string} emptyMessage - Message to display if items is empty.
@@ -196,8 +244,18 @@ const Profile = (function(Data) {
             element.innerHTML = `<p>${emptyMessage}</p>`;
             return;
         }
-        const listHtml = items.map(item => typeof item === 'object' ? `<p>${item.author}${item.year ? ` (${item.year})` : ''}</p>` : `<li>${item}</li>`).join('');
-        element.innerHTML = (typeof items[0] === 'object') ? listHtml : `<ul>${listHtml}</ul>`;
+
+        const isRefObjectList = items.some(item => typeof item === 'object' && item !== null);
+
+        if (isRefObjectList) {
+             // For references, which are objects, just output them in <p> tags.
+            const listHtml = items.map(item => `<p>${formatReference(item)}</p>`).join('');
+            element.innerHTML = listHtml;
+        } else {
+            // For other lists (like cultural phasing), use a standard <ul>.
+            const listHtml = items.map(item => `<li>${item}</li>`).join('');
+            element.innerHTML = `<ul>${listHtml}</ul>`;
+        }
     }
 
     function addEventListeners() {
