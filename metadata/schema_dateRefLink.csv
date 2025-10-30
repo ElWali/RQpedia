@@ -1,0 +1,5 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"ID","PK","Integer","Arbitrary link table unique primary key",,
+"Date_ID","FK","String","Date unique ID (see schema_dateTable.Date_ID)",,"dateTable.Date_ID"
+"BibTexKey","EK","String","BibTeX-style key bibliographic reference key (refers to bibliography.bib)",,
+"ContentType","OL","List","Indicator for the content of the referenced literature (I.e. radiocarbon date, cultural, zoological or botanical information referenced)","options_contentType",

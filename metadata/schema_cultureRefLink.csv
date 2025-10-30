@@ -1,0 +1,4 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"ID","PK","Integer","Arbitrary link table unique primary key",,
+"cultureLinkID","FK","Integer","Culture Link arbitrary unique ID (see schema_cultureLink.ID)",,"cultureLink.ID"
+"BibTexKey","EK","String","BibTeX-style key bibliographic reference key (refers to bibliography.bib)",,

@@ -1,0 +1,21 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"Date_ID","PK","String","MedAfriCarbon unique date ID (corresponds to the laboratory ID where available, or NoLabID_ where not available)",,
+"Lab_ID",,"String","Radiocarbon unique laboratory date ID (but may be NULL if unavailable)",,
+"Other_Lab_ID",,"String","Secondary laboratory ID (when present)",,
+"Problems",,"Long String","Description of any problems or inconsistencies in the information about the date reported in literature ",,
+"CRA",,"Integer","Conventional radiocarbon age (i.e. the uncalibrated date, measured ""bp"", before present)",,
+"Error",,"Integer","Radiocarbon age error (i.e. the error estimate before calibration)",,
+"DC13",,"String","Delta C13 value",,
+"DC13_Error",,"String","Delta C13 error",,
+"Date_Method",,"String","Method in which the date was obtained ",,
+"Calibration_Curve",,"String","Recommented calibration curve that should be used to calibrate the date (recommendation as of October 2019)",,
+"Local_Reservoir_14Cyr",,"Integer","Local reservoir 14C value for dates obtained on marine materials",,
+"Local_Reservoir_14Cyr_Error",,"Integer","Error of the local reservoir 14C value for dates obtained on marine materials",,
+"Material",,"String","Description of material from which sample dated (e.g. shell, charcoal)",,
+"Species",,"String","Species of the human, animal or vegetal material of dated sample",,
+"Site_ID","FK","String","Site unique ID (see schema_siteTable.Site_ID)",,"siteTable.Site_ID"
+"Phase_ID","FK","String","Phase unique ID (see schema_phaseTable.Phase_ID)",,"phaseTable.Phase_ID"
+"Phase_by_Excavator","OL","String","Field that indicates if the cultural phase of a certain site was proposed by the excavator or created on paper","options_phaseByExcavator",
+"Site_Context",,"Long String","Descriptive information about trench, square, stratigraphic unit, etc. from which dated sample was recovered",,
+"Sample_ID",,"String","Local site-based identifier code of the dated sample as provided by the excavator",,
+"Notes",,"Long String","General notes or comments on the date, its discussion in the literature or its source",,

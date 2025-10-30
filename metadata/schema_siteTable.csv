@@ -1,0 +1,9 @@
+"Field","Key","VariableType","Description","OptionsMetaSchema","ForeignKeyLink"
+"Site_ID","PK","String","Site ID as unique abbreviated identifier (international code of the country where the site is located followed by a sequential number)",,
+"Site_Name",,"String","Toponym of the site transliterated in Latin alphabet from Arabic or Berber, or corresponding to the Classical name of the site",,
+"Site_Type",,"String","Type description for site, open-ended category (e.g. Open-air; Cave; Shell midden; Funerary complex; etc.)",,
+"Admin_Region",,"String","Modern administrative region where the site is located",,
+"Country",,"String","Modern country where the site is located indicated by the ISO 3166-1 alpha-2 international country code","options_country",
+"Decimal_Degrees_Lat",,"Decimal","Geographic latitude in decimal degrees using the WGS84 ellipsoid (ESPG 4326)",,
+"Decimal_Degrees_Long",,"Decimal","Geographic longitude in decimal degrees using the WGS84 ellipsoid (ESPG 4326)",,
+"Location_Quality","OL",,"Quality of the geographical coordinates","options_locationQuality",

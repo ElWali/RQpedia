@@ -1,0 +1,1541 @@
+"ID","Culture_ID","Date_ID","Phase_ID","BasisOfLink"
+1,"Iberomaurusian","NoLabID-01","DZ021-1",NULL
+2,"Iberomaurusian","ALG-25","DZ009-1",NULL
+3,"Epipalaeolithic with pottery","ALG-25","DZ009-1",NULL
+4,"Keremian","ALG-25","DZ009-1",NULL
+5,"Iberomaurusian","ALG-26","DZ010-1",NULL
+6,"Epipalaeolithic with pottery","ALG-26","DZ010-1",NULL
+7,"Keremian","ALG-26","DZ010-1",NULL
+8,"Neolithic of Capsian Tradition","Gif-1221","DZ005-2",NULL
+9,"Upper Capsian","Gif-1220","DZ005-1",NULL
+10,"Upper Capsian","ALG-13","DZ005-1",NULL
+11,"Upper Capsian","ALG-12","DZ005-1",NULL
+12,"Neolithic of Capsian Tradition","Gif-884","DZ048-2",NULL
+13,"Neolithic of Capsian Tradition Atlas variety","Gif-884","DZ048-2",NULL
+14,"Upper Capsian","MC-280","DZ048-1",NULL
+15,"Neolithic of Capsian Tradition Atlas variety","MC-280","DZ048-1",NULL
+16,"Iberomaurusian","ALG-28","DZ022-1",NULL
+17,"Upper Capsian","MC-316","DZ023-1",NULL
+18,"Proto Neolithic","MC-328","DZ008-1",NULL
+19,"Neolithic of Capsian Tradition Atlas variety","MC-328","DZ008-1",NULL
+20,"Neolithic without pottery","ALG-33","DZ008-1",NULL
+21,"Neolithic of Capsian Tradition Atlas variety","ALG-33","DZ008-1",NULL
+22,"Upper Capsian","MC-285","DZ024-2",NULL
+23,"Upper Capsian","ALG-18","DZ024-2",NULL
+24,"Neolithic","ALG-20","DZ024-1",NULL
+25,"Final Upper Capsian","ALG-20","DZ024-1",NULL
+26,"Neolithic of Capsian Tradition","MC-208","DZ044-1",NULL
+27,"Neolithic of Capsian Tradition","ALG-10","DZ018-1",NULL
+28,"Neolithic of Capsian Tradition","ALG-11","DZ018-1",NULL
+29,"Neolithic of Capsian Tradition","ALG-39","DZ012-1",NULL
+30,"Typical Capsian","Gif-1714","DZ047-5",NULL
+31,"Upper Capsian","Gif-1714","DZ047-5",NULL
+32,"Typical Capsian","Gif-1715","DZ047-3",NULL
+33,"Typical Capsian","Gif-1896","DZ047-5",NULL
+34,"Typical Capsian","Gif-1897","DZ047-5",NULL
+35,"Typical Capsian","Gif-1898","DZ047-5",NULL
+36,"Typical Capsian","Gif-1901","DZ047-4",NULL
+37,"Typical Capsian","Gif-1902","DZ047-4",NULL
+38,"Typical Capsian","Gif-2120","DZ047-2",NULL
+39,"Typical Capsian","Gif-2121","DZ047-1",NULL
+40,"Upper Capsian","Gif-1900","DZ047-5",NULL
+41,"Upper Capsian","Gif-1899","DZ047-6",NULL
+42,"Upper Capsian","Gif-2119","DZ047-3",NULL
+43,"Upper Capsian","Gif-306","DZ045-2",NULL
+44,"Undetermined Typical/Upper Capsian","Poz-92376","DZ045-1",NULL
+45,"Undetermined Typical/Upper Capsian","Poz-92378","DZ045-1",NULL
+46,"Undetermined Typical/Upper Capsian","Poz-92377","DZ045-1",NULL
+47,"Upper Capsian","Gif-308","DZ017-6",NULL
+48,"Epipalaeolithic with pottery","Gif-308","DZ017-6",NULL
+49,"Upper Capsian","Gif-309","DZ017-7",NULL
+50,"Epipalaeolithic with pottery","Gif-309","DZ017-7",NULL
+51,"Columnatian","MC-154","DZ017-5",NULL
+52,"Epipalaeolithic","MC-154","DZ017-5",NULL
+53,"Upper Capsian","MC-153","DZ017-6",NULL
+54,"Columnatian","MC-155","DZ017-4",NULL
+55,"Neolithic of Capsian Tradition","MC-156","DZ017-8",NULL
+56,"Neolithic of Capsian Tradition","Gif-307","DZ017-9",NULL
+57,"Iberomaurusian","ALG-97","DZ017-2",NULL
+58,"Columnatian","MC-211","DZ017-4",NULL
+59,"Columnatian","Poz-103172","DZ017-3",NULL
+60,"Iberomaurusian","Poz-103169","DZ017-1",NULL
+61,"Iberomaurusian","Poz-103168","DZ017-1",NULL
+62,"Iberomaurusian","Poz-103171","DZ017-1",NULL
+63,"Iberomaurusian","Poz-102948","DZ017-2",NULL
+64,"Neolithic","Gif-3408","DZ032-1",NULL
+65,"Neolithic of Capsian Tradition","Gif-883","DZ037-1",NULL
+66,"Neolithic of Capsian Tradition","Gif-3012","DZ037-1",NULL
+67,"Upper Capsian","I-7690","DZ004-7",NULL
+68,"Typical Capsian","I-7691","DZ004-2",NULL
+69,"Upper Capsian","I-7691","DZ004-2",NULL
+70,"Upper Capsian","I-9781","DZ004-6",NULL
+71,"Upper Capsian","I-9782","DZ004-6",NULL
+72,"Typical Capsian","I-9783","DZ004-5",NULL
+73,"Upper Capsian","I-9783","DZ004-5",NULL
+74,"Typical Capsian","I-9784","DZ004-5",NULL
+75,"Upper Capsian","I-9784","DZ004-5",NULL
+76,"Typical Capsian","I-9785","DZ004-1",NULL
+77,"Upper Capsian","I-9785","DZ004-1",NULL
+78,"Typical Capsian","I-9786","DZ004-1",NULL
+79,"Upper Capsian","I-9786","DZ004-1",NULL
+80,"Typical Capsian","I-9824","DZ004-1",NULL
+81,"Upper Capsian","I-9824","DZ004-1",NULL
+82,"Upper Capsian","I-9826","DZ004-3",NULL
+83,"Typical Capsian","I-8378","DZ004-4",NULL
+84,"Upper Capsian","I-8378","DZ004-4",NULL
+85,"Typical Capsian","I-9825","DZ004-1",NULL
+86,"Upper Capsian","I-9825","DZ004-1",NULL
+87,"Upper Capsian","MC-206","DZ036-2",NULL
+88,"Elassolithic","MC-206","DZ036-2",NULL
+89,"Epipalaeolithic","Gif-879","DZ036-1",NULL
+90,"Elassolithic","Gif-879","DZ036-1",NULL
+91,"Epipalaeolithic","MC-207","DZ036-1",NULL
+92,"Elassolithic","MC-207","DZ036-1",NULL
+93,"Upper Capsian","MC-209","DZ002-1",NULL
+94,"Upper Capsian","MC-210","DZ002-1",NULL
+95,"Upper Capsian","Ny-76","DZ002-1",NULL
+96,"Upper Capsian","ALG-7","DZ002-1",NULL
+97,"Upper Capsian","Beta-426393","DZ039-1",NULL
+98,"Upper Capsian","Gif-1454","DZ040-1",NULL
+99,"Upper Capsian","Gif-1455","DZ040-1",NULL
+100,"Upper Capsian","Gif-462","DZ040-4",NULL
+101,"Upper Capsian","MC-151","DZ040-4",NULL
+102,"Upper Capsian","Gif-886","DZ040-3",NULL
+103,"Upper Capsian","Gif-887","DZ040-2",NULL
+104,"Upper Capsian?","Gif-889","DZ040-1",NULL
+105,"Upper Capsian","MC-214","DZ040-2",NULL
+106,"Upper Capsian","MC-213","DZ040-3",NULL
+107,"Upper Capsian","MC-318","DZ040-3",NULL
+108,"Upper Capsian","MC-319","DZ040-2",NULL
+109,"Upper Capsian","MC-320","DZ040-2",NULL
+110,"Upper Capsian","MC-321","DZ040-2",NULL
+111,"Upper Capsian","MC-322","DZ040-2",NULL
+112,"Upper Capsian","MC-323","DZ040-2",NULL
+113,"Upper Capsian","MC-325","DZ040-1",NULL
+114,"Upper Capsian","MC-326","DZ040-1",NULL
+115,"Upper Capsian?","MC-327","DZ040-1",NULL
+116,"Upper Capsian","Gif-888","DZ040-2",NULL
+117,"Upper Capsian","Gif-885","DZ040-3",NULL
+118,"Upper Capsian","MC-337","DZ003-1",NULL
+119,"Upper Capsian","MC-338","DZ003-1",NULL
+120,"Upper Capsian","MC-339","DZ003-1",NULL
+121,"Upper Capsian","MC-340","DZ003-1",NULL
+122,"Upper Capsian","MC-372","DZ003-1",NULL
+123,"Upper Capsian","MC-373","DZ003-1",NULL
+124,"Upper Capsian","MC-374","DZ003-1",NULL
+125,"Upper Capsian","MC-375","DZ003-1",NULL
+126,"Upper Capsian","MC-376","DZ003-1",NULL
+127,"Typical Capsian","SMU-1108","DZ034-1",NULL
+128,"Typical/Upper Capsian transition","SMU-1121","DZ034-2",NULL
+129,"Typical Capsian","SMU-704","DZ034-1",NULL
+130,"Typical Capsian","SMU-712","DZ034-1",NULL
+131,"Upper Capsian","SMU-1120","DZ034-3",NULL
+132,"Upper Capsian","SMU-1082","DZ034-3",NULL
+133,"Upper Capsian","SMU-1084","DZ034-3",NULL
+134,"Upper Capsian","SMU-1099","DZ034-3",NULL
+135,"Upper Capsian","SMU-1098","DZ034-3",NULL
+136,"Upper Capsian","SMU-1095","DZ034-3",NULL
+137,"Upper Capsian","SMU-1096","DZ034-3",NULL
+138,"Upper Capsian","SMU-1154","DZ034-3",NULL
+139,"Upper Capsian","SMU-1081","DZ034-3",NULL
+140,"Upper Capsian","I-9835","DZ034-4",NULL
+141,"Upper Capsian","I-9836","DZ034-3",NULL
+142,"Upper Capsian","I-9837","DZ034-3",NULL
+143,"Upper Capsian","I-9838","DZ034-3",NULL
+144,"Upper Capsian","AECV-1812C","DZ034-3",NULL
+145,"Upper Capsian","AECV-1813C","DZ034-3",NULL
+146,"Upper Capsian","SMU-1097","DZ034-3",NULL
+147,"Typical Capsian","UOC-0911","DZ034-1",NULL
+148,"Typical Capsian","UOC-0912","DZ034-1",NULL
+149,"Upper Capsian","UOC-2923","DZ034-3",NULL
+150,"Typical/Upper Capsian transition","UOC-2924","DZ034-2",NULL
+151,"Typical/Upper Capsian transition","UOC-2925","DZ034-2",NULL
+152,"Typical Capsian","UOC-2927","DZ034-1",NULL
+153,"Upper Capsian","L-133","DZ019-1",NULL
+154,"Upper Capsian","MC-625","DZ019-1",NULL
+155,"Upper Capsian","MC-626","DZ019-1",NULL
+156,"Upper Capsian","MC-627","DZ019-1",NULL
+157,"Upper Capsian","MC-628","DZ019-1",NULL
+158,"Upper Capsian","MC-629","DZ019-1",NULL
+159,"Upper Capsian","WIS-2067","DZ035-2",NULL
+160,"Upper Capsian","NoLabID-02","DZ035-2",NULL
+161,"Typical Capsian","L-204B","DZ035-2",NULL
+162,"Undetermined Typical/Upper Capsian","Poz-92304","DZ035-1",NULL
+163,"Undetermined Typical/Upper Capsian","Poz-92302","DZ035-3",NULL
+164,"Upper Capsian","MC-283","DZ046-4",NULL
+165,"Upper Capsian","ALG-17","DZ046-4",NULL
+166,"Upper Capsian","ALG-22","DZ046-3",NULL
+167,"Upper Capsian","ALG-23","DZ046-3",NULL
+168,"Upper Capsian","MC-281","DZ046-2",NULL
+169,"Upper Capsian","Gif-1379","DZ046-2",NULL
+170,"Upper Capsian","ALG-59","DZ046-2",NULL
+171,"Upper Capsian","ALG-46","DZ046-1",NULL
+172,"Upper Capsian","Gif-1381","DZ046-1",NULL
+173,"Upper Capsian","Gif-1382","DZ046-1",NULL
+174,"Neolithic of Capsian Tradition","ALG-62","DZ014-1",NULL
+175,"Neolithic of Capsian Tradition","Gif-1383","DZ014-3",NULL
+176,"Neolithic of Capsian Tradition","Gif-1384","DZ014-2",NULL
+177,"Neolithic of Capsian Tradition","Gif-1385","DZ014-2",NULL
+178,"Neolithic of Capsian Tradition","Gif-1386","DZ014-3",NULL
+179,"Neolithic of Capsian Tradition","W-2531","DZ014-1",NULL
+180,"Neolithic of Capsian Tradition","W-2532","DZ014-1",NULL
+181,"Neolithic of Capsian Tradition","W-2533","DZ014-1",NULL
+182,"Neolithic of Capsian Tradition","ALG-30","DZ014-1",NULL
+183,"Neolithic of Capsian Tradition","ALG-37","DZ014-4",NULL
+184,"Neolithic of Capsian Tradition","ALG-50","DZ014-1",NULL
+185,"Iberomaurusian","ALG-4","DZ051-4",NULL
+186,"Iberomaurusian","ALG-5","DZ051-4",NULL
+187,"Typical Capsian?","Poz-92339","DZ057-1",NULL
+188,"Upper Capsian","Beta-171175","DZ050-1",NULL
+189,"Upper Capsian","Poz-92337","DZ050-2",NULL
+190,"Upper Capsian","Poz-92338","DZ050-2",NULL
+191,"Neolithic","Gif-12655","DZ029-3",NULL
+192,"Neolithic","Gif-12656","DZ029-3",NULL
+193,"Neolithic","Gif-12879","DZ029-5",NULL
+194,"Neolithic","Gif-12877","DZ029-3",NULL
+195,"Neolithic","Gif-12880","DZ029-3",NULL
+196,"Neolithic","Gif-12878","DZ029-1",NULL
+197,"Neolithic","SacA-39410","DZ029-6",NULL
+198,"Neolithic","SacA-39411","DZ029-6",NULL
+199,"Neolithic","SacA-39409","DZ029-6",NULL
+200,"Neolithic","SacA-36982","DZ029-5",NULL
+201,"Neolithic","SacA-36981","DZ029-1",NULL
+202,"Neolithic","SacA-41908","DZ029-1",NULL
+203,"Neolithic","SacA-39413","DZ029-2",NULL
+204,"Neolithic","Ly-3657","DZ029-4",NULL
+205,"Early Neolithic","Gif-5116","DZ042-2",NULL
+206,"Epipalaeolithic with pottery","Gif-5116","DZ042-2",NULL
+207,"Iberomaurusian","Gif-882","DZ042-1",NULL
+208,"Early Neolithic","ALG-40","DZ015-1",NULL
+209,"Mediterranean Neolithic","ALG-40","DZ015-1",NULL
+210,"Typical Capsian","Gif-1590","DZ027-1",NULL
+211,"Typical Capsian","Gif-1591","DZ027-1",NULL
+212,"Typical Capsian","Gif-1592","DZ027-1",NULL
+213,"Typical Capsian","Gif-1593","DZ027-1",NULL
+214,"Early Neolithic","Gif-463","DZ011-1",NULL
+215,"Epipalaeolithic with pottery","Gif-463","DZ011-1",NULL
+216,"Mediterranean Neolithic","Gif-463","DZ011-1",NULL
+217,"Typical Capsian?","SMU-1132","DZ001-3",NULL
+218,"Upper Capsian?","SMU-1135","DZ001-2",NULL
+219,"Upper Capsian","Poz-92382","DZ001-3",NULL
+220,"Upper Capsian","Poz-92333","DZ001-3",NULL
+221,"Upper Capsian","Poz-92383","DZ001-3",NULL
+222,"Upper Capsian","Poz-92334","DZ001-3",NULL
+223,"Typical Capsian","Poz-92351","DZ001-2",NULL
+224,"Typical Capsian","Poz-92384","DZ001-1",NULL
+225,"Typical Capsian","Poz-92335","DZ001-1",NULL
+226,"Typical Capsian","Poz-92330","DZ001-1",NULL
+227,"Typical Capsian","Poz-92336","DZ001-1",NULL
+228,"Typical Capsian","Poz-92331","DZ001-2",NULL
+229,"Upper Capsian","Poz-92231","DZ058-1",NULL
+230,"Upper Capsian","Poz-92232","DZ058-2",NULL
+231,"Undetermined Typical/Upper Capsian","Beta-440011","DZ059-1",NULL
+232,"Undetermined Typical/Upper Capsian","Poz-92379","DZ059-2",NULL
+233,"Undetermined Typical/Upper Capsian","Beta-440010","DZ059-1",NULL
+234,"Undetermined Typical/Upper Capsian","Beta-440009","DZ059-1",NULL
+235,"Undetermined Typical/Upper Capsian","Poz-92380","DZ059-2",NULL
+236,"Undetermined Typical/Upper Capsian","Beta-440007","DZ059-1",NULL
+237,"Undetermined Typical/Upper Capsian","Beta-440008","DZ059-3",NULL
+238,"Undetermined Typical/Upper Capsian","Beta-440006","DZ059-1",NULL
+239,"Columnatian","UGAMS-28902","DZ060-3",NULL
+240,"Columnatian","UGAMS-28901","DZ060-3",NULL
+241,"Upper Capsian?","Beta-450252","DZ060-4",NULL
+242,"Iberomaurusian","UGAMS-28900","DZ060-1",NULL
+243,"Iberomaurusian","UGAMS-28903","DZ060-2",NULL
+244,"Columnatian","UGAMS-28906","DZ060-3",NULL
+245,"Columnatian","UGAMS-28904","DZ060-3",NULL
+246,"Upper Capsian?","UGAMS-28905","DZ060-4",NULL
+247,"Pre-Capsian Epipalaeolithic","SMU-655","DZ054-1",NULL
+248,"Pre-Capsian Epipalaeolithic","SMU-738","DZ054-1",NULL
+249,"Iberomaurusian","Gif-4433","DZ025-1",NULL
+250,"Iberomaurusian","Gif-2110","DZ052-1",NULL
+251,"Berber","ALG-21","DZ041-1",NULL
+252,"Berber","Gif-1671","DZ041-1",NULL
+253,"Mediterranean Neolithic","ALG-35","DZ038-1",NULL
+254,"Upper Capsian?","I-9832","DZ043-1",NULL
+255,"Terminal Palaeolithic J","I-4129","EG013-1",NULL
+256,"Terminal Palaeolithic J","I-4128","EG014-1",NULL
+257,"Terminal Palaeolithic J","I-4130","EG015-1",NULL
+258,"Neolithic Fayum A","I-4131","EG015-2",NULL
+259,"Late Neolithic","I-3469","EG015-3",NULL
+260,"Terminal Palaeolithic J","I-4126","EG016-1",NULL
+261,"Dynastic","KIK-10533","EG016-4",NULL
+262,"Neolithic Fayum A","I-4127","EG017-2",NULL
+263,"Late Neolithic","Beta-4181","EG022-1",NULL
+264,"Predynastic","Beta-4181","EG022-1",NULL
+265,"Qarunian","Beta-4180","EG023-1",NULL
+266,"Qarunian","Beta-4871","EG023-1",NULL
+267,"Qarunian","Beta-4872","EG023-1",NULL
+268,"Late Neolithic","Beta-4182","EG024-1",NULL
+269,"Predynastic","Beta-4182","EG024-1",NULL
+270,"Late Neolithic","Beta-4874","EG024-1",NULL
+271,"Predynastic","Beta-4874","EG024-1",NULL
+272,"Middle Kingdom","Gd-1372","EG068-1",NULL
+273,"Middle Kingdom","Gd-1486","EG064-1",NULL
+274,"Moerian","Gd-1496","EG015-3",NULL
+275,"Predynastic","Gd-874","EG069-1",NULL
+276,"Moerian","Gd-916","EG015-3",NULL
+277,"Moerian","Gd-919","EG015-3",NULL
+278,"Middle Kingdom","Gd-969","EG064-1",NULL
+279,"Middle Kingdom","Gd-970","EG065-1",NULL
+280,"Middle Kingdom","Gd-971","EG069-2",NULL
+281,"Moerian","Gd-973","EG015-3",NULL
+282,"Moerian","Gd-976","EG015-3",NULL
+283,"Fayoumian","Gd-1140","EG060-2",NULL
+284,"Fayoumian","Bln-2333","EG060-2",NULL
+285,"Fayoumian","Bln-2334","EG060-2",NULL
+286,"Fayoumian","Gd-708","EG060-2",NULL
+287,"Qarunian","Gd-709","EG060-1",NULL
+288,"Qarunian","Bln-2336","EG061-1",NULL
+289,"Fayoumian","Bln-2325","EG063-1",NULL
+290,"Fayoumian","Gd-693","EG063-1",NULL
+291,"Moerian","Gd-903","EG066-1",NULL
+292,"Moerian","Gd-1495","EG067-1",NULL
+293,"Moerian","Gd-895","EG015-3",NULL
+294,"Moerian","Gd-915","EG015-3",NULL
+295,"Moerian","Gd-977","EG015-3",NULL
+296,"Predynastic","Gd-879","EG069-1",NULL
+297,"Protodynastic","Gd-904","EG070-1",NULL
+298,"Fayoumian","Gd-1499","EG062-1",NULL
+299,"Fayoumian","Gd-1497","EG071-1",NULL
+300,"Moerian","Gd-978","EG071-2",NULL
+301,"Fayoumian","Gd-2021","EG074-1",NULL
+302,"Fayoumian","Gd-979","EG072-1",NULL
+303,"Fayoumian","Gd-980","EG073-1",NULL
+304,"Neolithic","UClAMS-34422","EG046-1",NULL
+305,"Neolithic","UClAMS-33840","EG046-1",NULL
+306,"Neolithic","UClAMS-22841","EG046-1",NULL
+307,"Neolithic","UClAMS-45069","EG046-1",NULL
+308,"Neolithic","UClAMS-45070","EG046-1",NULL
+309,"Neolithic","UClAMS-45068","EG046-1",NULL
+310,"Neolithic","UClAMS-45071","EG046-1",NULL
+311,"Neolithic","UClAMS-45074","EG046-1",NULL
+312,"Neolithic","UClAMS-45072","EG046-1",NULL
+313,"Neolithic","UClAMS-45073","EG046-1",NULL
+314,"Neolithic","UClAMS-45075","EG046-1",NULL
+315,"Neolithic","UClAMS-45076","EG046-1",NULL
+316,"Neolithic","UClAMS-45077","EG046-1",NULL
+317,"Neolithic","UClAMS-45078","EG046-1",NULL
+318,"Neolithic","UClAMS-45080","EG046-1",NULL
+319,"Neolithic","UClAMS-45079","EG046-1",NULL
+320,"Neolithic","UClAMS-45081","EG046-1",NULL
+321,"Neolithic","UClAMS-45082","EG046-1",NULL
+322,"Neolithic","UClAMS-45083","EG046-1",NULL
+323,"Neolithic","UClAMS-45084","EG046-1",NULL
+324,"Neolithic","UClAMS-45085","EG046-1",NULL
+325,"Neolithic","UClAMS-45086","EG046-1",NULL
+326,"Neolithic","UClAMS-45088","EG046-1",NULL
+327,"Neolithic","UClAMS-33835","EG017-2",NULL
+328,"Neolithic","UClAMS-33836","EG017-2",NULL
+329,"Neolithic","UClAMS-33838","EG017-2",NULL
+330,"Neolithic","UClAMS-33839","EG017-2",NULL
+331,"Neolithic","UClAMS-57206","EG017-2",NULL
+332,"Neolithic","UClAMS-57207","EG017-2",NULL
+333,"Neolithic","UClAMS-57208","EG017-2",NULL
+334,"Neolithic","UClAMS-57209","EG017-2",NULL
+335,"Neolithic","UClAMS-57210","EG017-2",NULL
+336,"Neolithic","UClAMS-57211","EG017-2",NULL
+337,"Neolithic","UClAMS-57212","EG017-1",NULL
+338,"Neolithic","UClAMS-57213","EG017-2",NULL
+339,"Neolithic","UClAMS-57214","EG017-2",NULL
+340,"Neolithic","UClAMS-57224","EG017-1",NULL
+341,"Epipalaeolithic","UClAMS-57215","EG016-1",NULL
+342,"Epipalaeolithic","UClAMS-57216","EG016-1",NULL
+343,"Epipalaeolithic","UClAMS-57217","EG016-1",NULL
+344,"Epipalaeolithic","UClAMS-57218","EG016-1",NULL
+345,"Epipalaeolithic","UClAMS-57219","EG016-1",NULL
+346,"Epipalaeolithic","UClAMS-57220","EG016-1",NULL
+347,"Epipalaeolithic","UClAMS-57221","EG016-1",NULL
+348,"Epipalaeolithic","UClAMS-57188","EG016-2",NULL
+349,"Epipalaeolithic","UClAMS-57222","EG016-2",NULL
+350,"Epipalaeolithic","UClAMS-57223","EG016-3",NULL
+351,"Neolithic","UClAMS-122024","EG047-2",NULL
+352,"Neolithic","UClAMS-122030","EG047-2",NULL
+353,"Neolithic","UClAMS-122041","EG047-2",NULL
+354,"Neolithic","UClAMS-122031","EG047-2",NULL
+355,"Neolithic","UClAMS-122042","EG047-2",NULL
+356,"Neolithic","UClAMS-122032","EG047-2",NULL
+357,"Neolithic","UClAMS-122033","EG047-2",NULL
+358,"Neolithic","UClAMS-122043","EG047-2",NULL
+359,"Epipalaeolithic","UClAMS-122034","EG047-1",NULL
+360,"Epipalaeolithic","UClAMS-122045","EG047-1",NULL
+361,"Neolithic","UClAMS-122044","EG047-2",NULL
+362,"Neolithic","UClAMS-121796","EG047-2",NULL
+363,"Neolithic","UClAMS-121798","EG047-2",NULL
+364,"Neolithic","UClAMS-121809","EG047-2",NULL
+365,"Neolithic","UClAMS-121797","EG044-1",NULL
+366,"Neolithic","UClAMS-121799","EG044-1",NULL
+367,"Neolithic","UClAMS-122022","EG044-1",NULL
+368,"Neolithic","UClAMS-122023","EG044-1",NULL
+369,"Neolithic","UClAMS-122025","EG044-1",NULL
+370,"Neolithic","UClAMS-122026","EG044-1",NULL
+371,"Neolithic","UClAMS-122027","EG044-1",NULL
+372,"Neolithic","UClAMS-122028","EG044-1",NULL
+373,"Neolithic","UClAMS-122029","EG044-1",NULL
+374,"Neolithic","GrN-30130","EG156-1",NULL
+375,"Neolithic","GrA-31247","EG156-1",NULL
+376,"Neolithic","GrA-31248","EG156-1",NULL
+377,"Fayoumian","C-457","EG156-1",NULL
+378,"Fayoumian","C-550/551","EG156-1",NULL
+379,"Late Neolithic","BM-530","EG020-1",NULL
+380,"Neolithic","KN-3222","EG130-1",NULL
+381,"Neolithic","KN-3223","EG132-1",NULL
+382,"Neolithic PN","KN-3555","EG133-2",NULL
+383,"Middle Neolithic","KN-3589","EG130-1",NULL
+384,"Middle Neolithic","KN-3727","EG133-2",NULL
+385,"Neolithic","KN-3754","EG133-1",NULL
+386,"Neolithic","KN-3755","EG133-1",NULL
+387,"Neolithic","KN-3756","EG133-1",NULL
+388,"Middle Neolithic","KN-3785","EG136-1",NULL
+389,"Neolithic PN","KN-3799","EG135-1",NULL
+390,"Neolithic PN","KN-3857","EG128-1",NULL
+391,"Neolithic PN","KN-4258","EG131-1",NULL
+392,"Neolithic","KN-4334","EG134-1",NULL
+393,"Neolithic","KN-4328","EG134-1",NULL
+394,"Neolithic","KN-4280","EG129-1",NULL
+395,"Neolithic","KN-4335","EG134-1",NULL
+396,"Epipalaeolithic","SMU-241","EG126-1",NULL
+397,"Epipalaeolithic","SMU-281","EG038-1",NULL
+398,"Middle Neolithic?","SMU-298","EG137-1",NULL
+399,"Neolithic","SMU-300","EG025-1",NULL
+400,"Neolithic","WSU-1674","EG037-1",NULL
+401,"Neolithic","WSU-1691","EG018-1",NULL
+402,"Late Neolithic","WSU-1692","EG140-1",NULL
+403,"Epipalaeolithic","WSU-1693","EG138-1",NULL
+404,"Siwan","WSU-1694","EG127-1",NULL
+405,"Epipalaeolithic","WSU-1695","EG139-1",NULL
+406,"Late Neolithic","WSU-1696","EG140-1",NULL
+407,"Epipalaeolithic","WSU-1697","EG036-1",NULL
+408,"Early Neolithic","NoLabID-03","EG056-3",NULL
+409,"Jüngeren Merimde","NoLabID-03","EG056-3",NULL
+410,"Early Neolithic","KN-3275","EG056-2",NULL
+411,"Early Neolithic","KN-3276","EG056-2",NULL
+412,"Early Neolithic","KN-3277","EG056-2",NULL
+413,"Early Neolithic","KN-3278","EG056-3",NULL
+414,"Early Neolithic","KN-3279","EG056-2",NULL
+415,"Early Neolithic","U-10","EG056-3",NULL
+416,"Early Neolithic","U-10A","EG056-3",NULL
+417,"Early Neolithic","U-10B","EG056-3",NULL
+418,"Neolithic","U-31","EG056-6",NULL
+419,"Neolithic","U-32","EG056-5",NULL
+420,"Neolithic","U-6","EG056-1",NULL
+421,"Neolithic","U-7",NULL,NULL
+422,"Early Neolithic","U-73","EG056-2",NULL
+423,"Jüngeren Merimde","U-73","EG056-2",NULL
+424,"Neolithic","U-8","EG056-2",NULL
+425,"Early Neolithic","U-9","EG056-1",NULL
+426,"Early Neolithic","U-9A","EG056-2",NULL
+427,"Early Neolithic","U-9B","EG056-2",NULL
+428,"Neolithic","W-4355","EG056-2",NULL
+429,"Early Neolithic","WSU-1846","EG056-4",NULL
+430,"Jüngeren Merimde","WSU-1846","EG056-4",NULL
+431,"Predynastic","U-5","EG055-1",NULL
+432,"Maadi-Buto","Beta-2804","EG054-2",NULL
+433,"Maadi-Buto","Beta-2805","EG054-1",NULL
+434,"Maadi-Buto","KN-3573","EG054-1",NULL
+435,"Maadi-Buto","KN-3574","EG054-1",NULL
+436,"Maadi-Buto","KN-3745","EG054-2",NULL
+437,"Maadi-Buto","KN-3862","EG054-3",NULL
+438,"Maadi-Buto","KN-3863","EG054-3",NULL
+439,"Maadi-Buto","KN-3899","EG054-1",NULL
+440,"Maadi-Buto","KN-3910","EG054-2",NULL
+441,"Maadi-Buto","R-1425","EG054-1",NULL
+442,"Maadi-Buto","R-1426","EG054-2",NULL
+443,"Maadi-Buto","R-1427","EG054-1",NULL
+444,"Maadi-Buto","R-1428","EG054-1",NULL
+445,"Maadi-Buto","Bln-5215","EG054-2",NULL
+446,"Ahmose II","BM-381","EG008-2",NULL
+447,"Maadi-Buto","KN-4009","EG008-1",NULL
+448,"Maadi-Buto","KN-4010","EG008-1",NULL
+449,"Maadi-Buto","KN-4011","EG008-1",NULL
+450,"Maadi-Buto","KN-4012","EG008-1",NULL
+451,"Maadi-Buto","KN-4013","EG008-1",NULL
+452,"Maadi-Buto","KN-4014","EG008-1",NULL
+453,"Maadi-Buto","KN-4015","EG008-1",NULL
+454,"Maadi-Buto","KN-4016","EG008-1",NULL
+455,"Maadi-Buto","KN-4220","EG008-1",NULL
+456,"Maadi-Buto","KN-4249","EG008-1",NULL
+457,"Maadi-Buto","KN-4446","EG008-1",NULL
+458,"Late Neolithic/Predynastic","C-463","EG019-2",NULL
+459,"Predynastic","C-62","EG019-2",NULL
+460,"Neolithic","KN-3933","EG019-1",NULL
+461,"Neolithic","KN-3934","EG019-1",NULL
+462,"Late Neolithic","KN-3994","EG019-2",NULL
+463,"Neolithic","KN-4177","EG019-1",NULL
+464,"Neolithic","KN-4178","EG019-1",NULL
+465,"Neolithic","Beta-228941","EG075-1",NULL
+466,"Neolithic","Beta-228938","EG075-1",NULL
+467,"Neolithic","Beta-228940","EG075-1",NULL
+468,"Neolithic","Beta-228939","EG075-1",NULL
+469,"Early Dynastic","Gd-2660","EG059-2",NULL
+470,"Early Dynastic","Gd-4566","EG059-2",NULL
+471,"Early Dynastic","Gd-5125","EG059-2",NULL
+472,"Early Dynastic","Gd-5216","EG059-2",NULL
+473,"Early Dynastic","Gd-6233","EG059-2",NULL
+474,"Predynastic","Hv-9566","EG059-1",NULL
+475,"Predynastic","Hv-9567","EG059-1",NULL
+476,"Early Dynastic","KN-3606","EG059-2",NULL
+477,"Early Dynastic","KN-3607","EG059-2",NULL
+478,"Early Dynastic","KN-3608","EG059-2",NULL
+479,"Predynastic","KN-3609","EG059-1",NULL
+480,"Early Dynastic","KN-3759","EG059-2",NULL
+481,"Early Dynastic","KN-3761","EG059-2",NULL
+482,"Early Dynastic","KN-3762","EG059-2",NULL
+483,"Early Dynastic","KN-3763","EG059-2",NULL
+484,"Early Dynastic","KN-4441","EG059-2",NULL
+485,"Early Dynastic","KN-4442","EG059-2",NULL
+486,"Early Dynastic","KN-4443","EG059-2",NULL
+487,"Early Dynastic","SI-6630","EG059-2",NULL
+488,"Predynastic","KN-3061","EG059-1",NULL
+489,"Predynastic","KN-3062","EG059-1",NULL
+490,"Predynastic","KN-3068","EG059-1",NULL
+491,"Predynastic","KN-3069","EG059-1",NULL
+492,"Predynastic","KN-3168","EG059-1",NULL
+493,"Ptolemaic","Tx-2871","EG147-1",NULL
+494,"Late Neolithic","H-7060-6583","EG157-3",NULL
+495,"Late Neolithic","H-7061-6584","EG157-2",NULL
+496,"Late Neolithic","Hv-13921","EG157-4",NULL
+497,"Late Neolithic","Hv-13922","EG157-1",NULL
+498,"Late Neolithic","Hv-13923","EG157-2",NULL
+499,"Late Neolithic","Hv-13924","EG157-3",NULL
+500,"Late Neolithic","Hv-13925","EG157-2",NULL
+501,"Maadi-Buto","KN-3865","EG158-1",NULL
+502,"Maadi-Buto","KN-3866","EG158-1",NULL
+503,"Dynasty 5","SMU-1438","EG045-2",NULL
+504,"Dynasty 5","SMU-1440","EG045-2",NULL
+505,"Dynasty 5","SMU-1882","EG045-2",NULL
+506,"Dynasty 5","SMU-1627","EG045-2",NULL
+507,"Dynasty 5","SMU-1569","EG045-2",NULL
+508,"Dynasty 5","Teledyne I-318","EG045-2",NULL
+509,"MBA I","VERA-2616","EG148-3",NULL
+510,"EBA IV","VERA-2616","EG148-3",NULL
+511,"EBA IV","VERA-2617","EG148-2",NULL
+512,"MBA I","VERA-2618","EG148-3",NULL
+513,"EBA IV","VERA-2619","EG148-2",NULL
+514,"EBA IV","VERA-2620","EG148-2",NULL
+515,"MBA I?","VERA-2621","EG148-3",NULL
+516,"MBA I","VERA-2622","EG148-3",NULL
+517,"MBA I","VERA-2623","EG148-3",NULL
+518,"MBA I","VERA-2624","EG148-3",NULL
+519,"MBA  I/II","VERA-2625","EG148-3",NULL
+520,"MBA II","VERA-2626","EG148-3",NULL
+521,"MBA III","VERA-2627","EG148-3",NULL
+522,"MBA III","VERA-2628","EG148-3",NULL
+523,"MBA III","VERA-2629","EG148-3",NULL
+524,"LBA I","VERA-2630","EG148-4",NULL
+525,"EBA IV","VERA-2631","EG148-2",NULL
+526,"LBA I","VERA-2632","EG148-4",NULL
+527,"MBA III","VERA-2895","EG148-3",NULL
+528,"MBA III","VERA-2896","EG148-3",NULL
+529,"MBA II","VERA-2897","EG148-3",NULL
+530,"MBA  I/II","VERA-2898","EG148-3",NULL
+531,"MBA I","VERA-2899","EG148-3",NULL
+532,"EBA IV","VERA-2900","EG148-2",NULL
+533,"EBA IV","VERA-2901","EG148-2",NULL
+534,"LBA I","VERA-3031","EG148-4",NULL
+535,"LBA I","VERA-3032","EG148-4",NULL
+536,"MBA III","VERA-3033","EG148-3",NULL
+537,"MBA III","VERA-3616","EG148-3",NULL
+538,"MBA II","VERA-3617","EG148-3",NULL
+539,"MBA II","VERA-3618","EG148-3",NULL
+540,"MBA III","VERA-3619","EG148-3",NULL
+541,"MBA III","VERA-3620","EG148-3",NULL
+542,"MBA III","VERA-3621","EG148-3",NULL
+543,"MBA III","VERA-3622","EG148-3",NULL
+544,"LBA I","VERA-3623","EG148-4",NULL
+545,"MBA II","VERA-3636","EG148-3",NULL
+546,"MBA II","VERA-3637","EG148-3",NULL
+547,"MBA I","VERA-3638","EG148-3",NULL
+548,"MBA I","VERA-3639","EG148-3",NULL
+549,"MBA I","VERA-3640","EG148-3",NULL
+550,"EBA IV","VERA-3641","EG148-2",NULL
+551,"MBA I","VERA-3642","EG148-3",NULL
+552,"MBA I/II","VERA-3643","EG148-3",NULL
+553,"MBA I","VERA-3644","EG148-3",NULL
+554,"MBA III","VERA-3645","EG148-3",NULL
+555,"LBA I","VERA-3724","EG148-4",NULL
+556,"LBA I","VERA-3725","EG148-4",NULL
+557,"MBA III","OxA-15901","EG148-3",NULL
+558,"MBA II","OxA-15948","EG148-3",NULL
+559,"MBA II","OxA-15949","EG148-3",NULL
+560,"MBA I","OxA-15950c","EG148-3",NULL
+561,"MBA I","OxA-15951","EG148-3",NULL
+562,"MBA I","OxA-15952","EG148-3",NULL
+563,"MBA III","OxA-15953","EG148-3",NULL
+564,"MBA I","OxA-15954","EG148-3",NULL
+565,"MBA I","OxA-15955c","EG148-3",NULL
+566,"MBA I","OxA-15956","EG148-3",NULL
+567,"LBA I","OxA-15957","EG148-4",NULL
+568,"LBA I","OxA-15958c","EG148-4",NULL
+569,"LBA I","OxA-15959","EG148-4",NULL
+570,"MBA I","OxA-15978c","EG148-3",NULL
+571,"MBA III","OxA-15979c","EG148-3",NULL
+572,"MBA III","OxA-15980c","EG148-3",NULL
+573,"MBA I","OxA-15981c","EG148-3",NULL
+574,"Dynasty 15","BM-1165","EG148-3",NULL
+575,"Dynasty 15","BM-1225","EG148-3",NULL
+576,"Neolithic","P-2049","EG151-1",NULL
+577,"Ptolemaic","BM-79","EG150-1",NULL
+578,"Djoser","A-219","EG100-1",NULL
+579,"Dynasty 2","A-520","EG052-1",NULL
+580,"Den","A-569","EG142-1",NULL
+581,"Den","Birm-20","EG142-1",NULL
+582,"Naqada IIIC2","Birm-20","EG142-1",NULL
+583,"Den","Birm-20b","EG142-1",NULL
+584,"Naqada IIIC2","Birm-20b","EG142-1",NULL
+585,"Den","BM-203","EG142-1",NULL
+586,"Den","BM-248","EG142-1",NULL
+587,"Den","LJ-1448","EG142-1",NULL
+588,"Den","NPL-5","EG142-1",NULL
+589,"Den","UCLA-739","EG142-1",NULL
+590,"Naqada IIIC2","UCLA-739","EG142-1",NULL
+591,"Den","OxA-566","EG143-1",NULL
+592,"Den","TB-38","EG142-1",NULL
+593,"Den","ANTW-104","EG142-1",NULL
+594,"Den","BM-1496","EG145-1",NULL
+595,"Den","BM-1497","EG142-2",NULL
+596,"Den","Fra-51","EG142-1",NULL
+597,"Den","LJ-1288","EG142-1",NULL
+598,"Den","OxA-18555","EG142-1",NULL
+599,"Djet","OxA-19142","EG144-1",NULL
+600,"Old Kingdom","OxA-19542","EG146-1",NULL
+601,"Djer","OxA-18060","EG160-1",NULL
+602,"Den","OxA-18061","EG141-1",NULL
+603,"Den","OxA-18062","EG141-1",NULL
+604,"Old Kingdom","BC-41","EG083-1",NULL
+605,"Nectanebo II","BM-1099","EG084-1",NULL
+606,"Horemheb","BM-1211","EG093-1",NULL
+607,"Horemheb","BM-1370","EG093-1",NULL
+608,"Senusret II","BM-1420","EG039-1",NULL
+609,"Horemheb","BM-1641","EG093-1",NULL
+610,"Senusret III","BM-22","EG011-1",NULL
+611,"Hor-Aha","BM-228","EG107-1",NULL
+612,"Naqada IIIC1","BM-228","EG107-1",NULL
+613,"Djer","BM-229","EG109-1",NULL
+614,"Naqada IIIC1","BM-229","EG109-1",NULL
+615,"Den","BM-230","EG104-1",NULL
+616,"Naqada IIIC2","BM-230","EG104-1",NULL
+617,"Qaa","BM-231","EG111-1",NULL
+618,"Dynasty 2","BM-232","EG105-1",NULL
+619,"Naqada IIID","BM-232","EG105-1",NULL
+620,"Dynasty 3","BM-233","EG103-1",NULL
+621,"Djoser","BM-234","EG113-1",NULL
+622,"Dynasty 3","BM-235","EG106-1",NULL
+623,"Dynasty 4?","BM-236","EG119-1",NULL
+624,"Dynasty 4?","BM-237","EG118-1",NULL
+625,"Senusret II","BM-238","EG042-1",NULL
+626,"Den","BM-27","EG104-1",NULL
+627,"Naqada IIIC2","BM-27","EG104-1",NULL
+628,"Senusret II","BM-280","EG042-1",NULL
+629,"Djet","BM-319","EG110-1",NULL
+630,"Djet","BM-320","EG110-1",NULL
+631,"Djet","BM-321","EG110-1",NULL
+632,"Djet","BM-322","EG110-1",NULL
+633,"Den","BM-323","EG104-1",NULL
+634,"Sneferu","BM-324","EG012-1",NULL
+635,"Sneferu","BM-325","EG012-1",NULL
+636,"Teti","BM-330","EG096-1",NULL
+637,"Teti","BM-331","EG102-1",NULL
+638,"Khufu","BM-332","EG028-1",NULL
+639,"Dynasty 5?","BM-346","EG117-1",NULL
+640,"Niuserre","BM-401","EG006-1",NULL
+641,"Djoser","BM-507","EG085-4",NULL
+642,"Djoser","BM-508","EG085-4",NULL
+643,"Nectanebo II","BM-510","EG084-1",NULL
+644,"Dynasty 18","BM-511","EG085-5",NULL
+645,"Dynasty 18","BM-512","EG085-5",NULL
+646,"Neferirkare","BM-82","EG005-1",NULL
+647,"Djoser","C-1","EG100-1",NULL
+648,"Sneferu","C-12","EG057-1",NULL
+649,"Den","C-267","EG104-1",NULL
+650,"Senusret III","C-81","EG011-1",NULL
+651,"Senusret III","C-82","EG011-1",NULL
+652,"Dynasty 5","CU-413","EG006-3",NULL
+653,"Dynasty 5","CU-437","EG006-3",NULL
+654,"Horemheb","CU-484","EG093-1",NULL
+655,"Horemheb","CU-488","EG093-1",NULL
+656,"Horemheb","CU-489","EG093-1",NULL
+657,"Dynasty 18","CU-490","EG093-1",NULL
+658,"Senusret III","DRI-2947","EG042-1",NULL
+659,"Amenemhet III","DRI-2948","EG010-1",NULL
+660,"Amenemhet III","DRI-2958","EG010-1",NULL
+661,"Djet","DRI-2968","EG110-1",NULL
+662,"Djedefre","DRI-2969","EG003-1",NULL
+663,"Djer","DRI-2970","EG085-1",NULL
+664,"Senusret II","DRI-2971","EG042-1",NULL
+665,"Khufu","ETH-0226","EG029-1",NULL
+666,"Khufu","ETH-0227","EG029-1",NULL
+667,"Khafre","ETH-0228","EG032-1",NULL
+668,"Menkaure","ETH-0229","EG030-1",NULL
+669,"Shepseskaf","ETH-0230","EG081-1",NULL
+670,"Djoser","ETH-0231","EG101-1",NULL
+671,"Shepseskaf","ETH-0233","EG082-1",NULL
+672,"Khufu","ETH-0302","EG029-1",NULL
+673,"Khufu","ETH-0303","EG029-1",NULL
+674,"Khufu","ETH-0304","EG029-1",NULL
+675,"Khufu","ETH-0305","EG029-1",NULL
+676,"Khufu","ETH-0306","EG029-1",NULL
+677,"Khufu","ETH-0307","EG029-1",NULL
+678,"Khufu","ETH-0308","EG029-1",NULL
+679,"Khufu","ETH-0309","EG029-1",NULL
+680,"Khufu","ETH-0311","EG029-1",NULL
+681,"Khufu","ETH-0312","EG029-1",NULL
+682,"Khufu","ETH-0313","EG029-1",NULL
+683,"Khafre","ETH-0314","EG027-1",NULL
+684,"Khafre","ETH-0315","EG027-1",NULL
+685,"Khafre","ETH-0316","EG027-1",NULL
+686,"Djedefre","ETH-0317","EG002-1",NULL
+687,"Djedefre","ETH-0318","EG002-1",NULL
+688,"Djedefre","ETH-0319","EG002-1",NULL
+689,"Djedefre","ETH-0320","EG002-1",NULL
+690,"Djedefre","ETH-0321","EG002-1",NULL
+691,"Khafre","ETH-0322","EG027-1",NULL
+692,"Djoser","ETH-0323","EG092-1",NULL
+693,"Unas","ETH-0324","EG116-1",NULL
+694,"Sekhemkhet","ETH-0325","EG099-1",NULL
+695,"Userkaf","ETH-0326","EG122-1",NULL
+696,"Userkaf","ETH-0327","EG122-1",NULL
+697,"Userkaf","ETH-0328","EG122-1",NULL
+698,"Shepseskaf","ETH-0329","EG081-1",NULL
+699,"Sahure","ETH-0330","EG007-1",NULL
+700,"Sahure","ETH-0331","EG007-1",NULL
+701,"Teti","ETH-0332","EG102-1",NULL
+702,"Khufu","ETH-0334","EG029-1",NULL
+703,"Djoser","ETH-0448","EG101-1",NULL
+704,"Djoser","ETH-0449","EG101-1",NULL
+705,"Djoser","ETH-0450","EG101-1",NULL
+706,"Djoser","ETH-0451","EG101-1",NULL
+707,"Khafre","ETH-0453","EG027-1",NULL
+708,"Menkaure","ETH-0454","EG030-1",NULL
+709,"Menkaure","ETH-0455","EG030-1",NULL
+710,"Unas","ETH-0456","EG116-1",NULL
+711,"Dynasty 18","ETH-08011","EG095-1",NULL
+712,"3rd Intermediate Period","ETH-08013","EG095-1",NULL
+713,"Dynasty 18","ETH-08014","EG095-1",NULL
+714,"Dynasty 18","ETH-09793","EG095-1",NULL
+715,"3rd Intermediate Period","ETH-12199","EG095-2",NULL
+716,"Teti","ETH-13541","EG102-1",NULL
+717,"Teti","ETH-13542","EG102-1",NULL
+718,"Teti","ETH-13543","EG102-1",NULL
+719,"Den","ETH-13605","EG104-1",NULL
+720,"Den","ETH-13608","EG104-1",NULL
+721,"Den","ETH-13610","EG104-1",NULL
+722,"Aha","ETH-13612","EG107-1",NULL
+723,"Djer","ETH-13620","EG108-1",NULL
+724,"Djet","ETH-13626","EG110-1",NULL
+725,"Djet","ETH-13627","EG110-1",NULL
+726,"Djet","ETH-13629","EG110-1",NULL
+727,"Djet","ETH-13632","EG110-1",NULL
+728,"Teti","ETH-13638","EG102-1",NULL
+729,"Teti","ETH-13639","EG102-1",NULL
+730,"Teti","ETH-13640","EG102-1",NULL
+731,"Teti","ETH-13646","EG102-1",NULL
+732,"Teti","ETH-13647","EG102-1",NULL
+733,"Teti","ETH-13648","EG102-1",NULL
+734,"Teti","ETH-13649","EG102-1",NULL
+735,"Djoser","ETH-13652","EG092-1",NULL
+736,"Djoser","ETH-13653","EG092-1",NULL
+737,"Djoser","ETH-13654","EG092-1",NULL
+738,"Djoser","ETH-13658","EG092-1",NULL
+739,"Djoser","ETH-13659","EG092-1",NULL
+740,"Djoser","ETH-13660","EG092-1",NULL
+741,"Djoser","ETH-13669","EG092-1",NULL
+742,"Djoser","ETH-13672","EG092-1",NULL
+743,"Djoser","ETH-13678","EG092-1",NULL
+744,"Unas","ETH-13681","EG115-1",NULL
+745,"Unas","ETH-13682","EG115-1",NULL
+746,"Unas","ETH-13683","EG115-1",NULL
+747,"Unas","ETH-13684","EG115-1",NULL
+748,"Unas","ETH-13685","EG115-1",NULL
+749,"Unas","ETH-13686","EG116-1",NULL
+750,"Unas","ETH-13692","EG116-1",NULL
+751,"Unas","ETH-13693","EG114-1",NULL
+752,"Unas","ETH-13698","EG114-1",NULL
+753,"Userkaf","ETH-13703","EG121-1",NULL
+754,"Userkaf","ETH-13703a","EG121-1",NULL
+755,"Userkaf","ETH-13703s","EG120-1",NULL
+756,"Userkaf","ETH-13704","EG120-1",NULL
+757,"Userkaf","ETH-13706","EG120-1",NULL
+758,"Userkaf","ETH-13707","EG120-1",NULL
+759,"Userkaf","ETH-13710","EG120-1",NULL
+760,"Userkaf","ETH-13714","EG120-1",NULL
+761,"Userkaf","ETH-13715","EG120-1",NULL
+762,"Sahure","ETH-13717","EG007-1",NULL
+763,"Sahure","ETH-13718","EG007-1",NULL
+764,"Sahure","ETH-13719","EG007-1",NULL
+765,"Sahure","ETH-13720","EG007-1",NULL
+766,"Sahure","ETH-13721","EG007-1",NULL
+767,"Sahure","ETH-13722","EG007-1",NULL
+768,"Sahure","ETH-13723","EG007-1",NULL
+769,"Sahure","ETH-13724","EG007-1",NULL
+770,"Sahure","ETH-13725","EG007-1",NULL
+771,"Sahure","ETH-13726","EG007-1",NULL
+772,"Quakare-Iby","ETH-13728","EG080-1",NULL
+773,"Shepseskaf","ETH-13729","EG082-1",NULL
+774,"Shepseskaf","ETH-13729a","EG082-1",NULL
+775,"Shepseskaf","ETH-13729b","EG082-1",NULL
+776,"Shepseskaf","ETH-13731","EG081-1",NULL
+777,"Shepseskaf","ETH-13732","EG082-1",NULL
+778,"Shepseskaf","ETH-13734","EG082-1",NULL
+779,"Djedefre","ETH-13739","EG002-1",NULL
+780,"Djedefre","ETH-13741","EG002-1",NULL
+781,"Djedefre","ETH-13742","EG002-1",NULL
+782,"Djedefre","ETH-13743","EG002-1",NULL
+783,"Djedefre","ETH-13744","EG002-1",NULL
+784,"Djedefre","ETH-13745","EG003-1",NULL
+785,"Djedefre","ETH-13745a","EG003-1",NULL
+786,"Djedefre","ETH-13746","EG003-1",NULL
+787,"Djedefre","ETH-13747","EG003-1",NULL
+788,"Sekhemkhet","ETH-13750","EG099-1",NULL
+789,"Sekhemkhet","ETH-13751","EG099-1",NULL
+790,"Khufu","ETH-13754","EG029-1",NULL
+791,"Khufu","ETH-13756","EG029-1",NULL
+792,"Khufu","ETH-13757","EG029-1",NULL
+793,"Khufu","ETH-13761","EG029-1",NULL
+794,"Khufu","ETH-13762","EG029-1",NULL
+795,"Khufu","ETH-13763","EG029-1",NULL
+796,"Khufu","ETH-13770","EG029-1",NULL
+797,"Khufu","ETH-13771","EG029-1",NULL
+798,"Khufu","ETH-13775","EG029-1",NULL
+799,"Khufu","ETH-13777","EG029-1",NULL
+800,"Khufu","ETH-13778","EG029-1",NULL
+801,"Khufu","ETH-13779","EG029-1",NULL
+802,"Khufu","ETH-13782","EG029-1",NULL
+803,"Khufu","ETH-13783","EG029-1",NULL
+804,"Khufu","ETH-13784","EG029-1",NULL
+805,"Khufu","ETH-13785","EG029-1",NULL
+806,"Khufu","ETH-13787","EG029-1",NULL
+807,"Khufu","ETH-13791","EG029-1",NULL
+808,"Khufu","ETH-13799","EG029-1",NULL
+809,"Khufu","ETH-13800","EG029-1",NULL
+810,"Khufu","ETH-13801","EG029-1",NULL
+811,"Khufu","ETH-13802","EG029-1",NULL
+812,"Khufu","ETH-13803","EG029-1",NULL
+813,"Khufu","ETH-13804","EG029-1",NULL
+814,"Khufu","ETH-13805","EG029-1",NULL
+815,"Khafre","ETH-13819","EG027-1",NULL
+816,"Khafre","ETH-13822","EG027-1",NULL
+817,"Khafre","ETH-13825","EG027-1",NULL
+818,"Khafre","ETH-13826","EG027-1",NULL
+819,"Khafre","ETH-13827","EG027-1",NULL
+820,"Khafre","ETH-13828","EG027-1",NULL
+821,"Khafre","ETH-13829","EG027-1",NULL
+822,"Khafre","ETH-13830","EG027-1",NULL
+823,"Khafre","ETH-13832","EG027-1",NULL
+824,"Khafre","ETH-13833","EG027-1",NULL
+825,"Khafre","ETH-13834","EG027-1",NULL
+826,"Khafre","ETH-13837","EG027-1",NULL
+827,"Khafre","ETH-13838","EG027-1",NULL
+828,"Dynasty 4","ETH-13846","EG086-1",NULL
+829,"Dynasty 4","ETH-13847","EG086-1",NULL
+830,"Menkaure","ETH-13850","EG030-1",NULL
+831,"Menkaure","ETH-13852","EG030-1",NULL
+832,"Menkaure","ETH-13853","EG030-1",NULL
+833,"Menkaure","ETH-13854","EG030-1",NULL
+834,"Menkaure","ETH-13855","EG030-1",NULL
+835,"Menkaure","ETH-13857","EG030-1",NULL
+836,"Menkaure","ETH-13859","EG030-1",NULL
+837,"Menkaure","ETH-13861","EG030-1",NULL
+838,"Menkaure","ETH-13862","EG030-1",NULL
+839,"Menkaure","ETH-13863","EG030-1",NULL
+840,"Menkaure","ETH-13864","EG030-1",NULL
+841,"Menkaure","ETH-13865","EG030-1",NULL
+842,"Menkaure","ETH-13867","EG030-1",NULL
+843,"Menkaure","ETH-13868","EG030-1",NULL
+844,"Menkaure","ETH-13869","EG030-1",NULL
+845,"Menkaure","ETH-13871","EG030-1",NULL
+846,"Amenemhet I","ETH-13885","EG050-1",NULL
+847,"Amenemhet I","ETH-13886","EG050-1",NULL
+848,"Sneferu","ETH-13887","EG057-1",NULL
+849,"Sneferu","ETH-13888","EG057-1",NULL
+850,"Sneferu","ETH-13889","EG057-1",NULL
+851,"Sneferu","ETH-13890","EG057-1",NULL
+852,"Sneferu","ETH-13891","EG057-1",NULL
+853,"Sneferu","ETH-13892","EG058-1",NULL
+854,"Sneferu","ETH-13893","EG058-1",NULL
+855,"Khufu","ETH-13900","EG029-1",NULL
+856,"Menkaure","ETH-13910","EG030-1",NULL
+857,"Menkaure","ETH-13911","EG030-1",NULL
+858,"Menkaure","ETH-13914","EG030-1",NULL
+859,"Menkaure","ETH-13915","EG030-1",NULL
+860,"Menkaure","ETH-13918","EG030-1",NULL
+861,"Menkaure","ETH-13919","EG030-1",NULL
+862,"Senusret II","ETH-13924","EG042-1",NULL
+863,"Senusret II","ETH-13925","EG042-1",NULL
+864,"Senusret II","ETH-13926","EG042-1",NULL
+865,"Senusret II","ETH-13927","EG042-1",NULL
+866,"Senusret II","ETH-13928","EG042-1",NULL
+867,"Senusret II","ETH-13931","EG042-1",NULL
+868,"Senusret II","ETH-13932","EG042-1",NULL
+869,"Khafre","ETH-13936","EG027-1",NULL
+870,"Khafre","ETH-13937","EG027-1",NULL
+871,"Khafre","ETH-13943","EG027-1",NULL
+872,"Sneferu","ETH-13952","EG012-1",NULL
+873,"Sneferu","ETH-13955","EG012-1",NULL
+874,"Dynasty 4","ETH-13958","EG031-1",NULL
+875,"Dynasty 4","ETH-13959","EG031-1",NULL
+876,"Dynasty 4","ETH-13960","EG031-1",NULL
+877,"3rd Intermediate Period","ETH-15812","EG095-2",NULL
+878,"3rd Intermediate Period","ETH-15813","EG095-2",NULL
+879,"3rd Intermediate Period","ETH-15814","EG095-2",NULL
+880,"Dynasty 18","ETH-17319","EG095-1",NULL
+881,"3rd Intermediate Period","ETH-17320","EG095-2",NULL
+882,"3rd Intermediate Period","ETH-17321","EG095-2",NULL
+883,"Khufu","ETH-4226","EG029-1",NULL
+884,"Khufu","ETH-4227","EG029-1",NULL
+885,"Khufu","ETH-4228","EG029-1",NULL
+886,"Khufu","ETH-4229","EG029-1",NULL
+887,"Khufu","ETH-4231","EG032-1",NULL
+888,"Menkaure","ETH-4232","EG030-1",NULL
+889,"Menkaure","ETH-4233","EG030-1",NULL
+890,"Menkaure","ETH-4234","EG030-1",NULL
+891,"Djedefre","ETH-4235","EG002-1",NULL
+892,"Userkaf","ETH-4236","EG122-1",NULL
+893,"Userkaf","ETH-4237","EG122-1",NULL
+894,"Pepy II","ETH-4238","EG097-1",NULL
+895,"Sahure","ETH-4239","EG007-1",NULL
+896,"Teti","ETH-4240","EG102-1",NULL
+897,"Khafre","ETH-4663","EG027-1",NULL
+898,"Dynasty 4","ETH-5330","EG031-1",NULL
+899,"Dynasty 4","ETH-5331","EG031-1",NULL
+900,"New Kingdom","ETH-8016","EG094-1",NULL
+901,"3rd Intermediate Period","ETH-8016","EG094-1",NULL
+902,"New Kingdom","ETH-8017a","EG094-1",NULL
+903,"3rd Intermediate Period","ETH-8017a","EG094-1",NULL
+904,"New Kingdom","ETH-8017b","EG094-1",NULL
+905,"3rd Intermediate Period","ETH-8017b","EG094-1",NULL
+906,"New Kingdom","ETH-8018","EG094-1",NULL
+907,"3rd Intermediate Period","ETH-8018","EG094-1",NULL
+908,"New Kingdom","ETH-8019","EG094-1",NULL
+909,"3rd Intermediate Period","ETH-8019","EG094-1",NULL
+910,"Dynasty 5","Fra-50","EG033-1",NULL
+911,"Djet","GrN-1100","EG110-1",NULL
+912,"Djet","GrN-1109","EG110-1",NULL
+913,"Senusret III","GrN-1157","EG011-1",NULL
+914,"Senusret III","GrN-1158","EG011-1",NULL
+915,"Senusret III","GrN-1178","EG011-1",NULL
+916,"Djedefre","GrN-5658","EG001-1",NULL
+917,"Den","GrN-684","EG085-3",NULL
+918,"Den","GrN-689","EG112-1",NULL
+919,"Qaa","GrN-902","EG111-1",NULL
+920,"1st Intermediate Period","Hv-11518","EG155-1",NULL
+921,"1st Intermediate Period","Hv-11519","EG155-1",NULL
+922,"1st Intermediate Period","Hv-11520","EG155-1",NULL
+923,"1st Intermediate Period","Hv-11521","EG155-1",NULL
+924,"1st Intermediate Period","Hv-12209","EG155-1",NULL
+925,"1st Intermediate Period","Hv-12210","EG153-2",NULL
+926,"1st Intermediate Period","Hv-12214","EG153-2",NULL
+927,"1st Intermediate Period","Hv-12215","EG153-1",NULL
+928,"1st Intermediate Period","Hv-12565","EG034-1",NULL
+929,"1st Intermediate Period","Hv-12566","EG034-1",NULL
+930,"1st Intermediate Period","Hv-12567","EG034-1",NULL
+931,"1st Intermediate Period","Hv-15504","EG154-1",NULL
+932,"1st Intermediate Period","Hv-15505","EG154-1",NULL
+933,"1st Intermediate Period","Hv-15506","EG154-1",NULL
+934,"1st Intermediate Period","Hv-15507","EG155-1",NULL
+935,"Dynasty 6","Hv-14870","EG033-2",NULL
+936,"Dynasty 6","Hv-14871","EG033-2",NULL
+937,"Dynasty 6","Hv-14872","EG033-2",NULL
+938,"Djoser","LJ-1314","EG100-1",NULL
+939,"Djoser","LJ-1315","EG100-1",NULL
+940,"Djer","LJ-1459","EG109-1",NULL
+941,"Aha","LJ-1490","EG107-1",NULL
+942,"Djoser","LJ-172","EG100-1",NULL
+943,"Djoser","LJ-175","EG100-1",NULL
+944,"Djoser","OxA-147","EG100-1",NULL
+945,"Senusret II","OxA-14993","EG039-1",NULL
+946,"Senusret II","OxA-14994","EG039-1",NULL
+947,"Amenemhet III","OxA-15309","EG039-3",NULL
+948,"Amenemhet III","OxA-15310","EG039-3",NULL
+949,"Senusret III","OxA-15311","EG039-2",NULL
+950,"Amenemhet III","OxA-15312","EG039-3",NULL
+951,"Senusret III","OxA-15313","EG039-3",NULL
+952,"Amenemhet III","OxA-15314","EG039-3",NULL
+953,"Senusret III","OxA-15315","EG039-2",NULL
+954,"Amenemhet III","OxA-15316","EG039-3",NULL
+955,"Senusret III","OxA-15317","EG039-2",NULL
+956,"Senusret III","OxA-15318","EG039-2",NULL
+957,"Early Dynastic / Old Kingdom","OxA-17850","EG088-1",NULL
+958,"Merneith","OxA-18050","EG089-1",NULL
+959,"Djoser","OxA-18052","EG090-1",NULL
+960,"Early Dynastic / Old Kingdom","OxA-18053","EG088-1",NULL
+961,"Early Dynastic / Old Kingdom","OxA-18406","EG088-1",NULL
+962,"Early Dynastic / Old Kingdom","OxA-18500","EG088-1",NULL
+963,"Sneferu","OxA-18514","EG057-1",NULL
+964,"Pepy I","OxA-18553","EG091-1",NULL
+965,"Djoser","OxA-18957","EG090-1",NULL
+966,"Djoser","OxA-19005","EG090-1",NULL
+967,"Sneferu","OxA-19141","EG057-1",NULL
+968,"Middle Kingdom","OxA-20014","EG048-1",NULL
+969,"Senusret II","OxA-20200","EG041-1",NULL
+970,"Djedkare","OxA-20212","EG005-1",NULL
+971,"Senusret I","OxA-20307","EG049-1",NULL
+972,"Senusret II","OxA-20308","EG039-1",NULL
+973,"Dynasty 12","OxA-20479","EG048-1",NULL
+974,"Amenemhet III","OxA-20480","EG009-1",NULL
+975,"Djoser","OxA-20736","EG087-1",NULL
+976,"Djoser","OxA-20767","EG087-1",NULL
+977,"Djoser","OxA-20768","EG087-1",NULL
+978,"Dynasty 19","P-1730a","EG086-2",NULL
+979,"Senusret III","P-1821","EG011-1",NULL
+980,"Den","P-214","EG104-1",NULL
+981,"Djet","P-215","EG110-1",NULL
+982,"Sneferu","P-216","EG012-1",NULL
+983,"Khufu","P-725","EG028-1",NULL
+984,"Djoser","SL-8","EG100-1",NULL
+985,"Khafre","SMU-0453","EG027-1",NULL
+986,"Khafre","SMU-1302","EG027-1",NULL
+987,"Djoser","SMU-1350","EG101-1",NULL
+988,"Pepy II","SMU-1351","EG098-1",NULL
+989,"Menkaure","SMU-1352","EG030-1",NULL
+990,"Teti","SMU-1355","EG102-1",NULL
+991,"Djedefre","SMU-1356","EG003-1",NULL
+992,"Djedefre","SMU-1357","EG003-1",NULL
+993,"Qaa","SMU-1358","EG111-1",NULL
+994,"Djoser","SMU-1362","EG101-1",NULL
+995,"Sekhemkhet","SMU-1368","EG099-1",NULL
+996,"Khafre","SMU-1369","EG027-1",NULL
+997,"Menkaure","SMU-1370","EG030-1",NULL
+998,"Shepseskaf","SMU-1371","EG081-1",NULL
+999,"Sahure","SMU-1372","EG007-1",NULL
+1000,"Unas","SMU-1373","EG115-1",NULL
+1001,"Sneferu","SMU-1392","EG057-1",NULL
+1002,"Shepseskaf","SMU-1395","EG082-1",NULL
+1003,"Shepseskaf","SMU-1396","EG081-1",NULL
+1004,"Djoser","SMU-1397","EG101-1",NULL
+1005,"Djoser","SMU-1398","EG092-1",NULL
+1006,"Sneferu","SMU-1412","EG057-1",NULL
+1007,"Userkaf","SMU-1413","EG121-1",NULL
+1008,"Menkaure","SMU-1414","EG030-1",NULL
+1009,"Menkaure","SMU-1415","EG030-1",NULL
+1010,"Khafre","SMU-1416","EG032-1",NULL
+1011,"Khufu","SMU-1417","EG029-1",NULL
+1012,"Khufu","SMU-1418","EG029-1",NULL
+1013,"Menkaure","SMU-1419","EG030-1",NULL
+1014,"Pepy II","SMU-1469","EG097-1",NULL
+1015,"Khafre","SMU-1470","EG027-1",NULL
+1016,"Shepseskaf","SMU-1472","EG082-1",NULL
+1017,"Unas","SMU-1475","EG116-1",NULL
+1018,"Userkaf","SMU-1495","EG122-1",NULL
+1019,"Djoser","SMU-1503","EG101-1",NULL
+1020,"Sneferu","SMU-1732","EG058-1",NULL
+1021,"Dynasty 4","SMU-2240","EG031-1",NULL
+1022,"Dynasty 4","SMU-2274","EG031-1",NULL
+1023,"Dynasty 4","SMU-2275","EG031-1",NULL
+1024,"Djet","SRR-5","EG085-2",NULL
+1025,"Teti","SRR-6","EG102-1",NULL
+1026,"Djoser","TF-56","EG100-1",NULL
+1027,"Sneferu","TF-562","EG057-1",NULL
+1028,"Den","TF-563","EG085-3",NULL
+1029,"Den","TF-563a","EG085-3",NULL
+1030,"Den","TF-563b","EG085-3",NULL
+1031,"Den","TF-563c","EG085-3",NULL
+1032,"Senusret III","TF-564","EG011-1",NULL
+1033,"Djoser","TF-567","EG100-1",NULL
+1034,"Djoser","TF-568","EG100-1",NULL
+1035,"Dynasty 2","U-4","EG052-1",NULL
+1036,"Teti","UB-66","EG102-1",NULL
+1037,"Hor-Aha","UCLA-1200","EG107-1",NULL
+1038,"Naqada IIIC1","UCLA-1200","EG107-1",NULL
+1039,"Djer","UCLA-1201","EG109-1",NULL
+1040,"Naqada IIIC1","UCLA-1201","EG109-1",NULL
+1041,"Den","UCLA-1202","EG104-1",NULL
+1042,"Naqada IIIC2","UCLA-1202","EG104-1",NULL
+1043,"Qaa","UCLA-1203","EG111-1",NULL
+1044,"Naqada IIID","UCLA-1203","EG111-1",NULL
+1045,"Dynasty 1","UCLA-1204","EG105-1",NULL
+1046,"Dynasty 2","UCLA-1204","EG105-1",NULL
+1047,"Naqada IIID","UCLA-1204","EG105-1",NULL
+1048,"Dynasty 3","UCLA-1205","EG103-1",NULL
+1049,"Djoser","UCLA-1206","EG113-1",NULL
+1050,"Kha-bau-Sokar","UCLA-1207","EG106-1",NULL
+1051,"Dynasty 4","UCLA-1208","EG118-1",NULL
+1052,"Senusret II","UCLA-1212","EG042-1",NULL
+1053,"Teti","UCLA-1387","EG096-1",NULL
+1054,"Teti","UCLA-1388","EG102-1",NULL
+1055,"Khufu","UCLA-1389","EG028-1",NULL
+1056,"Old Kingdom / 1st Intermediate Period","UCLA-1403","EG116-1",NULL
+1057,"Djoser","UCLA-751","EG100-1",NULL
+1058,"Senusret III","UCLA-900","EG011-1",NULL
+1059,"Dynasty 5","UCLA-928","EG033-1",NULL
+1060,"Senusret III","UCR-126","EG011-1",NULL
+1061,"Senusret III","VERA-3726","EG039-2",NULL
+1062,"Amenemhet III","VERA-3727","EG039-3",NULL
+1063,"Senusret III","VERA-3728","EG039-2",NULL
+1064,"Amenemhet III","VERA-3729","EG039-3",NULL
+1065,"Senusret III","VERA-3730","EG039-2",NULL
+1066,"Senusret III","VERA-3731","EG039-2",NULL
+1067,"Senusret III","VERA-3732","EG039-2",NULL
+1068,"Amenemhet III","VERA-3733","EG039-3",NULL
+1069,"Amenemhet III","VERA-3734","EG039-3",NULL
+1070,"Amenemhet III","VERA-3735","EG039-3",NULL
+1071,"Ptolemaic","W-780","EG009-2",NULL
+1072,"Early Roman","W-780","EG009-2",NULL
+1073,"Dynasty 18","OxA-13788","EG035-1",NULL
+1074,"Dynasty 18","VERA-5475","EG125-1",NULL
+1075,"Dynasty 18","VERA-5476","EG125-1",NULL
+1076,"Dynasty 18","VERA-5569","EG124-1",NULL
+1077,"Dynasty 18","VERA-5570","EG124-1",NULL
+1078,"Middle Kingdom","BM-1248","EG152-1",NULL
+1079,"2nd Intermediate Period","BM-1248","EG152-1",NULL
+1080,"Neolithic","OxA-18673","LY003-3",NULL
+1081,"Neolithic","OxA-18674","LY003-3",NULL
+1082,"Late Neolithic","OxA-18675","LY003-4",NULL
+1083,"Late Neolithic","OxA-18676","LY003-4",NULL
+1084,"Late Neolithic","OxA-18667","LY003-4",NULL
+1085,"Late Neolithic","OxA-18794","LY003-4",NULL
+1086,"Neolithic","OxA-19028","LY003-3",NULL
+1087,"Libyco-Capsian","OxA-19158","LY003-2",NULL
+1088,"Libyco-Capsian","OxA-19184","LY003-2",NULL
+1089,"Libyco-Capsian","OxA-22161","LY003-2",NULL
+1090,"Eastern Oranian","OxA-22137","LY003-1",NULL
+1091,"Libyco-Capsian","Beta-292214","LY003-2",NULL
+1092,"Libyco-Capsian","Beta-299215","LY003-2",NULL
+1093,"Libyco-Capsian","OxA-19030","LY003-2",NULL
+1094,"Eastern Oranian","OxA-19029","LY003-1",NULL
+1095,"Eastern Oranian","OxA-22138","LY003-1",NULL
+1096,"Late Neolithic","NPL-41","LY003-4",NULL
+1097,"Late Neolithic","NPL-40","LY003-4",NULL
+1098,"Neolithic","NPL-42","LY003-3",NULL
+1099,"Neolithic","W-98","LY003-3",NULL
+1100,"Libyco-Capsian","GrN-3541","LY003-2",NULL
+1101,"Libyco-Capsian","W-89","LY003-2",NULL
+1102,"Libyco-Capsian","GrN-3167","LY003-2",NULL
+1103,"Eastern Oranian","W-104","LY003-1",NULL
+1104,"Late Neolithic","UBA-28851","LY003-4",NULL
+1105,"Late Neolithic","UBA-28852","LY003-4",NULL
+1106,"Late Neolithic","UBA-26058","LY003-4",NULL
+1107,"Late Neolithic","UBA-26057","LY003-4",NULL
+1108,"Protohistoric","UBA-26055","LY003-5",NULL
+1109,"Libyco-Capsian","UBA-28864","LY003-2",NULL
+1110,"Libyco-Capsian","UBA-28865","LY003-2",NULL
+1111,"Libyco-Capsian","UBA-28866","LY003-2",NULL
+1112,"Libyco-Capsian","UBA-28867","LY003-2",NULL
+1113,"Libyco-Capsian","UBA-28868","LY003-2",NULL
+1114,"Neolithic","UBA-28873","LY003-3",NULL
+1115,"Neolithic","UBA-28874","LY003-3",NULL
+1116,"Neolithic","UBA-28875","LY003-3",NULL
+1117,"Neolithic","UBA-28876","LY003-3",NULL
+1118,"Neolithic","UBA-28879","LY003-3",NULL
+1119,"Neolithic","UBA-28853","LY003-3",NULL
+1120,"Libyco-Capsian","UBA-28854","LY003-2",NULL
+1121,"Libyco-Capsian","UBA-28855","LY003-2",NULL
+1122,"Libyco-Capsian","UBA-28856","LY003-2",NULL
+1123,"Libyco-Capsian","UBA-28857","LY003-2",NULL
+1124,"Libyco-Capsian","UBA-28858","LY003-2",NULL
+1125,"Libyco-Capsian","UBA-28859","LY003-2",NULL
+1126,"Libyco-Capsian","UBA-28860","LY003-2",NULL
+1127,"Hellenistic","UBA-10244","LY002-1",NULL
+1128,"Neolithic","KIA-31006","MA003-1",NULL
+1129,"Early Neolithic C","Beta-295772","MA038-4",NULL
+1130,"Early Neolithic B2","Beta-295773","MA038-3",NULL
+1131,"Early Neolithic B2","Beta-295774","MA038-3",NULL
+1132,"Early Neolithic B2","Beta-295775","MA038-3",NULL
+1133,"Early Neolithic B2","Beta-295776","MA038-3",NULL
+1134,"Early Neolithic B","Beta-295777","MA038-4",NULL
+1135,"Early Neolithic C","Beta-295777","MA038-4",NULL
+1136,"Early Neolithic B2","Beta-295778","MA038-3",NULL
+1137,"Early Neolithic A","Beta-295779","MA038-2",NULL
+1138,"Epipalaeolithic","Beta-313467","MA038-1",NULL
+1139,"Epipalaeolithic","Beta-313468","MA038-1",NULL
+1140,"Epipalaeolithic","Beta-313469","MA038-1",NULL
+1141,"Epipalaeolithic","Beta-316137","MA038-1",NULL
+1142,"Early Neolithic A","Beta-318608","MA038-2",NULL
+1143,"Mediterranean Epipalaeolithic","Erl-12418","MA038-1",NULL
+1144,"Early Neolithic B1","Erl-9988","MA038-3",NULL
+1145,"Early Neolithic B1","KIA-39297","MA038-3",NULL
+1146,"Early Neolithic A","KIA-39299","MA038-2",NULL
+1147,"Early Neolithic A","KIA-39299-2","MA038-2",NULL
+1148,"Early Neolithic B1","Erl-9989","MA038-3",NULL
+1149,"Early Neolithic C","Erl-9987","MA038-4",NULL
+1150,"Early Neolithic B1","KIA-39298","MA038-3",NULL
+1151,"Mediterranean Epipalaeolithic","Erl-12419","MA038-1",NULL
+1152,"Early Neolithic B1","Oxa-23528","MA038-3",NULL
+1153,"Late Neolithic","KIA-39296","MA038-4",NULL
+1154,"Late Neolithic","Bln-5038","MA081-3",NULL
+1155,"Early Neolithic","Bln-5039","MA081-2",NULL
+1156,"Mediterranean Epipalaeolithic","Bln-5039","MA081-2",NULL
+1157,"Mediterranean Epipalaeolithic","Bln-5040","MA081-1",NULL
+1158,"Early Neolithic","Bln-5040","MA081-1",NULL
+1159,"Mediterranean Epipalaeolithic","Bln-5041","MA081-1",NULL
+1160,"Early Neolithic","Bln-5041","MA081-1",NULL
+1161,"Mediterranean Epipalaeolithic","Bln-5042","MA081-1",NULL
+1162,"Early Neolithic","Bln-5042","MA081-1",NULL
+1163,"Mediterranean Epipalaeolithic","Bln-5043","MA081-1",NULL
+1164,"Early Neolithic","Bln-5043","MA081-1",NULL
+1165,"Mediterranean Epipalaeolithic","Bln-5044","MA081-1",NULL
+1166,"Early Neolithic","Bln-5044","MA081-1",NULL
+1167,"Mediterranean Epipalaeolithic","Hd-19543","MA081-2",NULL
+1168,"Mediterranean Epipalaeolithic","Hd-19868","MA081-2",NULL
+1169,"Mediterranean Epipalaeolithic","Hd-19880","MA081-2",NULL
+1170,"Late Neolithic","KIA-30145b","MA081-3",NULL
+1171,"Mediterranean Epipalaeolithic","Bln-4755","MA034-2",NULL
+1172,"Iberomaurusian","Bln-4755","MA034-2",NULL
+1173,"Mediterranean Epipalaeolithic","Bln-4872","MA034-3",NULL
+1174,"Iberomaurusian","Bln-4872","MA034-3",NULL
+1175,"Mediterranean Epipalaeolithic","KIA 510-I","MA034-3",NULL
+1176,"Iberomaurusian","KIA 510-I","MA034-3",NULL
+1177,"Iberomaurusian","Bln-4926","MA034-1",NULL
+1178,"Neolithic","Gif-2888","MA053-2",NULL
+1179,"Neolithic","Gif-2889","MA053-1",NULL
+1180,"Bronze Age","OxA-7424","MA037-3",NULL
+1181,"Neolithic","KN 5919","MA037-2",NULL
+1182,"Neolithic","KN 5920","MA037-2",NULL
+1183,"Epipalaeolithic","KN 5921","MA037-1",NULL
+1184,"Middle Neolithic","Beta-316505","MA015-2",NULL
+1185,"Middle Neolithic","Beta-316506","MA015-2",NULL
+1186,"Early Neolithic B","Beta-331847","MA015-1",NULL
+1187,"Early Neolithic A","Beta-295780","MA016-1",NULL
+1188,"Middle Neolithic","Beta-316508","MA016-2",NULL
+1189,"Middle Neolithic","Beta-316507","MA016-2",NULL
+1190,"Early Neolithic Cardial","Rabat-119","MA016-1",NULL
+1191,"Protohistoric","Beta-424638","MA016-3",NULL
+1192,"Epipalaeolithic with pottery","Bln-4913","MA29-2",NULL
+1193,"Early Neolithic","Bln-4913","MA29-2",NULL
+1194,"Epipalaeolithic with pottery","Bln-4956","MA29-2",NULL
+1195,"Early Neolithic","Bln-4956","MA29-2",NULL
+1196,"Epipalaeolithic with pottery","Bln-4957","MA29-2",NULL
+1197,"Early Neolithic","Bln-4957","MA29-2",NULL
+1198,"Epipalaeolithic","KIA-433","MA029-1",NULL
+1199,"Epipalaeolithic with pottery","KIA-434","MA29-2",NULL
+1200,"Early Neolithic","KIA-434","MA29-2",NULL
+1201,"Epipalaeolithic with pottery","KIA-436","MA29-2",NULL
+1202,"Early Neolithic","KIA-436","MA29-2",NULL
+1203,"Epipalaeolithic with pottery","KIA-437","MA29-2",NULL
+1204,"Early Neolithic","KIA-437","MA29-2",NULL
+1205,"Epipalaeolithic with pottery","UtC-6185","MA29-2",NULL
+1206,"Early Neolithic","UtC-6185","MA29-2",NULL
+1207,"Epipalaeolithic with pottery","UtC-6186","MA29-2",NULL
+1208,"Early Neolithic","UtC-6186","MA29-2",NULL
+1209,"Epipalaeolithic with pottery","UtC-6187","MA29-2",NULL
+1210,"Early Neolithic","UtC-6187","MA29-2",NULL
+1211,"Late Neolithic","UtC-6184","MA29-3",NULL
+1212,"Early Neolithic","Col-2120","MA29-2",NULL
+1213,"Early Neolithic","Col-2121","MA29-2",NULL
+1214,"Mediterranean Epipalaeolithic","Bln-4756","MA030-2",NULL
+1215,"Mediterranean Epipalaeolithic","Erl-9991","MA030-2",NULL
+1216,"Mediterranean Epipalaeolithic","Erl-9993","MA030-3",NULL
+1217,"Iberomaurusian","Erl-9992","MA030-1",NULL
+1218,"Iberomaurusian","Erl-4394","MA035-1",NULL
+1219,"Iberomaurusian","Erl-4399","MA035-1",NULL
+1220,"Early Neolithic","Erl-9984","MA039-2",NULL
+1221,"Mediterranean Epipalaeolithic","Erl-9986","MA039-1",NULL
+1222,"Mediterranean Epipalaeolithic","Erl-9985","MA039-1",NULL
+1223,"Late Neolithic","Erl-9983","MA039-4",NULL
+1224,"Early Neolithic","Beta-341129","MA039-3",NULL
+1225,"Late Neolithic","Rabat-277","MA039-6",NULL
+1226,"Late Neolithic","Rabat-278","MA039-5",NULL
+1227,"Late Neolithic","UBA-8082","MA033-3",NULL
+1228,"Late Neolithic","Erl-9994","MA033-4",NULL
+1229,"Early Neolithic","Erl-9995","MA033-2",NULL
+1230,"Epipalaeolithic","Erl-9995","MA033-2",NULL
+1231,"Neolithic","Erl-9995","MA033-2",NULL
+1232,"Early Neolithic","Erl-9996","MA033-2",NULL
+1233,"Epipalaeolithic","Erl-9996","MA033-2",NULL
+1234,"Neolithic","Erl-9996","MA033-2",NULL
+1235,"Late Neolithic","Erl-12422","MA033-4",NULL
+1236,"Iberomaurusian","KN-5969","MA033-1",NULL
+1237,"Neolithic of Capsian Tradition Western Sahara","Gif-2821","MA087-1",NULL
+1238,"Late Neolithic","MC-669","MA056-1",NULL
+1239,"Neolithic of Capsian Tradition Western Sahara","MC-669","MA056-1",NULL
+1240,"Neolithic","MC-670","MA056-2",NULL
+1241,"Late Neolithic","Gif-3013","MA070-2",NULL
+1242,"Late Neolithic","MC-710","MA070-1",NULL
+1243,"Neolithic of Capsian Tradition Western Sahara","Gif-2911","MA059-1",NULL
+1244,"Middle Neolithic","Gif-5519","MA012-1",NULL
+1245,"Middle Neolithic","UBA-8084","MA012-1",NULL
+1246,"Early Neolithic","Ly-2149","MA013-1",NULL
+1247,"Early Neolithic","UQ-1601","MA013-1",NULL
+1248,"Neolithic","Gif-6184","MA076-2",NULL
+1249,"Late Neolithic","Gif-6490","MA076-1",NULL
+1250,"Epipalaeolithic with pottery","Gif-6185","MA075-1",NULL
+1251,"Neolithic","Gif-6185","MA075-1",NULL
+1252,"Neolithic","Gif-6186","MA014-1",NULL
+1253,"Epipalaeolithic with pottery","Gif-6188","MA058-1",NULL
+1254,"Late Neolithic","Gif-6491","MA002-1",NULL
+1255,"Late Neolithic","Gif-6880","MA002-1",NULL
+1256,"Neolithic","Gif-6492","MA051-1",NULL
+1257,"Late Rharbian","Ly-3620","MA024-1",NULL
+1258,"Epipalaeolithic","Gif-6495","MA078-1",NULL
+1259,"Keremian","Gif-6495","MA078-1",NULL
+1260,"Epipalaeolithic","Gif-6826","MA078-1",NULL
+1261,"Keremian","Gif-6826","MA078-1",NULL
+1262,"Epipalaeolithic","Gif-6827","MA078-1",NULL
+1263,"Keremian","Gif-6827","MA078-1",NULL
+1264,"Cardial Neolithic","Gif-A-92332","MA026-1",NULL
+1265,"Early Neolithic","Gif-A-92332","MA026-1",NULL
+1266,"Early Neolithic","KN-5384","MA063-1",NULL
+1267,"Early Neolithic","KIA-31001/1","MA063-2",NULL
+1268,"Epipalaeolithic with pottery","KIA-31001/1","MA063-2",NULL
+1269,"Early Neolithic","KIA-31001/2","MA063-2",NULL
+1270,"Early Neolithic","KIA-31002","MA063-2",NULL
+1271,"Epipalaeolithic with pottery","KIA-31002","MA063-2",NULL
+1272,"Early Neolithic","KIA-31008/1","MA063-2",NULL
+1273,"Epipalaeolithic with pottery","KIA-31008/1","MA063-2",NULL
+1274,"Early Neolithic","KIA-31008/2","MA063-3",NULL
+1275,"Early Neolithic","KIA-31003","MA064-1",NULL
+1276,"Epipalaeolithic with pottery","KIA-31003","MA064-1",NULL
+1277,"Mediterranean Epipalaeolithic","KIA-31007/2","MA061-1",NULL
+1278,"Mediterranean Epipalaeolithic","KIA-31007/1","MA061-1",NULL
+1279,"Mediterranean Epipalaeolithic","KIA-39292","MA061-1",NULL
+1280,"Mediterranean Epipalaeolithic","KIA-39293","MA061-1",NULL
+1281,"Bronze Age","KIA-31004","MA062-1",NULL
+1282,"Early Neolithic","Erl-5888","MA098-1",NULL
+1283,"Late Neolithic","KIA-39287","MA083-2",NULL
+1284,"Early Neolithic","KIA-39287","MA083-2",NULL
+1285,"Mediterranean Epipalaeolithic","KIA-39288","MA083-1",NULL
+1286,"Bronze Age","KIA-39290","MA084-1",NULL
+1287,"Epipalaeolithic with pottery","KIA-39291","MA085-1",NULL
+1288,"Early Neolithic","KIA-39291","MA085-1",NULL
+1289,"Epipalaeolithic","KIA-39295","MA028-1",NULL
+1290,"Bronze Age","Ly-3000","MA060-1",NULL
+1291,"Bell Beaker","Ly-3000","MA060-1",NULL
+1292,"Late Neolithic","Ly-3001","MA001-1",NULL
+1293,"Middle Neolithic","Ly-3001","MA001-1",NULL
+1294,"Late Neolithic","Ly-3087","MA079-5",NULL
+1295,"Late Neolithic","Ly-4096","MA079-5",NULL
+1296,"Neolithic","Ly-4097","MA079-1",NULL
+1297,"Late Neolithic","UQ-1557","MA079-4",NULL
+1298,"Late Neolithic","UQ-1868","MA079-3",NULL
+1299,"Late Neolithic","Ly-1621","MA079-5",NULL
+1300,"Middle Neolithic","Poz-58937","MA079-2",NULL
+1301,"Middle Neolithic","Poz-58936","MA079-2",NULL
+1302,"Middle Neolithic","Poz-58938","MA079-2",NULL
+1303,"Middle Neolithic","Ly-3179","MA065-1",NULL
+1304,"Cardial Neolithic","Ly-3821","MA054-3",NULL
+1305,"Early Neolithic","Ly-3821","MA054-3",NULL
+1306,"Mediterranean Epipalaeolithic","Ly-7287","MA054-1",NULL
+1307,"Cardial Neolithic","Ly-7288","MA054-3",NULL
+1308,"Early Neolithic","Ly-7288","MA054-3",NULL
+1309,"Mediterranean Epipalaeolithic","Ly-7695","MA054-1",NULL
+1310,"Cardial Neolithic","Ly-971OxA","MA054-3",NULL
+1311,"Early Neolithic","Ly-971OxA","MA054-3",NULL
+1312,"Early Neolithic","Beta-331985","MA054-3",NULL
+1313,"Middle Neolithic","Beta-331986","MA054-4",NULL
+1314,"Early Neolithic","Beta-331987","MA054-3",NULL
+1315,"Early Neolithic?","Rabat-65","MA054-2",NULL
+1316,"Early Neolithic?","Rabat-66","MA054-2",NULL
+1317,"Early Neolithic","Beta-409693","MA054-3",NULL
+1318,"Early Neolithic","Beta-424637","MA054-3",NULL
+1319,"Early Neolithic","Ly-3003","MA023-1",NULL
+1320,"Early Neolithic","Ly-3004","MA023-1",NULL
+1321,"Iberomaurusian","OxA-11321","MA022-2",NULL
+1322,"Iberomaurusian","OxA-11323","MA022-1",NULL
+1323,"Iberomaurusian","OxA-11322","MA022-1",NULL
+1324,"Iberomaurusian","Ly-3551","MA022-1",NULL
+1325,"Cardial Neolithic","UQ-1556","MA073-2",NULL
+1326,"Early Neolithic","UQ-1556","MA073-2",NULL
+1327,"Early Neolithic","Beta-182784","MA073-1",NULL
+1328,"Final Neolithic","Auck. W-1518","MA017-1",NULL
+1329,"Mediterranean Neolithic","Auck. W-1518","MA017-1",NULL
+1330,"Mediterranean Neolithic","Auck. W-1510","MA017-2",NULL
+1331,"Early Neolithic C","Col-2373.1.1","MA036-5",NULL
+1332,"Early Neolithic C","Col-2376.1.1","MA036-5",NULL
+1333,"Early Neolithic C","Col-2372.1.1","MA036-5",NULL
+1334,"Early Neolithic B","Col-2374.1.1","MA036-4",NULL
+1335,"Early Neolithic B","Col-2371.1.1","MA036-4",NULL
+1336,"Early Neolithic A","Col-2377.1.1","MA036-3",NULL
+1337,"Late Epipalaeolithic","Beta-396666","MA036-2",NULL
+1338,"Late Epipalaeolithic","Beta-396672","MA036-2",NULL
+1339,"Late Epipalaeolithic","Col-2381.1.1","MA036-2",NULL
+1340,"Late Epipalaeolithic","Beta-396670","MA036-2",NULL
+1341,"Early Epipalaeolithic","Beta-396665","MA036-1",NULL
+1342,"Early Epipalaeolithic","Beta-396667","MA036-1",NULL
+1343,"Early Epipalaeolithic","Col-2380.1.1","MA036-1",NULL
+1344,"Early Epipalaeolithic","Col-2378.1.1","MA036-1",NULL
+1345,"Early Epipalaeolithic","Beta-396671","MA036-1",NULL
+1346,"Iberomaurusian","Sa-13","MA080-1",NULL
+1347,"Iberomaurusian","Sa-15","MA080-1",NULL
+1348,"Iberomaurusian","OxA-24111","MA080-1",NULL
+1349,"Iberomaurusian","OxA-23404","MA080-1",NULL
+1350,"Iberomaurusian","OxA-13480","MA080-1",NULL
+1351,"Iberomaurusian","OxA-13479","MA080-1",NULL
+1352,"Iberomaurusian","OxA-13516","MA080-1",NULL
+1353,"Iberomaurusian","OxA-24112","MA080-1",NULL
+1354,"Iberomaurusian","OxA-13517","MA080-1",NULL
+1355,"Neolithic initial phase","Rabat-57","MA052-1",NULL
+1356,"Early Neolithic","Col-1645","MA040-1",NULL
+1357,"Early Neolithic","Col-1647","MA040-1",NULL
+1358,"Iberomaurusian","Gif-6187","MA007-1",NULL
+1359,"Early Rharbian","Gif-6187","MA007-1",NULL
+1360,"Iberomaurusian","Gif-6497","MA006-1",NULL
+1361,"Early Rharbian","Gif-6497","MA006-1",NULL
+1362,"Iberomaurusian","Gif-6828","MA008-1",NULL
+1363,"Early Rharbian","Gif-6828","MA008-1",NULL
+1364,"Iberomaurusian","Gif-6829","MA008-2",NULL
+1365,"Early Rharbian","Gif-6829","MA008-2",NULL
+1366,"Early Rharbian","Gif-6498","MA008-2",NULL
+1367,"Neolithic","Gif-6493","MA050-2",NULL
+1368,"Epipalaeolithic with pottery","Gif-6493","MA050-2",NULL
+1369,"Neolithic","Gif-6494","MA050-1",NULL
+1370,"Epipalaeolithic with pottery","Gif-6494","MA050-1",NULL
+1371,"Neolithic","Gif-6923","MA050-1",NULL
+1372,"Epipalaeolithic with pottery","Gif-6923","MA050-1",NULL
+1373,"Neolithic","Gif-7684","MA050-1",NULL
+1374,"Epipalaeolithic with pottery","Gif-7684","MA050-1",NULL
+1375,"Neolithic","Gif-6879","MA050-1",NULL
+1376,"Epipalaeolithic with pottery","Gif-6879","MA050-1",NULL
+1377,"Middle Rharbian","Gif-7399","MA072-1",NULL
+1378,"Neolithic","GrN-2805","MA009-1",NULL
+1379,"Mediterranean Neolithic","GrN-2805","MA009-1",NULL
+1380,"Late Neolithic","MC-709","MA048-1",NULL
+1381,"Neolithic of Capsian Tradition Western Sahara","MC-709","MA048-1",NULL
+1382,"Pre Neolithic","MC-712","MA043-1",NULL
+1383,"Epipalaeolithic","Gif-2910","MA044-1",NULL
+1384,"Pre Neolithic","Gif-2909","MA045-1",NULL
+1385,"Early Neolithic","Beta-411102","MA106-1",NULL
+1386,"Early Neolithic","OxA-34042","MA106-1",NULL
+1387,"Early Neolithic","MC-555","MA049-1",NULL
+1388,"Neolithic of Capsian Tradition Western Sahara","MC-555","MA049-1",NULL
+1389,"Pre Neolithic","MC-555","MA049-1",NULL
+1390,"Early Neolithic","MC-556","MA049-1",NULL
+1391,"Neolithic of Capsian Tradition Western Sahara","MC-556","MA049-1",NULL
+1392,"Pre Neolithic","MC-556","MA049-1",NULL
+1393,"Pre Neolithic","MC-557","MA043-1",NULL
+1394,"Neolithic of Capsian Tradition Western Sahara","MC-707","MA047-2",NULL
+1395,"End Neolithic","MC-708","MA047-1",NULL
+1396,"Neolithic of Capsian Tradition Western Sahara","MC-708","MA047-1",NULL
+1397,"Pre Neolithic","MC-711","MA042-1",NULL
+1398,"Pre Neolithic","Gif-2908","MA046-1",NULL
+1399,"Neolithic of Capsian Tradition Western Sahara","Gif-2652","MA086-1",NULL
+1400,"Protohistoric","Beta-318454","MA099-1",NULL
+1401,"Neolithic","Gif-7002","MA069-1",NULL
+1402,"Neolithic","Gif-7685","MA068-1",NULL
+1403,"Neolithic","Gif-7686","MA068-1",NULL
+1404,"Neolithic","Gif-7552","MA068-1",NULL
+1405,"Early Rharbian","Ly-4211","MA066-1",NULL
+1406,"Middle Rharbian","Gif-7803","MA071-1",NULL
+1407,"Late Rharbian","Gif-6825","MA020-1",NULL
+1408,"Neolithic","MAMS-29773","MA100-1",NULL
+1409,"Protohistoric","Poz-40743","MA101-2",NULL
+1410,"Protohistoric","Poz-40744","MA101-2",NULL
+1411,"Protohistoric","Poz-40749","MA101-1",NULL
+1412,"Protohistoric","Poz-40750","MA101-1",NULL
+1413,"Neolithic","CNA-1163","MA102-5",NULL
+1414,"Neolithic","CNA-1164","MA102-5",NULL
+1415,"Neolithic","CSIC-2182","MA102-5",NULL
+1416,"Neolithic","CSIC-2232","MA102-5",NULL
+1417,"Neolithic","CSIC-2181","MA102-5",NULL
+1418,"Neolithic","CNA-1165","MA102-4",NULL
+1419,"Neolithic","CNA-1649","MA102-2",NULL
+1420,"Neolithic","CNA-1650","MA102-3",NULL
+1421,"Neolithic","CNA-1652","MA102-2",NULL
+1422,"Neolithic","CNA-1653","MA102-2",NULL
+1423,"Neolithic","CNA-1654","MA102-2",NULL
+1424,"Neolithic","CNA-1655","MA102-1",NULL
+1425,"Bronze Age","CNA-938","MA103-1",NULL
+1426,"Bronze Age","CNA-940","MA103-1",NULL
+1427,"Bronze Age","OxA-23216","ES001-1",NULL
+1428,"Bronze Age","OxA-23217","ES001-1",NULL
+1429,"Early Neolithic","KIA-20053","ES002-2",NULL
+1430,"Early Neolithic","KIA-36743","ES002-1",NULL
+1431,"Early Neolithic","KIA-36742","ES002-1",NULL
+1432,"Early Neolithic","KIA-17373","ES002-1",NULL
+1433,"Early Neolithic","KIA-22623","ES002-1",NULL
+1434,"Early Neolithic","KIA-22284","ES002-2",NULL
+1435,"Protohistoric","NoLabID-06","TN054-1",NULL
+1436,"Protohistoric","NoLabID-07","TN054-1",NULL
+1437,"Protohistoric","NoLabID-08","TN055-1",NULL
+1438,"Phoenician","CNA-2400","TN046-1",NULL
+1439,"Phoenician","CNA-2402","TN046-1",NULL
+1440,"Phoenician","CNA-2403","TN046-1",NULL
+1441,"Early Numidian phase","Beta-262619","TN001-1",NULL
+1442,"Early Numidian phase","Beta-262620","TN001-1",NULL
+1443,"Early Numidian phase","Beta-283139","TN001-1",NULL
+1444,"Early Numidian phase","Beta-283140","TN001-1",NULL
+1445,"Early Numidian phase","Beta-283141","TN001-1",NULL
+1446,"Phoenician/Carthaginian","GrA-27131","TN008-2",NULL
+1447,"Phoenician/Carthaginian","GrA-27159","TN008-1",NULL
+1448,"Phoenician/Carthaginian","GrA-27165","TN008-1",NULL
+1449,"Phoenician/Carthaginian","GrA-27167","TN008-2",NULL
+1450,"Phoenician/Carthaginian","GrA-27168","TN008-1",NULL
+1451,"Phoenician/Carthaginian","GrA-27169","TN008-1",NULL
+1452,"Phoenician/Carthaginian","GrA-27171","TN008-1",NULL
+1453,"Phoenician/Carthaginian","GrA-28581","TN008-1",NULL
+1454,"Phoenician/Carthaginian","GrA-28584","TN008-1",NULL
+1455,"Phoenician/Carthaginian","GrN-26090","TN008-1",NULL
+1456,"Phoenician/Carthaginian","GrN-26091","TN008-1",NULL
+1457,"Phoenician/Carthaginian","GrN26092","TN008-1",NULL
+1458,"Phoenician/Carthaginian","GrN-26479","TN008-2",NULL
+1459,"Phoenician/Carthaginian","GrN-26093","TN008-1",NULL
+1460,"Phoenician/Carthaginian","GrN-26094","TN008-1",NULL
+1461,"Phoenician/Carthaginian","GrN-29278","TN008-1",NULL
+1462,"Phoenician/Carthaginian","GrN-29279","TN008-2",NULL
+1463,"Phoenician/Carthaginian","GrN-29280","TN008-2",NULL
+1464,"Phoenician/Carthaginian","GrN-29281","TN008-2",NULL
+1465,"Phoenician/Carthaginian","GrA-13588","TN008-2",NULL
+1466,"Phoenician/Carthaginian","GrA-13589","TN008-2",NULL
+1467,"Phoenician/Carthaginian","GrA-13590","TN008-2",NULL
+1468,"Phoenician/Carthaginian","GrA-13591","TN008-2",NULL
+1469,"Phoenician/Carthaginian","GrN-24805","TN008-2",NULL
+1470,"Upper Capsian","Beta-290413","TN023-7",NULL
+1471,"Upper Capsian","ENEA-666","TN023-6",NULL
+1472,"Upper Capsian","ENEA-667","TN023-6",NULL
+1473,"Upper Capsian","ENEA-668","TN023-5",NULL
+1474,"Upper Capsian","ENEA-834","TN023-4",NULL
+1475,"Upper Capsian","ENEA-835","TN023-5",NULL
+1476,"Upper Capsian","ENEA-836","TN023-4",NULL
+1477,"Upper Capsian","ENEA-837","TN023-2",NULL
+1478,"Upper Capsian","ENEA-838","TN023-5",NULL
+1479,"Upper Capsian","ENEA-839","TN023-5",NULL
+1480,"Upper Capsian","ENEA-840","TN023-2",NULL
+1481,"Upper Capsian","ENEA-841","TN023-2",NULL
+1482,"Upper Capsian","ENEA-861","TN023-1",NULL
+1483,"Upper Capsian","ENEA-863","TN023-3",NULL
+1484,"Upper Capsian","ENEA-864","TN023-3",NULL
+1485,"Upper Capsian","ENEA-865","TN023-4",NULL
+1486,"Upper Capsian","ENEA-866","TN023-6",NULL
+1487,"Upper Capsian","Pa-2470","TN023-5",NULL
+1488,"Upper Capsian","Pa-2471","TN023-3",NULL
+1489,"Upper Capsian","P1065 (Locean)","TN023-3",NULL
+1490,"Upper Capsian","P1066 (Locean)","TN023-3",NULL
+1491,"Upper Capsian","P1067 (Locean)","TN023-3",NULL
+1492,"Upper Capsian","P1068 (Locean)","TN023-6",NULL
+1493,"Upper Capsian","P1069 (Locean)","TN023-6",NULL
+1494,"Upper Capsian","P1070 (Locean)","TN023-6",NULL
+1495,"Upper Capsian","P1072 (Locean)","TN023-2",NULL
+1496,"Neolithic","SacA-23654","TN023-9",NULL
+1497,"Upper Capsian","P1080 (Locean)","TN023-7",NULL
+1498,"Neolithic","ALG-45","TN023-8",NULL
+1499,"Upper Capsian","SS-664","TN023-5",NULL
+1500,"Upper Capsian","SS-659","TN023-6",NULL
+1501,"Upper Capsian","SS-663","TN023-1",NULL
+1502,"Upper Capsian","SS-665","TN023-6",NULL
+1503,"Typical Capsian","L-240A","TN007-1",NULL
+1504,"Typical Capsian","L-3661","TN007-1",NULL
+1505,"Neolithic","Hd-28982","TN026-1",NULL
+1506,"Neolithic","MC-825","TN015-2",NULL
+1507,"Neolithic","MC-828","TN015-1",NULL
+1508,"Neolithic","MC-835","TN015-3",NULL
+1509,"Neolithic","Muse 530","TN015-2",NULL
+1510,"Neolithic","Muse 537","TN015-2",NULL
+1511,"Neolithic","MC-833","TN015-3",NULL
+1512,"Neolithic","MC-834","TN015-3",NULL
+1513,"Neolithic","Hd-28981","TN015-3",NULL
+1514,"Neolithic","Muse 538","TN015-5",NULL
+1515,"Neolithic","Hd-29007","TN015-3",NULL
+1516,"Upper Capsian","Muse 561","TN027-1",NULL
+1517,"Neolithic","Muse 561","TN027-1",NULL
+1518,"Upper Capsian","Muse 560","TN027-1",NULL
+1519,"Neolithic","Muse 560","TN027-1",NULL
+1520,"Upper Capsian","MC-1713","TN027-1",NULL
+1521,"Neolithic","MC-1713","TN027-1",NULL
+1522,"Upper Capsian","MC-1714","TN027-1",NULL
+1523,"Neolithic","MC-1714","TN027-1",NULL
+1524,"Neolithic","Pa-2338","TN028-1",NULL
+1525,"Upper Capsian","Sidi Thabet Nuclear Laboratory Tunis","TN032-1","From the Culture"
+1526,"Typical Capsian","NoLabID-13","TN005-1",NULL
+1527,"Neolithic of Capsian Tradition","L-135","TN024-1",NULL
+1528,"Upper Capsian","Muse 243","TN017-2",NULL
+1529,"Typical Capsian","Muse 244","TN017-1",NULL
+1530,"Typical Capsian","Muse 245","TN017-1",NULL
+1531,"Upper Capsian","Muse 246","TN017-2",NULL
+1532,"Upper Capsian","L-134","TN017-2",NULL
+1533,"Southern Tunisian bladelet industry","GX-1413","TN029-2",NULL
+1534,"Southern Tunisian bladelet industry","GX-1414","TN029-2",NULL
+1535,"Southern Tunisian bladelet industry","GX-1415","TN029-2",NULL
+1536,"Southern Tunisian bladelet industry","GX-1416","TN029-2",NULL
+1537,"Capsian","LTL-15497A","TN047-1",NULL
+1538,"Capsian","LTL-15496A","TN047-2",NULL
+1539,"Capsian","LTL-15495A","TN047-3",NULL
+1540,"Upper Capsian","Gif-2221","TN035-1",NULL
