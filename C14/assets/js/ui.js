@@ -26,7 +26,7 @@ const UI = (function() {
     }
 
     /**
-     * Renders the details of a selected site into the sidebar using a definition list.
+     * Renders the details of a selected site into the sidebar using a Material Design card.
      * @param {Object} properties - The properties object from a GeoJSON feature.
      */
     function renderSiteDetails(properties) {
@@ -37,53 +37,54 @@ const UI = (function() {
 
         siteTitleElement.textContent = properties.site || 'Unnamed Site';
 
-        const dl = document.createElement('dl');
+        const { labnr, bp, std, material, country, periods, references } = properties;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        let cardContent = `<div class="card-content"><ul class="site-info-list">`;
 
         const fields = {
-            'Lab Number': properties.labnr,
-            'BP': properties.bp,
-            'Std': properties.std,
-            'Material': properties.material,
-            'Country': properties.country,
-            'Periods': properties.periods ? properties.periods.join(', ') : null
+            'Lab Number': labnr,
+            'BP': bp,
+            'Std': std,
+            'Material': material,
+            'Country': country,
+            'Periods': periods ? periods.join(', ') : null
         };
 
-        for (const [key, value] of Object.entries(fields)) {
+        for (const [label, value] of Object.entries(fields)) {
             if (value) {
-                const dt = document.createElement('dt');
-                dt.textContent = key;
-                const dd = document.createElement('dd');
-                dd.textContent = value;
-                dl.appendChild(dt);
-                dl.appendChild(dd);
+                cardContent += `<li><span class="label">${label}</span><span class="value">${value}</span></li>`;
             }
         }
 
-        if (properties.references && properties.references.length) {
-            const dt = document.createElement('dt');
-            dt.textContent = 'References';
-            const dd = document.createElement('dd');
-            const referenceStrings = properties.references.map(ref => {
+        if (references && references.length) {
+            const referenceStrings = references.map(ref => {
                 if (typeof ref === 'object' && ref !== null && ref.author) {
                     return `${ref.author}${ref.year ? ` (${ref.year})` : ''}`;
                 }
                 return typeof ref === 'string' ? ref : null;
-            }).filter(Boolean);
-            dd.textContent = referenceStrings.join('; ');
-            dl.appendChild(dt);
-            dl.appendChild(dd);
+            }).filter(Boolean).join('; ');
+            cardContent += `<li><span class="label">References</span><span class="value">${referenceStrings}</span></li>`;
         }
 
-        siteDetailsElement.innerHTML = '';
-        siteDetailsElement.appendChild(dl);
+        cardContent += `</ul></div>`;
 
-        if (properties.labnr) {
-            const link = document.createElement('a');
-            link.href = `profile.html?labnr=${properties.labnr}`;
-            link.className = 'profile-link';
-            link.textContent = 'View Full Profile';
-            siteDetailsElement.appendChild(link);
+        if (labnr) {
+            cardContent += `
+                <div class="card-actions">
+                    <a href="profile.html?labnr=${labnr}" class="button-flat">
+                        View Full Profile
+                    </a>
+                </div>
+            `;
         }
+
+        card.innerHTML = cardContent;
+
+        siteDetailsElement.innerHTML = ''; // Clear previous content
+        siteDetailsElement.appendChild(card);
     }
 
     /**

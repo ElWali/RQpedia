@@ -2,7 +2,7 @@
 
 /* Basic Styles */
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -32,6 +32,67 @@ body {
 #site-title {
     margin-top: 0;
 }
+.card {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.site-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-info-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.site-info-list li:last-child {
+    border-bottom: none;
+}
+
+.site-info-list .label {
+    font-weight: 500;
+    color: #333;
+}
+
+.site-info-list .value {
+    color: #666;
+}
+
+.card-actions {
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-flat {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.button-flat:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
 
 /* Desktop Styles */
 @media (min-width: 768px) {
@@ -55,14 +116,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+    padding: 0 24px;
+    height: 64px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
 }
 
 .profile-header .logo h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .profile-header .logo a {
@@ -73,21 +136,24 @@ body {
 .profile-header nav a {
     text-decoration: none;
     color: #007bff;
-    font-size: 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .profile-container {
-    padding: 2rem;
+    padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 #profile-site-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
+    font-size: 34px;
+    margin-bottom: 24px;
+    font-weight: 400;
     color: #212529;
     text-align: left;
+    line-height: 40px;
 }
 
 .profile-grid {
@@ -142,15 +208,38 @@ body {
 }
 
 .collapsible-section summary {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    padding: 0.75rem 1rem;
-    background-color: #e9ecef;
+    padding: 16px;
+    background-color: #f5f5f5;
     border-radius: 4px;
     list-style: none;
-    color: #212529;
-    margin-bottom: 1rem;
+    color: #333;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.collapsible-section summary:hover {
+    background-color: #eee;
+}
+
+.collapsible-section[open] summary {
+    background-color: #e0e0e0;
+}
+
+.collapsible-section summary::after {
+    content: 'expand_more';
+    font-family: 'Material Icons';
+    font-size: 24px;
+    transition: transform 0.3s;
+}
+
+.collapsible-section[open] summary::after {
+    transform: rotate(180deg);
 }
 
 .collapsible-section summary::-webkit-details-marker {
@@ -160,16 +249,16 @@ body {
 .collapsible-section table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 1rem;
+    font-size: 14px;
     background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .collapsible-section td {
-    padding: 1rem;
-    border-bottom: 1px solid #dee2e6;
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
 }
 
 .collapsible-section tr:last-child td {
@@ -238,27 +327,27 @@ body {
 #typological-dates-table-container table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 1rem;
+    font-size: 14px;
     background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #radiocarbon-dates-table-container th,
 #typological-dates-table-container th,
 #radiocarbon-dates-table-container td,
 #typological-dates-table-container td {
-    padding: 1rem;
-    border-bottom: 1px solid #dee2e6;
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
     text-align: left;
 }
 
 #radiocarbon-dates-table-container th,
 #typological-dates-table-container th {
-    background-color: #f8f9fa;
-    font-weight: 700;
-    color: #495057;
+    background-color: #f5f5f5;
+    font-weight: 500;
+    color: #333;
 }
 
 #radiocarbon-dates-table-container tr:last-child td,
