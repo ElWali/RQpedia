@@ -118,13 +118,19 @@ const Profile = (function(Data) {
      * @returns {string} The formatted reference string.
      */
     function formatReference(ref) {
+        const sanitize = (str) => {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        };
+
         if (typeof ref === 'object' && ref !== null) {
             const author = ref.author || '';
             // Check for null, undefined, or the literal string "undefined"
             const year = (ref.year && ref.year !== "undefined") ? `(${ref.year})` : '';
-            return `${author} ${year}`.trim();
+            return `${sanitize(author)} ${sanitize(year)}`.trim();
         }
-        return ref || '';
+        return sanitize(ref || '');
     }
 
     /**
