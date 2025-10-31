@@ -40,7 +40,7 @@ const Map = (function() {
                 const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
                 container.style.backgroundColor = 'white';
                 container.style.padding = '5px';
-                container.innerHTML = '<a href="#" id="toggle-layer" title="Toggle Heatmap/Markers"><i class="material-icons">layers</i></a>';
+                container.innerHTML = '<a href="#" id="toggle-layer" role="button" aria-label="Toggle Heatmap/Markers"><i class="material-icons">layers</i></a>';
 
                 L.DomEvent.on(container, 'click', function(e) {
                     L.DomEvent.stop(e);
