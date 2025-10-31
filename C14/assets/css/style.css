@@ -512,3 +512,8 @@ body {
 .about-section {
     margin-top: 2rem;
 }
+
+.chart-card .card-content {
+    position: relative;
+    height: 400px;
+}
