@@ -1,8 +1,0 @@
-app_name: "MedAfriCarbon"
-app_cite_text: "Data compiled for the MedAfrica project."
-map_start_lng: 12.344154
-map_start_lat: 33.335327
-map_start_zoom: 5
-ribbon_text: "Version 1.0"
-ribbon_show: TRUE
-ribbon_link: https://doi.org/10.5281/zenodo.3630619
