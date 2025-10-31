@@ -224,6 +224,12 @@ body {
     line-height: 40px;
 }
 
+#profile-map {
+    height: 300px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
 .profile-grid {
     display: flex;
     flex-wrap: wrap;
