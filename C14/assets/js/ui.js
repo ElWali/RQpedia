@@ -62,7 +62,7 @@ const UI = (function() {
         if (references && references.length) {
             const referenceStrings = references.map(ref => {
                 if (typeof ref === 'object' && ref !== null && ref.author) {
-                    return `${ref.author}${ref.year ? ` (${ref.year})` : ''}`;
+                    return `${ref.author}${ref.year && ref.year !== 'undefined' ? ` (${ref.year})` : ''}`;
                 }
                 return typeof ref === 'string' ? ref : null;
             }).filter(Boolean).join('; ');
