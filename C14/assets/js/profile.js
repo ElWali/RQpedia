@@ -151,6 +151,15 @@ const Profile = (function(Data) {
         const tableRows = uniqueFeatures.map(feature => {
             const props = feature.properties;
             const uncalibratedAge = props.bp && props.std ? `${props.bp} ± ${props.std}` : '—';
+
+            let calibratedAge = '—';
+            if (props.cal_bp && props.cal_std) {
+                // Standard 2-sigma range (95.4% probability)
+                const rangeStart = Math.round(props.cal_bp + (2 * props.cal_std));
+                const rangeEnd = Math.round(props.cal_bp - (2 * props.cal_std));
+                calibratedAge = `${rangeStart} - ${rangeEnd} cal BP`;
+            }
+
             const references = (props.references && props.references.length > 0) ?
                 props.references.map(formatReference).join(', ') : '—';
 
@@ -159,10 +168,10 @@ const Profile = (function(Data) {
                     <td><a href="profile.html?labnr=${props.labnr}">${props.labnr || '—'}</a></td>
                     <td>—</td>
                     <td>${props.material || '—'}</td>
-                    <td>—</td>
+                    <td>${props.species || '—'}</td>
                     <td>${props.datemethod || 'Radiocarbon'}</td>
                     <td>${uncalibratedAge}</td>
-                    <td>—</td>
+                    <td>${calibratedAge}</td>
                     <td>${references}</td>
                 </tr>
             `;

@@ -83,6 +83,11 @@ const Charts = (function() {
             return;
         }
 
+        if (dates.length < 2) {
+            document.getElementById('date-chart-placeholder').innerHTML = '<p>Not enough data to display a distribution.</p>';
+            return;
+        }
+
         // Basic histogram binning
         const minDate = Math.min(...dates);
         const maxDate = Math.max(...dates);
