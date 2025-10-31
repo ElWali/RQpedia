@@ -80,6 +80,26 @@ const Profile = (function(Data) {
         if (properties.bp && properties.std) {
             renderCalibrationGraph(properties.bp, properties.std);
         }
+
+        // Render the map
+        if (relatedFeatures.length > 0 && relatedFeatures[0].geometry && relatedFeatures[0].geometry.coordinates) {
+            renderMap(relatedFeatures[0].geometry.coordinates);
+        }
+    }
+
+    /**
+     * Renders a Leaflet map for the site's location.
+     * @param {Array<number>} coordinates - The longitude and latitude of the site.
+     */
+    function renderMap(coordinates) {
+        const [lng, lat] = coordinates;
+        const map = L.map('profile-map').setView([lat, lng], 13);
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }).addTo(map);
+
+        L.marker([lat, lng]).addTo(map);
     }
 
     /**
