@@ -18,8 +18,6 @@ const Profile = (function(Data) {
     // Defines the structure for collapsible metadata sections.
     const DATA_GROUPS = {
         "Basic Info": { open: true, keys: ['site', 'country', 'labnr', 'medafricadateid', 'otherlabid'] },
-        "Dating Parameters": { open: true, keys: ['uncalibrateddate', 'error', 'bp', 'std', 'cal_bp', 'cal_std', 'delta_c13', 'dc13', 'dc13error', 'datemethod', 'calibrationcurve'] },
-        "Material & Context": { open: false, keys: ['material', 'species', 'feature', 'feature_type', 'site_type', 'sitecontext', 'sampleid', 'notes'] },
         "Cultural Association": { open: false, keys: ['typochronological_units', 'ecochronological_units'] }
     };
 
