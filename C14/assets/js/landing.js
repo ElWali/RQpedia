@@ -9,7 +9,8 @@ async function displayStatistics() {
         const features = await Data.getFeatures();
 
         // Calculate and display total sites
-        const totalSites = features.length;
+        const uniqueSites = new Set(features.map(feature => feature.properties.site));
+        const totalSites = uniqueSites.size;
         document.getElementById('total-sites').textContent = totalSites;
 
         // Calculate and display total radiocarbon dates
