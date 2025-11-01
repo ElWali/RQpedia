@@ -12,7 +12,7 @@ BASE_URL = f"http://localhost:{PORT}"
 @pytest.fixture(scope="session", autouse=True)
 def start_server_with_xss_data():
     # Load the original data
-    with open("C14/data/Output_full.json", "r") as f:
+    with open("C14/data/output_full.geojson", "r") as f:
         data = json.load(f)
 
     # Find a feature to inject the XSS payload into
@@ -30,12 +30,12 @@ def start_server_with_xss_data():
         pytest.skip("No feature with references found to inject XSS payload.")
 
     # Write the modified data to a temporary file
-    with open("C14/data/Output_full_xss.json", "w") as f:
+    with open("C14/data/Output_full_xss.geojson", "w") as f:
         json.dump(data, f)
 
     # Rename the original file and replace it with the modified one
-    os.rename("C14/data/Output_full.json", "C14/data/Output_full.json.bak")
-    os.rename("C14/data/Output_full_xss.json", "C14/data/Output_full.json")
+    os.rename("C14/data/output_full.geojson", "C14/data/output_full.geojson.bak")
+    os.rename("C14/data/Output_full_xss.geojson", "C14/data/output_full.geojson")
 
     # Start the server
     command = ["python3", "-m", "http.server", str(PORT), "--directory", "C14"]
@@ -47,7 +47,7 @@ def start_server_with_xss_data():
     # Stop the server and restore the original data
     os.kill(server_process.pid, signal.SIGTERM)
     server_process.wait()
-    os.rename("C14/data/Output_full.json.bak", "C14/data/Output_full.json")
+    os.rename("C14/data/output_full.geojson.bak", "C14/data/output_full.geojson")
 
 
 def test_xss_vulnerability_in_references(page: Page, start_server_with_xss_data):

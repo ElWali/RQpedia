@@ -1,10 +1,10 @@
 import json
 
 def main():
-    with open("C14/data/Output_full.json", "r") as f:
+    with open("C14/data/output_full.geojson", "r") as f:
         try:
             data = json.load(f)
-            print("Successfully loaded C14/data/Output_full.json")
+            print("Successfully loaded C14/data/output_full.geojson")
             print(f"Total features: {len(data['features'])}")
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")

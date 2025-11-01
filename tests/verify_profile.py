@@ -15,7 +15,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 def get_first_labnr():
     """Reads the first feature's labnr from the GeoJSON file."""
     try:
-        with open("C14/data/Output_full.json", "r") as f:
+        with open("C14/data/output_full.geojson", "r") as f:
             data = json.load(f)
             if data["features"]:
                 return data["features"][0]["properties"]["labnr"]
