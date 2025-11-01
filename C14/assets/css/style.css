@@ -342,3 +342,39 @@ a {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* Data Tables */
+.collapsible-section table,
+.additional-tables-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.collapsible-section th, .collapsible-section td,
+.additional-tables-section th, .additional-tables-section td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.collapsible-section td:first-child,
+.additional-tables-section th {
+    font-weight: 500;
+    color: var(--text-color-primary);
+}
+
+.collapsible-section tr:nth-child(even),
+.additional-tables-section tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.additional-tables-section thead {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.na-value {
+    color: var(--text-color-secondary);
+    font-style: italic;
+}

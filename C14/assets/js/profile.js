@@ -50,7 +50,6 @@ const Profile = (function(Data) {
             const relatedSiteFeatures = features.filter(f => f.properties.site === siteName);
 
             renderProfile(siteFeature.properties, relatedSiteFeatures);
-            addEventListeners();
 
         } catch (error) {
             renderError(error.message);
@@ -118,9 +117,7 @@ const Profile = (function(Data) {
                     const label = PROPERTY_LABELS[key.toLowerCase()] || key;
                     const rawValue = properties[key];
                     const value = (rawValue === null || rawValue === '' || rawValue === undefined) ? '<span class="na-value">n/a</span>' : rawValue;
-                    const copyBtn = ['labnr', 'bp', 'material'].includes(key.toLowerCase()) ?
-                                  `<button class="copy-btn ripple" data-copy-text="${rawValue}" title="Copy to clipboard"><i class="material-icons">content_copy</i></button>` : '';
-                    tableRows += `<tr><td>${label}</td><td>${value}${copyBtn}</td></tr>`;
+                    tableRows += `<tr><td>${label}</td><td>${value}</td></tr>`;
                 }
             });
 
@@ -298,21 +295,6 @@ const Profile = (function(Data) {
             const listHtml = items.map(item => `<li>${item}</li>`).join('');
             element.innerHTML = `<ul>${listHtml}</ul>`;
         }
-    }
-
-    function addEventListeners() {
-        dataTableSectionElement.addEventListener('click', e => {
-            const copyBtn = e.target.closest('.copy-btn');
-            if (copyBtn) handleCopyClick(copyBtn);
-        });
-    }
-
-    function handleCopyClick(button) {
-        navigator.clipboard.writeText(button.dataset.copyText).then(() => {
-            const originalIcon = button.innerHTML;
-            button.innerHTML = 'Copied!';
-            setTimeout(() => { button.innerHTML = originalIcon; }, 1500);
-        }).catch(err => console.error('Failed to copy text:', err));
     }
 
     function renderError(message) {
