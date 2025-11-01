@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Landing page JavaScript loaded.');
+    initializeMenu();
     displayStatistics();
     initializeSearch();
-    initializeMenu();
 });
 
 function initializeMenu() {
