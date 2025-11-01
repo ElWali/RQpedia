@@ -38,24 +38,28 @@ const Profile = (function(Data) {
             const labnr = params.get('labnr');
             const siteNameFromUrl = params.get('site');
 
-            if (!labnr && !siteNameFromUrl) {
+            const isValidLabnr = labnr && labnr !== 'undefined' && labnr !== null;
+
+            if (!isValidLabnr && !siteNameFromUrl) {
                 throw new Error('No site identifier (labnr or site) provided in the URL.');
             }
 
             const features = await Data.getFeatures();
             let siteFeature;
-            let siteName;
 
-            if (labnr) {
+            if (isValidLabnr) {
                 siteFeature = features.find(f => f.properties.labnr === labnr);
-                if (!siteFeature) throw new Error(`Site with labnr "${labnr}" not found.`);
-                siteName = siteFeature.properties.site;
-            } else {
-                siteName = siteNameFromUrl;
-                siteFeature = features.find(f => f.properties.site === siteName);
-                if (!siteFeature) throw new Error(`Site with name "${siteName}" not found.`);
             }
 
+            if (!siteFeature && siteNameFromUrl) {
+                siteFeature = features.find(f => f.properties.site === siteNameFromUrl);
+            }
+
+            if (!siteFeature) {
+                throw new Error(`Site not found with identifier: ${labnr || siteNameFromUrl}`);
+            }
+
+            const siteName = siteFeature.properties.site;
             const relatedSiteFeatures = features.filter(f => f.properties.site === siteName);
 
             renderProfile(siteFeature.properties, relatedSiteFeatures);
