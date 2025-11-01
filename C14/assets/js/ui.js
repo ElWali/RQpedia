@@ -76,7 +76,7 @@ const UI = (function() {
         cardContent += `</ul></div>`;
 
         let profileLink = 'profile.html?';
-        if (labnr) {
+        if (labnr && labnr !== 'undefined' && labnr !== null) {
             profileLink += `labnr=${labnr}`;
         } else if (site) {
             profileLink += `site=${encodeURIComponent(site)}`;
