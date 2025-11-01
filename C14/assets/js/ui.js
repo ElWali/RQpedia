@@ -37,7 +37,7 @@ const UI = (function() {
 
         siteTitleElement.textContent = properties.site || 'Unnamed Site';
 
-        const { labnr, bp, std, material, country, periods, references } = properties;
+        const { site, labnr, country, periods, references, dates } = properties;
 
         const card = document.createElement('div');
         card.className = 'card';
@@ -45,10 +45,6 @@ const UI = (function() {
         let cardContent = `<div class="card-content"><ul class="site-info-list">`;
 
         const fields = {
-            'Lab Number': labnr,
-            'BP': bp,
-            'Std': std,
-            'Material': material,
             'Country': country,
             'Periods': periods ? periods.join(', ') : null
         };
@@ -58,6 +54,14 @@ const UI = (function() {
                 cardContent += `<li><span class="label">${label}</span><span class="value">${value}</span></li>`;
             }
         }
+
+        if (dates && dates.length > 0) {
+            const firstDate = dates[0];
+            cardContent += `<li><span class="label">Primary Dating</span><span class="value">${firstDate.dating_method}</span></li>`;
+            const ageString = `${firstDate.age} ${firstDate.error ? `± ${firstDate.error}` : ''} ${firstDate.unit}`;
+            cardContent += `<li><span class="label">Age</span><span class="value">${ageString}</span></li>`;
+        }
+
 
         if (references && references.length) {
             const referenceStrings = references.map(ref => {
@@ -71,15 +75,21 @@ const UI = (function() {
 
         cardContent += `</ul></div>`;
 
+        let profileLink = 'profile.html?';
         if (labnr) {
-            cardContent += `
-                <div class="card-actions">
-                    <a href="profile.html?labnr=${labnr}" class="button-flat ripple">
-                        View Full Profile
-                    </a>
-                </div>
-            `;
+            profileLink += `labnr=${labnr}`;
+        } else if (site) {
+            profileLink += `site=${encodeURIComponent(site)}`;
         }
+
+        cardContent += `
+            <div class="card-actions">
+                <a href="${profileLink}" class="button-flat ripple">
+                    View Full Profile
+                </a>
+            </div>
+        `;
+
 
         card.innerHTML = cardContent;
 

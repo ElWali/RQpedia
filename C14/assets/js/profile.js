@@ -11,9 +11,7 @@ const Profile = (function(Data) {
     const dataTableSectionElement = document.getElementById('data-table-section');
     const referencesListElement = document.getElementById('references-list');
     const phasingListElement = document.getElementById('phasing-list');
-    // New table container elements
-    const radiocarbonDatesTableContainer = document.getElementById('radiocarbon-dates-table-container');
-    const typologicalDatesTableContainer = document.getElementById('typological-dates-table-container');
+    const datingEvidenceTableContainer = document.getElementById('dating-evidence-table-container');
 
     // Defines the structure for collapsible metadata sections.
     const DATA_GROUPS = {
@@ -38,13 +36,26 @@ const Profile = (function(Data) {
         try {
             const params = new URLSearchParams(window.location.search);
             const labnr = params.get('labnr');
-            if (!labnr) throw new Error('No site identifier (labnr) provided in the URL.');
+            const siteNameFromUrl = params.get('site');
+
+            if (!labnr && !siteNameFromUrl) {
+                throw new Error('No site identifier (labnr or site) provided in the URL.');
+            }
 
             const features = await Data.getFeatures();
-            const siteFeature = features.find(f => f.properties.labnr === labnr);
-            if (!siteFeature) throw new Error(`Site with labnr "${labnr}" not found.`);
+            let siteFeature;
+            let siteName;
 
-            const siteName = siteFeature.properties.site;
+            if (labnr) {
+                siteFeature = features.find(f => f.properties.labnr === labnr);
+                if (!siteFeature) throw new Error(`Site with labnr "${labnr}" not found.`);
+                siteName = siteFeature.properties.site;
+            } else {
+                siteName = siteNameFromUrl;
+                siteFeature = features.find(f => f.properties.site === siteName);
+                if (!siteFeature) throw new Error(`Site with name "${siteName}" not found.`);
+            }
+
             const relatedSiteFeatures = features.filter(f => f.properties.site === siteName);
 
             renderProfile(siteFeature.properties, relatedSiteFeatures);
@@ -67,18 +78,20 @@ const Profile = (function(Data) {
         renderDirectReferences(referencesListElement, properties.references, 'No direct references available.');
         renderList(phasingListElement, properties.periods, 'No cultural phasing data available.');
 
-        renderRadiocarbonDatesTable(relatedFeatures);
-        renderTypologicalDatesTable(relatedFeatures);
+        renderDatingEvidenceTable(relatedFeatures);
 
         Charts.renderMaterialDistributionChart(relatedFeatures);
         Charts.renderDateDistributionChart(relatedFeatures);
         Charts.renderStdDistributionChart(relatedFeatures);
 
-        if (properties.bp && properties.std) {
-            renderCalibrationGraph(properties.bp, properties.std);
+        const firstC14Date = relatedFeatures
+            .flatMap(f => f.properties.dates || [])
+            .find(d => d.dating_method === 'C14' && d.age && d.error);
+
+        if (firstC14Date) {
+            renderCalibrationGraph(firstC14Date.age, firstC14Date.error);
         }
 
-        // Render the map
         if (relatedFeatures.length > 0 && relatedFeatures[0].geometry && relatedFeatures[0].geometry.coordinates) {
             renderMap(relatedFeatures[0].geometry.coordinates);
         }
@@ -176,7 +189,6 @@ const Profile = (function(Data) {
 
         if (typeof ref === 'object' && ref !== null) {
             const author = ref.author || '';
-            // Check for null, undefined, or the literal string "undefined"
             const year = (ref.year && ref.year !== "undefined") ? `(${ref.year})` : '';
             return `${sanitize(author)} ${sanitize(year)}`.trim();
         }
@@ -184,147 +196,88 @@ const Profile = (function(Data) {
     }
 
     /**
-     * Renders the Radiocarbon Dates table for the site.
+     * Renders the consolidated Dating Evidence table for the site.
      * @param {Array<Object>} features - The array of features for the site.
      */
-    function renderRadiocarbonDatesTable(features) {
-        const radiocarbonFeatures = features.filter(f => f.properties.bp !== null && f.properties.bp !== undefined);
+    function renderDatingEvidenceTable(features) {
+        const allDates = features.flatMap(f =>
+            (f.properties.dates || []).map(date => ({
+                ...date,
+                labnr: f.properties.labnr,
+                references: f.properties.references,
+                material: date.material || f.properties.material,
+                species: f.properties.species
+            }))
+        );
 
-        // Deduplicate features using a composite key to ensure each unique date is shown only once.
-        const uniqueFeaturesMap = new Map();
-        radiocarbonFeatures.forEach(feature => {
-            const props = feature.properties;
-            const key = `${props.labnr}|${props.bp}|${props.std}`; // Composite key
-            uniqueFeaturesMap.set(key, feature);
-        });
-        const uniqueFeatures = Array.from(uniqueFeaturesMap.values());
+        const uniqueDates = Array.from(new Map(allDates.map(d => [`${d.dating_method}-${d.age}-${d.error}-${d.labnr}`, d])).values());
 
-        if (uniqueFeatures.length === 0) {
-            radiocarbonDatesTableContainer.innerHTML = '<p>No radiocarbon dates found for this site.</p>';
+        if (uniqueDates.length === 0) {
+            datingEvidenceTableContainer.innerHTML = '<p>No dating evidence found for this site.</p>';
             return;
         }
 
-        const tableRows = uniqueFeatures.map(feature => {
-            const props = feature.properties;
-            const uncalibratedAge = props.bp && props.std ? `${props.bp} ± ${props.std}` : '—';
+        const tableRows = uniqueDates.map(date => {
+            const age = date.age ? `${date.age}${date.error ? ` ± ${date.error}` : ''} ${date.unit || ''}`.trim() : '—';
 
-            let calibratedAge = '—';
-            if (props.cal_bp && props.cal_std) {
-                // Standard 2-sigma range (95.4% probability)
-                const rangeStart = Math.round(props.cal_bp + (2 * props.cal_std));
-                const rangeEnd = Math.round(props.cal_bp - (2 * props.cal_std));
-                calibratedAge = `${rangeStart} - ${rangeEnd} cal BP`;
+            let calibratedAge = '';
+            if (date.dating_method === 'C14' && date.cal_bp && date.cal_std) {
+                const rangeStart = Math.round(date.cal_bp + (2 * date.cal_std));
+                const rangeEnd = Math.round(date.cal_bp - (2 * date.cal_std));
+                calibratedAge = ` (${rangeStart} - ${rangeEnd} cal BP)`;
             }
 
-            const references = (props.references && props.references.length > 0) ?
-                props.references.map(formatReference).join(', ') : '—';
+            const ageString = `${age}${calibratedAge}`;
+            const references = (date.references && date.references.length > 0) ? date.references.map(formatReference).join(', ') : (date.reference || '—');
+            const labnrDisplay = date.labnr ? `<a href="profile.html?labnr=${date.labnr}">${date.labnr}</a>` : 'N/A';
 
             return `
                 <tr>
-                    <td><a href="profile.html?labnr=${props.labnr}">${props.labnr || '—'}</a></td>
-                    <td>—</td>
-                    <td>${props.material || '—'}</td>
-                    <td>${props.species || '—'}</td>
-                    <td>${props.datemethod || 'Radiocarbon'}</td>
-                    <td>${uncalibratedAge}</td>
-                    <td>${calibratedAge}</td>
+                    <td>${date.dating_method || '—'}</td>
+                    <td>${labnrDisplay}</td>
+                    <td>${date.material || '—'}</td>
+                    <td>${date.species || '—'}</td>
+                    <td>${ageString}</td>
                     <td>${references}</td>
                 </tr>
             `;
         }).join('');
 
-        radiocarbonDatesTableContainer.innerHTML = `
+        datingEvidenceTableContainer.innerHTML = `
             <table>
-                <thead><tr><th>Lab ID</th><th>Context</th><th>Material</th><th>Taxon</th><th>Method</th><th>Uncalibrated age</th><th>Calibrated age</th><th>References</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Lab ID</th>
+                        <th>Material</th>
+                        <th>Taxon</th>
+                        <th>Age</th>
+                        <th>References</th>
+                    </tr>
+                </thead>
                 <tbody>${tableRows}</tbody>
             </table>`;
     }
 
-    /**
-     * Renders the Typological Dates table for the site.
-     * @param {Array<Object>} features - The array of features for the site.
-     */
-    function renderTypologicalDatesTable(features) {
-        const uniquePeriods = [];
-        const seen = new Set();
-
-        features.forEach(feature => {
-            const props = feature.properties;
-            if (props.typochronological_units && props.typochronological_units.length > 0) {
-                const classification = props.typochronological_units.join(', ');
-                const refString = JSON.stringify(props.references);
-                const key = `${classification}|${refString}`;
-                if (!seen.has(key)) {
-                    uniquePeriods.push({ classification, references: props.references });
-                    seen.add(key);
-                }
-            }
-        });
-
-        if (uniquePeriods.length === 0) {
-            typologicalDatesTableContainer.innerHTML = '<p>No typological dates found for this site.</p>';
-            return;
-        }
-
-        const tableRows = uniquePeriods.map(period => {
-            const references = (period.references && period.references.length > 0) ?
-                period.references.map(formatReference).join(', ') : '—';
-            return `<tr><td>${period.classification}</td><td>—</td><td>${references}</td></tr>`;
-        }).join('');
-
-        typologicalDatesTableContainer.innerHTML = `
-            <table>
-                <thead><tr><th>Classification</th><th>Estimated age</th><th>References</th></tr></thead>
-                <tbody>${tableRows}</tbody>
-            </table>`;
-    }
-
-    /**
-     * Renders a list of items (e.g., references or phasing).
-     * @param {HTMLElement} element - The container element.
-     * @param {Array<string|Object>} items - The items to render.
-     * @param {string} emptyMessage - Message to display if items is empty.
-     */
-    /**
-     * Renders a list of items, specifically for direct references.
-     * @param {HTMLElement} element - The container element.
-     * @param {Array<string|Object>} items - The reference items to render.
-     * @param {string} emptyMessage - Message to display if items is empty.
-     */
     function renderDirectReferences(element, items, emptyMessage) {
         if (!items || items.length === 0) {
             element.innerHTML = `<p>${emptyMessage}</p>`;
             return;
         }
-
-        const listHtml = items.map(item => {
-            // All references are formatted into paragraphs, not list items
-            return `<p>${formatReference(item)}</p>`;
-        }).join('');
-
+        const listHtml = items.map(item => `<p>${formatReference(item)}</p>`).join('');
         element.innerHTML = listHtml;
     }
 
-    /**
-     * Renders a list of items (e.g., references or phasing).
-     * @param {HTMLElement} element - The container element.
-     * @param {Array<string|Object>} items - The items to render.
-     * @param {string} emptyMessage - Message to display if items is empty.
-     */
     function renderList(element, items, emptyMessage) {
         if (!items || items.length === 0) {
             element.innerHTML = `<p>${emptyMessage}</p>`;
             return;
         }
-
         const isRefObjectList = items.some(item => typeof item === 'object' && item !== null);
-
         if (isRefObjectList) {
-             // For references, which are objects, just output them in <p> tags.
             const listHtml = items.map(item => `<p>${formatReference(item)}</p>`).join('');
             element.innerHTML = listHtml;
         } else {
-            // For other lists (like cultural phasing), use a standard <ul>.
             const listHtml = items.map(item => `<li>${item}</li>`).join('');
             element.innerHTML = `<ul>${listHtml}</ul>`;
         }
