@@ -2,7 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Landing page JavaScript loaded.');
     displayStatistics();
     initializeSearch();
+    initializeMenu();
 });
+
+function initializeMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+    });
+}
 
 async function displayStatistics() {
     try {
@@ -17,6 +27,12 @@ async function displayStatistics() {
         const radiocarbonDates = features.filter(feature => feature.properties.bp !== null);
         const totalDates = radiocarbonDates.length;
         document.getElementById('total-dates').textContent = totalDates;
+
+        // Calculate and display total typological dates
+        const typologicalDates = features.filter(feature => feature.properties.type === 'Typological');
+        const totalTypologicalDates = typologicalDates.length;
+        document.getElementById('typological-dates').textContent = totalTypologicalDates;
+
 
         // Process data for the period chart
         const periodCounts = features.reduce((acc, feature) => {
