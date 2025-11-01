@@ -102,6 +102,21 @@ const Profile = (function(Data) {
     }
 
     /**
+     * Sanitizes a value for display. Replaces null, undefined, empty strings,
+     * or the literal 'n/a' with a hyphen. Also performs basic XSS sanitization.
+     * @param {*} rawValue - The value to sanitize.
+     * @returns {string} The sanitized value.
+     */
+    function sanitizeValue(rawValue) {
+        if (rawValue === null || rawValue === undefined || rawValue === '' || rawValue === 'n/a') {
+            return '-';
+        }
+        const temp = document.createElement('div');
+        temp.textContent = String(rawValue);
+        return temp.innerHTML;
+    }
+
+    /**
      * Renders the main collapsible data table for the specific lab ID.
      * @param {Object} properties - The properties object of the site feature.
      */
@@ -110,19 +125,39 @@ const Profile = (function(Data) {
         for (const groupName in DATA_GROUPS) {
             const group = DATA_GROUPS[groupName];
             const isOpen = group.open ? 'open' : '';
-            let tableRows = '';
+            let contentHtml = '';
 
-            group.keys.forEach(key => {
-                if (properties.hasOwnProperty(key)) {
-                    const label = PROPERTY_LABELS[key.toLowerCase()] || key;
-                    const rawValue = properties[key];
-                    const value = (rawValue === null || rawValue === '' || rawValue === undefined) ? '<span class="na-value">n/a</span>' : rawValue;
-                    tableRows += `<tr><td>${label}</td><td>${value}</td></tr>`;
+            if (groupName === "Cultural Association") {
+                let listItems = '';
+                group.keys.forEach(key => {
+                    const value = properties[key];
+                    if (value && Array.isArray(value) && value.length > 0) {
+                        value.forEach(item => {
+                            if (item) listItems += `<li>${sanitizeValue(item)}</li>`;
+                        });
+                    }
+                });
+
+                if (listItems) {
+                    contentHtml = `<ul>${listItems}</ul>`;
                 }
-            });
+            } else {
+                let tableRows = '';
+                group.keys.forEach(key => {
+                    if (properties.hasOwnProperty(key)) {
+                        const label = PROPERTY_LABELS[key.toLowerCase()] || key;
+                        const value = sanitizeValue(properties[key]);
+                        tableRows += `<tr><td>${label}</td><td>${value}</td></tr>`;
+                    }
+                });
 
-            if (tableRows) {
-                sectionsHtml += `<details class="collapsible-section" ${isOpen}><summary>${groupName}</summary><table>${tableRows}</table></details>`;
+                if (tableRows) {
+                    contentHtml = `<table>${tableRows}</table>`;
+                }
+            }
+
+            if (contentHtml) {
+                sectionsHtml += `<details class="collapsible-section" ${isOpen}><summary>${groupName}</summary>${contentHtml}</details>`;
             }
         }
         dataTableSectionElement.innerHTML = sectionsHtml;

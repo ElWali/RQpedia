@@ -378,3 +378,56 @@ a {
     color: var(--text-color-secondary);
     font-style: italic;
 }
+
+/* Profile Page Data Sections */
+.collapsible-section {
+    border: 1px solid var(--divider-color);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    overflow: hidden; /* Ensures the child elements respect the border radius */
+}
+
+.collapsible-section summary {
+    font-size: var(--font-size-subtitle1);
+    font-weight: 500;
+    padding: 16px;
+    cursor: pointer;
+    background-color: #fafafa;
+}
+
+.collapsible-section[open] summary {
+     border-bottom: 1px solid var(--divider-color);
+}
+
+.collapsible-section summary:hover {
+    background-color: #f0f0f0;
+}
+
+/* Override default margin for tables inside collapsible sections */
+.collapsible-section table {
+    margin-top: 0;
+}
+
+/* Set a width for the first column to ensure alignment */
+.collapsible-section td:first-child {
+    width: 40%;
+    font-weight: 500; /* Make the label bold */
+}
+
+.collapsible-section tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra-striping */
+}
+
+.collapsible-section td {
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.collapsible-section tr:last-child td {
+    border-bottom: none; /* Remove border from the last row */
+}
+
+.collapsible-section ul {
+    list-style-type: disc;
+    padding-left: 40px; /* Standard padding for lists */
+    margin: 16px 0;
+}
