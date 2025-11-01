@@ -25,7 +25,7 @@ The **C14 Edition** is the next iteration of this platform. It will be developed
 ## 3. Data Architecture
 
 ### 3.1. Canonical Dataset
--   **Source**: All data will be sourced from a single, canonical `Output_full.json` file.
+-   **Source**: All data will be sourced from a single, canonical `output_full.geojson` file.
 -   **Format**: The dataset must be a valid GeoJSON `FeatureCollection` (RFC 7946).
 -   **Data Integrity**: Every feature must be a validated measurement from a primary source (e.g., MedAfriCarbon, p3k14c, BDA, CalPal). No placeholders, nulls, or dummy data are permitted.
 

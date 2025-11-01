@@ -6,7 +6,7 @@
  */
 const Data = (function() {
 
-    const DATA_URL = 'data/Output_full.json';
+    const DATA_URL = 'data/output_full.geojson';
 
     /**
      * Fetches and parses the GeoJSON dataset.
