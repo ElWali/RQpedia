@@ -431,3 +431,21 @@ a {
     padding-left: 40px; /* Standard padding for lists */
     margin: 16px 0;
 }
+
+@media (max-width: 480px) {
+    .search-button {
+        padding: 8px 12px;
+    }
+
+    .search-button i {
+        margin-right: 0;
+    }
+
+    .search-button span {
+        display: none;
+    }
+
+    .hero-content h2 {
+        font-size: var(--font-size-headline5);
+    }
+}
