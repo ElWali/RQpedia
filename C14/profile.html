@@ -15,18 +15,24 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="profile-header">
+    <header class="main-header">
         <div class="logo">
             <h1><a href="index.html">RQpedia C14</a></h1>
         </div>
-        <nav>
+        <nav class="main-nav">
             <a href="explorer.html">Map Explorer</a>
         </nav>
+        <button class="menu-toggle"><i class="material-icons">menu</i></button>
     </header>
 
     <main class="profile-container">
-        <h1 id="profile-site-title">Loading site data...</h1>
-        <div id="profile-map"></div>
+        <section class="card">
+             <div class="card-content">
+                <h1 id="profile-site-title" class="card-title">Loading site data...</h1>
+                <div id="profile-map"></div>
+            </div>
+        </section>
+
         <div class="profile-grid">
             <div class="profile-left">
                 <section id="data-table-section">

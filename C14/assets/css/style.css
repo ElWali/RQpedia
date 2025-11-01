@@ -283,3 +283,62 @@ a {
 .search-results a:hover {
     background-color: var(--background-color);
 }
+
+/* Explorer Page */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 64px); /* Full height minus header */
+}
+
+#map-container {
+    flex-grow: 1;
+    width: 100%;
+}
+
+#data-sidebar {
+    padding: 1rem;
+    background-color: var(--surface-color);
+    overflow-y: auto;
+    height: 30vh; /* Adjust height for mobile */
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        flex-direction: row;
+    }
+
+    #map-container {
+        width: 70%;
+    }
+
+    #data-sidebar {
+        width: 30%;
+        height: auto;
+    }
+}
+
+/* Profile Page */
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+#profile-map {
+    height: 300px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 992px) {
+    .profile-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

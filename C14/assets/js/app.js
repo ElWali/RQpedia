@@ -4,7 +4,7 @@
  * @namespace App
  * @description Main application entry point.
  */
-const App = (function(Data, Map, UI) {
+const App = (function(Data, LeafletMap, UI) {
 
     /**
      * Initializes the application.
@@ -12,19 +12,19 @@ const App = (function(Data, Map, UI) {
     async function init() {
         try {
             // Show loading indicator
-            UI.showLoading();
+            // UI.showLoading();
 
             // Initialize the map
-            Map.init('map-container');
+            LeafletMap.init('map-container');
 
             // Fetch the dataset
             const features = await Data.getFeatures();
 
             // Add data layers to the map
-            Map.addDataLayers(features, handleMarkerClick);
+            LeafletMap.addDataLayers(features, handleMarkerClick);
 
             // Hide loading indicator
-            UI.hideLoading();
+            // UI.hideLoading();
 
         } catch (error) {
             // Display an error message to the user
@@ -45,7 +45,18 @@ const App = (function(Data, Map, UI) {
         init
     };
 
-})(Data, Map, UI);
+})(Data, LeafletMap, UI);
 
 // Initialize the application when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', App.init);
+document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    }
+});

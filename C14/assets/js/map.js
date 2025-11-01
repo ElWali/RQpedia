@@ -4,7 +4,7 @@
  * @namespace Map
  * @description Manages the Leaflet map, including initialization and marker creation.
  */
-const Map = (function() {
+const LeafletMap = (function() {
 
     let map;
     const markers = L.markerClusterGroup();
@@ -21,8 +21,8 @@ const Map = (function() {
         }
         map = L.map(mapId).setView([28.0, -9.0], 5); // Centered on Morocco
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
 
         addToggleControl();

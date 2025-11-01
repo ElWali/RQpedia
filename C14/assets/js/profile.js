@@ -324,4 +324,15 @@ const Profile = (function(Data) {
     return { init };
 })(Data);
 
-document.addEventListener('DOMContentLoaded', Profile.init);
+document.addEventListener('DOMContentLoaded', () => {
+    Profile.init();
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    }
+});
