@@ -12,54 +12,68 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="profile-header">
+    <header class="main-header">
         <div class="logo">
             <h1><a href="index.html">RQpedia C14</a></h1>
         </div>
-        <nav>
+        <nav class="main-nav">
             <a href="explorer.html">Map Explorer</a>
         </nav>
+        <button class="menu-toggle"><i class="material-icons">menu</i></button>
     </header>
 
-    <main class="profile-container">
-        <div class="landing-header">
-            <h1>Welcome to the RQpedia C14 Edition</h1>
-            <p>An open-access database for the archaeology of Morocco</p>
-        </div>
-
-        <div class="search-container card">
-            <div class="search-bar">
-                <i class="material-icons">search</i>
-                <input type="text" id="search-input" placeholder="Search for an archaeological site...">
-            </div>
-            <div id="search-results" class="search-results"></div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="card">
-                <div class="card-content">
-                    <h2 class="card-title">Total Sites</h2>
-                    <p id="total-sites" class="stat-number">...</p>
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Open chronometric data for archaeology</h2>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Find dates, sites, references..">
+                        <button class="search-button"><i class="material-icons">search</i> Search</button>
+                    </div>
+                    <div id="search-results" class="search-results"></div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-content">
-                    <h2 class="card-title">Radiocarbon Dates</h2>
-                    <p id="total-dates" class="stat-number">...</p>
-                </div>
-            </div>
-            <div class="card chart-card">
-                <div class="card-content">
-                    <h2 class="card-title">Sites by Period</h2>
-                    <canvas id="period-chart"></canvas>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <div class="about-section card">
+        <section class="stats-section">
+            <div class="stat-item">
+                <i class="material-icons">public</i>
+                <h3 id="total-sites">...</h3>
+                <p>Sites</p>
+            </div>
+            <div class="stat-item">
+                <i class="material-icons">science</i>
+                <h3 id="total-dates">...</h3>
+                <p>Radiocarbon dates</p>
+            </div>
+            <div class="stat-item">
+                <i class="material-icons">museum</i>
+                <h3 id="typological-dates">...</h3>
+                <p>Typological dates</p>
+            </div>
+            <div class="stat-item">
+                <i class="material-icons">park</i>
+                <h3>Coming soon!</h3>
+                <p>Dendro dates</p>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <img src="https://www.researchgate.net/profile/Wolfgang-Cramer/publication/338522339/figure/fig1/AS:846003553230848@1578709088530/Study-region-encompassing-Europe-and-North-Africa-The-colors-show-the-Holdridge-aridity.png" alt="World map with data points" id="map-image">
+        </section>
+
+        <section class="about-section card">
             <div class="card-content">
                 <h2 class="card-title">About RQpedia</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.</p>
+            </div>
+        </section>
+
+        <div class="card chart-card">
+            <div class="card-content">
+                <h2 class="card-title">Sites by Period</h2>
+                <canvas id="period-chart"></canvas>
             </div>
         </div>
     </main>
