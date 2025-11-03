@@ -258,9 +258,12 @@ a {
     margin: 2rem auto;
 }
 
-.chart-card .card-content {
+.chart-card .card-content,
+#material-chart-placeholder,
+#date-chart-placeholder,
+#std-chart-placeholder {
     position: relative;
-    height: 400px;
+    height: 300px; /* Adjusted height for a better fit */
 }
 
 .search-results {
@@ -393,6 +396,11 @@ a {
     padding: 16px;
     cursor: pointer;
     background-color: #fafafa;
+    list-style: none; /* Remove the default marker */
+}
+
+.collapsible-section summary::-webkit-details-marker {
+    display: none; /* Hide the default marker in Chrome/Safari */
 }
 
 .collapsible-section[open] summary {
