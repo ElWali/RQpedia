@@ -94,6 +94,9 @@ const Profile = (function(Data, Graph) {
 
         if (firstC14Date) {
             Graph.renderCalibrationGraph(firstC14Date.age, firstC14Date.error);
+        } else {
+            const graphPlaceholder = document.getElementById('graph-placeholder');
+            graphPlaceholder.innerHTML = '<p>No valid C14 data available for calibration.</p>';
         }
 
         if (relatedFeatures.length > 0 && relatedFeatures[0].geometry && relatedFeatures[0].geometry.coordinates) {
