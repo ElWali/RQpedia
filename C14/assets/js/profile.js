@@ -4,7 +4,7 @@
  * @namespace Profile
  * @description Handles the logic for the site profile page.
  */
-const Profile = (function(Data) {
+const Profile = (function(Data, Graph) {
 
     // Main profile elements
     const siteTitleElement = document.getElementById('profile-site-title');
@@ -93,7 +93,7 @@ const Profile = (function(Data) {
             .find(d => d.dating_method === 'C14' && d.age && d.error);
 
         if (firstC14Date) {
-            renderCalibrationGraph(firstC14Date.age, firstC14Date.error);
+            Graph.renderCalibrationGraph(firstC14Date.age, firstC14Date.error);
         }
 
         if (relatedFeatures.length > 0 && relatedFeatures[0].geometry && relatedFeatures[0].geometry.coordinates) {
@@ -294,7 +294,7 @@ const Profile = (function(Data) {
     }
 
     return { init };
-})(Data);
+})(Data, Graph);
 
 document.addEventListener('DOMContentLoaded', () => {
     Profile.init();
