@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="High-performance justified photo grid with virtual scrolling, inspired by Google Photos"/>
+  <title>Justified Photo Grid • Demo</title>
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      /* Spacing */
+      --gap-base: 4px;
+      --gap-section: 24px;
+      --gap-segment: 12px;
+      --padding-container: 16px;
+      
+      /* Typography */
+      --text-xs: 11px;
+      --text-sm: 13px;
+      --text-md: 16px;
+      --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      
+      /* Colors */
+      --bg-canvas: #fff;
+      --bg-tile: #f8f9fa;
+      --bg-header: rgba(255,255,255,0.95);
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --border-color: rgba(0,0,0,0.08);
+      --accent-blue: #1a73e8;
+      --shadow-tile: 0 1px 2px rgba(0,0,0,0.1);
+      --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+      
+      /* Motion */
+      --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+      --duration-fast: 150ms;
+      --duration-normal: 250ms;
+      
+      /* Layout */
+      --tile-target-height: 140px;
+      --max-stretch: 1.3;
+      --max-shrink: 0.7;
+    }
+
+    /* ===== BASE RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ===== LAYOUT ===== */
+    .app {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--padding-container);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-header);
+      backdrop-filter: blur(8px);
+      padding: 16px var(--padding-container);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 {
+      font-size: var(--text-md);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header .logo {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      color: white; font-weight: 700; font-size: 14px;
+    }
+    .header-actions { display: flex; gap: 8px; }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      transition: background var(--duration-fast) var(--ease-standard);
+    }
+    .btn-primary {
+      background: var(--accent-blue);
+      color: white;
+    }
+    .btn-primary:hover { background: #1765cc; }
+    .btn-outline {
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover { background: rgba(0,0,0,0.04); }
+
+    /* ===== GRID CONTAINER ===== */
+    .grid-container {
+      position: relative;
+      min-height: 200vh; /* Enable scrolling */
+      padding: var(--padding-container) 0;
+      contain: layout style;
+    }
+
+    .section {
+      position: absolute;
+      width: calc(100% - var(--padding-container) * 2);
+      contain: layout style paint;
+    }
+
+    .section-header {
+      position: sticky;
+      top: 64px; /* header height */
+      background: var(--bg-header);
+      padding: 12px 0;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--text-secondary);
+      z-index: 10;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: var(--gap-section);
+    }
+
+    .segment {
+      position: relative;
+      margin-bottom: var(--gap-segment);
+      contain: layout style;
+    }
+
+    .row {
+      display: flex;
+      gap: var(--gap-base);
+      margin-bottom: var(--gap-base);
+      width: 100%;
+    }
+
+    .tile {
+      position: relative;
+      background: var(--bg-tile);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-tile);
+      transition: transform var(--duration-fast) var(--ease-standard),
+                  box-shadow var(--duration-fast) var(--ease-standard);
+      contain: layout style paint;
+      aspect-ratio: 4/3; /* placeholder; will be overridden by JS */
+      cursor: pointer;
+    }
+    .tile:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      z-index: 5;
+    }
+    .tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.1));
+      opacity: 0;
+      transition: opacity var(--duration-fast);
+      pointer-events: none;
+    }
+    .tile:hover::after { opacity: 1; }
+
+    .tile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-standard);
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .tile-img.loaded { opacity: 1; }
+
+    .tile-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite ease-in-out;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .empty-state svg {
+      width: 80px; height: 80px;
+      margin: 0 auto 20px;
+      opacity: 0.6;
+    }
+
+    /* ===== LOADING INDICATOR ===== */
+    .loading-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      opacity: 0;
+    }
+    .loading-bar.active {
+      transform: scaleX(1);
+      opacity: 1;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* ===== ACCESSIBILITY ===== */
+    .tile:focus-visible {
+      outline: 3px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      :root { --tile-target-height: 120px; }
+    }
+    @media (max-width: 768px) {
+      :root { --tile-target-height: 100px; --gap-base: 3px; }
+      .header { padding: 12px var(--padding-container); }
+      .header h1 { font-size: var(--text-sm); }
+      .section-header { top: 56px; font-size: var(--text-xs); }
+    }
+    @media (max-width: 480px) {
+      :root { --tile-target-height: 80px; --padding-container: 12px; }
+      .btn { padding: 6px 14px; font-size: 12px; }
+      .header-actions { gap: 4px; }
+    }
+
+    /* ===== PRINT ===== */
+    @media print {
+      .header, .btn, .tile::after { display: none; }
+      .tile { break-inside: avoid; box-shadow: none; }
+      .tile-img { opacity: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-bar" id="loadingBar" aria-hidden="true"></div>
+  
+  <header class="header">
+    <h1>
+      <div class="logo" aria-hidden="true">G</div>
+      Justified Grid Demo
+    </h1>
+    <div class="header-actions">
+      <button class="btn btn-outline" id="resetBtn">Reset View</button>
+      <button class="btn btn-primary" id="loadMoreBtn">Load More</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <div class="grid-container" id="gridContainer" role="list" aria-label="Photo gallery">
+      <!-- Sections injected by JS -->
+    </div>
+    
+    <div class="empty-state" id="emptyState" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <p>No photos yet. Click "Load More" to add sample images.</p>
+    </div>
+  </main>
+
+  <script>
+    /**
+     * Justified Photo Grid - Production Implementation
+     * Inspired by Google Photos engineering case study
+     * Features: Virtual scrolling, justified layout, placeholder loading, accessibility
+     */
+    class JustifiedGrid {
+      constructor(containerId, options = {}) {
+        this.container = document.getElementById(containerId);
+        this.options = {
+          targetRowHeight: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tile-target-height')) || 140,
+          gap: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap-base')) || 4,
+          maxStretch: 1.3,
+          maxShrink: 0.7,
+          viewportBuffer: 2, // render N viewports above/below
+          ...options
+        };
+        
+        this.photos = [];
+        this.sections = [];
+        this.renderedSections = new Set();
+        this.viewportHeight = window.innerHeight;
+        this.scrollY = 0;
+        this.isScrolling = false;
+        this.resizeTimeout = null;
+        
+        // DOM pool for tile recycling
+        this.tilePool = [];
+        
+        this.init();
+      }
+      
+      init() {
+        this.bindEvents();
+        this.updateViewport();
+        this.generateDemoData(120); // Start with 120 photos
+        this.render();
+        this.startObserving();
+      }
+      
+      bindEvents() {
+        // Scroll handling with rAF throttling
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              this.scrollY = window.scrollY;
+              this.renderVisibleSections();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+        
+        // Resize handling
+        window.addEventListener('resize', () => {
+          clearTimeout(this.resizeTimeout);
+          this.resizeTimeout = setTimeout(() => {
+            this.updateViewport();
+            this.recalculateLayout();
+          }, 150);
+        });
+        
+        // Button handlers
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+          this.showLoading();
+          setTimeout(() => {
+            this.generateDemoData(60, true); // Append 60 more
+            this.recalculateLayout();
+            this.hideLoading();
+          }, 400);
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Keyboard navigation for tiles
+        this.container.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            const tile = e.target.closest('.tile');
+            if (tile) {
+              e.preventDefault();
+              this.openLightbox(tile.dataset.photoId);
+            }
+          }
+        });
+      }
+      
+      updateViewport() {
+        this.viewportHeight = window.innerHeight;
+        this.viewportWidth = this.container.clientWidth;
+      }
+      
+      generateDemoData(count, append = false) {
+        const existingCount = this.photos.length;
+        const startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 6);
+        
+        for (let i = 0; i < count; i++) {
+          const photoIndex = existingCount + i;
+          // Generate varied aspect ratios (landscape/portrait/square)
+          const aspectOptions = [4/3, 3/4, 1, 16/9, 9/16];
+          const aspectRatio = aspectOptions[Math.floor(Math.random() * aspectOptions.length)];
+          
+          // Group by month for sections
+          const photoDate = new Date(startDate);
+          photoDate.setDate(photoDate.getDate() + Math.floor(photoIndex / 15));
+          const monthKey = `${photoDate.getFullYear()}-${String(photoDate.getMonth()+1).padStart(2, '0')}`;
+          
+          this.photos.push({
+            id: `photo-${photoIndex}`,
+            src: `https://picsum.photos/seed/${photoIndex}/800/600`,
+            thumb: `https://picsum.photos/seed/${photoIndex}/200/150`,
+            width: aspectRatio > 1 ? 800 : 600,
+            height: aspectRatio > 1 ? 600 : 800,
+            aspectRatio: aspectRatio,
+            date: photoDate,
+            monthKey: monthKey,
+            alt: `Demo photo ${photoIndex + 1}`
+          });
+        }
+        
+        // Group photos into sections by month
+        this.sections = this.groupPhotosByMonth(this.photos);
+        
+        if (!append) {
+          // Clear container for fresh render
+          this.container.innerHTML = '';
+          this.renderedSections.clear();
+        }
+      }
+      
+      groupPhotosByMonth(photos) {
+        const groups = {};
+        photos.forEach(photo => {
+          if (!groups[photo.monthKey]) {
+            groups[photo.monthKey] = {
+              key: photo.monthKey,
+              label: photo.date.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
+              photos: [],
+              height: 0 // estimated
+            };
+          }
+          groups[photo.monthKey].photos.push(photo);
+        });
+        
+        // Estimate section heights for scrollbar
+        Object.values(groups).forEach(section => {
+          section.estimatedHeight = this.estimateSectionHeight(
+            section.photos.length, 
+            this.viewportWidth
+          );
+        });
+        
+        return Object.values(groups);
+      }
+      
+      estimateSectionHeight(photoCount, viewportWidth) {
+        // Simplified estimation algorithm
+        const avgAspectRatio = 1.2; // slight landscape bias
+        const targetHeight = this.options.targetRowHeight;
+        const gap = this.options.gap;
+        
+        // Estimate total width if all photos in one row
+        const totalWidth = photoCount * avgAspectRatio * targetHeight + (photoCount - 1) * gap;
+        const rows = Math.ceil(totalWidth / viewportWidth);
+        
+        return rows * targetHeight + (rows - 1) * gap + 60; // +header spacing
+      }
+      
+      // Simplified FlexLayout: group photos into rows with balanced heights
+      layoutRows(photos, viewportWidth) {
+        const rows = [];
+        let currentRow = [];
+        let currentWidth = 0;
+        const targetHeight = this.options.targetRowHeight;
+        const gap = this.options.gap;
+        const maxWidth = viewportWidth - gap * (photos.length - 1);
+        
+        for (const photo of photos) {
+          const photoWidth = photo.aspectRatio * targetHeight;
+          const potentialWidth = currentWidth + photoWidth + (currentRow.length > 0 ? gap : 0);
+          
+          // Check if adding this photo would exceed viewport or cause bad aspect ratio
+          if (currentRow.length > 0 && potentialWidth > maxWidth) {
+            rows.push(this.finalizeRow(currentRow, targetHeight, gap));
+            currentRow = [];
+            currentWidth = 0;
+          }
+          
+          currentRow.push(photo);
+          currentWidth += photoWidth + (currentRow.length > 1 ? gap : 0);
+        }
+        
+        // Don't forget the last row
+        if (currentRow.length > 0) {
+          rows.push(this.finalizeRow(currentRow, targetHeight, gap));
+        }
+        
+        return rows;
+      }
+      
+      finalizeRow(photos, targetHeight, gap) {
+        // Calculate ideal row height based on total width
+        const totalPhotoWidth = photos.reduce((sum, p) => sum + p.aspectRatio, 0) * targetHeight;
+        const totalGaps = gap * (photos.length - 1);
+        const rowWidth = totalPhotoWidth + totalGaps;
+        
+        // Constrain height within stretch/shrink limits
+        let rowHeight = targetHeight;
+        // In a real implementation, we'd optimize for minimal "badness"
+        // Here we use a simple average approach
+        
+        return {
+          photos,
+          height: rowHeight,
+          totalWidth: rowWidth
+        };
+      }
+      
+      render() {
+        this.container.style.height = `${this.getTotalContentHeight()}px`;
+        this.renderVisibleSections();
+      }
+      
+      getTotalContentHeight() {
+        let total = 0;
+        this.sections.forEach(section => {
+          total += section.estimatedHeight + 40; // header + margin
+        });
+        return total;
+      }
+      
+      renderVisibleSections() {
+        const buffer = this.viewportHeight * this.options.viewportBuffer;
+        const viewStart = this.scrollY - buffer;
+        const viewEnd = this.scrollY + this.viewportHeight + buffer;
+        
+        let currentTop = 20; // initial offset
+        
+        this.sections.forEach((section, sectionIndex) => {
+          const sectionTop = currentTop;
+          const sectionBottom = currentTop + section.estimatedHeight + 40;
+          
+          // Check if section is in viewport range
+          if (sectionBottom > viewStart && sectionTop < viewEnd) {
+            if (!this.renderedSections.has(section.key)) {
+              this.renderSection(section, sectionTop, sectionIndex);
+              this.renderedSections.add(section.key);
+            }
+          } else if (this.renderedSections.has(section.key)) {
+            // Remove off-screen section (virtualization)
+            const sectionEl = document.getElementById(`section-${section.key}`);
+            if (sectionEl) {
+              // Return tiles to pool before removing
+              sectionEl.querySelectorAll('.tile').forEach(tile => {
+                tile.remove();
+                this.tilePool.push(tile);
+              });
+              sectionEl.remove();
+              this.renderedSections.delete(section.key);
+            }
+          }
+          
+          currentTop = sectionBottom;
+        });
+      }
+      
+      renderSection(section, top, sectionIndex) {
+        const sectionEl = document.createElement('section');
+        sectionEl.className = 'section';
+        sectionEl.id = `section-${section.key}`;
+        sectionEl.style.top = `${top}px`;
+        sectionEl.setAttribute('role', 'listitem');
+        sectionEl.setAttribute('aria-label', `Photos from ${section.label}`);
+        
+        // Section header
+        const header = document.createElement('div');
+        header.className = 'section-header';
+        header.textContent = section.label;
+        sectionEl.appendChild(header);
+        
+        // Layout rows
+        const rows = this.layoutRows(section.photos, this.viewportWidth);
+        let segmentTop = 50; // header height + margin
+        
+        rows.forEach(row => {
+          const segmentEl = document.createElement('div');
+          segmentEl.className = 'segment';
+          segmentEl.style.top = `${segmentTop}px`;
+          segmentEl.style.height = `${row.height}px`;
+          
+          const rowEl = document.createElement('div');
+          rowEl.className = 'row';
+          rowEl.style.height = `${row.height}px`;
+          
+          // Calculate actual width distribution
+          const availableWidth = this.viewportWidth - this.options.gap * (row.photos.length - 1);
+          const totalAspect = row.photos.reduce((sum, p) => sum + p.aspectRatio, 0);
+          
+          row.photos.forEach(photo => {
+            const tileWidth = (photo.aspectRatio / totalAspect) * availableWidth;
+            const tile = this.createTile(photo, tileWidth, row.height);
+            rowEl.appendChild(tile);
+          });
+          
+          segmentEl.appendChild(rowEl);
+          sectionEl.appendChild(segmentEl);
+          segmentTop += row.height + this.options.gap;
+        });
+        
+        this.container.appendChild(sectionEl);
+        
+        // Trigger image loading for visible tiles
+        this.loadVisibleImages(sectionEl);
+      }
+      
+      createTile(photo, width, height) {
+        // Recycle tile from pool or create new
+        let tile = this.tilePool.pop();
+        if (!tile) {
+          tile = document.createElement('div');
+          tile.className = 'tile';
+          tile.setAttribute('role', 'listitem');
+          tile.setAttribute('tabindex', '0');
+          
+          // Create placeholder and image elements once
+          const placeholder = document.createElement('div');
+          placeholder.className = 'tile-placeholder';
+          placeholder.setAttribute('aria-hidden', 'true');
+          
+          const img = document.createElement('img');
+          img.className = 'tile-img';
+          img.loading = 'lazy';
+          img.alt = '';
+          
+          tile.appendChild(placeholder);
+          tile.appendChild(img);
+          
+          // Click handler
+          tile.addEventListener('click', () => this.openLightbox(photo.id));
+        }
+        
+        // Reset and configure tile
+        tile.dataset.photoId = photo.id;
+        tile.style.width = `${width}px`;
+        tile.style.height = `${height}px`;
+        tile.style.flex = `0 0 ${width}px`;
+        
+        const img = tile.querySelector('img');
+        const placeholder = tile.querySelector('.tile-placeholder');
+        
+        // Reset image state
+        img.classList.remove('loaded');
+        img.style.opacity = '0';
+        img.src = '';
+        img.alt = photo.alt;
+        
+        // Show placeholder initially
+        placeholder.style.display = 'block';
+        
+        // Load image with priority based on visibility
+        tile.dataset.src = photo.src;
+        tile.dataset.thumb = photo.thumb;
+        
+        return tile;
+      }
+      
+      loadVisibleImages(sectionEl) {
+        // Use Intersection Observer for efficient loading
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const tile = entry.target;
+              const img = tile.querySelector('img');
+              const placeholder = tile.querySelector('.tile-placeholder');
+              
+              // Load high-res image
+              img.src = tile.dataset.src;
+              
+              img.onload = () => {
+                img.classList.add('loaded');
+                placeholder.style.display = 'none';
+              };
+              
+              img.onerror = () => {
+                // Fallback to thumbnail
+                img.src = tile.dataset.thumb;
+                placeholder.style.display = 'none';
+              };
+              
+              observer.unobserve(tile);
+            }
+          });
+        }, { rootMargin: '100px' });
+        
+        sectionEl.querySelectorAll('.tile').forEach(tile => {
+          observer.observe(tile);
+        });
+      }
+      
+      recalculateLayout() {
+        // Clear rendered sections to force re-layout
+        this.renderedSections.forEach(key => {
+          const el = document.getElementById(`section-${key}`);
+          if (el) el.remove();
+        });
+        this.renderedSections.clear();
+        
+        // Update section height estimates
+        this.sections.forEach(section => {
+          section.estimatedHeight = this.estimateSectionHeight(
+            section.photos.length, 
+            this.viewportWidth
+          );
+        });
+        
+        this.render();
+      }
+      
+      startObserving() {
+        // Initial image load for above-the-fold content
+        setTimeout(() => {
+          this.renderVisibleSections();
+        }, 100);
+      }
+      
+      showLoading() {
+        const bar = document.getElementById('loadingBar');
+        bar.classList.add('active');
+      }
+      
+      hideLoading() {
+        const bar = document.getElementById('loadingBar');
+        bar.classList.remove('active');
+      }
+      
+      openLightbox(photoId) {
+        // Placeholder for lightbox functionality
+        const photo = this.photos.find(p => p.id === photoId);
+        if (photo) {
+          // In production: open modal with full-res image
+          console.log('Open lightbox for:', photo);
+          // Simple demo feedback
+          const tile = document.querySelector(`[data-photo-id="${photoId}"]`);
+          if (tile) {
+            tile.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              tile.style.transform = '';
+            }, 150);
+          }
+        }
+      }
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      window.justifiedGrid = new JustifiedGrid('gridContainer');
+      
+      // Handle initial empty state
+      const emptyState = document.getElementById('emptyState');
+      if (window.justifiedGrid.photos.length === 0) {
+        emptyState.hidden = false;
+        document.getElementById('gridContainer').hidden = true;
+      }
+    });
+
+    // Handle page visibility for performance
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        // Pause heavy operations when tab is hidden
+        if (window.justifiedGrid?.resizeTimeout) {
+          clearTimeout(window.justifiedGrid.resizeTimeout);
+        }
+      }
+    });
+  </script>
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Justified Photo Grid Demo",
+    "description": "High-performance justified photo grid implementation inspired by Google Photos engineering",
+    "applicationCategory": "PhotographyApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    }
+  }
+  </script>
+</body>
+</html>
