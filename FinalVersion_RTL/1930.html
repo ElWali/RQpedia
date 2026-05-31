@@ -365,10 +365,12 @@
         this.init();
       }
       
-      init() {
+      async init() {
         this.bindEvents();
         this.updateViewport();
-        this.generateDemoData(120); // Start with 120 photos
+        this.showLoading();
+        await this.discoverAndLoadPhotos();
+        this.hideLoading();
         this.render();
         this.startObserving();
       }
@@ -399,11 +401,10 @@
         // Button handlers
         document.getElementById('loadMoreBtn').addEventListener('click', () => {
           this.showLoading();
-          setTimeout(() => {
-            this.generateDemoData(60, true); // Append 60 more
+          this.discoverAndLoadPhotos().then(() => {
             this.recalculateLayout();
             this.hideLoading();
-          }, 400);
+          });
         });
         
         document.getElementById('resetBtn').addEventListener('click', () => {
@@ -427,46 +428,103 @@
         this.viewportWidth = this.container.clientWidth;
       }
       
-      generateDemoData(count, append = false) {
-        const existingCount = this.photos.length;
-        const startDate = this.options.startDate || new Date();
-        
-        for (let i = 0; i < count; i++) {
-          const photoIndex = existingCount + i;
-          // Generate varied aspect ratios (landscape/portrait/square)
-          const aspectOptions = [4/3, 3/4, 1, 16/9, 9/16];
-          const aspectRatio = aspectOptions[Math.floor(Math.random() * aspectOptions.length)];
-          
-          // Group by month for sections
-          const photoDate = new Date(startDate);
-          photoDate.setDate(photoDate.getDate() + Math.floor(photoIndex / 15));
-          const monthKey = `${photoDate.getFullYear()}-${String(photoDate.getMonth()+1).padStart(2, '0')}`;
-          
-          // Match request dimensions to aspect ratio for better visual results
-          const w = 800;
-          const h = Math.round(w / aspectRatio);
+      async discoverAndLoadPhotos() {
+        const photosDir = './Photos/';
+        try {
+          const response = await fetch(photosDir);
+          if (!response.ok) {
+            console.warn('Photos directory listing not available, trying common names...');
+            return this.tryCommonNames(photosDir);
+          }
 
-          this.photos.push({
-            id: `photo-${photoIndex}`,
-            src: `https://picsum.photos/seed/${photoIndex}/${w}/${h}`,
-            thumb: `https://picsum.photos/seed/${photoIndex}/200/${Math.round(200/aspectRatio)}`,
-            width: w,
-            height: h,
-            aspectRatio: aspectRatio,
-            date: photoDate,
-            monthKey: monthKey,
-            alt: `Demo photo ${photoIndex + 1}`
+          const text = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, 'text/html');
+          
+          const links = Array.from(doc.querySelectorAll('a'))
+            .map(a => a.getAttribute('href'))
+            .filter(href => href && href.match(/\.(jpe?g|png|webp|gif)$/i));
+
+          const uniqueLinks = [...new Set(links)];
+          
+          const photoPromises = uniqueLinks.map((href, index) => {
+            const fullUrl = href.startsWith('http') ? href : photosDir + href;
+            // Avoid duplicates
+            if (this.photos.some(p => p.src === fullUrl)) return null;
+            return this.getImageMetadata(fullUrl, this.photos.length + index);
           });
-        }
-        
-        // Group photos into sections by month
-        this.sections = this.groupPhotosByMonth(this.photos);
-        
-        if (!append) {
-          // Clear container for fresh render
+
+          const photoResults = await Promise.all(photoPromises);
+          const newPhotos = photoResults.filter(p => p !== null);
+          this.photos = [...this.photos, ...newPhotos];
+
+          if (this.photos.length === 0) {
+            // Fallback if no photos found
+            document.getElementById('emptyState').hidden = false;
+            this.container.hidden = true;
+          } else {
+            document.getElementById('emptyState').hidden = true;
+            this.container.hidden = false;
+          }
+
+          this.sections = this.groupPhotosByMonth(this.photos);
           this.container.innerHTML = '';
           this.renderedSections.clear();
+
+        } catch (err) {
+          console.error('Photo discovery failed:', err);
+          document.getElementById('emptyState').hidden = false;
+          this.container.hidden = true;
         }
+      }
+
+      async tryCommonNames(dir) {
+        const extensions = ['jpg', 'png', 'webp'];
+        const baseNames = ['photo', 'image', 'img', '1930'];
+        const promises = [];
+        let index = 0;
+
+        for (const base of baseNames) {
+          for (let i = 1; i <= 10; i++) {
+            for (const ext of extensions) {
+              const url = `${dir}${base}${i}.${ext}`;
+              if (!this.photos.some(p => p.src === url)) {
+                promises.push(this.getImageMetadata(url, this.photos.length + (index++)));
+              }
+            }
+          }
+        }
+
+        const results = await Promise.all(promises);
+        const newPhotos = results.filter(p => p !== null);
+        this.photos = [...this.photos, ...newPhotos];
+      }
+
+      getImageMetadata(url, index) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const aspectRatio = img.width / img.height;
+            const photoDate = new Date(this.options.startDate || Date.now());
+            // Slightly vary the dates so they aren't all in the same month if many photos
+            photoDate.setMonth(photoDate.getMonth() + Math.floor(index / 5));
+            const monthKey = `${photoDate.getFullYear()}-${String(photoDate.getMonth()+1).padStart(2, '0')}`;
+
+            resolve({
+              id: `photo-${index}`,
+              src: url,
+              thumb: url,
+              width: img.width,
+              height: img.height,
+              aspectRatio: aspectRatio,
+              date: photoDate,
+              monthKey: monthKey,
+              alt: `Photo ${index + 1}`
+            });
+          };
+          img.onerror = () => resolve(null);
+          img.src = url;
+        });
       }
       
       groupPhotosByMonth(photos) {
