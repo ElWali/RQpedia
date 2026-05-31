@@ -49,7 +49,13 @@
     "references": "References",
     "sourceFile": "Generated from",
     "wikidataError": "Could not load description from Wikidata.",
-    "back_to_map": "Back to map"
+    "back_to_map": "Back to map",
+    "galleryTitle": "Historical Gallery - 1930s",
+    "loadMore": "Load More",
+    "resetView": "Reset View",
+    "noPhotos": "No photos yet. Click \"Load More\" to add sample images.",
+    "photoGallery": "Photo gallery",
+    "photosFrom": "Photos from %label%"
   },
   "fr": {
     "titleDataBrowser": "📊 Explorateur de données",
@@ -101,7 +107,13 @@
     "references": "Références",
     "sourceFile": "Généré à partir de",
     "wikidataError": "Impossible de charger la description depuis Wikidata.",
-    "back_to_map": "Retour à la carte"
+    "back_to_map": "Retour à la carte",
+    "galleryTitle": "Galerie Historique - Années 1930",
+    "loadMore": "Charger plus",
+    "resetView": "Réinitialiser la vue",
+    "noPhotos": "Pas encore de photos. Cliquez sur \"Charger plus\" pour ajouter des images d'exemple.",
+    "photoGallery": "Galerie de photos",
+    "photosFrom": "Photos de %label%"
   },
   "ar": {
     "titleDataBrowser": "📊 مستعرض البيانات",
@@ -153,7 +165,13 @@
     "references": "المراجع",
     "sourceFile": "تم إنشاؤه من",
     "wikidataError": "تعذر تحميل الوصف من ويكي بيانات.",
-    "back_to_map": "العودة إلى الخريطة"
+    "back_to_map": "العودة إلى الخريطة",
+    "galleryTitle": "المعرض التاريخي - الثلاثينيات",
+    "loadMore": "تحميل المزيد",
+    "resetView": "إعادة تعيين العرض",
+    "noPhotos": "لا توجد صور بعد. انقر فوق \"تحميل المزيد\" لإضافة صور عينة.",
+    "photoGallery": "معرض الصور",
+    "photosFrom": "صور من %label%"
   },
   "he": {
     "titleDataBrowser": "📊 דפדפן נתונים",
@@ -205,6 +223,12 @@
     "references": "הפניות",
     "sourceFile": "נוצר מ",
     "wikidataError": "לא ניתן לטעון תיאור מויקינתונים.",
-    "back_to_map": "חזרה למפה"
+    "back_to_map": "חזרה למפה",
+    "galleryTitle": "גלריה היסטורית - שנות ה-30",
+    "loadMore": "טען עוד",
+    "resetView": "אפס תצוגה",
+    "noPhotos": "אין עדיין תמונות. לחץ על \"טען עוד\" כדי להוסיף תמונות לדוגמה.",
+    "photoGallery": "גלריית תמונות",
+    "photosFrom": "תמונות מ-%label%"
   }
 }

@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="High-performance justified photo grid with virtual scrolling, inspired by Google Photos"/>
-  <title>Justified Photo Grid • Demo</title>
+  <title>RQpedia • Historical Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Sans+Hebrew:wght@400;700&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* ===== DESIGN TOKENS ===== */
     :root {
@@ -40,6 +43,13 @@
       --tile-target-height: 140px;
       --max-stretch: 1.3;
       --max-shrink: 0.7;
+    }
+
+    [lang="ar"] body {
+      font-family: 'Noto Naskh Arabic', 'Amiri', 'Segoe UI', sans-serif;
+    }
+    [lang="he"] body {
+      font-family: 'Noto Sans Hebrew', 'Rubik', sans-serif;
     }
 
     /* ===== BASE RESET ===== */
@@ -83,13 +93,30 @@
       gap: 12px;
     }
     .header .logo {
-      width: 28px; height: 28px;
-      background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+      width: 32px; height: 32px;
+      background: var(--accent-blue);
       border-radius: 8px;
       display: grid; place-items: center;
       color: white; font-weight: 700; font-size: 14px;
+      flex-shrink: 0;
     }
-    .header-actions { display: flex; gap: 8px; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .lang-toggle { display: flex; gap: 4px; }
+    .lang-btn {
+      padding: 4px 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all var(--duration-fast);
+    }
+    .lang-btn.active {
+      background: var(--accent-blue);
+      color: white;
+      border-color: var(--accent-blue);
+    }
     .btn {
       padding: 8px 16px;
       border-radius: 20px;
@@ -133,6 +160,7 @@
       z-index: 10;
       border-bottom: 1px solid var(--border-color);
       margin-bottom: var(--gap-section);
+      text-align: start;
     }
 
     .segment {
@@ -204,6 +232,7 @@
       padding: 60px 20px;
       color: var(--text-secondary);
     }
+    [dir="rtl"] .empty-state { direction: rtl; }
     .empty-state svg {
       width: 80px; height: 80px;
       margin: 0 auto 20px;
@@ -222,6 +251,7 @@
       z-index: 1000;
       opacity: 0;
     }
+    [dir="rtl"] .loading-bar { transform-origin: right; }
     .loading-bar.active {
       transform: scaleX(1);
       opacity: 1;
@@ -274,12 +304,18 @@
   
   <header class="header">
     <h1>
-      <div class="logo" aria-hidden="true">G</div>
-      Justified Grid Demo
+      <div class="logo" aria-hidden="true">RQ</div>
+      <span data-i18n="galleryTitle">Historical Gallery - 1930s</span>
     </h1>
     <div class="header-actions">
-      <button class="btn btn-outline" id="resetBtn">Reset View</button>
-      <button class="btn btn-primary" id="loadMoreBtn">Load More</button>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang-switcher="en">EN</button>
+        <button class="lang-btn" data-lang-switcher="fr">FR</button>
+        <button class="lang-btn" data-lang-switcher="ar">AR</button>
+        <button class="lang-btn" data-lang-switcher="he">HE</button>
+      </div>
+      <button class="btn btn-outline" id="resetBtn" data-i18n="resetView">Reset View</button>
+      <button class="btn btn-primary" id="loadMoreBtn" data-i18n="loadMore">Load More</button>
     </div>
   </header>
 
@@ -292,10 +328,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
       </svg>
-      <p>No photos yet. Click "Load More" to add sample images.</p>
+      <p data-i18n="noPhotos">No photos yet. Click "Load More" to add sample images.</p>
     </div>
   </main>
 
+  <script src="assets/js/i18n.js"></script>
   <script>
     /**
      * Justified Photo Grid - Production Implementation
@@ -392,8 +429,7 @@
       
       generateDemoData(count, append = false) {
         const existingCount = this.photos.length;
-        const startDate = new Date();
-        startDate.setMonth(startDate.getMonth() - 6);
+        const startDate = this.options.startDate || new Date();
         
         for (let i = 0; i < count; i++) {
           const photoIndex = existingCount + i;
@@ -406,12 +442,16 @@
           photoDate.setDate(photoDate.getDate() + Math.floor(photoIndex / 15));
           const monthKey = `${photoDate.getFullYear()}-${String(photoDate.getMonth()+1).padStart(2, '0')}`;
           
+          // Match request dimensions to aspect ratio for better visual results
+          const w = 800;
+          const h = Math.round(w / aspectRatio);
+
           this.photos.push({
             id: `photo-${photoIndex}`,
-            src: `https://picsum.photos/seed/${photoIndex}/800/600`,
-            thumb: `https://picsum.photos/seed/${photoIndex}/200/150`,
-            width: aspectRatio > 1 ? 800 : 600,
-            height: aspectRatio > 1 ? 600 : 800,
+            src: `https://picsum.photos/seed/${photoIndex}/${w}/${h}`,
+            thumb: `https://picsum.photos/seed/${photoIndex}/200/${Math.round(200/aspectRatio)}`,
+            width: w,
+            height: h,
             aspectRatio: aspectRatio,
             date: photoDate,
             monthKey: monthKey,
@@ -471,49 +511,43 @@
       layoutRows(photos, viewportWidth) {
         const rows = [];
         let currentRow = [];
-        let currentWidth = 0;
         const targetHeight = this.options.targetRowHeight;
         const gap = this.options.gap;
-        const maxWidth = viewportWidth - gap * (photos.length - 1);
-        
-        for (const photo of photos) {
-          const photoWidth = photo.aspectRatio * targetHeight;
-          const potentialWidth = currentWidth + photoWidth + (currentRow.length > 0 ? gap : 0);
+        const containerWidth = viewportWidth;
+
+        for (let i = 0; i < photos.length; i++) {
+          currentRow.push(photos[i]);
           
-          // Check if adding this photo would exceed viewport or cause bad aspect ratio
-          if (currentRow.length > 0 && potentialWidth > maxWidth) {
-            rows.push(this.finalizeRow(currentRow, targetHeight, gap));
+          const totalAspectRatio = currentRow.reduce((sum, p) => sum + p.aspectRatio, 0);
+          const totalGaps = gap * (currentRow.length - 1);
+          const currentRowHeight = (containerWidth - totalGaps) / totalAspectRatio;
+
+          if (currentRowHeight < targetHeight) {
+            rows.push(this.finalizeRow(currentRow, containerWidth, gap, false));
             currentRow = [];
-            currentWidth = 0;
           }
-          
-          currentRow.push(photo);
-          currentWidth += photoWidth + (currentRow.length > 1 ? gap : 0);
         }
-        
-        // Don't forget the last row
+
         if (currentRow.length > 0) {
-          rows.push(this.finalizeRow(currentRow, targetHeight, gap));
+          rows.push(this.finalizeRow(currentRow, containerWidth, gap, true));
         }
-        
+
         return rows;
       }
-      
-      finalizeRow(photos, targetHeight, gap) {
-        // Calculate ideal row height based on total width
-        const totalPhotoWidth = photos.reduce((sum, p) => sum + p.aspectRatio, 0) * targetHeight;
+
+      finalizeRow(photos, containerWidth, gap, isLastRow) {
+        const totalAspectRatio = photos.reduce((sum, p) => sum + p.aspectRatio, 0);
         const totalGaps = gap * (photos.length - 1);
-        const rowWidth = totalPhotoWidth + totalGaps;
-        
-        // Constrain height within stretch/shrink limits
-        let rowHeight = targetHeight;
-        // In a real implementation, we'd optimize for minimal "badness"
-        // Here we use a simple average approach
-        
+        let rowHeight = (containerWidth - totalGaps) / totalAspectRatio;
+
+        // If it's the last row and it's too tall (sparse row), cap it at target height
+        if (isLastRow && rowHeight > this.options.targetRowHeight * 1.5) {
+          rowHeight = this.options.targetRowHeight;
+        }
+
         return {
           photos,
-          height: rowHeight,
-          totalWidth: rowWidth
+          height: rowHeight
         };
       }
       
@@ -635,9 +669,6 @@
           
           tile.appendChild(placeholder);
           tile.appendChild(img);
-          
-          // Click handler
-          tile.addEventListener('click', () => this.openLightbox(photo.id));
         }
         
         // Reset and configure tile
@@ -646,6 +677,9 @@
         tile.style.height = `${height}px`;
         tile.style.flex = `0 0 ${width}px`;
         
+        // Update click handler to use current photo ID
+        tile.onclick = () => this.openLightbox(photo.id);
+
         const img = tile.querySelector('img');
         const placeholder = tile.querySelector('.tile-placeholder');
         
@@ -666,6 +700,8 @@
       }
       
       loadVisibleImages(sectionEl) {
+        if (!this.currentObservers) this.currentObservers = [];
+
         // Use Intersection Observer for efficient loading
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
@@ -693,16 +729,44 @@
           });
         }, { rootMargin: '100px' });
         
+        this.currentObservers.push(observer);
+
         sectionEl.querySelectorAll('.tile').forEach(tile => {
           observer.observe(tile);
         });
       }
       
+      updateLocalization() {
+        // Update section labels
+        this.sections.forEach(section => {
+          section.label = section.date.toLocaleString(this.options.i18n.locale, { month: 'long', year: 'numeric' });
+          const sectionEl = document.getElementById(`section-${section.key}`);
+          if (sectionEl) {
+            const header = sectionEl.querySelector('.section-header');
+            if (header) header.textContent = section.label;
+            sectionEl.setAttribute('aria-label', this.options.i18n.t('photosFrom', { label: section.label }));
+          }
+        });
+      }
+
       recalculateLayout() {
+        // Clear IntersectionObservers
+        if (this.currentObservers) {
+          this.currentObservers.forEach(obs => obs.disconnect());
+          this.currentObservers = [];
+        }
+
         // Clear rendered sections to force re-layout
         this.renderedSections.forEach(key => {
           const el = document.getElementById(`section-${key}`);
-          if (el) el.remove();
+          if (el) {
+             // Return tiles to pool
+             el.querySelectorAll('.tile').forEach(tile => {
+                tile.remove();
+                this.tilePool.push(tile);
+             });
+             el.remove();
+          }
         });
         this.renderedSections.clear();
         
@@ -752,10 +816,17 @@
       }
     }
 
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      window.justifiedGrid = new JustifiedGrid('gridContainer');
+    // Initialize when i18n is ready
+    document.addEventListener('i18n:ready', (e) => {
+      const i18n = e.detail;
+      // Ensure we start with 1930 data
+      const startDate = new Date(1930, 0, 1);
+      window.justifiedGrid = new JustifiedGrid('gridContainer', { i18n, startDate });
       
+      i18n.onLanguageChange(() => {
+        window.justifiedGrid.updateLocalization();
+      });
+
       // Handle initial empty state
       const emptyState = document.getElementById('emptyState');
       if (window.justifiedGrid.photos.length === 0) {
