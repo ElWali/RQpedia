@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" data-framework="modern-vanilla">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Petit Prince — Tarfaya Cooperative</title>
+    
+    <!-- Premium Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Modern Design Tokens & Variables */
+        :root {
+            --space-midnight: #0a1128;
+            --space-sky: #1c2d5a;
+            --desert-gold: #d4af37;
+            --desert-glow: #f3e5ab;
+            --sand-bleached: #fdfbf7;
+            --ink-dark: #1e2530;
+            --glass-white: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            
+            /* Fluid Typography Scale */
+            --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+            --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.6rem);
+            --step-2: clamp(1.8rem, 1.5rem + 1vw, 2.8rem);
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Reset & Base System */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: var(--sand-bleached);
+            color: var(--ink-dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Language-Specific Typography Overrides */
+        [lang="ar"] { font-family: 'Cairo', sans-serif; }
+        .serif-title { font-family: 'Playfair Display', Georgia, serif; }
+        [lang="ar"] .serif-title { font-family: 'Cairo', sans-serif; font-weight: 700; }
+
+        /* Premium Glassmorphic Header */
+        header {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 17, 40, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(214, 175, 55, 0.2);
+            padding: 1.25rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            color: var(--desert-gold);
+            font-size: var(--step-1);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lang-suite {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lang-trigger {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-trigger:hover { color: var(--desert-glow); }
+        .lang-trigger.is-active {
+            background: var(--desert-gold);
+            color: var(--space-midnight);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Cinematic Hero Section */
+        .hero-viewport {
+            background: radial-gradient(circle at 50% 30%, var(--space-sky), var(--space-midnight));
+            color: var(--sand-bleached);
+            padding: 160px 5% 120px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-viewport::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            opacity: 0.4;
+        }
+
+        .hero-viewport h1 {
+            font-size: var(--step-2);
+            color: var(--desert-gold);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-viewport p {
+            font-size: var(--step-0);
+            max-width: 750px;
+            margin: 0 auto;
+            color: var(--desert-glow);
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Structural Grid & Layout */
+        .main-wrapper {
+            max-width: 1300px;
+            margin: -60px auto 80px auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Editorial Narrative Card */
+        .narrative-block {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(10, 17, 40, 0.04);
+            margin-bottom: 3.5rem;
+        }
+
+        .narrative-block h2 {
+            font-size: calc(var(--step-1) * 1.2);
+            color: var(--space-midnight);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* --- Elegant Interactive Timeline CSS --- */
+        .timeline-stream {
+            position: relative;
+            margin: 3rem 0;
+            padding: 1rem 0;
+        }
+        .timeline-stream::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 50%;
+            width: 2px; background: rgba(214, 175, 55, 0.3);
+            transform: translateX(-50%);
+        }
+        .direction-rtl .timeline-stream::before {
+            left: auto; right: 50%;
+            transform: translateX(50%);
+        }
+        .timeline-node {
+            position: relative;
+            width: 50%;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        .timeline-node:nth-child(even) { left: 50%; }
+        .direction-rtl .timeline-node:nth-child(even) { left: auto; right: 50%; }
+        
+        .timeline-node::after {
+            content: '★';
+            position: absolute;
+            top: 2.3rem; right: -10px;
+            width: 20px; height: 20px;
+            background: var(--space-midnight);
+            color: var(--desert-gold);
+            border-radius: 50%; text-align: center; font-size: 0.7rem; line-height: 20px;
+            z-index: 5;
+        }
+        .timeline-node:nth-child(even)::after { left: -10px; right: auto; }
+        .direction-rtl .timeline-node::after { left: -10px; right: auto; }
+        .direction-rtl .timeline-node:nth-child(even)::after { right: -10px; left: auto; }
+
+        .timeline-content {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(10,17,40,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        }
+        .timeline-date {
+            font-family: 'Playfair Display', serif;
+            font-weight: bold; color: var(--desert-gold);
+            font-size: 1.2rem; display: block; margin-bottom: 0.5rem;
+        }
+
+        /* The 3 Pillars Architecture Grid */
+        .pillars-mesh {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .pillar-card {
+            background: #ffffff;
+            border: 1px solid rgba(10, 11, 40, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(10, 17, 40, 0.08);
+            border-color: rgba(214, 175, 55, 0.3);
+        }
+
+        .pillar-card .icon-seal {
+            width: 48px; height: 48px;
+            background: rgba(214, 175, 55, 0.1);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--desert-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar-card h3 {
+            font-size: var(--step-1);
+            color: var(--space-midnight);
+            margin-bottom: 1rem;
+        }
+
+        /* --- High-UX Digital Canvas Component --- */
+        .canvas-section {
+            background: var(--space-midnight);
+            color: var(--sand-bleached);
+            border-radius: 24px;
+            padding: 3.5rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(10,17,40,0.3);
+        }
+        .canvas-section h2 { color: var(--desert-gold); margin-bottom: 1rem; }
+        .canvas-container {
+            max-width: 600px; margin: 2rem auto;
+            background: #ffffff; border-radius: 16px;
+            overflow: hidden; border: 3px solid var(--desert-gold);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+        }
+        canvas { display: block; background: #fff; cursor: crosshair; }
+        .canvas-controls {
+            display: flex; justify-content: center; gap: 1rem; padding: 1rem;
+            background: #f4f6f7; border-top: 1px solid #e2e8f0;
+        }
+        .btn-canvas {
+            padding: 8px 20px; border: none; border-radius: 20px;
+            font-weight: 600; cursor: pointer; transition: var(--transition-smooth);
+        }
+        .btn-clear { background: #e11d48; color: #fff; }
+        .btn-clear:hover { background: #be123c; }
+
+        /* Micro-interactions Layout Direction Utility */
+        .direction-rtl { direction: rtl; text-align: right; }
+        .direction-ltr { direction: ltr; text-align: left; }
+        
+        .direction-rtl .timeline-node { float: right; text-align: right; }
+        .direction-rtl .timeline-node:nth-child(even) { float: left; text-align: left; }
+        .direction-ltr .timeline-node { float: left; text-align: left; }
+        .direction-ltr .timeline-node:nth-child(even) { float: right; text-align: right; }
+        
+        .clearfix::after { content: ""; clear: both; display: table; }
+
+        /* Unified Premium Footer */
+        footer {
+            background: var(--space-midnight);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--desert-gold);
+            font-size: 0.9rem;
+        }
+
+        /* Smooth UI Content Switching Engine */
+        .view-state {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .view-state.is-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            .narrative-block, .canvas-section { padding: 2rem; }
+            .timeline-stream::before { left: 20px; right: auto; }
+            .direction-rtl .timeline-stream::before { right: 20px; left: auto; }
+            .timeline-node { width: 100% !important; left: 0 !important; right: 0 !important; padding-left: 40px; float: none !important; }
+            .direction-rtl .timeline-node { padding-right: 40px; padding-left: 0; }
+            .timeline-node::after { left: 10px !important; right: auto !important; }
+            .direction-rtl .timeline-node::after { right: 10px !important; left: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Persistent Navigation Core -->
+    <header>
+        <div class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>Le Petit Prince — Tarfaya</span>
+        </div>
+        <nav class="lang-suite" role="tablist" aria-label="Language Selector">
+            <button id="trigger-ar" class="lang-trigger is-active" onclick="runtimeSwitch('ar')">العربية</button>
+            <button id="trigger-fr" class="lang-trigger" onclick="runtimeSwitch('fr')">Français</button>
+            <button id="trigger-en" class="lang-trigger" onclick="runtimeSwitch('en')">English</button>
+        </nav>
+    </header>
+
+    <!-- ================= ARABIC INTERFACE ================= -->
+    <main id="view-ar" class="view-state is-visible direction-rtl">
+        <section class="hero-viewport">
+            <h1 class="serif-title">فضاء الأمير الصغير بطرفاية</h1>
+            <p>حيث تلتقي رمال الصحراء الذهبية بأسرار النجوم، وتتحول الذاكرة التاريخية المجيدة إلى ابتكار حي بأيدي شباب المنطقة.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>قصة التأسيس والملهم الأول</span>
+                </h2>
+                <p>في عام 1927، وطأت أقدام الطيار والأديب الفرنسي الشهير أنطوان دو سانت إكزوبيري أرض طرفاية (كاب جوبي) كمدير لمحطة البريد الجوي الأسطورية (Aéropostale). بين سكون الصحراء اللامتناهية وهدير أمواج المحيط الأطلسي، ولدت في مخيلته تفاصيل وروائع الرواية الأكثر شهرة وترجمة في التاريخ "الأمير الصغير".</p>
+                
+                <!-- Timeline Widget Inside View Box -->
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1927</span>
+                            <h4>تأسيس خط الطيران الأسطوري</h4>
+                            <p>وصول سانت إكزوبيري إلى طرفاية كمسؤول عن محطة البريد الجوي وحصن كاب جوبي الشهير.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1929</span>
+                            <h4>رواية بريد الجنوب</h4>
+                            <p>إصدار روايته الأولى المستوحاة بالكامل من تجاربه في الطيران والتأمل فوق رمال الصحراء المغربية.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1943</span>
+                            <h4>ولادة الأمير الصغير</h4>
+                            <p>خروج تحفته الإنسانية الشاعرية إلى النور، حاملة تفاصيل الثعلب والوردة والرحلة الفلسفية المنبثقة من عزلة طرفاية.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="pillars-mesh">
+                <section class="pillar-card">
+                    <div class="icon-seal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <h3>الفضاء التعاوني</h3>
+                    <p>منصة تضامنية تجمع الطاقات المحلية والمبدعين الشباب للعمل بروح الفريق. نركز هنا على أبحاث صون الذاكرة التاريخية.</p>
+                </section>
+                <section class="pillar-card">
+                    <div class="icon-seal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77z"/></svg>
+                    </div>
+                    <h3>المشغل والورشة</h3>
+                    <p>حاضنة حية لثقافة الصُنّاع (Makers). نمزج بين المهارات اليدوية والتقنيات المعاصرة لإنتاج مجسمات فنية فريدة.</p>
+                </section>
+                <section class="pillar-card">
+                    <div class="icon-seal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="3"/><circle cx="17" cy="19" r="3"/><path d="M17 19H7a3 3 0 0 1-3-3V5z"/></svg>
+                    </div>
+                    <h3>المتجر الإبداعي</h3>
+                    <p>يعرض المتجر الرواية بمختلف لغات العالم، بجانب تذكارات فنية مميزة، وبطاقات بريدية تاريخية معاد تلوينها.</p>
+                </section>
+            </div>
+
+            <!-- Drawing Interactive Loop -->
+            <section class="canvas-section">
+                <h2>✍️ ورشة رقمية تفاعلية: "ارسم لي خروفاً"</h2>
+                <p>اختبر فلسفة الأمير الصغير بنفسك وعبر عن خيالك داخل لوحتنا المباشرة المستوحاة من مشغل الابتكار والـ Makers</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-ar" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-ar')">مسح اللوحة</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ================= FRENCH INTERFACE ================= -->
+    <main id="view-fr" class="view-state direction-ltr">
+        <section class="hero-viewport">
+            <h1 class="serif-title">Le Petit Prince — Tarfaya</h1>
+            <p>Là où les sables dorés du désert rencontrent le mystère des étoiles, transformant un héritage historique en une innovation vivante.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>L'Histoire de la Création & L'Inspiration</span>
+                </h2>
+                <p>En 1927, le célèbre aviateur Antoine de Saint-Exupéry a foulé le sol de Tarfaya (Cap Juby) en tant que chef d'escale de l'Aéropostale.</p>
+                
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1927</span>
+                            <h4>L'Escale de Cap Juby</h4>
+                            <p>Saint-Exupéry prend la direction de la station au cœur du désert marocain.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1929</span>
+                            <h4>Courrier Sud</h4>
+                            <p>Publication de son premier roman, profondément inspiré par l'immensité de Tarfaya.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1943</span>
+                            <h4>Le Petit Prince</h4>
+                            <p>Naissance du chef-d'œuvre mondial dont la rose, le renard et le désert ont jailli d'ici.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="pillars-mesh">
+                <!-- Shortened for structure brevity, identical luxury styling -->
+                <section class="pillar-card"><h3>Espace Coopératif</h3><p>Une plateforme solidaire réunissant les talents locaux pour valoriser le patrimoine.</p></section>
+                <section class="pillar-card"><h3>L'Atelier</h3><p>Un makerspace fusionnant savoir-faire traditionnel et technologies de fabrication modernes.</p></section>
+                <section class="pillar-card"><h3>La Boutique</h3><p>Objets d'art exclusifs et éditions du livre dans de nombreuses langues étrangères.</p></section>
+            </div>
+
+            <section class="canvas-section">
+                <h2>✍️ Atelier Digital: "Dessine-moi un mouton"</h2>
+                <p>Laissez libre cours à votre imagination sur notre carnet de croquis numérique en direct.</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-fr" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-fr')">Effacer</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ================= ENGLISH INTERFACE ================= -->
+    <main id="view-en" class="view-state direction-ltr">
+        <section class="hero-viewport">
+            <h1 class="serif-title">The Little Prince Space — Tarfaya</h1>
+            <p>Where the golden desert sands meet the mystery of the stars, transforming historical legacy into modern innovation.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>The Genesis & Historical Journey</span>
+                </h2>
+                <p>In 1927, Antoine de Saint-Exupéry arrived in Tarfaya (Cape Juby) to manage the legendary Aéropostale airmail line.</p>
+                
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1927</span>
+                            <h4>The Aéropostale Outpost</h4>
+                            <p>Saint-Exupéry operates the isolation station between the Atlantic Ocean and the Sahara.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1929</span>
+                            <h4>Southern Mail</h4>
+                            <p>His inaugural novel emerges, direct from the spiritual depths of Cape Juby's sands.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1943</span>
+                            <h4>The Little Prince</h4>
+                            <p>The timeless masterpiece is published, permanently rooted in his memories of Tarfaya.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="pillars-mesh">
+                <section class="pillar-card"><h3>Cooperative Space</h3><p>A community-driven hub safeguarding heritage through interactive projects.</p></section>
+                <section class="pillar-card"><h3>The Atelier</h3><p>A dynamic makerspace merging traditional crafts with modern fabrication skills.</p></section>
+                <section class="pillar-card"><h3>The Shop</h3><p>Showcasing global translations, custom merchandise, and historic colorized postcards.</p></section>
+            </div>
+
+            <section class="canvas-section">
+                <h2>✍️ Interactive Sandbox: "Draw Me a Sheep"</h2>
+                <p>Engage with the philosophy of the book. Sketch your imagination directly onto our live canvas.</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-en" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-en')">Reset Board</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Unified Premium Footer -->
+    <footer>
+        <p>&copy; 2026 Le Petit Prince Tarfaya — Cooperative Space, Atelier & Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- Optimized Engine Script for Interaction & Navigation -->
+    <script>
+        function runtimeSwitch(targetLang) {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => executeSwitch(targetLang));
+            } else {
+                executeSwitch(targetLang);
+            }
+        }
+
+        function executeSwitch(lang) {
+            document.querySelectorAll('.view-state').forEach(view => view.classList.remove('is-visible'));
+            document.querySelectorAll('.lang-trigger').forEach(btn => btn.classList.remove('is-active'));
+
+            const activeView = document.getElementById(`view-${lang}`);
+            if(activeView) activeView.classList.add('is-visible');
+            
+            const activeTrigger = document.getElementById(`trigger-${lang}`);
+            if(activeTrigger) activeTrigger.classList.add('is-active');
+
+            document.documentElement.lang = lang === 'ar' ? 'ar' : lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Re-initialize canvas metrics for current active block container
+            initCanvasEngine(`canvas-${lang}`);
+        }
+
+        /* --- High-Performance Vanilla Canvas Engine --- */
+        function initCanvasEngine(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            let drawing = false;
+            ctx.strokeStyle = '#0a1128';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+
+            // Universal Coordinate Resolution Matrix
+            function getCoords(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            }
+
+            function startDraw(e) {
+                drawing = true;
+                const coords = getCoords(e);
+                ctx.beginPath();
+                ctx.moveTo(coords.x, coords.y);
+            }
+
+            function draw(e) {
+                if (!drawing) return;
+                e.preventDefault();
+                const coords = getCoords(e);
+                ctx.lineTo(coords.x, coords.y);
+                ctx.stroke();
+            }
+
+            function stopDraw() { drawing = false; }
+
+            // Mouse Event Listeners
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDraw);
+            canvas.addEventListener('mouseleave', stopDraw);
+
+            // Touch Event Listeners for mobile/tablet optimization
+            canvas.addEventListener('touchstart', startDraw);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stopDraw);
+        }
+
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        // Initialize default canvas state on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initCanvasEngine('canvas-ar');
+        });
+    </script>
+</body>
+</html>
