@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ar" data-framework="modern-vanilla">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Petit Prince — Tarfaya Cooperative Space</title>
+    
+    <!-- Premium Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Modern Design Tokens & Variables */
+        :root {
+            --space-midnight: #0a1128;
+            --space-sky: #1c2d5a;
+            --desert-gold: #d4af37;
+            --desert-glow: #f3e5ab;
+            --sand-bleached: #fdfbf7;
+            --ink-dark: #1e2530;
+            --glass-white: rgba(255, 255, 255, 0.82);
+            --glass-border: rgba(214, 175, 55, 0.25);
+            
+            /* Fluid Typography Scale */
+            --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+            --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.6rem);
+            --step-2: clamp(1.8rem, 1.5rem + 1vw, 2.8rem);
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Reset & Base System */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: var(--sand-bleached);
+            color: var(--ink-dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Language-Specific Typography Overrides */
+        [lang="ar"] { font-family: 'Cairo', sans-serif; }
+        .serif-title { font-family: 'Playfair Display', Georgia, serif; }
+        [lang="ar"] .serif-title { font-family: 'Cairo', sans-serif; font-weight: 700; }
+
+        /* Premium Glassmorphic Header */
+        header {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(214, 175, 55, 0.2);
+            padding: 1.25rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            color: var(--desert-gold);
+            font-size: var(--step-1);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lang-suite {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lang-trigger {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-trigger:hover { color: var(--desert-glow); }
+        .lang-trigger.is-active {
+            background: var(--desert-gold);
+            color: var(--space-midnight);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Cinematic Hero Section */
+        .hero-viewport {
+            background: radial-gradient(circle at 50% 30%, var(--space-sky), var(--space-midnight));
+            color: var(--sand-bleached);
+            padding: 180px 5% 140px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-viewport::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            opacity: 0.35;
+        }
+
+        .hero-viewport h1 {
+            font-size: var(--step-2);
+            color: var(--desert-gold);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-viewport p {
+            font-size: var(--step-0);
+            max-width: 850px;
+            margin: 0 auto;
+            color: var(--desert-glow);
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        /* Structural Layout Wrapper */
+        .main-wrapper {
+            max-width: 1300px;
+            margin: -60px auto 80px auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Editorial Narrative Cards */
+        .narrative-block {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(10, 17, 40, 0.04);
+            margin-bottom: 3.5rem;
+        }
+
+        .narrative-block h2 {
+            font-size: calc(var(--step-1) * 1.2);
+            color: var(--space-midnight);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Premium Media Grid for Wikimedia Integrations */
+        .wikimedia-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .wikimedia-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(10,17,40,0.06);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .wikimedia-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .wikimedia-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .wikimedia-caption {
+            padding: 1rem;
+            font-size: 0.88rem;
+            color: #4a5568;
+            border-top: 1px solid #edf2f7;
+            background: #fcfdfd;
+        }
+
+        /* Philosophical Concept Grid (Wikipedia Sourced) */
+        .allegory-mesh {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .allegory-box {
+            background: rgba(255,255,255,0.6);
+            border-left: 4px solid var(--desert-gold);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+        }
+        .direction-rtl .allegory-box {
+            border-left: none;
+            border-right: 4px solid var(--desert-gold);
+            border-radius: 12px 0 0 12px;
+        }
+
+        .allegory-box h4 {
+            color: var(--space-midnight);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Enriched Interactive Timeline --- */
+        .timeline-stream {
+            position: relative;
+            margin: 3rem 0;
+            padding: 1rem 0;
+        }
+        .timeline-stream::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 50%;
+            width: 2px; background: rgba(214, 175, 55, 0.3);
+            transform: translateX(-50%);
+        }
+        .direction-rtl .timeline-stream::before {
+            left: auto; right: 50%;
+            transform: translateX(50%);
+        }
+        .timeline-node {
+            position: relative;
+            width: 50%;
+            padding: 1.5rem 2rem;
+            box-sizing: border-box;
+        }
+        
+        .direction-ltr .timeline-node:nth-child(odd) { float: left; text-align: left; clear: left; }
+        .direction-ltr .timeline-node:nth-child(even) { float: right; text-align: left; clear: right; left: 50%; }
+        
+        .direction-rtl .timeline-node:nth-child(odd) { float: right; text-align: right; clear: right; }
+        .direction-rtl .timeline-node:nth-child(even) { float: left; text-align: right; clear: left; right: 50%; }
+        
+        .timeline-node::after {
+            content: '★';
+            position: absolute;
+            top: 2rem; width: 22px; height: 22px;
+            background: var(--space-midnight);
+            color: var(--desert-gold);
+            border-radius: 50%; text-align: center; font-size: 0.75rem; line-height: 22px;
+            z-index: 5;
+            box-shadow: 0 0 0 4px var(--sand-bleached);
+        }
+        
+        .direction-ltr .timeline-node:nth-child(odd)::after { right: -11px; }
+        .direction-ltr .timeline-node:nth-child(even)::after { left: -11px; }
+        
+        .direction-rtl .timeline-node:nth-child(odd)::after { left: -11px; }
+        .direction-rtl .timeline-node:nth-child(even)::after { right: -11px; }
+
+        .timeline-content {
+            background: #fff;
+            padding: 1.75rem;
+            border-radius: 16px;
+            border: 1px solid rgba(10,17,40,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+        .timeline-content:hover {
+            border-color: rgba(214, 175, 55, 0.4);
+            transform: scale(1.01);
+        }
+        .timeline-date {
+            font-family: 'Playfair Display', serif;
+            font-weight: bold; color: var(--desert-gold);
+            font-size: 1.25rem; display: block; margin-bottom: 0.5rem;
+        }
+
+        /* The 3 Pillars Architecture Grid */
+        .pillars-mesh {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .pillar-card {
+            background: #ffffff;
+            border: 1px solid rgba(10, 11, 40, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(10, 17, 40, 0.08);
+            border-color: rgba(214, 175, 55, 0.3);
+        }
+
+        .pillar-card .icon-seal {
+            width: 48px; height: 48px;
+            background: rgba(214, 175, 55, 0.1);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--desert-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- High-UX Digital Canvas Component --- */
+        .canvas-section {
+            background: var(--space-midnight);
+            color: var(--sand-bleached);
+            border-radius: 24px;
+            padding: 3.5rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(10,17,40,0.3);
+        }
+        .canvas-section h2 { color: var(--desert-gold); margin-bottom: 1rem; }
+        .canvas-container {
+            max-width: 600px; margin: 2rem auto;
+            background: #ffffff; border-radius: 16px;
+            overflow: hidden; border: 3px solid var(--desert-gold);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+        }
+        canvas { display: block; background: #fff; cursor: crosshair; touch-action: none; }
+        .canvas-controls {
+            display: flex; justify-content: center; gap: 1rem; padding: 1rem;
+            background: #f4f6f7; border-top: 1px solid #e2e8f0;
+        }
+        .btn-canvas {
+            padding: 8px 20px; border: none; border-radius: 20px;
+            font-weight: 600; cursor: pointer; transition: var(--transition-smooth);
+        }
+        .btn-clear { background: #e11d48; color: #fff; }
+        .btn-clear:hover { background: #be123c; }
+
+        /* Quotes styling from Wikipedia */
+        .wiki-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--space-sky);
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 800px;
+            padding: 1rem 2rem;
+            border-top: 1px dashed var(--desert-gold);
+            border-bottom: 1px dashed var(--desert-gold);
+        }
+        [lang="ar"] .wiki-quote { font-family: 'Cairo', sans-serif; font-style: normal; font-weight: 300; }
+
+        /* Directional Control Helper Utilities */
+        .direction-rtl { direction: rtl; text-align: right; }
+        .direction-ltr { direction: ltr; text-align: left; }
+        .clearfix::after { content: ""; clear: both; display: table; }
+
+        /* Unified Premium Footer */
+        footer {
+            background: var(--space-midnight);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--desert-gold);
+            font-size: 0.9rem;
+        }
+
+        /* Smooth UI Content Switching Engine */
+        .view-state {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .view-state.is-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            .narrative-block, .canvas-section { padding: 2rem; }
+            .timeline-stream::before { left: 20px !important; right: auto !important; }
+            .timeline-node { width: 100% !important; left: 0 !important; right: 0 !important; padding-left: 40px !important; padding-right: 0 !important; float: none !important; text-align: left !important; }
+            .timeline-node::after { left: 9px !important; right: auto !important; }
+            
+            .direction-rtl .timeline-stream::before { right: 20px !important; left: auto !important; }
+            .direction-rtl .timeline-node { padding-right: 40px !important; padding-left: 0 !important; text-align: right !important; }
+            .direction-rtl .timeline-node::after { right: 9px !important; left: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Persistent Navigation Core -->
+    <header>
+        <div class="brand-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>Le Petit Prince — Tarfaya</span>
+        </div>
+        <nav class="lang-suite" role="tablist" aria-label="Language Selector">
+            <button id="trigger-ar" class="lang-trigger is-active" onclick="runtimeSwitch('ar')">العربية</button>
+            <button id="trigger-fr" class="lang-trigger" onclick="runtimeSwitch('fr')">Français</button>
+            <button id="trigger-en" class="lang-trigger" onclick="runtimeSwitch('en')">English</button>
+        </nav>
+    </header>
+
+    <!-- ================= ARABIC INTERFACE ================= -->
+    <main id="view-ar" class="view-state is-visible direction-rtl">
+        <section class="hero-viewport">
+            <h1 class="serif-title">فضاء الأمير الصغير بطرفاية</h1>
+            <p>مشروع ثقافي متكامل يدمج الذاكرة التاريخية للطيران بروح الابتكار المعاصر. مستوحى من الموسوعات العالمية وإرث الطيران العالمي بكاب جوبي.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <!-- New Sourced Chapter: The Universal Masterpiece -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>الرواية الاستثنائية: الأثر الفلسفي والعالمي</span>
+                </h2>
+                <p>تعتبر رواية "الأمير الصغير" تحفة أدبية ذات بعد إنساني فلسفي عميق، وتعد الرواية الأكثر تداولاً وترجمةً في العالم بعد الكتب الدينية، حيث ترجمت إلى أكثر من 500 لغة ولهجة. كتبها سانت إكزوبيري خلال مناديل نفيه الاختياري في أمريكا الشمالية، مسترجعاً صفاء وعزلة صحراء طرفاية التي صقلت رؤيته للعالم وللعلاقات الإنسانية.</p>
+                
+                <p class="wiki-quote">"لا نرى جيداً إلا بالقلب، فالجوهر غير مرئي للأعين." — حكمة الثعلب الخالدة</p>
+
+                <div class="allegory-mesh">
+                    <div class="allegory-box">
+                        <h4>الوردة الفريدة</h4>
+                        <p>تمثل الحب، المسؤولية، والجمال الهش. إنها الرمز الذي يدفع الأمير لاكتشاف الكون ثم العودة لحمايتها.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>الثعلب الحكيم</h4>
+                        <p>يجسد معنى الصداقة و"الترويض" العاطفي البناء، وهو من يمنح الأمير مفاتيح فهم سر الحياة الحقيقي.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>أشجار الباوباب</h4>
+                        <p>ترمز في الوجدان الفلسفي للموسوعة إلى المشاكل والأفكار السلبية الصغيرة التي إذا أُهملت، دمرت الكوكب الصغير بالكامل.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Expanded Sourced Timeline Section -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>المسار التاريخي الشامل ومحطة كاب جوبي</span>
+                </h2>
+                
+                <!-- Wikimedia Showcase Inside Arabic View -->
+                <div class="wikimedia-showcase">
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Tarfaya_-_monument_A%C3%A9ropostale.jpg" alt="نصب الطيران بطرفاية">
+                        <div class="wikimedia-caption">نصب طائرة الـ Aéropostale التذكاري الشهير على شاطئ مدينة طرفاية (المصدر: ويكيميديا كومنز).</div>
+                    </div>
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Antoine_de_Saint-Exup%C3%A9ry.jpg" alt="أنطوان دو سانت إكزوبيري">
+                        <div class="wikimedia-caption">الطيار والأديب العالمي أنطوان دو سانت إكزوبيري، مدير محطة كاب جوبي (المصدر: ويكيميديا كومنز).</div>
+                    </div>
+                </div>
+
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1925</span>
+                            <h4>تأسيس الحظائر الأولى</h4>
+                            <p>بنى المهندس فرانسيسكو سيرفيرا حظيرتين مخصصتين لتأمين الاحتياجات اللوجستية لشركة "لاتيكوير" (Latécoère)، لربط مدينة الدار البيضاء بالعاصمة السنغالية داكار عبر أجواء كاب جوبي الساحلية.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">أكتوبر 1927 - 1928</span>
+                            <h4>إدارة المحطة والإنقاذ الإنساني</h4>
+                            <p>عُيّن أنطوان دو سانت إكزوبيري مديراً للمطار بطرفاية. تميزت فترته بإدارة عمليات إنقاذ جريئة للطيارين الذين تاهت طائراتهم في رمال الصحراء الكبرى، والتفاوض الدبلوماسي المعقد مع زعماء القبائل المحلية لحمايتهم.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">7 أبريل 1930</span>
+                            <h4>التوشيح بوسام جوقة الشرف</h4>
+                            <p>نظير شجاعته الاستثنائية وجهوده الإنسانية في حماية الملاحة الجوية المدنية في المحيط الصحراوي لطرفاية، مُنح رسمياً وسام جوقة الشرف الفرنسي (Légion d'honneur).</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">اليوم والإرث العالمي</span>
+                            <h4>تصنيف اليونسكو ورالي تولوز التاريخي</h4>
+                            <p>الحصن التاريخي (كاب جوبي / كازامار) ومدرج الطيران مصنفان كإرث ثقافي وتراث عالمي إنساني. وتستقبل المدينة سنوياً أسراب الطيارين المشاركين في رالي "تولوز - سانت لويس دي سينيجال" الشهير إحياءً للمسار القديم.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Interactive Drawing Engine -->
+            <section class="canvas-section">
+                <h2>✍️ ورشة رقمية تفاعلية: "ارسم لي خروفاً"</h2>
+                <p>شارك أصدقاء ومجتمع طرفاية الابتكار عبر تفعيل خيالك الفني الحر داخل لوحتنا التفاعلية المباشرة</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-ar" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-ar')">مسح اللوحة</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ================= FRENCH INTERFACE ================= -->
+    <main id="view-fr" class="view-state direction-ltr">
+        <section class="hero-viewport">
+            <h1 class="serif-title">Le Petit Prince — Tarfaya</h1>
+            <p>Une passerelle culturelle unissant la mémoire de l'Aéropostale à la culture Maker. Inspiré des données universelles de Wikipédia et destiné à la communauté de Tarfaya.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <!-- Sourced Content Expansion -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>L'Œuvre Universelle et ses Allégories</span>
+                </h2>
+                <p>Écrit à New York pendant l'exil de l'auteur, <em>Le Petit Prince</em> est l'ouvrage de littérature française le plus lu et le plus traduit au monde (plus de 500 langues et dialectes). Ce conte philosophique puise ses paysages spirituels directs dans les réminiscences du séjour de Saint-Exupéry à Cap Juby, sublimant l'isolement du désert marocain.</p>
+                
+                <p class="wiki-quote">"On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux." — Le Renard</p>
+
+                <div class="allegory-mesh">
+                    <div class="allegory-box">
+                        <h4>La Rose</h4>
+                        <p>Symbole de l'amour unique, complexe et exigeant. Elle personnifie l'attachement affectif et la vulnérabilité humaine.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>Le Renard</h4>
+                        <p>Le guide spirituel qui enseigne la notion essentielle de "créer des liens" et la responsabilité qui en découle.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>Les Baobabs</h4>
+                        <p>Métaphores des dérives ou des petits problèmes négligés qui, faute de vigilance active, finissent par détruire un monde.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Enriched Sourced Timeline with Wikimedia Images -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>Chronologie de l'Aéroplace de Cap Juby</span>
+                </h2>
+
+                <div class="wikimedia-showcase">
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Tarfaya_-_monument_A%C3%A9ropostale.jpg" alt="Monument Aéropostale Tarfaya">
+                        <div class="wikimedia-caption">Le célèbre monument commémoratif de l'Aéropostale érigé sur la côte de Tarfaya (Source: Wikimedia Commons).</div>
+                    </div>
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Antoine_de_Saint-Exup%C3%A9ry.jpg" alt="Antoine de Saint-Exupéry">
+                        <div class="wikimedia-caption">Portrait officiel d'Antoine de Saint-Exupéry, chef d'escale historique à Cap Juby (Source: Wikimedia Commons).</div>
+                    </div>
+                </div>
+
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1925</span>
+                            <h4>Fondation Industrielle</h4>
+                            <p>Francisco Cervera bâtit deux hangars près du fort espagnol pour soutenir la logistique de la ligne Casablanca-Dakar gérée par la Compagnie Latécoère.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">Octobre 1927 - 1928</span>
+                            <h4>Saint-Exupéry à Tarfaya</h4>
+                            <p>Nommé chef d'aéroplace à Cap Juby, il gère les secours des pilotes égarés et négocie habilement la libération des otages auprès des chefs tribaux locaux. Il y achève son roman phare, <em>Courrier Sud</em>.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">7 Avril 1930</span>
+                            <h4>Reconnaissance Nationale</h4>
+                            <p>Il reçoit l'insigne de la Légion d'honneur au titre de l'Aéronautique civile pour ses hauts faits de bravoure et d'humanisme accomplis au Sahara.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">Aujourd'hui</span>
+                            <h4>Patrimoine de l'UNESCO et Rallye</h4>
+                            <p>Le fort et la piste sont classés au patrimoine mondial de l'UNESCO. Des résonances de cette terre habitent <em>Le Petit Prince</em> et <em>Citadelle</em>. Chaque année, la piste historique accueille le mémorable rallye Toulouse-Saint Louis du Sénégal.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <section class="canvas-section">
+                <h2>✍️ Atelier Digital: "Dessine-moi un mouton"</h2>
+                <p>Laissez libre cours à votre imagination sur notre carnet de croquis numérique en direct.</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-fr" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-fr')">Effacer</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ================= ENGLISH INTERFACE ================= -->
+    <main id="view-en" class="view-state direction-ltr">
+        <section class="hero-viewport">
+            <h1 class="serif-title">The Little Prince Space — Tarfaya</h1>
+            <p>Bridging historical aviation heritage with interactive tech innovation. Sourced from global encyclopedic knowledge for the community of Tarfaya & friends.</p>
+        </section>
+
+        <div class="main-wrapper">
+            <!-- Sourced Content Expansion -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>The Literary Masterpiece & Philosophical Deep-Dive</span>
+                </h2>
+                <p>Written during Saint-Exupéry’s wartime exile in North America, <em>The Little Prince</em> is the most translated non-religious book in world history (translated into over 500 languages and dialects). The story's psychological and landscape elements are deeply rooted in his experiences navigating the serene solitude of the Saharan dunes in Tarfaya.</p>
+                
+                <p class="wiki-quote">"It is only with the heart that one can see rightly; what is essential is invisible to the eye." — The Fox</p>
+
+                <div class="allegory-mesh">
+                    <div class="allegory-box">
+                        <h4>The Unique Rose</h4>
+                        <p>Symbolizes love, emotional investment, and deep responsibility. She represents the home planet that the Prince protects.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>The Wise Fox</h4>
+                        <p>The philosophical anchor who introduces the core message of "taming" others to form meaningful, life-altering bonds.</p>
+                    </div>
+                    <div class="allegory-box">
+                        <h4>The Growing Baobabs</h4>
+                        <p>Represent dangerous or bad habits that start exceptionally small but can tear a fragile world apart if left completely unchecked.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sourced Timeline with Global Multimedia Assets -->
+            <article class="narrative-block">
+                <h2>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--desert-gold)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5a2.5 2.5 0 0 0-2.5 2.5z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>Chronicles of the Cape Juby Airfield</span>
+                </h2>
+
+                <div class="wikimedia-showcase">
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Tarfaya_-_monument_A%C3%A9ropostale.jpg" alt="Aéropostale Coast Monument">
+                        <div class="wikimedia-caption">The iconic aviation monument located right along the coastal shores of Tarfaya (Source: Wikimedia Commons).</div>
+                    </div>
+                    <div class="wikimedia-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Antoine_de_Saint-Exup%C3%A9ry.jpg" alt="Antoine de Saint-Exupéry Photo">
+                        <div class="wikimedia-caption">Historical portrait of world-renowned aviator and writer Antoine de Saint-Exupéry (Source: Wikimedia Commons).</div>
+                    </div>
+                </div>
+
+                <div class="timeline-stream clearfix">
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">1925</span>
+                            <h4>Structural Launch</h4>
+                            <p>Francisco Cervera constructs two crucial industrial hangars near the Spanish fort to house and protect the Latécoère Company’s Casablanca-Dakar postal aircraft fleet.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">October 1927 - 1928</span>
+                            <h4>The Station Directorship</h4>
+                            <p>Antoine de Saint-Exupéry arrives as Cape Juby's airfield manager. He leads delicate wilderness rescue missions for downed aviators and negotiates complex treaties with local Sahrawi leaders. Here, he finishes his debut classic, <em>Southern Mail</em>.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">April 7, 1930</span>
+                            <h4>The French Legion of Honor</h4>
+                            <p>Awarded the prestigious civilian Legion of Honor medal by France, acknowledging his immense diplomatic success, resilience, and humanitarian accomplishments in North Africa.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node">
+                        <div class="timeline-content">
+                            <span class="timeline-date">Present Day</span>
+                            <h4>UNESCO Listing & The Historical Rally</h4>
+                            <p>The Cape Juby fortress and airstrip are officially cataloged as UNESCO World Heritage landmarks. Spiritual elements of this stay echo through <em>The Little Prince</em> and <em>Citadelle</em>. Annually, the runway hosts the international Toulouse-Saint Louis du Sénégal vintage air rally.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <section class="canvas-section">
+                <h2>✍️ Interactive Sandbox: "Draw Me a Sheep"</h2>
+                <p>Engage with the philosophy of the book. Sketch your imagination directly onto our live canvas.</p>
+                <div class="canvas-container">
+                    <canvas id="canvas-en" width="550" height="320"></canvas>
+                    <div class="canvas-controls">
+                        <button class="btn-canvas btn-clear" onclick="clearCanvas('canvas-en')">Reset Board</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Unified Premium Footer -->
+    <footer>
+        <p>&copy; 2026 Le Petit Prince Tarfaya — Cooperative Space, Atelier & Shop. Built for the Tarfaya Tech & Culture Collective.</p>
+    </footer>
+
+    <!-- Optimized Engine Script for Interaction & Navigation -->
+    <script>
+        function runtimeSwitch(targetLang) {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => executeSwitch(targetLang));
+            } else {
+                executeSwitch(targetLang);
+            }
+        }
+
+        function executeSwitch(lang) {
+            document.querySelectorAll('.view-state').forEach(view => view.classList.remove('is-visible'));
+            document.querySelectorAll('.lang-trigger').forEach(btn => btn.classList.remove('is-active'));
+
+            const activeView = document.getElementById(`view-${lang}`);
+            if(activeView) activeView.classList.add('is-visible');
+            
+            const activeTrigger = document.getElementById(`trigger-${lang}`);
+            if(activeTrigger) activeTrigger.classList.add('is-active');
+
+            document.documentElement.lang = lang === 'ar' ? 'ar' : lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            initCanvasEngine(`canvas-${lang}`);
+        }
+
+        /* --- High-Performance Vanilla Canvas Drawing Engine --- */
+        function initCanvasEngine(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            let drawing = false;
+            ctx.strokeStyle = '#0a1128';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+
+            function getCoords(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            }
+
+            function startDraw(e) {
+                drawing = true;
+                const coords = getCoords(e);
+                ctx.beginPath();
+                ctx.moveTo(coords.x, coords.y);
+            }
+
+            function draw(e) {
+                if (!drawing) return;
+                e.preventDefault();
+                const coords = getCoords(e);
+                ctx.lineTo(coords.x, coords.y);
+                ctx.stroke();
+            }
+
+            function stopDraw() { drawing = false; }
+
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDraw);
+            canvas.addEventListener('mouseleave', stopDraw);
+
+            canvas.addEventListener('touchstart', startDraw);
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDraw);
+        }
+
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCanvasEngine('canvas-ar');
+        });
+    </script>
+</body>
+</html>
