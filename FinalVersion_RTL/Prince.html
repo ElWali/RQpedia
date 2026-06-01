@@ -1,0 +1,355 @@
+html_content = """<!DOCTYPE html>
+<html lang="ae">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Petit Prince - Tarfaya Coopérative Space, Atelier & Shop</title>
+    <style>
+        /* Global & Theme Variables */
+        :root {
+            --midnight-blue: #0f1c3f;
+            --desert-gold: #e2a84b;
+            --sand-light: #faf5eb;
+            --ocean-blue: #2a5c8a;
+            --text-dark: #2c3e50;
+            --text-light: #f4f6f7;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--sand-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Language Controls Header */
+        header {
+            background-color: var(--midnight-blue);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo-area {
+            color: var(--desert-gold);
+            font-weight: bold;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid var(--desert-gold);
+            color: var(--text-light);
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background-color: var(--desert-gold);
+            color: var(--midnight-blue);
+        }
+
+        /* Hero Section Styling */
+        .hero {
+            background: linear-gradient(135deg, var(--midnight-blue) 40%, var(--ocean-blue));
+            color: var(--text-light);
+            padding: 80px 5% 100px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "★ ★  ★   ★  ★";
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            color: rgba(226, 168, 75, 0.3);
+            font-size: 1.5rem;
+            letter-spacing: 20px;
+        }
+
+        .hero::after {
+            content: "★   ★  ★  ★";
+            position: absolute;
+            bottom: 15%;
+            right: 10%;
+            color: rgba(226, 168, 75, 0.3);
+            font-size: 1.5rem;
+            letter-spacing: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--desert-gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: -40px auto 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Story Section Layout */
+        .story-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--desert-gold);
+        }
+
+        .story-card.rtl {
+            border-left: none;
+            border-right: 5px solid var(--desert-gold);
+        }
+
+        .story-card h2 {
+            color: var(--midnight-blue);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Pillars Grid Layout */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pillar-item {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--ocean-blue);
+        }
+
+        .pillar-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .pillar-item h3 {
+            color: var(--ocean-blue);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pillar-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--midnight-blue);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            margin-top: 60px;
+            border-top: 3px solid var(--desert-gold);
+        }
+
+        footer p {
+            opacity: 0.7;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <span>✨ Le Petit Prince - Tarfaya</span>
+        </div>
+        <div class="lang-switcher">
+            <button id="btn-ar" class="lang-btn active" onclick="switchLanguage('ar')">العربية</button>
+            <button id="btn-fr" class="lang-btn" onclick="switchLanguage('fr')">Français</button>
+            <button id="btn-en" class="lang-btn" onclick="switchLanguage('en')">English</button>
+        </div>
+    </header>
+
+    <div id="content-ar" class="lang-content" dir="rtl">
+        <section class="hero">
+            <h1>فضاء الأمير الصغير بطرفاية</h1>
+            <p>حيث تلتقي رمال الصحراء الذهبية بأسرار النجوم، وتتحول الذاكرة التاريخية المجيدة إلى ابتكار حي بأيدي شباب المنطقة.</p>
+        </section>
+
+        <div class="container">
+            <div class="story-card rtl">
+                <h2>📖 قصة التأسيس والملهم الأول</h2>
+                <p>في عام 1927، وطأت أقدام الطيار والأديب الفرنسي الشهير أنطوان دو سانت إكزوبيري أرض طرفاية (كاب جوبي) كمدير لمحطة البريد الجوي الاسطورية (Aéropostale). بين سكون الصحراء اللامتناهية وهدير أمواج المحيط الأطلسي، ولدت في مخيلته تفاصيل وروائع الرواية الأكثر شهرة وترجمة في التاريخ "الأمير الصغير".</p>
+                <p>إن مشروعنا اليوم، "Le Petit Prince Tarfaya"، ليس مجرد فضاء تجاري عابر؛ بل هو تجسيد حي لتلك الروابط الإنسانية والتاريخية. لقد أنشأنا هذا الفضاء التعاوني ليكون جسراً يربط بين فلسفة الرواية الشاعرية والواقع التاريخي للمدينة، محولاً نوستالجيا التاريخ إلى طاقة إبداعية وإنتاجية مستدامة تحركها سواعد محلية وتستلهم جودتها وسحرها من أرقى فضاءات العرض العالمية.</p>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-item">
+                    <h3>🤝 الفضاء التعاوني (Coopérative Space)</h3>
+                    <p>منصة تضامنية تجمع الطاقات المحلية والمبدعين الشباب للعمل بروح الفريق. نركز هنا على أبحاث صون الذاكرة التاريخية، وتطوير مشاريع توثيقية رقمية تفاعلية تبرز تراث طرفاية الفريد عالمياً.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛠️ المشغل والورشة (Atelier)</h3>
+                    <p>حاضنة حية لثقافة الصُنّاع (Makers). في هذه الورشة، نمزج بين المهارات اليدوية والحرفية التقليدية وبين تقنيات التصنيع الحديثة لابتكار وصناعة مجسمات وتذكارات حصرية تجسد روح الأمير الصغير وطائرات البريد الجوي القديمة بإنتاج محلي خالص.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛒 المتجر والنافذة الاقتصادية (Shop)</h3>
+                    <p>نافذتنا المستدامة التي تقدم تجربة غامرة مستوحاة من متجر باريس الشهير. يعرض المتجر الرواية بمختلف لغات العالم، بجانب تذكارات فنية مميزة، وبطاقات بريدية تاريخية معاد تلوينها لتمكين الزوار والسياح من حمل جزء حقيقي من روح طرفاية.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-fr" class="lang-content" dir="ltr" style="display: none;">
+        <section class="hero">
+            <h1>Le Petit Prince Space - Tarfaya</h1>
+            <p>Là où les sables dorés du désert rencontrent le mystère des étoiles, transformant un héritage historique en une innovation vivante portée par la jeunesse locale.</p>
+        </section>
+
+        <div class="container">
+            <div class="story-card">
+                <h2>📖 L'Histoire de la Création & L'Inspiration</h2>
+                <p>En 1927, le célèbre aviateur et écrivain français Antoine de Saint-Exupéry a foulé le sol de Tarfaya (Cap Juby) en tant que chef d'escale de la mythique ligne de l'Aéropostale. C'est dans le silence infini du désert, face au fracas des vagues de l'océan Atlantique, qu'ont germé les graines de son chef-d'œuvre mondialement traduit, "Le Petit Prince".</p>
+                <p>Notre projet, "Le Petit Prince Tarfaya", n'est pas une simple boutique commerciale. C'est une incarnation vivante de ces liens humains et historiques profonds. Nous avons conçu cet espace coopératif pour jeter un pont entre la philosophie poétique du livre et la réalité historique de la ville, transformant la nostalgie en une force créative et économique durable, tout en s'inspirant de l'exigence et de l'enchantement des plus grands magasins parisiens.</p>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-item">
+                    <h3>🤝 Espace Coopératif (Coopérative Space)</h3>
+                    <p>Une plateforme solidaire réunissant les talents locaux et les jeunes créateurs. Nous mettons l'accent sur la préservation de la mémoire historique et le développement de projets numériques interactifs pour valoriser le patrimoine unique de Tarfaya.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛠️ L'Atelier (Workshop)</h3>
+                    <p>Un véritable makerspace qui fusionne le savoir-faire artisanal traditionnel avec les technologies de fabrication modernes. Cet atelier conçoit et produit localement des figurines et des souvenirs exclusifs qui capturent l'esprit du Petit Prince et des avions classiques de l'Aéropostale.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛒 La Boutique (Shop)</h3>
+                    <p>Notre vitrine économique durable offrant une expérience immersive inspirée de la célèbre boutique de Paris. Elle propose le chef-d'œuvre dans de nombreuses langues, des objets d'art exclusifs et des cartes postales historiques restaurées en couleur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-en" class="lang-content" dir="ltr" style="display: none;">
+        <section class="hero">
+            <h1>The Little Prince Space - Tarfaya</h1>
+            <p>Where the golden desert sands meet the mystery of the stars, transforming a glorious historical legacy into a living innovation driven by local hands.</p>
+        </section>
+
+        <div class="container">
+            <div class="story-card">
+                <h2>📖 The Genesis & Historical Inspiration</h2>
+                <p>In 1927, the renowned French aviator and author Antoine de Saint-Exupéry arrived in Tarfaya (Cape Juby) to serve as the station manager for the legendary Aéropostale airmail line. Between the absolute silence of the vast Sahara desert and the roaring waves of the Atlantic Ocean, the poetic concepts of his globally celebrated masterpiece, "The Little Prince," were born.</p>
+                <p>Our project, "Le Petit Prince Tarfaya," is far more than just a retail space. It is a living tribute to these deep cultural and historical ties. We established this cooperative space to act as a bridge connecting the lyrical philosophy of the book with the true history of the town, turning nostalgia into sustainable creative and economic productivity, inspired by the magic of world-class concept stores.</p>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-item">
+                    <h3>🤝 Cooperative Space</h3>
+                    <p>A community-driven platform bringing local youths and creatives together. We focus on safeguarding historical heritage and launching interactive digital documentation projects that highlight Tarfaya's exceptional global history.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛠️ The Atelier (Workshop)</h3>
+                    <p>A dynamic makerspace merging traditional handicraft skills with modern digital fabrication technologies. The workshop produces locally crafted, exclusive models and souvenirs embodying the spirit of the Little Prince and vintage airmail planes.</p>
+                </div>
+                <div class="pillar-item">
+                    <h3>🛒 The Shop</h3>
+                    <p>Our sustainable commercial window offering an immersive experience inspired by the famous Paris store. It showcases global translations of the book, custom creative merchandise, and beautifully colorized historical postcards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Le Petit Prince Tarfaya - Coopérative Space, Atelier & Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function switchLanguage(lang) {
+            // Hide all content containers
+            document.querySelectorAll('.lang-content').forEach(function(content) {
+                content.style.display = 'none';
+            });
+
+            // Deactivate all buttons
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            // Show active language container
+            document.getElementById('content-' + lang).style.display = 'block';
+
+            // Activate current button
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
+</body>
+</html>
+"""
+
+# Save the generated content into a standalone HTML file
+file_name = "le_petit_prince_tarfaya_landing.html"
+with open(file_name, "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print(f"File successfully created: {file_name}")
